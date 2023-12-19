@@ -34,21 +34,21 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link text-active-primary d-flex align-items-center pb-5"
-                                   data-bs-toggle="tab" href="#app_setting">
-                                    <i class="ki-duotone ki-home fs-2 me-2"></i>
-                                    App
-                                </a>
-                            </li>
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link text-active-primary d-flex align-items-center pb-5"--}}
+{{--                                   data-bs-toggle="tab" href="#app_setting">--}}
+{{--                                    <i class="ki-duotone ki-home fs-2 me-2"></i>--}}
+{{--                                    App--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
-                            <li class="nav-item">
-                                <a class="nav-link text-active-primary d-flex align-items-center pb-5"
-                                   data-bs-toggle="tab" href="#contact_info">
-                                    <i class="ki-duotone ki-home fs-2 me-2"></i>
-                                    Contact Info
-                                </a>
-                            </li>
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link text-active-primary d-flex align-items-center pb-5"--}}
+{{--                                   data-bs-toggle="tab" href="#contact_info">--}}
+{{--                                    <i class="ki-duotone ki-home fs-2 me-2"></i>--}}
+{{--                                    Contact Info--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
 
                             <li class="nav-item">
                                 <a class="nav-link text-active-primary d-flex align-items-center pb-5"
@@ -420,7 +420,9 @@
                                         </div>
                                     </div>
                                     @foreach($settings as $setting)
-                                        @if((string)$setting->setting_key === 'FACEBOOK_LINK' || (string)$setting->setting_key === 'INSTAGRAM_LINK' || (string)$setting->setting_key === 'TWITTER_LINK' || (string)$setting->setting_key === 'PINTEREST_LINK' || (string)$setting->setting_key === 'DRIBBLE_LINK')
+                                        @if((string)$setting->setting_key === 'FACEBOOK_LINK' || (string)$setting->setting_key === 'INSTAGRAM_LINK'
+//|| (string)$setting->setting_key === 'TWITTER_LINK' || (string)$setting->setting_key === 'PINTEREST_LINK' || (string)$setting->setting_key === 'DRIBBLE_LINK')
+                                            )
                                             <div class="row fv-row mb-7">
                                                 <div class="col-md-3 text-md-end">
                                                     <label class="fs-6 fw-semibold form-label mt-3">

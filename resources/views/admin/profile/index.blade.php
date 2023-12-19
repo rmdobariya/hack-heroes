@@ -32,7 +32,7 @@
                                        Email
                                     </label>
                                     <input type="email" class="form-control form-control-solid"
-                                           name="email" readonly id="email"
+                                           name="email" id="email"
                                            value="{{ Auth::guard('admin')->user()->email }}"
                                            placeholder="Email" required/>
                                 </div>

@@ -4,11 +4,11 @@
     <div class="d-flex flex-column flex-root">
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
             <div class="d-flex flex-column flex-lg-row-auto w-xl-600px positon-xl-relative"
-                 style="background-image: linear-gradient(315deg, #FF5757 0%, #FF5757 74%);">
+                 style="background-image: linear-gradient(315deg, #249f9a 0%, #060606 74%);">
                 <div class="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y">
                     <div class="d-flex flex-row-fluid flex-column text-center p-10 pt-lg-20 justify-content-center">
                         <a class="py-9 mb-5">
-                            <img alt="Logo" src="{{ asset('assets/media/logos/default.svg') }}" class="h-100px"/>
+                            <img alt="Logo" src="{{ asset('assets/media/logos/logo.png') }}"/>
                         </a>
                     </div>
                 </div>

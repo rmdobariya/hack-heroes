@@ -20,9 +20,9 @@ class SocialMediaStoreRequest extends FormRequest
         return [
             'setting_key.FACEBOOK_LINK' => 'required|url',
             'setting_key.INSTAGRAM_LINK' => 'required|url',
-            'setting_key.TWITTER_LINK' => 'required|url',
-            'setting_key.PINTEREST_LINK' => 'required|url',
-            'setting_key.DRIBBLE_LINK' => 'required|url',
+//            'setting_key.TWITTER_LINK' => 'required|url',
+//            'setting_key.PINTEREST_LINK' => 'required|url',
+//            'setting_key.DRIBBLE_LINK' => 'required|url',
         ];
     }
 
