@@ -1,88 +1,35 @@
-@extends('admin.layouts.master')
-@section('title','Dashboard')
+@extends('website.layouts.auth.master')
+@section('title')
+    Forget Password
+@endsection
 @section('content')
-<div class="container margin-bottom-40 margin-top-70">
-    <div class="row">
-        <div class="col-md-12">
-            <h3 class="headline_part centered margin-bottom-60">Reset Password<span>
-                    </span>
-            </h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12">
-            <div class="utf_dashboard_list_box margin-top-0">
-                <h4 class="gray"><i class="sl sl-icon-key"></i> Reset Password</h4>
-                <div class="utf_dashboard_list_box-static">
-                    <div class="my-profile">
-                        <form id="addEditForm" method="post">
-                            <input type="hidden" name="token" value="{{ $token }}" required>
-                            <input type="hidden" name="email" value="{{ $email }}" required>
-                            <div class="row with-forms">
-                                <div class="col-md-12">
-                                    <label for="new_password">New Password</label>
-                                    <input type="password" class="input-text"
-                                           id="new_password"
-                                           name="new_password"
-                                           placeholder="*********" required/>
-                                </div>
-                                <div class="col-md-12">
-                                    <label for="confirm_password">Confirm New Password</label>
-                                    <input type="password" class="input-text"
-                                           id="confirm_password"
-                                           name="confirm_password"
-                                           placeholder="*********"
-                                           value="" required/>
-                                </div>
-                                <div class="col-md-12">
-                                    <button type="submit" class="button btn_center_item margin-top-15">Submit
-                                    </button>
-                                </div>
-                            </div>
+    <section id="page-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="left-signup">
+                        <h1>HackHeroes</h1>
+                        <h2>Forgot your Password? <br>Enter your Email Address</h2>
+                        <form>
+                            <input type="email" name="email" id="forgot_email" placeholder="Email" class="form-control" required>
+                            <button class="btn signup-btn login" type="button" id="send_mail">Send</button>
+                            <p class="l-link d-none" id="resetmsg">Thank you. Please check your email account.</p>
                         </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="sign-logoimg">
+                        <img src="{{asset('assets/web/images/hero-img.png')}}" alt="logo">
+                        <p>A study published in the journal 'Computers in Human Behaviour' in 2021 found that parental
+                            involvement in their child's online activities was associated with a lower risk of
+                            cyberbullying victimisation.*<br>*'Parental Mediation, Online Activities, and Cyberbullying'
+                            by Gustavo Mesch.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
 @endsection
-@section('script')
-    <script>
-        var REDIRECT_URL = {!! json_encode(url('/')) !!};
-    </script>
-    <script>
-        $(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            })
-
-            let $form = $('#addEditForm')
-            $form.on('submit', function (e) {
-                console.log('dfdsf');
-                loaderView()
-                let formData = new FormData($form[0])
-                axios
-                    .post( '/resetPassword', formData)
-                    .then(function (response) {
-                        if ($('#form-method').val() === 'add') {
-                            $form[0].reset()
-                        }
-                        setTimeout(function () {
-                            window.location.href = REDIRECT_URL + '/';
-                            loaderHide()
-                        }, 1000)
-                        notificationToast(response.data.message, 'success')
-                    })
-                    .catch(function (error) {
-                        console.log(error)
-                        notificationToast(error.response.data.message, 'warning')
-                        loaderHide()
-                    })
-            })
-        })
-    </script>
+@section('custom-script')
+    <script src="{{asset('assets/web/custom/signup.js')}}?v={{time()}}"></script>
 @endsection
-

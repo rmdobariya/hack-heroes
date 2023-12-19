@@ -12,9 +12,9 @@
                      style="background-color: white;"/>
             @else
                 <img alt="Logo"
-                     src="{{ asset('assets/media/logos/logo-1.png') }}"
-                     class="h-40px logo"
-                     style="background-color: white;"/>
+                     src="{{ asset('assets/media/logos/logo.png') }}"
+                     class="logo"
+                     style="background-color: white;width: 200px"/>
             @endif
         </h3>
 
@@ -74,42 +74,78 @@
                         <span class="menu-title"> Customer</span>
                     </a>
                 </div>
+
+                <div class="menu-item">
+                    <a class="menu-link {{ (request()->segment(2) == 'contact-us') ? 'active' : '' }}"
+                       href="{{ route('admin.contact-us.index') }}">
+                               <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                                <span data-feather="mail"></span>
+                             </span>
+                        </span>
+                        <span class="menu-title"> Contact Us</span>
+                    </a>
+                </div>
+
+{{--                <div class="menu-item">--}}
+{{--                    <a class="menu-link {{ (request()->segment(2) == 'subscription') ? 'active' : '' }}"--}}
+{{--                       href="{{ route('admin.subscription.index') }}">--}}
+{{--                               <span class="menu-icon">--}}
+{{--                            <span class="svg-icon svg-icon-2">--}}
+{{--                                <span data-feather="archive"></span>--}}
+{{--                             </span>--}}
+{{--                        </span>--}}
+{{--                        <span class="menu-title">Subscription</span>--}}
+{{--                    </a>--}}
+{{--                </div>--}}
+
+{{--                <div class="menu-item">--}}
+{{--                    <a class="menu-link {{ (request()->segment(2) == 'recommendation') ? 'active' : '' }}"--}}
+{{--                       href="{{ route('admin.recommendation.index') }}">--}}
+{{--                               <span class="menu-icon">--}}
+{{--                            <span class="svg-icon svg-icon-2">--}}
+{{--                                <span data-feather="box"></span>--}}
+{{--                             </span>--}}
+{{--                        </span>--}}
+{{--                        <span class="menu-title"> Recommendation</span>--}}
+{{--                    </a>--}}
+{{--                </div>--}}
                 <div data-kt-menu-trigger="click"
                      class="menu-item menu-accordion  {{ (request()->segment(2) == 'role' || (request()->segment(2) == 'customer')) ? 'show' : '' }} ">
-                                <span class="menu-link">
-                                    <span class="menu-icon">
-                						<span class="menu-icon">
-                                            <span class="svg-icon svg-icon-2">
-                                                <span data-feather="settings"></span>
-                                             </span>
-                                        </span>
-                					</span>
-                                    <span class="menu-title">Administrator</span>
-                                    <span class="menu-arrow"></span>
-                                </span>
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        <div class="menu-item">
-                            <a class="menu-link {{ (request()->segment(2) == 'role') ? 'active' : '' }}"
-                               href="{{ route('admin.role.index') }}">
-                                                <span class="menu-bullet">
-                                                    <span class="bullet bullet-dot"></span>
-                                                </span>
-                                <span class="menu-title">Role</span>
-                            </a>
-                        </div>
-                    </div>
+{{--                                <span class="menu-link">--}}
+{{--                                    <span class="menu-icon">--}}
+{{--                						<span class="menu-icon">--}}
+{{--                                            <span class="svg-icon svg-icon-2">--}}
+{{--                                                <span data-feather="settings"></span>--}}
+{{--                                             </span>--}}
+{{--                                        </span>--}}
+{{--                					</span>--}}
+{{--                                    <span class="menu-title">Administrator</span>--}}
+{{--                                    <span class="menu-arrow"></span>--}}
+{{--                                </span>--}}
+{{--                    <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
+{{--                        <div class="menu-item">--}}
+{{--                            <a class="menu-link {{ (request()->segment(2) == 'role') ? 'active' : '' }}"--}}
+{{--                               href="{{ route('admin.role.index') }}">--}}
+{{--                                                <span class="menu-bullet">--}}
+{{--                                                    <span class="bullet bullet-dot"></span>--}}
+{{--                                                </span>--}}
+{{--                                <span class="menu-title">Role</span>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        <div class="menu-item">
-                            <a class="menu-link {{ (request()->segment(2) == 'permission') ? 'active' : '' }}"
-                               href="{{ route('admin.permission.create') }}">
-                                                                    <span class="menu-bullet">
-                                                                        <span class="bullet bullet-dot"></span>
-                                                                    </span>
-                                <span class="menu-title">Permission</span>
-                            </a>
-                        </div>
-                    </div>
+{{--                    <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
+{{--                        <div class="menu-item">--}}
+{{--                            <a class="menu-link {{ (request()->segment(2) == 'permission') ? 'active' : '' }}"--}}
+{{--                               href="{{ route('admin.permission.create') }}">--}}
+{{--                                                                    <span class="menu-bullet">--}}
+{{--                                                                        <span class="bullet bullet-dot"></span>--}}
+{{--                                                                    </span>--}}
+{{--                                <span class="menu-title">Permission</span>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                     <div class="menu-item">
                         <div class="menu-content pt-8 pb-2">
                         <span class="menu-section text-muted text-uppercase fs-8 ls-1">

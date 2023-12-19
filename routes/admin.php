@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HomeController;
@@ -8,8 +9,10 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PasswordController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\RecommendationController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,4 +64,19 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::get('get-page-list', [PageController::class, 'getPageList'])->name('get-page-list');
     Route::get('page/status/{id}/{status}', [PageController::class, 'changeStatus'])->name('page.status.change');
     Route::post('multiple-page-delete', [PageController::class, 'multiplePageDelete'])->name('multiple-page-delete');
+
+    Route::resource('contact-us', ContactUsController::class);
+    Route::get('get-contact-us-list', [ContactUsController::class, 'getContactUsList'])->name('get-contact-us-list');
+    Route::get('contact-us/status/{id}/{status}', [ContactUsController::class, 'changeStatus'])->name('contact-us.status.change');
+    Route::post('multiple-contact-us-delete', [ContactUsController::class, 'multipleContactUsDelete'])->name('multiple-contact-us-delete');
+
+    Route::resource('recommendation', RecommendationController::class);
+    Route::get('get-recommendation-list', [RecommendationController::class, 'getRecommendationList'])->name('get-recommendation-list');
+    Route::get('recommendation/status/{id}/{status}', [RecommendationController::class, 'changeStatus'])->name('recommendation.status.change');
+    Route::post('multiple-recommendation-delete', [RecommendationController::class, 'multipleRecommendationDelete'])->name('multiple-recommendation-delete');
+
+    Route::resource('subscription', SubscriptionController::class);
+    Route::get('get-subscription-list', [SubscriptionController::class, 'getSubscriptionList'])->name('get-subscription-list');
+    Route::get('subscription/status/{id}/{status}', [SubscriptionController::class, 'changeStatus'])->name('subscription.status.change');
+    Route::post('multiple-subscription-delete', [SubscriptionController::class, 'multipleSubscriptionDelete'])->name('multiple-subscription-delete');
 });

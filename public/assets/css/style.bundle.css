@@ -205,7 +205,7 @@ sup {
 }
 
 a {
-    color: #FF5757;
+    color: #249f9a;
     text-decoration: none
 }
 
@@ -545,7 +545,7 @@ progress {
 }
 
 .blockquote-footer::before {
-    content: "— "
+    content: "— "
 }
 
 .img-fluid {
@@ -2630,8 +2630,8 @@ textarea.form-control-lg {
 }
 
 .form-check-input:checked {
-    background-color: #FF5757;
-    border-color: #FF5757
+    background-color: #249f9a;
+    border-color: #249f9a;
 }
 
 .form-check-input:checked[type=checkbox] {
@@ -5288,7 +5288,7 @@ textarea.form-control-lg {
 .page-item.active .page-link {
     z-index: 3;
     color: #fff;
-    background-color: #FF5757;
+    background-color: #333;
     border-color: transparent
 }
 
@@ -6884,7 +6884,7 @@ textarea.form-control-lg {
 }
 
 .link-primary {
-    color: #FF5757
+    color: #249f9a
 }
 
 .link-primary:focus, .link-primary:hover {
@@ -32382,7 +32382,7 @@ textarea.form-control-lg {
 
 .text-hover-primary:hover {
     transition: color .2s ease, background-color .2s ease;
-    color: #FF5757 !important
+    color: #249f9a !important
 }
 
 .text-hover-primary:hover i {
@@ -32436,7 +32436,8 @@ textarea.form-control-lg {
 
 .text-active-primary.active {
     transition: color .2s ease, background-color .2s ease;
-    color: #FF5757 !important
+    color: #249F9A !important;
+    font-weight: 500;    
 }
 
 .text-active-primary.active i {
@@ -34102,7 +34103,7 @@ a:hover {
 .nav-line-tabs .nav-item .nav-link.active, .nav-line-tabs .nav-item .nav-link:hover:not(.disabled), .nav-line-tabs .nav-item.show .nav-link {
     background-color: transparent;
     border: 0;
-    border-bottom: 1px solid #FF5757;
+    border-bottom: 1px solid #249F9A;
     transition: color .2s ease, background-color .2s ease
 }
 
@@ -36843,7 +36844,7 @@ a:hover {
 }
 
 .menu-gray-800 .menu-item .menu-link {
-    color: #3f4254
+    color: #333
 }
 
 .menu-gray-800 .menu-item .menu-link .menu-title {
@@ -37176,7 +37177,7 @@ a:hover {
 
 .menu-state-primary .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here), .menu-state-primary .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) {
     transition: color .2s ease, background-color .2s ease;
-    color: #FF5757
+    color: #249f9a
 }
 
 .menu-state-primary .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-title, .menu-state-primary .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-title {
@@ -37857,7 +37858,7 @@ a:hover {
 .menu-state-bg-light-primary .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here), .menu-state-bg-light-primary .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) {
     transition: color .2s ease, background-color .2s ease;
     background-color: #f1faff;
-    color: #FF5757
+    color: #249f9a
 }
 
 .menu-state-bg-light-primary .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-title, .menu-state-bg-light-primary .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-title {
@@ -38307,8 +38308,11 @@ a:hover {
 
 .card {
     border: 0;
-    box-shadow: 0 0 20px 0 rgba(76, 87, 125, .02)
+    box-shadow: 0 0 6px 0 rgba(76, 87, 125, .3);
 }
+.card .card {
+    box-shadow: none;
+} 
 
 .card .card-header {
     display: flex;
@@ -39026,8 +39030,9 @@ a:hover {
 
 .btn.btn-primary {
     color: #fff;
-    border-color: #FF5757;
-    background-color: #FF5757
+    border-color: #249F9A;
+    background-color: #249F9A;
+    border-radius: 30px;
 }
 
 .btn.btn-primary i {
@@ -39049,8 +39054,8 @@ a:hover {
 
 .btn-check:active + .btn.btn-primary, .btn-check:checked + .btn.btn-primary, .btn.btn-primary.active, .btn.btn-primary.show, .btn.btn-primary:active:not(.btn-active), .btn.btn-primary:focus:not(.btn-active), .btn.btn-primary:hover:not(.btn-active), .show > .btn.btn-primary {
     color: #fff;
-    border-color: #FF5757;
-    background-color: #FF5757 !important
+    border-color: #000;
+    background-color: #000!important;
 }
 
 .btn-check:active + .btn.btn-primary i, .btn-check:checked + .btn.btn-primary i, .btn.btn-primary.active i, .btn.btn-primary.show i, .btn.btn-primary:active:not(.btn-active) i, .btn.btn-primary:focus:not(.btn-active) i, .btn.btn-primary:hover:not(.btn-active) i, .show > .btn.btn-primary i {
@@ -39071,9 +39076,10 @@ a:hover {
 }
 
 .btn.btn-light-primary {
-    color: #FF5757;
+    color: #fff;
     border-color: #f1faff;
-    background-color: #f1faff
+    background-color: #249f9a;
+    border-radius: 30px;
 }
 
 .btn.btn-light-primary i {
@@ -39096,7 +39102,7 @@ a:hover {
 .btn-check:active + .btn.btn-light-primary, .btn-check:checked + .btn.btn-light-primary, .btn.btn-light-primary.active, .btn.btn-light-primary.show, .btn.btn-light-primary:active:not(.btn-active), .btn.btn-light-primary:focus:not(.btn-active), .btn.btn-light-primary:hover:not(.btn-active), .show > .btn.btn-light-primary {
     color: #fff;
     border-color: #FF5757;
-    background-color: #FF5757 !important
+    background-color: #333 !important
 }
 
 .btn-check:active + .btn.btn-light-primary i, .btn-check:checked + .btn.btn-light-primary i, .btn.btn-light-primary.active i, .btn.btn-light-primary.show i, .btn.btn-light-primary:active:not(.btn-active) i, .btn.btn-light-primary:focus:not(.btn-active) i, .btn.btn-light-primary:hover:not(.btn-active) i, .show > .btn.btn-light-primary i {
@@ -39145,7 +39151,7 @@ a:hover {
 }
 
 .btn-check:active + .btn.btn-active-light-primary, .btn-check:checked + .btn.btn-active-light-primary, .btn.btn-active-light-primary.active, .btn.btn-active-light-primary.show, .btn.btn-active-light-primary:active:not(.btn-active), .btn.btn-active-light-primary:focus:not(.btn-active), .btn.btn-active-light-primary:hover:not(.btn-active), .show > .btn.btn-active-light-primary {
-    color: #FF5757;
+    color: #249f9a;
     border-color: #f1faff;
     background-color: #f1faff !important
 }
@@ -39174,7 +39180,8 @@ a:hover {
 .btn.btn-secondary {
     color: #3f4254;
     border-color: #e4e6ef;
-    background-color: #e4e6ef
+    background-color: #e4e6ef;
+    border-radius: 30px;
 }
 
 .btn.btn-secondary i {
@@ -40065,7 +40072,7 @@ a:hover {
 }
 
 .btn.btn-color-primary {
-    color: #FF5757
+    color: #333
 }
 
 .btn.btn-color-primary i {
@@ -40086,11 +40093,11 @@ a:hover {
 }
 
 .btn-check:active + .btn.btn-active-color-primary, .btn-check:checked + .btn.btn-active-color-primary, .btn.btn-active-color-primary.active, .btn.btn-active-color-primary.show, .btn.btn-active-color-primary:active:not(.btn-active), .btn.btn-active-color-primary:focus:not(.btn-active), .btn.btn-active-color-primary:hover:not(.btn-active), .show > .btn.btn-active-color-primary {
-    color: #FF5757
+    color: #249f9a
 }
 
 .btn-check:active + .btn.btn-active-color-primary i, .btn-check:checked + .btn.btn-active-color-primary i, .btn.btn-active-color-primary.active i, .btn.btn-active-color-primary.show i, .btn.btn-active-color-primary:active:not(.btn-active) i, .btn.btn-active-color-primary:focus:not(.btn-active) i, .btn.btn-active-color-primary:hover:not(.btn-active) i, .show > .btn.btn-active-color-primary i {
-    color: #FF5757
+    color: #249F9A
 }
 
 .btn-check:active + .btn.btn-active-color-primary .svg-icon svg [fill]:not(.permanent):not(g), .btn-check:checked + .btn.btn-active-color-primary .svg-icon svg [fill]:not(.permanent):not(g), .btn.btn-active-color-primary.active .svg-icon svg [fill]:not(.permanent):not(g), .btn.btn-active-color-primary.show .svg-icon svg [fill]:not(.permanent):not(g), .btn.btn-active-color-primary:active:not(.btn-active) .svg-icon svg [fill]:not(.permanent):not(g), .btn.btn-active-color-primary:focus:not(.btn-active) .svg-icon svg [fill]:not(.permanent):not(g), .btn.btn-active-color-primary:hover:not(.btn-active) .svg-icon svg [fill]:not(.permanent):not(g), .show > .btn.btn-active-color-primary .svg-icon svg [fill]:not(.permanent):not(g) {
@@ -42256,7 +42263,7 @@ code:not([class*=language-]) {
 }
 
 .form-check.form-check-solid .form-check-input:checked {
-    background-color: #FF5757
+    background-color: #249f9a
 }
 
 .form-check.form-check-success .form-check-input:checked {
@@ -48695,7 +48702,7 @@ code:not([class*=language-]) {
     height: 36px;
     bottom: 40px;
     right: 20px;
-    background-color: #FF5757;
+    background-color: #249f9a;
     box-shadow: 0 .5rem 1.5rem .5rem rgba(0, 0, 0, .075);
     opacity: 0;
     transition: color .2s ease, background-color .2s ease;
@@ -48722,7 +48729,7 @@ code:not([class*=language-]) {
 }
 
 .scrolltop:hover {
-    background-color: #FF5757
+    background-color: #249f9a
 }
 
 .scrolltop:hover > i {
@@ -51629,7 +51636,8 @@ body {
     }
 
     .aside .aside-menu {
-        width: 265px
+        width: 265px;
+        background: #000;
     }
 
     .aside-fixed .aside {
@@ -51757,7 +51765,8 @@ body {
 }
 
 .aside-menu .menu-item {
-    padding: 0
+    padding: 0;
+    margin-bottom: 4px;
 }
 
 .aside-menu .menu-item .menu-link {
@@ -51787,15 +51796,16 @@ body {
 }
 
 .aside-dark .menu .menu-item .menu-section {
-    color: #4c4e6f !important
+    color: #249f9a !important;
+    font-weight: 700;
 }
 
 .aside-dark .menu .menu-item .menu-link {
-    color: #9899ac
+    color: #fff
 }
 
 .aside-dark .menu .menu-item .menu-link .menu-title {
-    color: #000000
+    color: rgba(255,255,255,0.8)
 }
 
 .aside-dark .menu .menu-item .menu-link .menu-icon i {
@@ -51828,12 +51838,13 @@ body {
 
 .aside-dark .menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here), .aside-dark .menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) {
     transition: color .2s ease, background-color .2s ease;
-    background-color: #f2f2f2;
-    color: #000
+    background-color: #333;
+    color: #fff;
+    border-radius: 40px 0 0 40px;
 }
 
 .aside-dark .menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-title, .aside-dark .menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-title {
-    color: #000
+    color: #fff
 }
 
 .aside-dark .menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-icon i, .aside-dark .menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-icon i {
@@ -51850,7 +51861,7 @@ body {
 }
 
 .aside-dark .menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-bullet .bullet, .aside-dark .menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-bullet .bullet {
-    background-color: #FF5757
+    background-color: #fff
 }
 
 .aside-dark .menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-arrow:after, .aside-dark .menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-arrow:after {
@@ -51904,8 +51915,9 @@ body {
 
 .aside-dark .menu .menu-item.show > .menu-link {
     transition: color .2s ease, background-color .2s ease;
-    background-color: #FF5757;
-    color: #fff
+    background-color: #104f4c;
+    color: #fff;
+    border-radius: 9px;
 }
 
 .aside-dark .menu .menu-item.show > .menu-link .menu-title {
@@ -51942,13 +51954,14 @@ body {
 
 .aside-dark .menu .menu-item .menu-link.active {
     transition: color .2s ease, background-color .2s ease;
-    /*background-color: #FF5757;*/
-    color: #FF5757;
-    font-weight:bold;
+    background-color: #249F9A;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 40px 0 0 40px;
 }
 
 .aside-dark .menu .menu-item .menu-link.active .menu-title {
-    color: #FF5757
+    color: #fff
 }
 
 .aside-dark .menu .menu-item .menu-link.active .menu-icon i {
@@ -51965,7 +51978,7 @@ body {
 }
 
 .aside-dark .menu .menu-item .menu-link.active .menu-bullet .bullet {
-    background-color: #FF5757
+    background-color: #ffffff
 }
 
 .aside-dark .menu .menu-item .menu-link.active .menu-arrow:after {
