@@ -20,11 +20,9 @@ class CustomerStoreRequest extends FormRequest
         return [
             'edit_value' => 'required',
             'role_id' => 'required',
-            'first_name' => 'required',
-            'last_name' => 'required',
+            'name' => 'required',
             'email' => 'required|max:255|unique:users,email,' . $this->edit_value,
             'password' => 'required_if:edit_value,=,0',
-            'contact_no' => 'required|digits_between:1,10',
         ];
     }
 

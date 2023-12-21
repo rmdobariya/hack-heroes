@@ -18,58 +18,51 @@
                                 <input type="hidden" id="form-method" value="add">
 
                                 <div class="row">
-                                    @foreach($languages as $language)
-                                        <div class="mb-3 col-md-6">
-                                            <div class="fv-row mb-7 fv-plugins-icon-container">
-                                                <label for="{{ $language['language_code'] }}_name"
-                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Name
-                                                </label>
-                                                <input type="text" class="form-control form-control-solid"
-                                                       name="{{ $language['language_code'] }}_name"
-                                                       id="{{ $language['language_code'] }}_name"
-                                                       @if($language['is_rtl']==1) dir="rtl" @endif
-                                                       value="{{ $page->translateOrNew($language['language_code'])->name }}"
-                                                       placeholder="{{ $language['name'] }} {{ trans('admin_string.common_name') }}"
-                                                       required/>
-                                            </div>
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label for="name"
+                                                   class="required fs-6 fw-bold mb-2">Name
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid"
+                                                   name="name"
+                                                   id="name"
+                                                   value="{{ $page->name }}"
+                                                   placeholder="Name"
+                                                   required/>
                                         </div>
-                                    @endforeach
-                                </div>
-
-                                <div class="row">
-                                    <div class="fv-row mb-7 fv-plugins-icon-container">
-                                        <label class="required fs-6 fw-bold mb-2" for="slug">
-                                            Slug
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid" required
-                                               name="slug"
-                                               id="slug"
-                                               value="{{$page->slug}}"
-                                               placeholder="Slug"/>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="slug">
+                                                Slug
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid" required
+                                                   name="slug"
+                                                   id="slug"
+                                                   value="{{$page->slug}}"
+                                                   placeholder="Slug"/>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    @foreach($languages as $language)
                                         <div class="mb-3 col-md-12">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
-                                                <label for="{{ $language['language_code'] }}_slug"
-                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Description
+                                                <label for="description" class="required fs-6 fw-bold mb-2">
+                                                    Description
                                                 </label>
                                                 <textarea class="summernote form-control"
-                                                       name="{{ $language['language_code'] }}_description"
-                                                       id="{{ $language['language_code'] }}_description"
-                                                          @if($language['is_rtl']==1) dir="rtl" @endif>{{$page->translateOrNew($language['language_code'])->description}}</textarea>
+                                                          name="description"
+                                                          id="description">{{$page->description}}</textarea>
                                             </div>
                                         </div>
-                                    @endforeach
                                 </div>
 
-{{--                                <div class="fv-row mb-7 fv-plugins-icon-container">--}}
-{{--                                    <label class="form-label">Description</label>--}}
-{{--                                    <textarea class="summernote form-control" name="description"--}}
-{{--                                              id="description">{{$page->description}}</textarea>--}}
-{{--                                </div>--}}
+                                {{--                                <div class="fv-row mb-7 fv-plugins-icon-container">--}}
+                                {{--                                    <label class="form-label">Description</label>--}}
+                                {{--                                    <textarea class="summernote form-control" name="description"--}}
+                                {{--                                              id="description">{{$page->description}}</textarea>--}}
+                                {{--                                </div>--}}
                             </div>
 
                             <div class="card-footer text-end p-3 btn-showcase">
@@ -106,5 +99,5 @@
         });
     </script>
 
-    <script src="{{URL::asset('assets/admin/custom/page/page.js')}}?v={{ time() }}"></script>
+    <script src="{{URL::asset('assets/admin/custom/form.js')}}?v={{ time() }}"></script>
 @endsection

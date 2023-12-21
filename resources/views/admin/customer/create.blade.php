@@ -31,6 +31,22 @@
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="Name">
+                                                Name
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid"
+                                                   name="name"
+                                                   id="name"
+                                                   placeholder="Name"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="contact_no">
                                                 Contact No
                                             </label>
@@ -40,35 +56,6 @@
                                                    placeholder="Contact No"/>
                                         </div>
                                     </div>
-                                </div>
-
-
-                                <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="first_name">
-                                                First Name
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid"
-                                                   name="first_name"
-                                                   id="first_name"
-                                                   placeholder="First Name"/>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="last_name">
-                                                Last Name
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid"
-                                                   name="last_name"
-                                                   id="last_name"
-                                                   placeholder="Last Name"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="email">
@@ -80,6 +67,9 @@
                                                    placeholder="Email"/>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="password">
@@ -92,20 +82,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row d-none"
-                                     id="corporate_seller_part">
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="is_corporate_seller">
-                                                Corporate Seller
-                                            </label>
-                                            <input type="checkbox" class="form-check"
-                                                   name="is_corporate_seller"
-                                                   value="0"
-                                                   id="is_corporate_seller"/>
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="col-12">
                                     <div class="row child_part" id="child_part_1">
                                         <div class="mb-3 col-md-6">
@@ -151,18 +128,6 @@
     <script>
         var form_url = '/customer'
         var redirect_url = '/customer'
-    </script>
-    <script>
-        $('#role_id').on('change', function () {
-            var val = $(this).val();
-            if (val == 11) {
-                $('#corporate_seller_part').removeClass('d-none')
-                $('#is_corporate_seller').val(1)
-            } else {
-                $('#corporate_seller_part').addClass('d-none')
-                $('#is_corporate_seller').val(0)
-            }
-        })
     </script>
     <script src="{{URL::asset('assets/admin/custom/form.js')}}?v={{ time() }}"></script>
     <script src="{{URL::asset('assets/admin/custom/customer/customer.js')}}?v={{ time() }}"></script>

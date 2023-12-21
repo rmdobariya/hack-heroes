@@ -19,7 +19,7 @@ $(function () {
         },
         drawCallback: function () {
             //funTooltip()
-            feather.replace()
+            // feather.replace()
             KTMenu.init()
             KTMenu.init()
         },
@@ -50,6 +50,7 @@ $(function () {
         $('.menu-sub-dropdown').removeClass('show');
         $('#user_type').val('all')
         $('#deleted_at').val('');
+        window.location.reload()
         table.draw()
     })
 
@@ -81,6 +82,7 @@ $(function () {
             .delete(APP_URL + form_url + '/' + value_id)
             .then(function (response) {
                 notificationToast(response.data.message, 'success')
+                window.location.reload()
                 table.draw()
                 loaderHide()
             })

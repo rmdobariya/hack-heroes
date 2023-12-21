@@ -33,7 +33,7 @@ class CustomerController extends Controller
 
     public function create()
     {
-        $roles = \Spatie\Permission\Models\Role::where('admin_id', \Auth::guard('admin')->user()->id)->where('name', '!=', 'Admin')->get();
+        $roles = \Spatie\Permission\Models\Role::where('admin_id', \Auth::guard('admin')->user()->id)->get();
         return view('admin.customer.create', [
             'roles' => $roles
         ]);
@@ -45,16 +45,14 @@ class CustomerController extends Controller
         if ((int)$validated['edit_value'] === 0) {
             $user = new User();
             $user->is_sub_admin = 1;
-            $user->name = $request->first_name;
-            $user->last_name = $request->last_name;
+            $user->name = $request->name;
             $user->contact_no = $request->contact_no;
-            $user->full_name = $request->first_name . ' ' . $request->last_name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->save();
 //            $user->assignRole($validated['role_id']);
 
-            if ($request->child_name) {
+            if (!is_null($request->child_name[1])) {
                 foreach ($request->child_name as $name) {
                     $user_child = new UserChildren();
                     $user_child->user_id = $user->id;
@@ -69,17 +67,15 @@ class CustomerController extends Controller
         } else {
             $user = User::find($validated['edit_value']);
             $user->is_sub_admin = 1;
-            $user->name = $request->first_name;
-            $user->last_name = $request->last_name;
+            $user->name = $request->name;
             $user->contact_no = $request->contact_no;
-            $user->full_name = $request->first_name . ' ' . $request->last_name;
             $user->email = $request->email;
             if (!empty($request->password)) {
                 $user->password = Hash::make($request->password);
             }
             $user->save();
             DB::table('user_childrens')->where('user_id', $user->id)->delete();
-            if ($request->child_name) {
+            if (!is_null($request->child_name[1])) {
                 foreach ($request->child_name as $name) {
                     $user_child = new UserChildren();
                     $user_child->user_id = $user->id;
@@ -96,13 +92,12 @@ class CustomerController extends Controller
 
     public function edit($id)
     {
-        $user = User::
-        where('users.id', $id)
+        $user = User::where('users.id', $id)
             ->leftjoin('model_has_roles', 'users.id', 'model_has_roles.model_id')
             ->select('users.*', 'model_has_roles.role_id')
             ->first();
 
-        $roles = \Spatie\Permission\Models\Role::where('admin_id', \Auth::guard('admin')->user()->id)->where('name', '!=', 'Admin')->get();
+        $roles = \Spatie\Permission\Models\Role::where('admin_id', \Auth::guard('admin')->user()->id)->get();
         $user_children = DB::table('user_childrens')->where('user_id', $id)->get();
         return view('admin.customer.edit', [
             'user' => $user,
@@ -217,16 +212,14 @@ class CustomerController extends Controller
                 ->addColumn('role', function ($user) {
                     return $user->user_type;
                 })
-                ->addColumn('full_name', function ($user) {
-                    return $user->name . ' ' . $user->last_name;
-                })
+
                 ->addColumn('check', function ($user) {
                     if ((int)$user->id === 1) {
                         return '';
                     } else {
                         return '<td>
                     <div class="form-check form-check-sm form-check-custom form-check-solid">
-                        <input class="form-check-input" type="checkbox" value=' . $user->id . '>
+                        <input class="form-check-input all_selected" type="checkbox" value=' . $user->id . ' id="single_select">
                     </div>
                 </td>';
                     }

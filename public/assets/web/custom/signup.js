@@ -174,4 +174,24 @@ $('#send_mail').on('click', function () {
         })
 })
 
+function addAttribute(rowNo) {
+    loaderView()
+    rowNo = rowNo + 1;
+    $.ajax({
+        url: APP_URL + '/getAttributeRow/' + rowNo,
+        method: 'GET',
 
+    }).done(function (data) {
+        loaderHide()
+        $('.attribute-row:last').after(data.data)
+
+    }).fail(function (jqXHR, textStatus) {
+        loaderHide()
+        console.log('Request failed: ' + textStatus)
+    })
+}
+
+function deleteAttribute(rowNo, attributeNo) {
+    $('#attribute-row-value-' + rowNo + '-' + attributeNo).remove()
+
+}

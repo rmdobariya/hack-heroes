@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\PageController;
@@ -79,4 +80,11 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::get('get-subscription-list', [SubscriptionController::class, 'getSubscriptionList'])->name('get-subscription-list');
     Route::get('subscription/status/{id}/{status}', [SubscriptionController::class, 'changeStatus'])->name('subscription.status.change');
     Route::post('multiple-subscription-delete', [SubscriptionController::class, 'multipleSubscriptionDelete'])->name('multiple-subscription-delete');
+
+    Route::resource('faq', FaqController::class);
+    Route::get('get-faq-list', [FaqController::class, 'getFaqList'])->name('get-faq-list');
+    Route::get('faq/status/{id}/{status}', [FaqController::class, 'changeStatus'])->name('faq.status.change');
+    Route::post('multiple-faq-delete', [FaqController::class, 'multipleFaqDelete'])->name('multiple-faq-delete');
+    Route::delete('faq-hard-delete/{id}', [FaqController::class, 'hardDelete'])->name('faq-hard-delete');
+    Route::get('restore-faq/{id}', [FaqController::class, 'restoreFaq'])->name('restore-faq');
 });

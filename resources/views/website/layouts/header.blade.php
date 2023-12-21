@@ -1,7 +1,10 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{{route('home')}}">
+                @php
+                    $logo = DB::table('site_settings')->where('setting_key','LOGO_IMG')->first()->setting_value;
+                @endphp
                 <img src="{{asset('assets/web/images/logo-txt.png')}}" alt="logo" class="logo">
                 <img src="{{asset('assets/web/images/logo.png')}}" alt="logo" class="hover-logo">
             </a>

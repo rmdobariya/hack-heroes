@@ -19,7 +19,8 @@ class PageStoreRequest extends FormRequest
     {
         return [
             'edit_value' => 'required',
-//            'FAVICON_IMG' => 'required',
+            'name' => 'required',
+            'description' => 'required',
         ];
     }
 

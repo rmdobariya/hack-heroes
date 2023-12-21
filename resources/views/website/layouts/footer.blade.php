@@ -11,7 +11,7 @@
                                 <li><a href="#hero">About Us</a></li>
                                 <li><a href="#how_it_works">How it Works</a></li>
                                 <li><a href="#benefits">Benefits</a></li>
-                                <li><a href="#">Stay Updated</a></li>
+                                <li><a href="#updated">Stay Updated</a></li>
                             </ul>
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                                 <li><a href="{{route('login')}}">Login Now</a></li>
                                 <li><a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank">Terms & Conditions</a></li>
                                 <li><a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank">Privacy Policy</a></li>
-                                <li><a href="#getintouch">Contact Us</a></li>
+                                <li><a href="{{route('contact-us')}}">Contact Us</a></li>
                             </ul>
                         </div>
                     </div>
@@ -31,9 +31,9 @@
                         <div class="links">
                             <h1>Connect</h1>
                             <ul>
-                                <li><a href="#"><img src="{{asset('assets/web/images/facebook.png')}}">Facebook</a></li>
-                                <li><a href="#"><img src="{{asset('assets/web/images/linkedin.png')}}">LinkedIn</a></li>
-                                <li><a href="#"><img src="{{asset('assets/web/images/instagram.png')}}">Instagram</a>
+                                <li><a href="#" target="_blank"><img src="{{asset('assets/web/images/facebook.png')}}">Facebook</a></li>
+                                <li><a href="#" target="_blank"><img src="{{asset('assets/web/images/linkedin.png')}}">LinkedIn</a></li>
+                                <li><a href="#" target="_blank"><img src="{{asset('assets/web/images/instagram.png')}}">Instagram</a>
                             </ul>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                 <div class="row">
                     <div class="col-md-8 offset-md-4">
                         <div class="f-logo">
-                            <a href="index.html"  data-aos="fade-up" data-aos-delay="200">
+                            <a href="{{route('home')}}"  data-aos="fade-up" data-aos-delay="200">
                                 <img src="{{asset('assets/web/images/footer-logo.png')}}" alt="footer-logo">
                                 <img src="{{asset('assets/web/images/logo-txt.png')}}" alt="logo">
                             </a>
