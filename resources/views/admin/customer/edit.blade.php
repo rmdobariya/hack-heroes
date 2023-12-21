@@ -33,6 +33,22 @@
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="name">
+                                                 Name
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid"
+                                                   name="name"
+                                                   id="name"
+                                                   value="{{$user->name}}"
+                                                   placeholder="First Name"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="contact_no">
                                                 Contact No
                                             </label>
@@ -43,37 +59,6 @@
                                                    placeholder="Contact No"/>
                                         </div>
                                     </div>
-                                </div>
-
-
-                                <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="first_name">
-                                                First Name
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid"
-                                                   name="first_name"
-                                                   id="first_name"
-                                                   value="{{$user->name}}"
-                                                   placeholder="First Name"/>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="last_name">
-                                                Last Name
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid"
-                                                   name="last_name"
-                                                   id="last_name"
-                                                   value="{{$user->last_name}}"
-                                                   placeholder="Last Name"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="email">
@@ -86,6 +71,9 @@
                                                    placeholder="Email"/>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="password">
@@ -98,21 +86,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row @if($user->user_type != 'seller') d-none @endif"
-                                     id="corporate_seller_part">
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="is_corporate_seller">
-                                                Corporate Seller
-                                            </label>
-                                            <input type="checkbox" class="form-check"
-                                                   name="is_corporate_seller"
-                                                   value="0"
-                                                   id="is_corporate_seller"
-                                                   @if($user->is_corporate_seller == 1) checked @endif/>
-                                        </div>
-                                    </div>
-                                </div>
+                                @if($user->user_type == 'user')
                                 @if(count($user_children) > 0)
                                     <div class="col-12">
                                         @foreach($user_children as $key =>$child)
@@ -174,7 +148,7 @@
                                         </div>
                                     </div>
                                 @endif
-
+                                @endif
                             </div>
 
                             <div class="card-footer text-end p-3 btn-showcase">
@@ -200,20 +174,10 @@
         var redirect_url = '/customer'
     </script>
     <script>
-        $('#role_id').on('change', function () {
-            var val = $(this).val();
-            if (val == 11) {
-                $('#corporate_seller_part').removeClass('d-none')
-                $('#is_corporate_seller').val(1)
-            } else {
-                $('#corporate_seller_part').addClass('d-none')
-                $('#is_corporate_seller').val(0)
-            }
-        })
         function deleteRow(rowNo) {
             $('#child_part_' + rowNo).remove()
-
         }
     </script>
     <script src="{{URL::asset('assets/admin/custom/form.js')}}?v={{ time() }}"></script>
+    <script src="{{URL::asset('assets/admin/custom/customer/customer.js')}}?v={{ time() }}"></script>
 @endsection

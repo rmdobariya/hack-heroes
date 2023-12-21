@@ -70,7 +70,7 @@
             <div class="modal-content">
                 <div class="modal-header text-center">
                     <h4 class="modal-title w-100 font-weight-bold">Forgot Password</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" id="forgot_modal" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -102,6 +102,9 @@
     <script>
         var form_url = '/login-check';
         var redirect_url = '/dashboard';
+        $('#forgot_modal').on('click',function (){
+            $('#forgot_password_form').modal('hide')
+        })
     </script>
     <script src="{{ asset('assets/admin/custom/form.js') }}?v={{ time() }}"></script>
 @endsection

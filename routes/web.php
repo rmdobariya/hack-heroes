@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Web\ContactUsController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\LoginController;
+use App\Http\Controllers\Web\ProfileController;
 use App\Http\Controllers\Web\ResetPasswordController;
 use App\Http\Controllers\Web\SignUpController;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +24,8 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login-check', [LoginController::class, 'loginCheck'])->name('login-check');
-Route::post('/get-in-touch', [HomeController::class, 'getInTouch'])->name('get-in-touch');
+Route::get('contact-us', [ContactUsController::class, 'index'])->name('contact-us');
+Route::post('/get-in-touch', [ContactUsController::class, 'getInTouch'])->name('get-in-touch');
 Route::get('/signup', [SignUpController::class, 'index'])->name('signup');
 Route::post('/signup_2', [SignUpController::class, 'signUp2'])->name('signup_2');
 Route::get('/signup_2_view', [SignUpController::class, 'signUp2View'])->name('signup_2_view');
@@ -37,10 +40,13 @@ Route::post('/signup_store', [SignUpController::class, 'signUpStore'])->name('si
 Route::get('/signup_6_view', [SignUpController::class, 'signUp6View'])->name('signup_6_view');
 Route::get('forgetPassword', [ResetPasswordController::class, 'index'])->name('forgetPassword');
 Route::post('send-mail', [ResetPasswordController::class, 'sendMail'])->name('send-mail');
+Route::get('getAttributeRow/{row}', [SignUpController::class, 'getAttributeRow'])->name('getAttributeRow');
 Route::get('forgot-password/{token}', [ResetPasswordController::class, 'forgotPassword'])->name('forgot-password');
 Route::post('forgot-password-submit', [ResetPasswordController::class, 'forgotPasswordSubmit'])->name('forgot-password-submit');
 Route::group(['middleware' => ['auth:web', 'webCheck']], function () {
-    Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('profile', [ProfileController::class, 'profile'])->name('profile');
+    Route::get('updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
+    Route::post('update-profile-store', [ProfileController::class, 'updateProfileStore'])->name('update-profile-store');
 });

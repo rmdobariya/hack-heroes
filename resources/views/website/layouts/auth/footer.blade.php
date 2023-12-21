@@ -13,7 +13,7 @@
             </div>
             <div class="col-md-3 text-end">
                 <div class="signup-footerlogo">
-                    <a href="index.html">
+                    <a href="{{route('home')}}">
                         <img src="{{asset('assets/web/images/logo-txt.png')}}" alt="logo" class="f-logo">
                     </a>
                 </div>

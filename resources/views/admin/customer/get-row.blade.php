@@ -7,7 +7,7 @@
             <input type="text" class="form-control form-control-solid"
                    name="child_name[{{$rowNo}}]"
                    id="child_name[{{$rowNo}}]"
-                   placeholder="Child Name"/>
+                   placeholder="Child Name" required/>
         </div>
     </div>
     <div class="col-md-6 mt-8">

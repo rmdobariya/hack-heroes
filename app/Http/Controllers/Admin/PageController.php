@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 
-use App\Helpers\CatchCreateHelper;
 use App\Http\Controllers\Controller;
-use App\Models\PageTranslation;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Admin\PageStoreRequest;
 use Illuminate\Http\Request;
 use App\Models\Page;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\AdminDataTableButtonHelper;
 use Yajra\DataTables\Facades\DataTables;
@@ -31,28 +28,19 @@ class PageController extends Controller
 
     public function create()
     {
-        $languages = CatchCreateHelper::getLanguage(App::getLocale());
-        return view('admin.page.create',[
-            'languages' => $languages
-        ]);
+        return view('admin.page.create');
     }
 
     public function store(PageStoreRequest $request): JsonResponse
     {
         $validated = $request->validated();
-        $languages = CatchCreateHelper::getLanguage(App::getLocale());
         if ((int)$validated['edit_value'] === 0) {
             $page = new Page();
             $page->slug = $request->slug;
+            $page->name = $request->name;
+            $page->description = $request->description;
             $page->save();
-            foreach ($languages as $language) {
-                PageTranslation::create([
-                    'name' => $request->input($language['language_code'] . '_name'),
-                    'description' => $request->input($language['language_code'] . '_description'),
-                    'page_id' => $page->id,
-                    'locale' => $language['language_code'],
-                ]);
-            }
+
             return response()->json([
                 'message' => 'Page Add Successfully'
             ]);
@@ -60,21 +48,10 @@ class PageController extends Controller
         } else {
             $page = Page::find($validated['edit_value']);
             $page->slug = $request->slug;
+            $page->name = $request->name;
+            $page->description = $request->description;
             $page->save();
 
-            foreach ($languages as $language) {
-                PageTranslation::updateOrCreate(
-                    [
-                        'page_id' => $validated['edit_value'],
-                        'locale' => $language['language_code'],
-                    ],
-                    [
-                        'page_id' => $validated['edit_value'],
-                        'locale' => $language['language_code'],
-                        'name' => $request->input($language['language_code'] . '_name'),
-                        'description' => $request->input($language['language_code'] . '_description'),
-                    ]);
-            }
             return response()->json([
                 'message' => 'Page Update Successfully'
             ]);
@@ -84,10 +61,8 @@ class PageController extends Controller
     public function edit($id)
     {
         $page = Page::findOrFail($id);
-        $languages = CatchCreateHelper::getLanguage(App::getLocale());
         return view('admin.page.edit', [
             'page' => $page,
-            'languages' => $languages,
         ]);
     }
 
@@ -103,10 +78,8 @@ class PageController extends Controller
     {
         if ($request->ajax()) {
             $pages = DB::table('pages')
-                ->leftJoin('page_translations', 'pages.id', 'page_translations.page_id')
-                ->where('page_translations.locale', App::getLocale())
                 ->orderBy('id', 'desc')
-                ->select('pages.*','page_translations.name');
+                ->select('pages.*');
             if (!empty($request->status) && $request->status !== 'all') {
                 $pages->where('pages.status', $request->status);
             }
