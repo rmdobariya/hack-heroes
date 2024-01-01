@@ -4,10 +4,10 @@
             <div class="col-md-9">
                 <div class="footer-menu">
                     <ul>
-                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="{{route('home')}}">Home</a></li>
                         <li><a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank">Terms & Conditions</a></li>
                         <li><a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank">Privacy Policy</a></li>
-                        <li>Copyright &copy; HackHeroes 2023</li>
+                        <li>Copyright &copy; HackHeroes Pty Ltd 2023 | All rights reserved. HackHeroes® and our mascot logo are protected under trademark law.</li>
                     </ul>
                 </div>
             </div>

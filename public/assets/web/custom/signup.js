@@ -95,25 +95,24 @@ $signup6.on('submit', function (e) {
         });
 })
 
-let $signupStore = $('#signupStore')
-$signupStore.on('submit', function (e) {
+let signupStore = $('#signupStore')
+signupStore.on('submit', function (e) {
     e.preventDefault()
-    loaderView();
-    let formData = new FormData($signupStore[0])
+    loaderView()
+    let formData = new FormData(signupStore[0])
     axios
         .post(APP_URL + '/signup_store', formData)
         .then(function (response) {
-            console.log(response)
-            loaderHide();
-            window.location.href = APP_URL + '/home';
-            notificationToast(response.data.message, 'success');
+            loaderHide()
+            notificationToast(response.data.message, 'success')
+            window.location.href = APP_URL + '/login';
         })
         .catch(function (error) {
-            console.log(error);
             notificationToast(error.response.data.message, 'warning')
-            loaderHide();
-        });
+            loaderHide()
+        })
 })
+
 
 let $loginForm = $('#loginForm')
 $loginForm.on('submit', function (e) {
@@ -179,6 +178,22 @@ function addAttribute(rowNo) {
     rowNo = rowNo + 1;
     $.ajax({
         url: APP_URL + '/getAttributeRow/' + rowNo,
+        method: 'GET',
+
+    }).done(function (data) {
+        loaderHide()
+        $('.attribute-row:last').after(data.data)
+
+    }).fail(function (jqXHR, textStatus) {
+        loaderHide()
+        console.log('Request failed: ' + textStatus)
+    })
+}
+function addAttributeForPlan(rowNo) {
+    loaderView()
+    rowNo = rowNo + 1;
+    $.ajax({
+        url: APP_URL + '/getAttributeRowForPlan/' + rowNo,
         method: 'GET',
 
     }).done(function (data) {

@@ -4,22 +4,27 @@
 @endsection
 @section('content')
     <section id="hero">
-        <div class="container">
+        <div class="container hero-container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <div class="hero-caption">
-                        <h1 data-aos="fade-up" data-aos-delay="100">HackHeroes is Personalised Cyberbullying
+                        <h1 data-aos="fade-up" data-aos-delay="100">HackHeroes<sup>&reg;</sup> is Personalised
+                            Cyberbullying
                             Prevention</h1>
                         <h2 data-aos="fade-up" data-aos-delay="200">Focused on Cyber Safety, Designed for Your
                             Child</h2>
                         <p data-aos="fade-up" data-aos-delay="300">Specialist-backed recommendations uniquely tailored
-                            to your family empower you to safeguard your child online. Our platform addresses the
-                            intricacies of cyberbullying head-on. Dive in with HackHeroes, and fortify your child’s
-                            online journey.</p>
-                        <a href="#" class="line-button" data-aos="fade-up" data-aos-delay="400">Join now it's free</a>
+                            to
+                            your family empower you to safeguard your child online. Our platform addresses the
+                            intricacies
+                            of cyberbullying head-on. Dive in with HackHeroes, and fortify your child’s online
+                            journey.</p>
+                        <a href="{{route('signup')}}" class="line-button" data-aos="fade-up" data-aos-delay="400">Join
+                            now, it's
+                            free</a>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="hero-img" data-aos="fade-up" data-aos-delay="300">
                         <img src="{{asset('assets/web/images/hero-img.png')}}">
                     </div>
@@ -31,16 +36,20 @@
         <section class="feature">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-5 order-22" data-aos="fade-up" data-aos-delay="200">
+                    <div class="col-md-6 order-22" data-aos="fade-up" data-aos-delay="200">
                         <img src="{{asset('assets/web/images/HackHeroes-1.png')}}" alt="HackHeroes">
                     </div>
-                    <div class="col-md-6 offset-md-1 text-white order-11" data-aos="fade-up" data-aos-delay="300">
+                    <div class="col-md-6 text-white order-11" data-aos="fade-up" data-aos-delay="300">
                         <div class="f-caption">
-                            <h1>Make Digital Safety Simple, Personal, and Effective</h1>
+                            <h2>Make Digital Safety Simple, Personal, and Effective</h2>
                             <p>37% of youths face online bullying; only 10% confide in parents.* Bridging the gap,
-                                HackHeroes enables parents to be proactive protectors. <span>*'UNICEF poll: More than a third of young people in 30 countries report being a victim of online bullying.' UNICEF. 'Stop Cyberbullying Before it Starts.' National Crime Prevention Council.</span>
+                                HackHeroes enables parents to be proactive protectors. <span> <a
+                                        href="https://www.unicef.org/press-releases/unicef-poll-more-third-young-people-30-countries-report-being-victim-online-bullying"
+                                        target="_blank">*'UNICEF poll: More than a third of young people in 30 countries report being a victim of online bullying.' UNICEF.</a> <a
+                                        href="http://archive.ncpc.org/resources/files/pdf/bullying/cyberbullying.pdf"
+                                        target="_blank">'Stop Cyberbullying Before it Starts.' National Crime Prevention Council.</a></span>
                             </p>
-                            <a href="#" class="line-button">Get started</a>
+                            <a href="{{route('signup')}}" class="line-button">Get started</a>
                         </div>
                     </div>
                 </div>
@@ -51,15 +60,17 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="f-caption" data-aos="fade-up" data-aos-delay="200">
-                            <h1>How HackHeroes Works</h1>
+                            <h2>How HackHeroes Works</h2>
                             <p>Begin with our in-depth survey, capturing not just your child's online habits but also
-                                their personal characteristics and social environment. Based on your responses,
-                                HackHeroes crafts a personalised cyberbullying prevention plan. Every plan is unique,
-                                just like your child.</p>
-                            <a href="#" class="line-button dark-btn">Join for free</a>
+                                their
+                                personal characteristics and social environment. Based on your responses, HackHeroes
+                                crafts
+                                a personalised cyberbullying prevention plan. Every plan is unique, just like your
+                                child.</p>
+                            <a href="{{route('signup')}}" class="line-button dark-btn">Join for free</a>
                         </div>
                     </div>
-                    <div class="col-md-5 offset-md-1" data-aos="fade-up" data-aos-delay="100">
+                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
                         <img src="{{asset('assets/web/images/HackHeroes-2.png')}}" alt="HackHeroes">
                     </div>
                 </div>
@@ -68,17 +79,18 @@
         <section class="feature" id="benefits">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-5 order-22" data-aos="fade-up" data-aos-delay="100">
+                    <div class="col-md-6 order-22" data-aos="fade-up" data-aos-delay="100">
                         <img src="{{asset('assets/web/images/HackHeroes-3.png')}}" alt="HackHeroes">
                     </div>
-                    <div class="col-md-6 offset-md-1 order-11">
+                    <div class="col-md-6 order-11">
                         <div class="f-caption" data-aos="fade-up" data-aos-delay="200">
-                            <h1>The Benefits of HackHeroes</h1>
+                            <h2>The Benefits of HackHeroes</h2>
                             <p>Become the digital guardian your child needs with actionable, tailored recommendations.
                                 Integrate these cyber safety steps into daily life with our 'add-to-calendar' feature.
                                 Relish the peace of mind that comes with expert-backed strategies, prioritising your
-                                child's digital well-being.</p>
-                            <a href="#" class="line-button dark-btn">Create an account</a>
+                                child's
+                                digital well-being.</p>
+                            <a href="{{route('signup')}}" class="line-button dark-btn">Create an account</a>
                         </div>
                     </div>
                 </div>
@@ -90,39 +102,30 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="sec-heading-1">
-                        <h1 data-aos="fade-right" data-aos-delay="200">HackHeroes Pricing</h1>
-                        <a href="#" data-aos="fade-left" data-aos-delay="200"> > Start now, it’s Free</a>
+                        <h2 data-aos="fade-right" data-aos-delay="200">HackHeroes Pricing</h2>
+                        <a href="{{route('pricing')}}" data-aos="fade-left" data-aos-delay="200"> > Start now, it’s
+                            Free</a>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="700">
-                    <div class="price-box">
-                        <h2>FREE</h2>
-                        <span class="line"></span>
-                        <p>Take the quiz now. Only get a limited preview of solutions. Good for curious parents.</p>
-                        <span class="line"></span>
-                        <h1>$0</h1>
+                @php
+                    $delay = 500;
+                @endphp
+                @foreach($plans  as $plan)
+                    @php
+                        $delay += 500;
+                    @endphp
+                    <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="{{$delay}}">
+                        <div class="price-box @if($plan->title == 'MOST POPULAR') popular @endif">
+                            <h2>{{$plan->title}}</h2>
+                            <span class="line"></span>
+                            <p>{{$plan->description}}</p>
+                            <span class="line"></span>
+                            <h3>${{$plan->amount}}</h3>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="900">
-                    <div class="price-box popular">
-                        <h2>MOST POPULAR</h2>
-                        <span class="line"></span>
-                        <p>Get full access now. You are onboard for the full 3-month program.</p>
-                        <span class="line"></span>
-                        <h1>$39 <span> p/month</span></h1>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="1100">
-                    <div class="price-box">
-                        <h2>CANCEL ANYTIME</h2>
-                        <span class="line"></span>
-                        <p>Get full access now. Full 3-month program, cancel anytime - no contract.</p>
-                        <span class="line"></span>
-                        <h1>$79 <span> p/month</span></h1>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -131,20 +134,25 @@
             <div class="row">
                 <div class="col-md-10 offset-md-1">
                     <div class="updated-box">
-                        <h1 class="text-center" data-aos="fade-down" data-aos-delay="200">Stay Updated with
-                            HackHeroes</h1>
-                        <p data-aos="fade-up" data-aos-delay="100"><img src="{{asset('assets/web/images/check.png')}}"> Receive curated content
+                        <h2 class="text-center" data-aos="fade-down" data-aos-delay="200">Stay Updated with
+                            HackHeroes</h2>
+                        <p data-aos="fade-up" data-aos-delay="100"><img src="{{asset('assets/web/images/check.png')}}">
+                            Receive curated content
                             about the latest in online protection trends and research</p>
-                        <p data-aos="fade-up" data-aos-delay="200"><img src="{{asset('assets/web/images/check.png')}}"> Be the first to hear
-                            about special deals and new features from HackHeroes</p>
-                        <p data-aos="fade-up" data-aos-delay="300"><img src="{{asset('assets/web/images/check.png')}}"> Learn from the
-                            experiences of other parents and share in the HackHeroes journey</p>
-                        <p data-aos="fade-up" data-aos-delay="400"><img src="{{asset('assets/web/images/check.png')}}"> Join our community and
-                            arm yourself with knowledge</p>
+                        <p data-aos="fade-up" data-aos-delay="200"><img src="{{asset('assets/web/images/check.png')}}">
+                            Be the first to hear about
+                            special deals and new features from HackHeroes</p>
+                        <p data-aos="fade-up" data-aos-delay="300"><img src="{{asset('assets/web/images/check.png')}}">
+                            Learn from the experiences
+                            of other parents and share in the HackHeroes journey</p>
+                        <p data-aos="fade-up" data-aos-delay="400"><img src="{{asset('assets/web/images/check.png')}}">
+                            Join our community and arm
+                            yourself with knowledge</p>
                         <div class="row">
                             <div class="col-md-6 offset-md-3">
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" placeholder="Email address"
+                                           name="subscribe_email" id="subscribe_email"
                                            aria-label="Recipient's username" aria-describedby="button-addon2"
                                            data-aos="fade-right" data-aos-delay="200">
                                     <button class="btn btn-outline-secondary" type="button" id="button-addon2"
@@ -163,104 +171,39 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="sec-heading-1">
-                        <h1 data-aos="fade-right" data-aos-delay="200">HackHeroes FAQs</h1>
+                        <h2 data-aos="fade-right" data-aos-delay="200">HackHeroes FAQs</h2>
                         <a href="{{route('signup')}}" data-aos="fade-left" data-aos-delay="200">> Create Account </a>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="accordion" id="accordionExample">
-                    <div class="accordion-item" data-aos="fade-up" data-aos-delay="100">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Is HackHeroes suitable for parents who are not tech-savvy?
-                            </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                Absolutely. HackHeroes' mission is to make digital safety accessible to all parents,
-                                regardless of their technical background. Our platform offers straightforward,
-                                jargon-free advice and step-by-step action plans that anyone can follow to safeguard
-                                their children online.
+                    @php
+                        $delay = 0;
+                    @endphp
+                    @foreach($faqs as $key =>$faq)
+                        @php
+                            $delay += 100;
+                        @endphp
+                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="{{$delay}}">
+                            <h2 class="accordion-header" id="heading_{{$key}}">
+                                <button class="accordion-button @if($key != 0) collapsed @endif" type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapse_{{$key}}"
+                                        aria-expanded="@if($key != 0) ? 'false' @else 'true' @endif"
+                                        aria-controls="collapse_{{$key}}">
+                                    {{$faq->question}}
+                                </button>
+                            </h2>
+                            <div id="collapse_{{$key}}" class="accordion-collapse collapse @if($key == 0) show @endif"
+                                 aria-labelledby="heading_{{$key}}"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    {{$faq->answer}}
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="accordion-item" data-aos="fade-up" data-aos-delay="200">
-                        <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                How does HackHeroes integrate with our daily lives without being intrusive?
-                            </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                Our 'add-to-calendar' feature ensures that recommended actions and check-ins are
-                                conveniently scheduled according to your routine. We strive to make online safety a
-                                seamless aspect of daily life without overwhelming parents or children with constant
-                                alerts or disruptions.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item" data-aos="fade-up" data-aos-delay="300">
-                        <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                How involved do parents need to be in the HackHeroes process?
-                            </button>
-                        </h2>
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                Parental involvement is key to the success of our plans. While HackHeroes provides the
-                                roadmap, parents are the drivers. The level of involvement can vary; some steps may
-                                require more engagement, such as discussing online safety with your child, while others
-                                are more about monitoring and gentle guidance.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item" data-aos="fade-up" data-aos-delay="400">
-                        <h2 class="accordion-header" id="headingFour">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                In what ways can HackHeroes customise the prevention plan for families with multiple
-                                children?
-                            </button>
-                        </h2>
-                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                We recognise that each child has unique needs. HackHeroes allows parents to create
-                                individual profiles for each child, taking into account their specific online habits,
-                                social environments, and personal characteristics. Our platform then generates
-                                customised prevention plans for each profile, ensuring that strategies are tailored to
-                                each child within the family.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accordion-item" data-aos="fade-up" data-aos-delay="500">
-                        <h2 class="accordion-header" id="headingFive">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                What measures does HackHeroes take to ensure the privacy and security of my family's
-                                data?
-                            </button>
-                        </h2>
-                        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                The privacy and security of your family's information are paramount. HackHeroes follows
-                                strict data protection regulations to safeguard your data. We never share your
-                                information with third parties without your explicit consent.
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -270,19 +213,20 @@
             <div class="row">
                 <div class="col-md-8 offset-md-2">
                     <div class="updated-box">
-                        <h1 class="text-center" data-aos="fade-up" data-aos-delay="200">Stay Updated with
-                            HackHeroes</h1>
-                        <p data-aos="fade-up" data-aos-delay="200">Our dedicated HackHeroes team will reply to you
-                            promptly.</p>
+                        <h2 class="text-center" data-aos="fade-up" data-aos-delay="200">Get in Touch Now</h2>
+                        <h3 data-aos="fade-up" data-aos-delay="200">Our dedicated HackHeroes team will reply to you
+                            promptly.</h3>
                         <form id="getInTouchForm">
-                            <input type="text" name="name" class="form-control" placeholder="Name *" data-aos="fade-up"
+                            <input type="text" name="name" class="form-control" placeholder="Name" data-aos="fade-up"
                                    data-aos-delay="100" data-required
-                                   data-error-message="This space needs something before we proceed!">
-                            <input type="email" name="email" class="form-control" placeholder="Email *"
-                                   data-aos="fade-up" data-aos-delay="200" data-required
-                                   data-error-message="This space needs something before we proceed!">
+                                   data-error-message="Name is required!">
+                            <input type="email" name="email" class="form-control" placeholder="Email" data-aos="fade-up"
+                                   data-aos-delay="200" data-required
+                                   data-error-message="Email is required!">
                             <textarea class="form-control" name="message" placeholder="Message" rows="3"
-                                      data-aos="fade-up" data-aos-delay="300"></textarea>
+                                      data-aos="fade-up"
+                                      data-aos-delay="300" data-required
+                                      data-error-message="Message is required!"></textarea>
                             <button class="btn btn-themecolor" type="submit" data-aos="fade-up" data-aos-delay="400">
                                 Send
                             </button>

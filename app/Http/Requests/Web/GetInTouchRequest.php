@@ -16,9 +16,9 @@ class GetInTouchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email:rfc,dns',
-            'name' => 'required',
-            'message' => 'required',
+//            'email' => 'email:rfc,dns',
+//            'name' => 'required',
+//            'message' => 'required',
         ];
     }
 

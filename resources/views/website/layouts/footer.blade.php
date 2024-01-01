@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="links">
-                            <h1>HackHeroes</h1>
+                            <h2>HackHeroes</h2>
                             <ul>
                                 <li><a href="{{route('home')}}" class="active">Home</a></li>
                                 <li><a href="#hero">About Us</a></li>
@@ -17,23 +17,28 @@
                     </div>
                     <div class="col-md-4">
                         <div class="links">
-                            <h1>Join us</h1>
+                            <h2>Join us</h2>
                             <ul>
                                 <li><a href="{{route('signup')}}">Create Account</a></li>
                                 <li><a href="{{route('login')}}">Login Now</a></li>
-                                <li><a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank">Terms & Conditions</a></li>
-                                <li><a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank">Privacy Policy</a></li>
+                                <li><a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank">Terms &
+                                        Conditions</a></li>
+                                <li><a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank">Privacy
+                                        Policy</a></li>
                                 <li><a href="{{route('contact-us')}}">Contact Us</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="links">
-                            <h1>Connect</h1>
+                            <h2>Connect</h2>
                             <ul>
-                                <li><a href="#" target="_blank"><img src="{{asset('assets/web/images/facebook.png')}}">Facebook</a></li>
-                                <li><a href="#" target="_blank"><img src="{{asset('assets/web/images/linkedin.png')}}">LinkedIn</a></li>
-                                <li><a href="#" target="_blank"><img src="{{asset('assets/web/images/instagram.png')}}">Instagram</a>
+                                <li><a target="_blank" href="https://www.facebook.com/hackheroes"><img
+                                            src="{{asset('assets/web/images/facebook.png')}}">Facebook</a></li>
+                                <li><a target="_blank" href="https://www.linkedin.com/company/hackheroes/about/"><img
+                                            src="{{asset('assets/web/images/linkedin.png')}}">LinkedIn</a></li>
+                                <li><a target="_blank" href="https://www.instagram.com/hackheroes/"><img
+                                            src="{{asset('assets/web/images/instagram.png')}}">Instagram</a></li>
                             </ul>
                         </div>
                     </div>
@@ -43,7 +48,7 @@
                 <div class="row">
                     <div class="col-md-8 offset-md-4">
                         <div class="f-logo">
-                            <a href="{{route('home')}}"  data-aos="fade-up" data-aos-delay="200">
+                            <a href="{{route('home')}}" data-aos="fade-up" data-aos-delay="200">
                                 <img src="{{asset('assets/web/images/footer-logo.png')}}" alt="footer-logo">
                                 <img src="{{asset('assets/web/images/logo-txt.png')}}" alt="logo">
                             </a>
@@ -53,7 +58,8 @@
             </div>
             <div class="col-md-12 mt-5">
                 <p class="copyright">
-                    Copyright &copy; HackHeroes 2023
+                    Copyright &copy; HackHeroes Pty Ltd 2023 | All rights reserved. HackHeroes® and our mascot logo are
+                    protected under trademark law.
                 </p>
             </div>
         </div>

@@ -9,10 +9,12 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PasswordController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RecommendationController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SubscribeController;
 use App\Http\Controllers\Admin\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
@@ -87,4 +89,17 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::post('multiple-faq-delete', [FaqController::class, 'multipleFaqDelete'])->name('multiple-faq-delete');
     Route::delete('faq-hard-delete/{id}', [FaqController::class, 'hardDelete'])->name('faq-hard-delete');
     Route::get('restore-faq/{id}', [FaqController::class, 'restoreFaq'])->name('restore-faq');
+
+    Route::resource('plan', PlanController::class);
+    Route::get('get-plan-list', [PlanController::class, 'getPlanList'])->name('get-plan-list');
+    Route::get('plan/status/{id}/{status}', [PlanController::class, 'changeStatus'])->name('plan.status.change');
+    Route::post('multiple-plan-delete', [PlanController::class, 'multiplePlanDelete'])->name('multiple-plan-delete');
+    Route::delete('plan-hard-delete/{id}', [PlanController::class, 'hardDelete'])->name('plan-hard-delete');
+    Route::get('restore-plan/{id}', [PlanController::class, 'restorePlan'])->name('restore-plan');
+
+    Route::resource('subscribe', SubscribeController::class);
+    Route::get('get-subscribe-list', [SubscribeController::class, 'getSubscribeList'])->name('get-subscribe-list');
+    Route::post('multiple-subscribe-delete', [SubscribeController::class, 'multipleSubscribeDelete'])->name('multiple-subscribe-delete');
+    Route::delete('subscribe-hard-delete/{id}', [SubscribeController::class, 'hardDelete'])->name('subscribe-hard-delete');
+    Route::get('restore-subscribe/{id}', [SubscribeController::class, 'restoreSubscribe'])->name('restore-subscribe');
 });
