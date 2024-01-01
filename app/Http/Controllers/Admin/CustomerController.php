@@ -51,8 +51,7 @@ class CustomerController extends Controller
             $user->password = Hash::make($request->password);
             $user->save();
 //            $user->assignRole($validated['role_id']);
-
-            if (!is_null($request->child_name[1])) {
+            if (array_search(null, $request->child_name) === false) {
                 foreach ($request->child_name as $name) {
                     $user_child = new UserChildren();
                     $user_child->user_id = $user->id;
@@ -75,7 +74,7 @@ class CustomerController extends Controller
             }
             $user->save();
             DB::table('user_childrens')->where('user_id', $user->id)->delete();
-            if (!is_null($request->child_name[1])) {
+            if (array_search(null, $request->child_name) === false) {
                 foreach ($request->child_name as $name) {
                     $user_child = new UserChildren();
                     $user_child->user_id = $user->id;
@@ -177,6 +176,7 @@ class CustomerController extends Controller
                             'id' => $user->id,
                             'actions' => [
                                 'edit' => route('admin.customer.edit', [$user->id]),
+                                'detail-page' => route('admin.customer.show', $user->id),
 //                                'delete' => $user->id,
                                 'status' => $user->status,
                             ]
@@ -187,6 +187,7 @@ class CustomerController extends Controller
                                 'id' => $user->id,
                                 'actions' => [
                                     'edit' => route('admin.customer.edit', [$user->id]),
+                                    'detail-page' => route('admin.customer.show', $user->id),
                                     'delete' => $user->id,
                                     'status' => $user->status,
                                 ]
@@ -246,5 +247,21 @@ class CustomerController extends Controller
         ])->render();
 
         return response()->json(['data' => $response]);
+    }
+
+    public function show($id)
+    {
+        $user = User::where('users.id', $id)
+            ->leftjoin('model_has_roles', 'users.id', 'model_has_roles.model_id')
+            ->select('users.*', 'model_has_roles.role_id')
+            ->first();
+
+        $roles = \Spatie\Permission\Models\Role::where('admin_id', \Auth::guard('admin')->user()->id)->get();
+        $user_children = DB::table('user_childrens')->where('user_id', $id)->get();
+        return view('admin.customer.show', [
+            'user' => $user,
+            'roles' => $roles,
+            'user_children' => $user_children,
+        ]);
     }
 }

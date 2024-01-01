@@ -1,8 +1,9 @@
 <script src="{{asset('assets/web/js/jquery-3.7.1.min.js')}}"></script>
 <script src="{{asset('assets/web/js/bootstrap.min.js')}}"></script>
-<script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
 <script src='https://unpkg.com/aos@2.3.0/dist/aos.js'></script>
-<script src="{{asset('assets/web/js/script.js')}}?v={{time()}}"></script>
+<script src="{{asset('assets/web/js/script.js')}}"></script>
+
+<script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
 <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
 <script src="{{ asset('assets/plugins/parsley-js/parsley.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/parsley-js/parsley.min.js') }}"></script>
@@ -16,28 +17,27 @@
     })
 </script>
 <script>
-    function validate(event){
-        event.preventDefault();
-        $("form input[data-required]").each(function(index){
-            var $_this = $(this);
-            var $_error = $_this.next(".error");
-            if($_this.val().length == 0) {
-                if($_error.length == 0){
-                    $_this.after('<span class="error">'+$_this.data("error-message")+'</span>');
-                }
-            } else
-                $_error.remove();
-        });
-    }
+    // function validate(event){
+    //     event.preventDefault();
+    //     $("form [data-required]").each(function(index){
+    //         var $_this = $(this);
+    //         var $_error = $_this.next(".error");
+    //         if($_this.val().length == 0) {
+    //             if($_error.length == 0){
+    //                 $_this.after('<span class="error">'+$_this.data("error-message")+'</span>');
+    //             }
+    //         } else
+    //             $_error.remove();
+    //     });
+    // }
 
-    $("form").on({"submit": function(){
-            validate(event);
-        },
-        "change": function(){
-            validate(event);
-        }
-    });
-
+    // $("form").on({"submit": function(){
+    //         validate(event);
+    //     },
+    //     "change": function(){
+    //         validate(event);
+    //     }
+    // });
 </script>
 <script type="text/javascript">
     var APP_URL = {!! json_encode(url('/')) !!};

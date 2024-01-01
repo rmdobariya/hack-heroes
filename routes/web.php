@@ -4,6 +4,7 @@ use App\Http\Controllers\Web\ContactUsController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\LoginController;
+use App\Http\Controllers\Web\PricingController;
 use App\Http\Controllers\Web\ProfileController;
 use App\Http\Controllers\Web\ResetPasswordController;
 use App\Http\Controllers\Web\SignUpController;
@@ -39,9 +40,15 @@ Route::post('/signup_6', [SignUpController::class, 'signUp6'])->name('signup_6')
 Route::post('/signup_store', [SignUpController::class, 'signUpStore'])->name('signup_store');
 Route::get('/signup_6_view', [SignUpController::class, 'signUp6View'])->name('signup_6_view');
 Route::get('forgetPassword', [ResetPasswordController::class, 'index'])->name('forgetPassword');
+Route::get('/checkout', [PricingController::class, 'checkout'])->name('checkout');
+Route::post('/session', [PricingController::class, 'session'])->name('session');
+Route::get('/success', [PricingController::class, 'success'])->name('success');
 Route::post('send-mail', [ResetPasswordController::class, 'sendMail'])->name('send-mail');
+Route::post('subscribe', [HomeController::class, 'subscribe'])->name('subscribe');
 Route::get('getAttributeRow/{row}', [SignUpController::class, 'getAttributeRow'])->name('getAttributeRow');
+Route::get('getAttributeRowForPlan/{row}', [SignUpController::class, 'getAttributeRowForPlan'])->name('getAttributeRowForPlan');
 Route::get('forgot-password/{token}', [ResetPasswordController::class, 'forgotPassword'])->name('forgot-password');
+Route::get('pricing', [PricingController::class, 'index'])->name('pricing');
 Route::post('forgot-password-submit', [ResetPasswordController::class, 'forgotPasswordSubmit'])->name('forgot-password-submit');
 Route::group(['middleware' => ['auth:web', 'webCheck']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

@@ -12,11 +12,9 @@
                         <h2>Join us today & get your personalised cyberbullying prevention plan</h2>
                         <form id="signup3" method="post">
                             <input type="text" name="name[1]"  placeholder="Child’s first name"
-                                   value="{{Session::get('child_name') ? Session::get('child_name') : ''}}"
-                                   class="form-control attribute-row attribute-row-1" required>
+                                   value="" class="form-control attribute-row attribute-row-1">
                             <div id="new_chq"></div>
-                            <a href="#" class="add-child" onclick="addAttribute(1)"><img src="{{asset('assets/web/images/plus-icon.png')}}"> Add
-                                another Child</a>
+                            <a href="javascript:void()" class="add-child" onclick="addAttribute(1)"><img src="{{asset('assets/web/images/plus-icon.png')}}"> Add another Child</a>
                             <button class="btn signup-btn" type="submit">Continue</button>
                         </form>
                     </div>
@@ -25,7 +23,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="what-get text-center">
-                                <h1>What you'll get</h1>
+                                <h2>What you'll get</h2>
                                 <h3>Our plan comes with</h3>
                                 <div class="row whats-sign2">
                                     <div class="col-md-4">

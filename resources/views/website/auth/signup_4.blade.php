@@ -12,25 +12,31 @@
                         <h2>Get started on your personalised cyberbullying prevention plan</h2>
                         <form id="signup5" method="post">
                             <p>Create plan for</p>
-                            @foreach($childrens as $key=>$children)
-                                <div class="input-box">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="create_plan[{{$key}}]" id="create_plan_{{$key}}">
-                                        <label class="form-check-label" for="create_plan_{{$key}}">
-                                            {{$children}}
-                                        </label>
+                            @if(!is_null($childrens))
+                                @foreach($childrens as $key=>$children)
+                                    <div class="input-box attribute-row attribute-row-{{$key}}">
+                                        <div class="form-check">
+                                            <input type="hidden" name="child[{{$key}}]" value="{{$children}}">
+                                            <input class="form-check-input" type="checkbox" name="create_plan[{{$key}}]"
+                                                   id="create_plan_{{$key}}">
+                                            <label class="form-check-label" for="create_plan_{{$key}}">
+                                                {{$children}}
+                                            </label>
+                                        </div>
                                     </div>
-                                </div>
-                            @endforeach
-                            {{--                            <div id="new_chq"></div>--}}
-                            {{--                            <a href="javascript:void()" class="add-child" onclick="add()"><img src="{{asset('assets/web/images/plus-icon.png')}}"> Add another Child</a>--}}
+                                @endforeach
+                            @endif
+                            {{--                        <div id="new_chq"></div>--}}
+                                                    <a href="javascript:void()" class="add-child" onclick="addAttributeForPlan({{count($childrens)}})"><img src="{{asset('assets/web/images/plus-icon.png')}}"> Add another Child</a>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="term_condition"
                                        id="flexCheckDefault" @if(Session::get('term_condition') == 'on') checked
                                        @endif required>
                                 <label class="form-check-label mb-4" for="flexCheckDefault">
-                                    I have read the <a href="#">Privacy & Terms</a> and understand how the information I
-                                    provide will be used.
+                                    I have read the <a href="{{asset('assets/web/images/privacy-policy.pdf')}}"
+                                                       target="_blank">Privacy</a> & <a href="images/privacy-policy.pdf"
+                                                                                        target="_blank">Terms</a> and
+                                    understand how the information I provide will be used.
                                 </label>
                             </div>
 
@@ -42,7 +48,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="what-get text-center">
-                                <h1>How it Works</h1>
+                                <h2>How it Works</h2>
                                 <h3>Our plan comes with</h3>
                                 <div class="row whats-sign2">
                                     <div class="col-md-4">
@@ -78,3 +84,4 @@
 @section('custom-script')
     <script src="{{asset('assets/web/custom/signup.js')}}?v={{time()}}"></script>
 @endsection
+

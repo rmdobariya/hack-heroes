@@ -29,7 +29,7 @@
                         <a class="nav-link" href="#updated">Subscribe</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#getintouch">Contact Us</a>
+                        <a class="nav-link" href="{{route('contact-us')}}">Contact Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link login" href="{{route('login')}}">Log in</a>

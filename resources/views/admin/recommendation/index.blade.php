@@ -4,7 +4,7 @@
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
                 @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Recommendation'])
-                @include('admin.layouts2.components.create-button',['url'=>route('admin.recommendation.create')])
+{{--                @include('admin.layouts2.components.create-button',['url'=>route('admin.recommendation.create')])--}}
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">

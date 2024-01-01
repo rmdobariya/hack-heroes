@@ -4,10 +4,10 @@
     font-family: 'Clear Sans';
     src: url('../fonts/ClearSans-Bold.eot');
     src: url('../fonts/ClearSans-Bold.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/ClearSans-Bold.woff2') format('woff2'),
-    url('../fonts/ClearSans-Bold.woff') format('woff'),
-    url('../fonts/ClearSans-Bold.ttf') format('truetype'),
-    url('../fonts/ClearSans-Bold.svg#ClearSans-Bold') format('svg');
+        url('../fonts/ClearSans-Bold.woff2') format('woff2'),
+        url('../fonts/ClearSans-Bold.woff') format('woff'),
+        url('../fonts/ClearSans-Bold.ttf') format('truetype'),
+        url('../fonts/ClearSans-Bold.svg#ClearSans-Bold') format('svg');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
@@ -17,10 +17,10 @@
     font-family: 'Clear Sans';
     src: url('../fonts/ClearSans-Light.eot');
     src: url('../fonts/ClearSans-Light.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/ClearSans-Light.woff2') format('woff2'),
-    url('../fonts/ClearSans-Light.woff') format('woff'),
-    url('../fonts/ClearSans-Light.ttf') format('truetype'),
-    url('../fonts/ClearSans-Light.svg#ClearSans-Light') format('svg');
+        url('../fonts/ClearSans-Light.woff2') format('woff2'),
+        url('../fonts/ClearSans-Light.woff') format('woff'),
+        url('../fonts/ClearSans-Light.ttf') format('truetype'),
+        url('../fonts/ClearSans-Light.svg#ClearSans-Light') format('svg');
     font-weight: 300;
     font-style: normal;
     font-display: swap;
@@ -30,10 +30,10 @@
     font-family: 'Clear Sans';
     src: url('../fonts/ClearSans-Medium.eot');
     src: url('../fonts/ClearSans-Medium.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/ClearSans-Medium.woff2') format('woff2'),
-    url('../fonts/ClearSans-Medium.woff') format('woff'),
-    url('../fonts/ClearSans-Medium.ttf') format('truetype'),
-    url('../fonts/ClearSans-Medium.svg#ClearSans-Medium') format('svg');
+        url('../fonts/ClearSans-Medium.woff2') format('woff2'),
+        url('../fonts/ClearSans-Medium.woff') format('woff'),
+        url('../fonts/ClearSans-Medium.ttf') format('truetype'),
+        url('../fonts/ClearSans-Medium.svg#ClearSans-Medium') format('svg');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -43,10 +43,10 @@
     font-family: 'Clear Sans';
     src: url('../fonts/ClearSans-MediumItalic.eot');
     src: url('../fonts/ClearSans-MediumItalic.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/ClearSans-MediumItalic.woff2') format('woff2'),
-    url('../fonts/ClearSans-MediumItalic.woff') format('woff'),
-    url('../fonts/ClearSans-MediumItalic.ttf') format('truetype'),
-    url('../fonts/ClearSans-MediumItalic.svg#ClearSans-MediumItalic') format('svg');
+        url('../fonts/ClearSans-MediumItalic.woff2') format('woff2'),
+        url('../fonts/ClearSans-MediumItalic.woff') format('woff'),
+        url('../fonts/ClearSans-MediumItalic.ttf') format('truetype'),
+        url('../fonts/ClearSans-MediumItalic.svg#ClearSans-MediumItalic') format('svg');
     font-weight: 500;
     font-style: italic;
     font-display: swap;
@@ -56,10 +56,10 @@
     font-family: 'Clear Sans';
     src: url('../fonts/ClearSans-Thin.eot');
     src: url('../fonts/ClearSans-Thin.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/ClearSans-Thin.woff2') format('woff2'),
-    url('../fonts/ClearSans-Thin.woff') format('woff'),
-    url('../fonts/ClearSans-Thin.ttf') format('truetype'),
-    url('../fonts/ClearSans-Thin.svg#ClearSans-Thin') format('svg');
+        url('../fonts/ClearSans-Thin.woff2') format('woff2'),
+        url('../fonts/ClearSans-Thin.woff') format('woff'),
+        url('../fonts/ClearSans-Thin.ttf') format('truetype'),
+        url('../fonts/ClearSans-Thin.svg#ClearSans-Thin') format('svg');
     font-weight: 100;
     font-style: normal;
     font-display: swap;
@@ -69,17 +69,17 @@
     font-family: 'Clear Sans';
     src: url('../fonts/ClearSans.eot');
     src: url('../fonts/ClearSans.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/ClearSans.woff2') format('woff2'),
-    url('../fonts/ClearSans.woff') format('woff'),
-    url('../fonts/ClearSans.ttf') format('truetype'),
-    url('../fonts/ClearSans.svg#ClearSans') format('svg');
+        url('../fonts/ClearSans.woff2') format('woff2'),
+        url('../fonts/ClearSans.woff') format('woff'),
+        url('../fonts/ClearSans.ttf') format('truetype'),
+        url('../fonts/ClearSans.svg#ClearSans') format('svg');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 body{
-    font-family: 'Clear Sans';
-    font-weight: 400;
+	font-family: 'Clear Sans';
+	font-weight: 400;
 }
 .bg-dark {
     background-color: #121212!important;
@@ -139,7 +139,10 @@ img{
     text-align: right;
 }
 .hero-img img {
-    width: 80%;
+    width: 60%;
+}
+.pl-3 {
+    padding-left: 3em!important;
 }
 .hero-caption h1{
     color: #FFF;
@@ -163,11 +166,11 @@ img{
 .hero-caption p{
     color: #FFF;
     font-family: Clear Sans;
-    font-size: 17px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 400;
-    line-height: 22.4px;
-    margin-bottom: 20px;
+    line-height: 28px;
+    margin-bottom: 40px;
 }
 .hero-caption {
     padding: 60px 0;
@@ -184,6 +187,7 @@ a.line-button {
     line-height: 20px;
     padding: 8px 16px;
     transition: all 0.3s;
+    display: inline-block;
 }
 a.line-button:hover {
     background: #fff;
@@ -203,6 +207,14 @@ a.line-button:hover {
     margin-top: 20px;
     margin-bottom: 24px;
 }
+.feature h2 {
+    font-family: 'Teko', sans-serif;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 42px;
+    margin-bottom: 20px;
+}
 .feature p{
     font-family: Clear Sans;
     font-size: 18px;
@@ -214,8 +226,19 @@ a.line-button:hover {
 .feature p span{
     color: rgba(255, 255, 255, 0.75);
 }
+.feature p span a {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+}
+.feature p span a:hover {
+    color: rgb(0 157 153);
+}
 section.feature {
     padding: 30px 0;
+}
+.hero-mascot{
+    width: 100%!important;
+    margin: 0!important;
 }
 section.feature .row {
     align-items: center;
@@ -242,6 +265,15 @@ section#pricing {
     color: #121212;
     font-family: 'Teko', sans-serif;
     font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 38.4px;
+    margin: 0;
+}
+.sec-heading-1 h2{
+    color: #121212;
+    font-family: 'Teko', sans-serif;
+    font-size: 34px;
     font-style: normal;
     font-weight: 400;
     line-height: 38.4px;
@@ -291,7 +323,7 @@ section#pricing {
     line-height: 26px;
     margin: 0;
 }
-.price-box h1{
+.price-box h3{
     color: #FFF!important;
     text-align: center;
     font-family: 'Teko', sans-serif;
@@ -321,7 +353,7 @@ section#pricing {
     margin-bottom: 30px;
     margin-top: 30px;
 }
-.price-box h1 span {
+.price-box h3 span {
     color: #FFF;
     text-align: center;
     font-family: Clear Sans;
@@ -334,10 +366,10 @@ section#pricing {
     background: #CDE9E8;
     padding: 60px 0;
 }
-#updated h1{
+#updated h2{
     color: #000;
     font-family: 'Teko', sans-serif;
-    font-size: 32px;
+    font-size: 34px;
     font-style: normal;
     font-weight: 400;
     line-height: 52px;
@@ -355,6 +387,7 @@ section#pricing {
     display: flex;
     align-items: center;
     gap: 6px;
+    margin-left: 60px;
 }
 .updated-box p img {
     width: 24px;
@@ -466,17 +499,17 @@ section#faq {
     background: #CDE9E8;
     padding: 60px 0;
 }
-#getintouch h1{
+#getintouch h2 {
     color: #000;
     font-family: 'Teko', sans-serif;
-    font-size: 32px;
+    font-size: 34px;
     font-style: normal;
     font-weight: 400;
     line-height: 52px;
     letter-spacing: -0.74px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
-#getintouch p{
+#getintouch h3 {
     color: #000;
     font-family: 'Teko', sans-serif;
     font-size: 24px;
@@ -485,6 +518,7 @@ section#faq {
     line-height: 32px;
     text-align: center;
     display: block;
+    margin-bottom: 30px;
 }
 .form-control::placeholder {
     opacity: 1;
@@ -555,7 +589,7 @@ footer{
     padding: 60px 0;
     overflow: hidden;
 }
-.links h1 {
+.links h2 {
     color: #249F9A;
     font-family: 'Teko', sans-serif;
     font-size: 42px;
@@ -600,12 +634,13 @@ footer{
 .copyright {
     color: rgba(255, 255, 255, 0.75);
     font-family: Clear Sans;
-    font-size: 18px;
+    font-size: 14px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 28px;
     margin-bottom: 0;
     transition: all 0.3s;
+    opacity: 0.5;
 }
 #page-body{
     height: calc(100vh - 200px);
@@ -613,7 +648,7 @@ footer{
 }
 #page-footer{
     background: #000;
-    height: 100px;
+    height: 140px;
     padding: 40px 0;
 }
 .fix-header ul li a img {
@@ -637,7 +672,7 @@ section#page-body .container-fluid {
 .left-signup h1{
     color: #121212;
     font-family: 'Teko', sans-serif;
-    font-size: 52px;
+    font-size: 40px;
     font-style: normal;
     font-weight: 400;
     line-height: 60px;
@@ -646,7 +681,7 @@ section#page-body .container-fluid {
 .left-signup h2{
     color: #121212;
     font-family: 'Teko', sans-serif;
-    font-size: 40px;
+    font-size: 34px;
     font-style: normal;
     font-weight: 400;
     line-height: 44px;
@@ -740,6 +775,9 @@ section#page-body .container-fluid .row .col-md-6{
 .footer-menu ul li:nth-last-of-type(1):after {
     width: 0px;
 }
+.footer-menu ul li:nth-last-of-type(2):after {
+    width: 0;
+}
 .footer-menu ul li a {
     text-decoration: none;
     color: #FFF;
@@ -756,11 +794,11 @@ section#page-body .container-fluid .row .col-md-6{
 }
 .footer-menu ul li:nth-last-of-type(1){
     opacity: 0.5;
-    color: #FFF;
+    color: rgba(255, 255, 255, 0.75);
     font-family: 'Inter', sans-serif;
-    font-size: 18px;
+    font-size: 12px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 24px;
     opacity: 0.5;
 }
@@ -768,13 +806,13 @@ section#page-body .container-fluid .row .col-md-6{
     align-items: center;
 }
 ::-moz-selection { /* Code for Firefox */
-    color: #fff;
-    background: #249F9A;
+  color: #fff;
+  background: #249F9A;
 }
 
 ::selection {
-    color: #fff;
-    background: #249F9A;
+  color: #fff;
+  background: #249F9A;
 }
 .left-signup a.add-child {
     color: #195656!important;
@@ -803,7 +841,7 @@ section#page-body .container-fluid .row .col-md-6{
     padding-left: 10px;
     background: transparent;
 }
-.what-get h1 {
+.what-get h2 {
     color: #000;
     font-family: 'Teko', sans-serif;
     font-size: 42px;
@@ -835,7 +873,7 @@ section#page-body .container-fluid .row .col-md-6{
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    line-break: anywhere;
+    word-break: keep-all;
 }
 .left-signup form ul {
     display: flex;
@@ -863,7 +901,7 @@ section#page-body .container-fluid .row.darkbg .row .whats-box img {
     height: auto;
     width: 100%;
 }
-.row.darkbg .what-get h1{
+.row.darkbg .what-get h2{
     color: #FFF;
     font-family: 'Teko', sans-serif;
     font-size: 42px;
@@ -955,7 +993,7 @@ a.add-child img {
     font-style: normal;
     font-weight: 400;
     line-height: 30px;
-    padding: 30px 50px;
+    padding: 30px 40px;
 }
 .info-pragraph p a{
     color: #1A6B6B;
@@ -1015,7 +1053,7 @@ a.add-child img {
     background-size: 18px;
     margin-right: 4px;
     font-size: 20px;
-    max-width: 400px;
+    /* max-width: 400px; */
     padding-right: 0px;
     padding-left: 0px;
 }
@@ -1070,7 +1108,7 @@ a.add-child img {
     font-style: normal;
     font-weight: 400;
     line-height: 20px;
-    margin-top: 30px;
+    margin-top: 20px;
     margin-bottom: 0;
     padding: 0;
 }
@@ -1141,7 +1179,7 @@ p.l-link a:hover {
     background: transparent!important;
     height: unset!important;
 }
-.dashboard .f-caption h2{
+.dashboard .f-caption h3{
     color: #FFF;
     font-family: 'Teko', sans-serif;
     font-size: 38px;
@@ -1158,10 +1196,20 @@ p.l-link a:hover {
 section.next-task {
     padding: 60px 0;
 }
-section.next-task .heading h1 {
+section.next-task .heading h2 {
     color: #FFF;
     font-family: Teko;
-    font-size: 37px;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 44px;
+    letter-spacing: -0.74px;
+    margin-bottom: 30px;
+}
+section.next-task .heading h3 {
+    color: #FFF;
+    font-family: Teko;
+    font-size: 32px;
     font-style: normal;
     font-weight: 400;
     line-height: 44px;
@@ -1249,10 +1297,10 @@ section#progress {
     padding: 40px;
     border-radius: 8px;
     margin-bottom: 30px;
-    opacity: 0.5;
+    opacity: 0.5!important;
 }
 .progress-box.active {
-    opacity: 1;
+    opacity: 1!important;
 }
 .progress-box img {
     max-width: 100%;
@@ -1322,13 +1370,13 @@ section.contact-form form button.btn.btn-themecolor:hover {
 .social-media{
     padding: 60px 0;
 }
-.social-media .heading h1{
+.social-media .heading h2{
     color: #000;
     font-family: 'Teko', sans-serif;
-    font-size: 38px;
+    font-size: 32px;
     font-style: normal;
     font-weight: 400;
-    line-height: 46px;
+    line-height: 40px;
     letter-spacing: -0.74px;
     margin-bottom: 30px;
 }
@@ -1448,7 +1496,7 @@ section.contact-form form button.btn.btn-themecolor:hover {
 section#settings {
     padding: 30px 0 60px 0;
 }
-section#settings h1{
+section#settings h2{
     color: #121212;
     font-family: 'Teko', sans-serif;
     font-size: 38px;
@@ -1458,7 +1506,7 @@ section#settings h1{
     letter-spacing: -0.74px;
     margin-bottom: 16px;
 }
-section#settings .your-settings h1 {
+section#settings .your-settings h2 {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -1522,7 +1570,7 @@ section#summary {
     border-radius: 0 8px 8px 0;
     padding: 40px 40px 30px 40px;
 }
-.summary-left h1 {
+.summary-left h2 {
     color: #000;
     font-family: 'Teko', sans-serif;
     font-size: 40px;
@@ -1558,6 +1606,10 @@ section#summary {
     border: 1px solid #EAECF0;
     background: #FFF;
     transition: all 0.3s;
+    width: 95%;
+}
+.list-box.active {
+    background: #f4f5f7;
 }
 .list-box:hover {
     background: #009d99;
@@ -1585,7 +1637,7 @@ section#summary {
     line-height: 28px;
     margin-bottom: 20px;
 }
-.summary-right h3 {
+.summary-right h4 {
     color: #000;
     font-family: 'Teko', sans-serif;
     font-size: 32px;
@@ -1665,10 +1717,37 @@ a.btn-viewrecom:hover {
 .summary-list {
     height: 680px;
     overflow: auto;
+    padding-right: 10px;
 }
-@media (min-width: 1200px){
+.summary-list::-webkit-scrollbar {
+    width: 10px;
+    display: block;
+}
+
+/* Track */
+.summary-list::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+/* Handle */
+.summary-list::-webkit-scrollbar-thumb {
+  background: #EAECF0;
+  border-radius: 8px;
+}
+
+/* Handle on hover */
+.summary-list::-webkit-scrollbar-thumb:hover {
+  background: #249F9A;
+}
+.hero-img {
+    text-align: center;
+}
+@media (min-width: 1400px){
     .container, .container-lg, .container-md, .container-sm, .container-xl {
-        max-width: 1000px;
+        max-width: 1120px;
+    }
+    .hero-container{
+        max-width: 1240px;
     }
 }
 section#recommendations .heading {
@@ -1677,7 +1756,7 @@ section#recommendations .heading {
     justify-content: space-between;
     margin-bottom: 24px;
 }
-section#recommendations .heading h1 {
+section#recommendations .heading h2 {
     color: #FFF;
     font-family: 'Teko', sans-serif;
     font-size: 37px;
@@ -1833,7 +1912,7 @@ section#recommendations .heading .form-filter i {
 #upgrade .heading {
     margin-bottom: 30px;
 }
-#upgrade .heading h1 {
+#upgrade .heading h2 {
     color: #000;
     font-family: 'Teko', sans-serif;
     font-size: 40px;
@@ -1853,7 +1932,7 @@ section#recommendations .heading .form-filter i {
     padding: 40px;
     margin-bottom: 24px;
 }
-#upgrade .upgrade-plan h2 {
+#upgrade .upgrade-plan h3 {
     color: #182230;
     text-align: left;
     font-family: 'Teko', sans-serif;
@@ -1987,7 +2066,7 @@ section, footer, div#main {
     width: 18px;
     margin-right: 0px;
 }
-#div2,#div3,#div4,#div5,#div6,#div7,#div8,#div9,#div10,#div11{
+#div2,#div3,#div4,#div5,#div6,#div7,#div8,#div9,#div10,#div11,#div12,#div13,#div14,#div15,#div16,#div17,#div18,#div19{
     display:none;
 }
 #prev{
@@ -1998,9 +2077,9 @@ section, footer, div#main {
 }
 
 .pages ul{
-    padding:0;
-    background-color:red;
-    margin;0;
+  padding:0;
+  background-color:red;
+  margin;0;
 
 }
 
@@ -2016,7 +2095,7 @@ section, footer, div#main {
 }
 
 .pages .active{
-    font-weight:bold;
+  font-weight:bold;
 }
 ul.pages {
     text-align: center;
@@ -2067,7 +2146,7 @@ li.active.current1 span.span {
     background-image: url(../images/chk.svg);
 }
 .left-signup form p select.form-select:nth-of-type(1), .left-signup form p select.form-select:nth-of-type(2) {
-    width: 38px!important;
+    /* width: 38px!important; */
 }
 .matrix-box {
     border-radius: 8px;
@@ -2076,7 +2155,7 @@ li.active.current1 span.span {
     padding: 40px;
     margin-bottom: 60px;
 }
-.matrix-box .heading h1 {
+.matrix-box .heading h2 {
     color: #000;
     font-family: 'Teko', sans-serif;
     font-size: 40px;
@@ -2098,9 +2177,36 @@ li.active.current1 span.span {
     width: 100%;
     margin-bottom: 60px;
 }
-
+.hero-caption h1 span {
+    font-family: Clear Sans;
+    font-size: 16px;
+    font-weight: 400;
+    padding-left: 2px;
+}
+.hero-caption h1 sup {
+    font-family: Clear Sans;
+    font-size: 20px;
+    left: 2px;
+    top: -0.5em;
+    margin-right: 3px;
+}
+.bg-thm{
+    background-color: #cde9e8;
+}
+.left-signup.info-pragraph.selection-dropdown.full-w {
+    width: 1140px;
+    margin: 0 auto;
+    padding: 100px 0;
+    max-width: 90%;
+}
 /***************Responsive******}**********/
 @media only screen and (max-width: 576px) {
+    .pricing .left-signup {
+        padding: 50px 30px;
+    }
+    .hero-caption {
+        text-align: center;
+    }
     .profile-plan .plan-details {
         flex-direction: column;
     }
@@ -2166,7 +2272,10 @@ li.active.current1 span.span {
     .feature h1 {
         font-size: 32px;
     }
-    .dashboard .f-caption h2 {
+    .feature h2 {
+        font-size: 30px;
+    }
+    .dashboard .f-caption h3 {
         font-size: 28px;
     }
     .hero-caption h1 {
@@ -2214,7 +2323,7 @@ li.active.current1 span.span {
         font-size: 14px;
     }
     .footer-menu ul li:nth-last-of-type(1) {
-        font-size: 14px;
+        font-size: 12px;
     }
     #page-footer {
         padding: 10px 0;
@@ -2290,6 +2399,9 @@ li.active.current1 span.span {
 }
 
 @media only screen and (min-width: 576px) {
+    .pricing .left-signup {
+        padding: 50px 30px;
+    }
     ul.pages {
         width: 100%;
     }
@@ -2315,7 +2427,7 @@ li.active.current1 span.span {
         font-size: 14px;
     }
     .footer-menu ul li:nth-last-of-type(1) {
-        font-size: 14px;
+        font-size: 12px;
     }
     .price-box {
         padding: 40px 40px;
@@ -2323,9 +2435,11 @@ li.active.current1 span.span {
     #upgrade .upgrade-plan {
         flex-direction: column;
     }
-    .footer-menu ul li a,
-    .footer-menu ul li:nth-last-of-type(1) {
+    .footer-menu ul li a{
         font-size: 16px;
+    }
+    .footer-menu ul li:nth-last-of-type(1) {
+        font-size: 12px;
     }
     .navbar-dark .navbar-nav a.nav-link.login {
         margin-bottom: 10px;
@@ -2348,14 +2462,17 @@ li.active.current1 span.span {
         text-align: center;
     }
     .hero-caption h1 {
-        font-size: 32px;
-        line-height: 32px;
+        font-size: 38px;
+        line-height: 46px;
         margin-bottom: 10px;
     }
     .feature h1 {
         font-size: 32px;
     }
-    .dashboard .f-caption h2 {
+    .feature h2 {
+        font-size: 30px;
+    }
+    .dashboard .f-caption h3 {
         font-size: 28px;
     }
     .price-box {
@@ -2374,7 +2491,7 @@ li.active.current1 span.span {
     .links ul li a {
         font-size: 18px;
     }
-    .links h1 {
+    .links h2 {
         font-size: 36px;
         margin-bottom: 10px;
     }
@@ -2420,12 +2537,22 @@ li.active.current1 span.span {
         width: 100%;
         border-radius: 0 0 8px 8px;
     }
+}
+@media only screen and (max-width: 1024px) {
+    .updated-box p{
+        margin-left: 0;
+    }
+}
+@media only screen and (max-width: 992px) {
     .summary-list {
         height: unset;
     }
 }
 
 @media only screen and (min-width: 768px) {
+    .pricing .left-signup {
+        padding: 40px 20px;
+    }
     .left-signup.info-pragraph {
         padding: 50px 50px 100px 50px;
     }
@@ -2478,13 +2605,15 @@ li.active.current1 span.span {
     .feature h1 {
         font-size: 32px;
     }
-    .dashboard .f-caption h2 {
+    .feature h2 {
+        font-size: 30px;
+    }
+    .dashboard .f-caption h3 {
         font-size: 28px;
     }
     div#main section.feature img {
-        width: 100%;
-        margin-left: 0%;
-        margin-top: 0px;
+        width: 80%;
+        text-align: center;
     }
     .order-11 {
         order: unset;
@@ -2515,7 +2644,7 @@ li.active.current1 span.span {
         line-height: 30px;
     }
     .hero-img {
-        text-align: right;
+        text-align: center;;
     }
     .price-box {
         margin-top: 20px;
@@ -2529,8 +2658,8 @@ li.active.current1 span.span {
     a.navbar-brand img {
         width: 230px;
     }
-    .links h1 {
-        font-size: 32px;
+    .links h2 {
+        font-size: 34px;
         margin-bottom: 10px;
     }
     .f-logo a img {
@@ -2539,6 +2668,9 @@ li.active.current1 span.span {
 }
 
 @media only screen and (min-width: 992px) {
+    .pricing .left-signup {
+        padding: 60px 60px;
+    }
     .next-tasklist {
         flex-direction: row;
     }
@@ -2554,14 +2686,17 @@ li.active.current1 span.span {
     .feature h1 {
         font-size: 38px;
     }
-    .dashboard .f-caption h2 {
+    .feature h2 {
+        font-size: 36px;
+    }
+    .dashboard .f-caption h3 {
         font-size: 30px;
     }
     .signup-footerlogo img {
         width: 100%;
     }
     .left-signup.info-pragraph {
-        padding: 50px 180px 100px 180px;
+        padding: 100px 180px 100px 180px;
     }
     ul.pages {
         width: 70%;
@@ -2626,7 +2761,7 @@ li.active.current1 span.span {
         padding: 0;
     }
     .left-signup {
-        padding: 70px 60px;
+        padding: 70px 30px;
     }
     .sign-logoimg {
         padding: 70px 60px;
@@ -2637,11 +2772,17 @@ li.active.current1 span.span {
 }
 
 @media only screen and (min-width: 1200px) {
-    .feature h1 {
-        font-size: 42px;
+    .pricing .left-signup {
+        padding: 80px 150px;
     }
-    .dashboard .f-caption h2 {
-        font-size: 38px;
+    .feature h1 {
+        font-size: 40px;
+    }
+    .feature h2 {
+        font-size: 34px;
+    }
+    .dashboard .f-caption h3 {
+        font-size: 34px;
     }
     .price-box {
         padding: 30px 40px;
@@ -2651,7 +2792,7 @@ li.active.current1 span.span {
         line-height: 30px;
     }
     .left-signup form p select.form-select {
-        font-size: 20px;
+        font-size: 18px;
         background-size: 18px;
         line-height: 20px;
     }
@@ -2678,6 +2819,9 @@ li.active.current1 span.span {
     }
 }
 @media only screen and (min-width: 1400px) {
+    .pricing .left-signup {
+        padding: 80px 180px;
+    }
     .price-box {
         padding: 40px 60px;
     }
@@ -2695,11 +2839,11 @@ li.active.current1 span.span {
         padding: 30px;
     }
     .left-signup {
-        padding: 100px 150px;
+        padding: 100px 130px;
     }
 }
 @media only screen and (min-width: 1500px) {
     .left-signup {
-        padding: 100px 180px;
+        padding: 100px 160px;
     }
 }

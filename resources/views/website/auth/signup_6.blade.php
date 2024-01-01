@@ -8,31 +8,53 @@
             <div class="row">
                 <div class="col-md-12 width-100">
                     <div class="left-signup info-pragraph">
+                        <ul class="pages">
+                            @foreach($questions as $key=>$question)
+                                <li class="@if($loop->first) active current1 @endif "><span class="span"></span></li>
+                            @endforeach
+                        </ul>
                         <h1>HackHeroes</h1>
-                        <b>Please select the option that you feel best represents Alex</b>
-                        <div class="text-centers">
-                            <form id="signupStore" method="post">
-                                <div class="form-check mt-5">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Alex does not experience, or experiences occasional, mild conflicts or disagreements with peers at school
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Alex faces some negative interactions or discomfort at school due to cyberbullying, resulting in noticeable changes in their behaviour, such as increased anxiety or reluctance to attend school.
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-                                    <label class="form-check-label" for="flexRadioDefault3">
-                                        Alex experiences persistent and severe cyberbullying victimisation at school, leading to significant  emotional distress, social withdrawal, academic decline, and potentially impacting their overall attendance and educational experience.
-                                    </label>
-                                </div>
-                                <button class="btn signup-btn link-btn" type="submit">Submit</button>
-                            </form>
-                        </div>
+                        <form id="signupStore" method="post">
+                            <div id="mains">
+                                @foreach($questions as $key=>$question)
+                                    <div id="div{{$key+1}}"
+                                         class=" @if($loop->first) first current @endif @if($loop->last) last @endif">
+                                        @if(!is_null($childrens))
+                                            @foreach($childrens as $key1=>$children)
+                                                <b>{{str_replace('[]',$children,$question['question'])}}</b>
+                                                <div class="text-centers">
+                                                    <input type="hidden" class="selected_value"
+                                                           name="answer[{{$key}}][{{$key1}}]">
+                                                    <input type="hidden" class="question"
+                                                           name="question[{{$key}}][{{$key1}}]"
+                                                           value="{{str_replace('[]',$children,$question['question'])}}">
+                                                    @foreach($question['answer'] as $key3=>$answer)
+                                                        <div class="form-check mt-5">
+                                                            <input class="form-check-input" type="radio"
+                                                                   name="answer[{{$key}}][{{$key1}}]"
+                                                                   id="answer_{{$key}}_{{$key1}}"
+                                                                   value="{{str_replace('[]',$children,$answer)}}"
+                                                                   required>
+
+                                                            <label class="form-check-label" for="opt[{{$key1}}]">
+                                                                {{str_replace('[]',$children,$answer)}}
+                                                            </label>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="next-prv-btn">
+                                <button type="button" id="prev" class="btn signup-btn link-btn">< Back</button>
+                                <button type="button" id="next" class="btn signup-btn link-btn next-btn">Next ></button>
+                                <button class="btn signup-btn link-btn d-none" id="signup_store" type="submit">Submit
+                                </button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -41,20 +63,30 @@
 @endsection
 @section('custom-script')
     <script>
-        function add(){
-            var new_chq_no = parseInt($('#total_chq').val())+1;
-            var new_input="<div class='input-box'><div class='form-check'><input name='name_"+new_chq_no+"'  class='form-check-input' type='checkbox' id='new_"+new_chq_no+"'><label class='form-check-label' for='new_"+new_chq_no+"'>Alex</label></div></div>";
-            //var new_input="<input type='text' class='form-control' placeholder='Child’s first name' id='new_"+new_chq_no+"'>";
-            $('#new_chq').append(new_input);
-            $('#total_chq').val(new_chq_no)
-        }
-        function remove(){
-            var last_chq_no = $('#total_chq').val();
-            if(last_chq_no>1){
-                $('#new_'+last_chq_no).remove();
-                $('#total_chq').val(last_chq_no-1);
+        var child = '{{!is_null($childrens) ? count($childrens) : 0}}'
+        $('.next-btn').on('click', function () {
+
+            var currentStep = $('.current');
+
+            if (currentStep.find('input[type=radio]:checked').length < child) {
+                notificationToast('Please select any one answer', 'warning');
+            } else {
+                var checkedRadio = currentStep.find('input[type=radio]:checked');
+                var label = currentStep.find('label[for="' + checkedRadio.attr('id') + '"]').text();
+                currentStep.find('.selected_value').val(label)
+                $('.current').removeClass('current').hide()
+                    .next().show().addClass('current');
+                $('.current1').removeClass('current1').removeClass('active').next().addClass('active').addClass('current1');
+                $("li.current1").prevAll().find('span').addClass('active1');
+
+                if ($('.current').hasClass('last')) {
+                    $('#next').css('display', 'none');
+                    $('#signup_store').removeClass('d-none');
+                }
+                $('#prev').css('display', 'inline-block');
             }
-        }
+        })
     </script>
     <script src="{{asset('assets/web/custom/signup.js')}}?v={{time()}}"></script>
 @endsection
+

@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>HackHeroes - @yield('title')</title>
-   @include('website.layouts.after-login.css')
+    <title>HackHeroes</title>
+    @include('website.layouts.after-login.css')
 </head>
 <body>
 @include('website.layouts.after-login.header')

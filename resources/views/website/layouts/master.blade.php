@@ -17,7 +17,6 @@
         <link rel="shortcut icon" href="{{asset('assets/web/images/logo.png')}}"
               type="image/x-icon">
     @endif
-
     @include('website.layouts.css')
 </head>
 <body>

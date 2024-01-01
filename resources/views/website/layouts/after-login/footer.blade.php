@@ -4,16 +4,20 @@
             <div class="col-md-9">
                 <div class="footer-menu">
                     <ul>
-                        <li><a href="{{route('dashboard')}}">Dashboard</a></li>
-                        <li><a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank">Terms & Conditions</a></li>
-                        <li><a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank">Privacy Policy</a></li>
-                        <li>Copyright &copy; HackHeroes 2023</li>
+                        <li><a href="{{route('dashboard')}}" class="active">Dashboard</a></li>
+                        <li><a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank">Terms &
+                                Conditions</a></li>
+                        <li><a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank">Privacy
+                                Policy</a></li>
+                        <li>Copyright &copy; HackHeroes Pty Ltd 2023 | All rights reserved. HackHeroes® and our mascot
+                            logo are protected under trademark law.
+                        </li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-3 text-end">
                 <div class="signup-footerlogo">
-                    <a href="{{route('home')}}">
+                    <a href="{{asset('assets/web/dashboard')}}">
                         <img src="{{asset('assets/web/images/logo-txt.png')}}" alt="logo" class="f-logo">
                     </a>
                 </div>

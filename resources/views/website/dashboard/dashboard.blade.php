@@ -7,14 +7,14 @@
         <section class="feature dashboard">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 text-white">
+                    <div class="col-md-4 offset-md-2 text-white">
                         <div class="f-caption" data-aos="fade-up" data-aos-delay="100">
                             <h1>Dashboard</h1>
-                            <h2>Enjoy the program, {{$user->full_name}}</h2>
+                            <h2>Enjoy the program, {{$user->name}}</h2>
                         </div>
                     </div>
-                    <div class="col-md-3 offset-md-1" data-aos="fade-up" data-aos-delay="200">
-                        <img src="{{asset('assets/web/images/hero-img.png')}}">
+                    <div class="col-md-3 offset-md-2" data-aos="fade-up" data-aos-delay="200">
+                        <img src="{{asset('assets/web/images/hero-img.png')}}" class="hero-mascot">
                     </div>
                 </div>
             </div>
@@ -25,12 +25,18 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="heading">
-                            <h1 data-aos="fade-right" data-aos-delay="200">Your next tasks</h1>
+                            <h3 data-aos="fade-right" data-aos-delay="200">Your next tasks</h3>
                         </div>
                     </div>
                     <div class="col-md-12">
+                        @php
+                            $delay = 0;
+                        @endphp
                         @foreach($user_childrens as $user_children)
-                            <div class="next-tasklist" data-aos="fade-up" data-aos-delay="200">
+                            @php
+                                $delay += 200;
+                            @endphp
+                            <div class="next-tasklist" data-aos="fade-up" data-aos-delay="{{$delay}}">
                                 <div class="user-box">
                                     <img src="{{asset('assets/web/images/alex.svg')}}" alt="user">
                                     <h3>{{$user_children->name}}</h3>
@@ -40,8 +46,9 @@
                                         <li>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
-                                                       id="flexCheckDefault_{{$user_children->id}}">
-                                                <label class="form-check-label" for="flexCheckDefault1">
+                                                       id="flexCheckDefault__{{$user_children->id}}">
+                                                <label class="form-check-label"
+                                                       for="flexCheckDefault__{{$user_children->id}}">
                                                     Questionnaire
                                                 </label>
                                             </div>
@@ -50,7 +57,8 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
                                                        id="flexCheckDefault_{{$user_children->id}}">
-                                                <label class="form-check-label" for="flexCheckDefault2">
+                                                <label class="form-check-label"
+                                                       for="flexCheckDefault_{{$user_children->id}}">
                                                     Unique Risk Profile
                                                 </label>
                                             </div>
@@ -59,7 +67,8 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
                                                        id="flexCheckDefault_{{$user_children->id}}">
-                                                <label class="form-check-label" for="flexCheckDefault3">
+                                                <label class="form-check-label"
+                                                       for="flexCheckDefault_{{$user_children->id}}">
                                                     Modules for Month #1
                                                 </label>
                                             </div>
@@ -68,68 +77,19 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
                                                        id="flexCheckDefault_{{$user_children->id}}">
-                                                <label class="form-check-label" for="flexCheckDefault4">
+                                                <label class="form-check-label"
+                                                       for="flexCheckDefault_{{$user_children->id}}">
                                                     View Recommendations for Month #1
                                                 </label>
                                             </div>
                                         </li>
                                     </ul>
                                     <div class="btnlinks">
-                                        <a href="#">> Continue</a>
+                                        <a href="matrix.html">> Continue</a>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
-
-{{--                        <div class="next-tasklist" data-aos="fade-up" data-aos-delay="400">--}}
-{{--                            <div class="user-box">--}}
-{{--                                <img src="{{asset('assets/web/images/taylor.svg')}}" alt="user">--}}
-{{--                                <h3>Taylor</h3>--}}
-{{--                            </div>--}}
-{{--                            <div class="task-list">--}}
-{{--                                <ul>--}}
-{{--                                    <li>--}}
-{{--                                        <div class="form-check">--}}
-{{--                                            <input class="form-check-input" type="checkbox" value=""--}}
-{{--                                                   id="flexCheckDefault5">--}}
-{{--                                            <label class="form-check-label" for="flexCheckDefault5">--}}
-{{--                                                Questionnaire--}}
-{{--                                            </label>--}}
-{{--                                        </div>--}}
-{{--                                    </li>--}}
-{{--                                    <li>--}}
-{{--                                        <div class="form-check">--}}
-{{--                                            <input class="form-check-input" type="checkbox" value=""--}}
-{{--                                                   id="flexCheckDefault6">--}}
-{{--                                            <label class="form-check-label" for="flexCheckDefault6">--}}
-{{--                                                Unique Risk Profile--}}
-{{--                                            </label>--}}
-{{--                                        </div>--}}
-{{--                                    </li>--}}
-{{--                                    <li>--}}
-{{--                                        <div class="form-check">--}}
-{{--                                            <input class="form-check-input" type="checkbox" value=""--}}
-{{--                                                   id="flexCheckDefault7">--}}
-{{--                                            <label class="form-check-label" for="flexCheckDefault7">--}}
-{{--                                                Modules for Month #1--}}
-{{--                                            </label>--}}
-{{--                                        </div>--}}
-{{--                                    </li>--}}
-{{--                                    <li>--}}
-{{--                                        <div class="form-check">--}}
-{{--                                            <input class="form-check-input" type="checkbox" value=""--}}
-{{--                                                   id="flexCheckDefault8">--}}
-{{--                                            <label class="form-check-label" for="flexCheckDefault8">--}}
-{{--                                                View Recommendations for Month #1--}}
-{{--                                            </label>--}}
-{{--                                        </div>--}}
-{{--                                    </li>--}}
-{{--                                </ul>--}}
-{{--                                <div class="btnlinks">--}}
-{{--                                    <a href="#">> Continue</a>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
                     </div>
                 </div>
             </div>
@@ -140,7 +100,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="sec-heading-1">
-                        <h1 data-aos="fade-right" data-aos-delay="200">Your progress</h1>
+                        <h2 data-aos="fade-right" data-aos-delay="200">Your progress</h2>
                     </div>
                 </div>
                 <div class="clearfix"></div>

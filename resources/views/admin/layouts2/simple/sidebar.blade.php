@@ -87,29 +87,53 @@
                     </a>
                 </div>
 
-{{--                <div class="menu-item">--}}
-{{--                    <a class="menu-link {{ (request()->segment(2) == 'subscription') ? 'active' : '' }}"--}}
-{{--                       href="{{ route('admin.subscription.index') }}">--}}
-{{--                               <span class="menu-icon">--}}
-{{--                            <span class="svg-icon svg-icon-2">--}}
-{{--                                <span data-feather="archive"></span>--}}
-{{--                             </span>--}}
-{{--                        </span>--}}
-{{--                        <span class="menu-title">Subscription</span>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
+                <div class="menu-item">
+                    <a class="menu-link {{ (request()->segment(2) == 'plan') ? 'active' : '' }}"
+                       href="{{ route('admin.plan.index') }}">
+                               <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                                <span data-feather="activity"></span>
+                             </span>
+                        </span>
+                        <span class="menu-title"> Plan</span>
+                    </a>
+                </div>
 
-{{--                <div class="menu-item">--}}
-{{--                    <a class="menu-link {{ (request()->segment(2) == 'recommendation') ? 'active' : '' }}"--}}
-{{--                       href="{{ route('admin.recommendation.index') }}">--}}
-{{--                               <span class="menu-icon">--}}
-{{--                            <span class="svg-icon svg-icon-2">--}}
-{{--                                <span data-feather="box"></span>--}}
-{{--                             </span>--}}
-{{--                        </span>--}}
-{{--                        <span class="menu-title"> Recommendation</span>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
+                <div class="menu-item">
+                    <a class="menu-link {{ (request()->segment(2) == 'subscribe') ? 'active' : '' }}"
+                       href="{{ route('admin.subscribe.index') }}">
+                               <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                                <span data-feather="cast"></span>
+                             </span>
+                        </span>
+                        <span class="menu-title"> Subscribe</span>
+                    </a>
+                </div>
+
+                <div class="menu-item">
+                    <a class="menu-link {{ (request()->segment(2) == 'subscription') ? 'active' : '' }}"
+                       href="{{ route('admin.subscription.index') }}">
+                               <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                                <span data-feather="archive"></span>
+                             </span>
+                        </span>
+                        <span class="menu-title">Subscription</span>
+                    </a>
+                </div>
+
+                <div class="menu-item">
+                    <a class="menu-link {{ (request()->segment(2) == 'recommendation') ? 'active' : '' }}"
+                       href="{{ route('admin.recommendation.index') }}">
+                               <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                                <span data-feather="box"></span>
+                             </span>
+                        </span>
+                        <span class="menu-title"> Recommendation</span>
+                    </a>
+                </div>
                 <div data-kt-menu-trigger="click"
                      class="menu-item menu-accordion  {{ (request()->segment(2) == 'role' || (request()->segment(2) == 'customer')) ? 'show' : '' }} ">
 {{--                                <span class="menu-link">--}}
