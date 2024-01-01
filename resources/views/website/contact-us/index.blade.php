@@ -28,10 +28,10 @@
                         </div>
                     </div>
                     <div class="col-md-6 offset-md-3 text-center" data-aos="fade-up" data-aos-delay="300">
-                        <form id="getInTouchForm">
-                            <input type="text" name="name" class="form-control" placeholder="Name" required>
-                            <input type="email" name="email" class="form-control" placeholder="Email" required>
-                            <textarea class="form-control" name="message" placeholder="Message" rows="3" required> </textarea>
+                        <form id="getInTouchForm" class="error-message">
+                            <input type="text" name="name" class="form-control" placeholder="Name">
+                            <input type="email" name="email" class="form-control" placeholder="Email">
+                            <textarea class="form-control" name="message" placeholder="Message" rows="3"></textarea>
                             <button class="btn btn-themecolor" type="submit">Send</button>
                             <br><span class="success d-none" id="get-in-touch-msg">Form submitted successfully</span>
                         </form>

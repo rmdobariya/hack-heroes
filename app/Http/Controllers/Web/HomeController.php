@@ -28,9 +28,10 @@ class HomeController extends Controller
         $contact_us->email = $request->email;
         $contact_us->message = $request->message;
         $contact_us->save();
+        $message = 'Form submitted successfully.';
         return response()->json([
             'success' => true,
-            'message' => 'Contact Us Request Submit Successfully'
+            'message' => $message
         ]);
     }
     public function subscribe(SubscribeStoreRequest $request)
@@ -40,7 +41,7 @@ class HomeController extends Controller
         $subscribe->save();
         return response()->json([
             'success' => true,
-            'message' => 'Subscribe Successfully'
+            'message' => 'Your email has been subscribed successfully.'
         ]);
     }
 }

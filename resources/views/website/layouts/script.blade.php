@@ -17,27 +17,27 @@
     })
 </script>
 <script>
-    function validate(event){
-        event.preventDefault();
-        $("form [data-required]").each(function(index){
-            var $_this = $(this);
-            var $_error = $_this.next(".error");
-            if($_this.val().length == 0) {
-                if($_error.length == 0){
-                    $_this.after('<span class="error">'+$_this.data("error-message")+'</span>');
-                }
-            } else
-                $_error.remove();
-        });
-    }
+    // function validate(event){
+    //     event.preventDefault();
+    //     $("form [data-required]").each(function(index){
+    //         var $_this = $(this);
+    //         var $_error = $_this.next(".error");
+    //         if($_this.val().length == 0) {
+    //             if($_error.length == 0){
+    //                 $_this.after('<span class="error">'+$_this.data("error-message")+'</span>');
+    //             }
+    //         } else
+    //             $_error.remove();
+    //     });
+    // }
 
-    $("form").on({"submit": function(){
-            validate(event);
-        },
-        "change": function(){
-            validate(event);
-        }
-    });
+    // $("form").on({"submit": function(){
+    //         validate(event);
+    //     },
+    //     "change": function(){
+    //         validate(event);
+    //     }
+    // });
 </script>
 <script type="text/javascript">
     var APP_URL = {!! json_encode(url('/')) !!};
