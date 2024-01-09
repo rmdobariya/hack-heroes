@@ -3,6 +3,9 @@
     Signup
 @endsection
 @section('content')
+    <style>
+        #page-body {height: auto;min-height: auto;}
+    </style>
     <section id="page-body">
         <div class="container-fluid">
             <div class="row">
@@ -15,170 +18,121 @@
                                     <b>Please select the option that you feel best represents {{$children}}</b>
                                     <div class="text-center">
                                         <p>{{$children}} is
-                                            <select name="age[{{$key}}]" class="form-control form-select" required>
-                                                <option value="14-17 years old" selected>14-17 years old</option>
-                                                <option value="10-13 years old">10-13 years old</option>
-                                                <option value="6-9 years old">6-9 years old</option>
-                                            </select>
-                                            <img src="{{asset('assets/web/images/down-arrow.png')}}" alt="down-arrow">
-                                            and was assigned
-                                            <select name="sex[{{$key}}]" class="form-control form-select" required>
+                                            <select name="age[{{$key}}]" class="custom-select" required>
+                                                <option value="14-17 years old" selected>14-17</option>
+                                                <option value="10-13 years old">10-13</option>
+                                                <option value="6-9 years old">6-9</option>
+                                            </select>                                            
+                                            years old and was assigned
+                                            <select name="sex[{{$key}}]" class="custom-select" required>
                                                 <option value="male" selected>male</option>
                                                 <option value="intersex">intersex</option>
                                                 <option value="female">female</option>
-                                            </select>
-                                            <img src="{{asset('assets/web/images/down-arrow.png')}}" alt="down-arrow">
+                                            </select>                                            
                                             at birth. They have
-                                            <select name="current_health[{{$key}}]" class="form-control form-select"
-                                                    required>
-                                                <option value="no known mental health conditions" selected>no known mental health conditions</option>
-                                                <option value="mild anxiety or depression">mild anxiety or depression</option>
-                                                <option value="severe anxiety or depression, or other mental health conditions that impact their daily life">severe anxiety or depression, or other mental health conditions that impact their daily life</option>
-
-                                            </select><img src="{{asset('assets/web/images/down-arrow.png')}}"
-                                                          alt="down-arrow">
-                                            and
-                                            <select name="previous_health[{{$key}}]" class="form-control form-select"
-                                                    required>
-                                                <option value="no history of mental health issues" selected>no history of mental health issues</option>
-                                                <option value="a family history of mental health issues">a family history of mental health issues</option>
-                                                <option value="a personal history of mental health issues">a personal history of mental health issues</option>
-                                            </select><img src="{{asset('assets/web/images/down-arrow.png')}}"
-                                                          alt="down-arrow">
-                                            . {{$children}} speaks
-                                            <select name="language[{{$key}}]" class="form-control form-select" required>
-                                                <option value="the dominant language in their community" selected>the dominant language in their community</option>
-                                                <option value="a second language, but is fluent in the dominant language">a second language, but is fluent in the dominant language</option>
-                                                <option value="a language other than the dominant language in their community, and may struggle with communication">a language other than the dominant language in their community, and may struggle with communication</option>
-                                            </select><img src="{{asset('assets/web/images/down-arrow.png')}}"
-                                                          alt="down-arrow">
-                                            , identifies as
-                                            <select name="sexual_orientation[{{$key}}]" class="form-control form-select"
-                                                    required>
+                                            <select name="current_health[{{$key}}]" class="custom-select" required>
+                                                <option value="no known mental health conditions" selected>no known</option>
+                                                <option value="mild anxiety or depression">a mild</option>
+                                                <option value="severe anxiety or depression, or other mental health conditions that impact their daily life">a severe</option>
+                                            </select>
+                                            mental health condition(s) and
+                                            <select name="previous_health[{{$key}}]" class="custom-select" required>
+                                                <option value="no history of mental health issues" selected>no</option>
+                                                <option value="a family history of mental health issues">a family</option>
+                                                <option value="a personal history of mental health issues">a personal</option>
+                                            </select>
+                                            history of mental health issues. {{$children}} speaks a
+                                            <select name="language[{{$key}}]" class="custom-select" required>
+                                                <option value="the dominant language in their community" selected>dominant community</option>
+                                                <option value="a second language, but is fluent in the dominant language">dominant plus second</option>
+                                                <option value="a language other than the dominant language in their community, and may struggle with communication">non-dominant</option>
+                                            </select>
+                                            language, identifies as
+                                            <select name="sexual_orientation[{{$key}}]" class="custom-select" required>
                                                 <option value="heterosexual" selected>heterosexual</option>
-                                                <option value="questioning or unsure of their sexual orientation">questioning or unsure of their sexual orientation</option>
+                                                <option value="questioning or unsure of their sexual orientation">questioning</option>
                                                 <option value="LGBTQIA+">LGBTQIA+</option>
-                                            </select><img src="{{asset('assets/web/images/down-arrow.png')}}"
-                                                          alt="down-arrow">
+                                            </select>
                                             , and comes from a
-                                            <select name="family_structure[{{$key}}]" class="form-control form-select"
-                                                    required>
-                                                <option value="two-parent household with a stable and supportive family environment" selected>two-parent household with a stable and supportive family environment
-                                                </option>
-                                                <option value="single-parent household, but has a stable and supportive family environment">single-parent household, but has a stable and supportive family environment</option>
-                                                <option value="single-parent household with a less stable or unsupportive family environment">single-parent household with a less stable or unsupportive family environment</option>
-                                            </select><img src="{{asset('assets/web/images/down-arrow.png')}}"
-                                                          alt="down-arrow">
-                                            . They primarily use type of device used to
-                                            <select name="access_the_internet[{{$key}}]"
-                                                    class="form-control form-select" required>
-                                                <option value="desktop computer or laptop" selected>desktop computer or laptop</option>
-                                                <option value="variety of devices, including smartphones and tablets,">variety of devices, including smartphones and tablets,</option>
-                                                <option value="smartphone or tablet">smartphone or tablet</option>
-                                            </select><img src="{{asset('assets/web/images/down-arrow.png')}}"
-                                                          alt="down-arrow">
-                                            to access the internet, spend a
-                                            <select name="online_activity_frequency[{{$key}}]"
-                                                    class="form-control form-select"
-                                                    required>
-                                                <option value="moderate amount of time (less than 2 hours)" selected>moderate amount of time (less than 2 hours)</option>
-                                                <option value="significant amount of time (2-4 hours)">significant amount of time (2-4 hours)</option>
-                                                <option value="large amount of time (more than 4 hours)">large amount of time (more than 4 hours)</option>
-                                            </select><img src="{{asset('assets/web/images/down-arrow.png')}}"
-                                                          alt="down-arrow">
-                                            online each day, and
-                                            <select name="online_behaviour[{{$key}}]" class="form-control form-select"
-                                                    required>
-                                                <option value="are cautious and responsible online, and avoid risky behaviour" selected>are cautious and responsible online, and avoid risky behaviour
-                                                </option>
-                                                <option value="engage in some risky behaviour online, such as sharing personal information with strangers or visiting potentially harmful websites">engage in some risky behaviour online, such as sharing personal information with strangers or visiting potentially harmful websites
-                                                </option>
-                                                <option value="engage in frequent risky behaviour online, such as cyberbullying others or engaging with strangers online without parental supervision">engage in frequent risky behaviour online, such as cyberbullying others or engaging with strangers online without parental supervision
-                                                </option>
-                                            </select><img src="{{asset('assets/web/images/down-arrow.png')}}"
-                                                          alt="down-arrow">
-                                            . {{$children}} lives in a
+                                            <select name="family_structure[{{$key}}]" class="custom-select" required>
+                                                <option value="two-parent household with a stable and supportive family environment" selected>supportive two-</option>
+                                                <option value="single-parent household, but has a stable and supportive family environment">supportive single-</option>
+                                                <option value="single-parent household with a less stable or unsupportive family environment">unsupportive single-</option>
+                                            </select>
+                                            parent household. They primarily use a
+                                            <select name="access_the_internet[{{$key}}]" class="custom-select" required>
+                                                <option value="desktop computer or laptop" selected>computer/laptop</option>
+                                                <option value="variety of devices, including smartphones and tablets,">variety of devices</option>
+                                                <option value="smartphone or tablet">smartphone/tablet</option>
+                                            </select>
+                                            to access the internet, spend
+                                            <select name="online_activity_frequency[{{$key}}]" class="custom-select" required>
+                                                <option value="moderate amount of time (less than 2 hours)" selected>&lt;2</option>
+                                                <option value="significant amount of time (2-4 hours)"> 2-4</option>
+                                                <option value="large amount of time (more than 4 hours)">&gt;4</option>
+                                            </select>
+                                            hours online each day, and engage in
+                                            <select name="online_behaviour[{{$key}}]" class="custom-select" required>
+                                                <option value="are cautious and responsible online, and avoid risky behaviour"selected>minimal</option>
+                                                <option value="engage in some risky behaviour online, such as sharing personal information with strangers or visiting potentially harmful websites">some</option>
+                                                <option value="engage in frequent risky behaviour online, such as cyberbullying others or engaging with strangers online without parental supervision">frequent</option>
+                                            </select>
+                                            risky online behaviour. {{$children}} lives in a
                                             <select name="geographic_location[{{$key}}]"
-                                                    class="form-control form-select" required>
-                                                <option value="rural" selected>rural</option>
+                                                    class="custom-select" required>
+                                                <option value="urban" selected>urban</option>
                                                 <option value="suburban">suburban</option>
-                                                <option value="urban">urban</option>
-                                            </select><img src="{{asset('assets/web/images/down-arrow.png')}}"
-                                                          alt="down-arrow">
+                                                <option value="rural">rural</option>
+                                            </select>
                                             area, comes from a
-                                            <select name="socioeconomic_status[{{$key}}]"
-                                                    class="form-control form-select" required>
-                                                <option value="upper-class or high socioeconomic status" selected>upper-class or high socioeconomic status</option>
-                                                <option value="middle-class">middle-class</option>
-                                                <option value="lower socioeconomic status">lower socioeconomic status</option>
-                                            </select><img src="{{asset('assets/web/images/down-arrow.png')}}"
-                                                          alt="down-arrow">
-
-                                            family, and attends school
-                                            <select name="school_attendance[{{$key}}]" class="form-control form-select"
-                                                    required>
-                                                <option value="irregularly or are homeschooled" selected>irregularly or are homeschooled</option>
-                                                <option value="regularly, but have occasional absences">regularly, but have occasional absences</option>
-                                                <option value="regularly with no or very few absences">regularly with no or very few absences</option>
-                                            </select><img src="{{asset('assets/web/images/down-arrow.png')}}"
-                                                          alt="down-arrow">
+                                            <select name="socioeconomic_status[{{$key}}]" class="custom-select" required>
+                                                <option value="upper-class or high socioeconomic status" selected>upper-</option>
+                                                <option value="middle-class">middle-</option>
+                                                <option value="lower socioeconomic status">working-</option>
+                                            </select>
+                                            class family, and attends school
+                                            <select name="school_attendance[{{$key}}]" class="custom-select" required>
+                                                <option value="irregularly or are homeschooled" selected>irregularly</option>
+                                                <option value="regularly, but have occasional absences">regularly</option>
+                                                <option value="regularly with no or very few absences">always</option>
+                                            </select>
                                             . I
-                                            <select name="parental_involvement[{{$key}}]"
-                                                    class="form-control form-select" required>
-                                                <option value="am highly involved in  {{$children}} s online activities and closely monitor  {{$children}} s online behaviour" selected>am highly involved in  {{$children}} s online activities and closely monitor  {{$children}} s online behaviour
-                                                </option>
-                                                <option value="have some some level of involvement in  {{$children}} s online activities, but do not monitor them closely">have some some level of involvement in  {{$children}} s online activities, but do not monitor them closely
-                                                </option>
-                                                <option value="am not involved in {{$children}} s online activities">am not involved in {{$children}} s online activities
-                                                </option>
-                                            </select><img src="{{asset('assets/web/images/down-arrow.png')}}"
-                                                          alt="down-arrow">
-                                            . {{$children}} has
-                                            <select name="support_system[{{$key}}]" class="form-control form-select"
-                                                    required>
-                                                <option value="a strong support system, including family members, friends, and other adults who provide emotional support" selected>a strong support system, including family members, friends, and other adults who provide emotional support</option>
-                                                <option value="some supportive relationships, but may lack a strong support system">some supportive relationships, but may lack a strong support system</option>
-                                                <option value="few or no supportive relationships">few or no supportive relationships</option>
-                                            </select><img src="{{asset('assets/web/images/down-arrow.png')}}"
-                                                          alt="down-arrow">
-                                            and
-                                            <select name="peer_relationships[{{$key}}]" class="form-control form-select"
-                                                    required>
-                                                <option value="positive and supportive" selected>positive and supportive</option>
-                                                <option value="some issues (e.g. occasional conflicts or disagreements) with">some issues (e.g. occasional conflicts or disagreements) with
-                                                </option>
-                                                <option value="significant issues (e.g. being excluded or bullied by peers) with">significant issues (e.g. being excluded or bullied by peers) with
-                                                </option>
-                                            </select><img src="{{asset('assets/web/images/down-arrow.png')}}"
-                                                          alt="down-arrow">
-                                            peer relationships. {{$children}} is
-                                            <select name="relationship_status[{{$key}}]"
-                                                    class="form-control form-select" required>
-                                                <option value="not in a romantic relationship" selected>not in a romantic relationship</option>
-                                                <option value="in a casual or short-term romantic relationship">in a casual or short-term romantic relationship</option>
-                                                <option value="in a serious or long-term romantic relationship">in a serious or long-term romantic relationship</option>
-                                            </select><img src="{{asset('assets/web/images/down-arrow.png')}}"
-                                                          alt="down-arrow">
-                                            . Their school has
-                                            <select name="school_climate[{{$key}}]" class="form-control form-select"
-                                                    required>
-                                                <option value="a positive and supportive climate, with a low incidence of bullying and harassment" selected>a positive and supportive climate, with a low incidence of bullying and harassment
-                                                </option>
-                                                <option value="
-                                                some issues with bullying and harassment, but takes steps to address these issues">some issues with bullying and harassment, but takes steps to address these issues</option>
-                                                <option value="a negative or unsupportive climate, with a high incidence of bullying and harassment">a negative or unsupportive climate, with a high incidence of bullying and harassment</option>
-                                            </select><img src="{{asset('assets/web/images/down-arrow.png')}}"
-                                                          alt="down-arrow">
-                                            . They are
-                                            <select name="academic_performance[{{$key}}]"
-                                                    class="form-control form-select" required>
-                                                <option value="performing well academically and are not struggling in school" selected>performing well academically and are not struggling in school
-                                                </option>
-                                                <option value="experiencing some academic difficulties, such as low grades or behavioural issues">experiencing some academic difficulties, such as low grades or behavioural issues</option>
-                                                <option value="experiencing significant academic difficulties and are at risk of academic failure or dropping out of school">experiencing significant academic difficulties and are at risk of academic failure or dropping out of school</option>
-                                            </select><img src="{{asset('assets/web/images/down-arrow.png')}}"
-                                                          alt="down-arrow">
-                                            .
+                                            <select name="parental_involvement[{{$key}}]" class="custom-select" required>
+                                                <option value="am highly involved in  {{$children}} s online activities and closely monitor  {{$children}} s online behaviour" selected>closely</option>
+                                                <option value="have some some level of involvement in  {{$children}} s online activities, but do not monitor them closely">somewhat</option>
+                                                <option value="am not involved in {{$children}} s online activities">don't</option>
+                                            </select>
+                                            monitor {{$children}}'s' online activities. {{$children}} has a
+                                            <select name="support_system[{{$key}}]" class="custom-select" required>
+                                                <option value="a strong support system, including family members, friends, and other adults who provide emotional support" selected>weak</option>
+                                                <option value="some supportive relationships, but may lack a strong support system">moderate</option>
+                                                <option value="few or no supportive relationships">strong</option>
+                                            </select>
+                                            support system, has
+                                            <select name="peer_relationships[{{$key}}]" class="custom-select" required>
+                                                <option value="positive and supportive" selected>positive</option>
+                                                <option value="some issues (e.g. occasional conflicts or disagreements) with">mixed-quality</option>
+                                                <option value="significant issues (e.g. being excluded or bullied by peers) with">nagative</option>
+                                            </select>
+                                            peer relationships, and is
+                                            <select name="relationship_status[{{$key}}]" class="custom-select" required>
+                                                <option value="not in a romantic relationship" selected>not in a</option>
+                                                <option value="in a casual or short-term romantic relationship">in a casual</option>
+                                                <option value="in a serious or long-term romantic relationship">in a serious</option>
+                                            </select>
+                                            romantic relationship. Their school has a
+                                            <select name="school_climate[{{$key}}]" class="custom-select" required>
+                                                <option value="a positive and supportive climate, with a low incidence of bullying and harassment" selected>positive</option>
+                                                <option value="some issues with bullying and harassment, but takes steps to address these issues">mixed-quality</option>
+                                                <option value="a negative or unsupportive climate, with a high incidence of bullying and harassment">negative</option>
+                                            </select>
+                                            climate. {{$children}} is
+                                            <select name="academic_performance[{{$key}}]" class="custom-select" required>
+                                                <option value="performing well academically and are not struggling in school" selected>performing well</option>
+                                                <option value="experiencing some academic difficulties, such as low grades or behavioural issues">moderately performing</option>
+                                                <option value="experiencing significant academic difficulties and are at risk of academic failure or dropping out of school">struggling</option>
+                                            </select>
+                                            academically.
                                         </p>
                                     </div>
                                 @endforeach
@@ -210,15 +164,34 @@
                 $('#total_chq').val(last_chq_no - 1);
             }
         }
-    </script>
-    <script>
-        $('select').change(function () {
-            var text = $(this).find('option:selected').text()
-            var $aux = $('<select/>').append($('<option/>').text(text))
-            $(this).after($aux)
-            $(this).width($aux.width() - 10)
-            $aux.remove()
-        }).change()
+
+        // $('select').change(function () {
+        //     var text = $(this).find('option:selected').text()
+        //     var $aux = $('<select/>').append($('<option/>').text(text))
+        //     $(this).after($aux)
+        //     $(this).width($aux.width() - 10)
+        //     $aux.remove()
+        // }).change()
+        $(document).ready(function () {
+			$('select').change(function () {
+				var text = $(this).find('option:selected').text()
+				var $aux = $('<select/>').append($('<option/>').text(text))
+				$(this).after($aux)
+				$(this).width($aux.width())
+				$aux.remove()
+			});
+
+			setTimeout(function () {
+				$('select').each(function () {
+					var text = $(this).find('option:first').text()
+					console.log(text);
+					var $aux = $('<select/>').append($('<option/>').text(text))
+					$(this).after($aux)
+					$(this).width($aux.innerWidth())
+					$aux.remove()
+				});
+			}, 1000);
+		});
     </script>
     <script src="{{asset('assets/web/custom/signup.js')}}?v={{time()}}"></script>
 @endsection

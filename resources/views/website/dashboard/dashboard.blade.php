@@ -7,13 +7,13 @@
         <section class="feature dashboard">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4 offset-md-2 text-white">
+                    <div class="col-md-4 text-white">
                         <div class="f-caption" data-aos="fade-up" data-aos-delay="100">
                             <h1>Dashboard</h1>
                             <h2>Enjoy the program, {{$user->name}}</h2>
                         </div>
                     </div>
-                    <div class="col-md-3 offset-md-2" data-aos="fade-up" data-aos-delay="200">
+                    <div class="col-md-3 offset-md-3 " data-aos="fade-up" data-aos-delay="200">
                         <img src="{{asset('assets/web/images/hero-img.png')}}" class="hero-mascot">
                     </div>
                 </div>
@@ -39,14 +39,14 @@
                             <div class="next-tasklist" data-aos="fade-up" data-aos-delay="{{$delay}}">
                                 <div class="user-box">
                                     <img src="{{asset('assets/web/images/alex.svg')}}" alt="user">
-                                    <h3>{{$user_children->name}}</h3>
+                                    <h3>{{$user_children->name}}</h3> 
                                 </div>
                                 <div class="task-list">
                                     <ul>
                                         <li>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
-                                                       id="flexCheckDefault__{{$user_children->id}}">
+                                                       id="flexCheckDefault__{{$user_children->id}}" checked disabled>
                                                 <label class="form-check-label"
                                                        for="flexCheckDefault__{{$user_children->id}}">
                                                     Questionnaire
@@ -56,7 +56,7 @@
                                         <li>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
-                                                       id="flexCheckDefault_{{$user_children->id}}">
+                                                       id="flexCheckDefault_{{$user_children->id}}" disabled>
                                                 <label class="form-check-label"
                                                        for="flexCheckDefault_{{$user_children->id}}">
                                                     Unique Risk Profile
@@ -66,7 +66,7 @@
                                         <li>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
-                                                       id="flexCheckDefault_{{$user_children->id}}">
+                                                       id="flexCheckDefault_{{$user_children->id}}" disabled>
                                                 <label class="form-check-label"
                                                        for="flexCheckDefault_{{$user_children->id}}">
                                                     Modules for Month #1
@@ -76,7 +76,7 @@
                                         <li>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
-                                                       id="flexCheckDefault_{{$user_children->id}}">
+                                                       id="flexCheckDefault_{{$user_children->id}}" disabled>
                                                 <label class="form-check-label"
                                                        for="flexCheckDefault_{{$user_children->id}}">
                                                     View Recommendations for Month #1
@@ -85,7 +85,7 @@
                                         </li>
                                     </ul>
                                     <div class="btnlinks">
-                                        <a href="matrix.html">> Continue</a>
+                                        <a href="{{route('matrix',$user_children->id)}}">> Continue</a>
                                     </div>
                                 </div>
                             </div>

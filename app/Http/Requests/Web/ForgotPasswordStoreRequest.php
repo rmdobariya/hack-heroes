@@ -17,7 +17,12 @@ class ForgotPasswordStoreRequest extends FormRequest
     {
         return [
             'email' => 'required',
-            'new_password' => 'required|min:8',
+            'new_password' => [
+                'required',
+                'string',
+                'min:12',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s:])[\w\d@$!%*?&]{12,}$/',
+            ],
             'confirm_password' => 'required|same:new_password',
         ];
     }

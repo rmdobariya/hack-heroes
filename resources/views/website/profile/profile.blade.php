@@ -16,7 +16,7 @@
                     <div class="profile-plan" data-aos="fade-left" data-aos-delay="400">
                         <div class="plan-header">
                             <h2>Plan</h2>
-                            <a href="#">> Upgrade</a>
+                            <a href="javascript:void(0);">> Upgrade</a>
                         </div>
                         <div class="plan-details">
                             <h2>$39 <span>p/month</span></h2>
@@ -38,7 +38,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="heading">
-                            <h1 data-aos="fade-right" data-aos-delay="200">Your Children</h1>
+                            <h3 data-aos="fade-right" data-aos-delay="200">Your Children</h3>
                         </div>
                     </div>
                     @foreach($user_childrens as $key=>$user_children)
@@ -57,7 +57,7 @@
 {{--                    </div>--}}
                     <div class="col-md-12">
                         <div class="add-child" data-aos="fade-right" data-aos-delay="300">
-                            <a href="#">+ Child</a>
+                            <a href="javascript:void(0);">+ Child</a>
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                     <div class="your-settings" data-aos="fade-up" data-aos-delay="400">
                         <h1>Help & Support</h1>
                         <div class="det">
-                            <a href="{{route('contact-us')}}">Contact Us</a>
+                            <a class="icon-contact" href="{{route('contact-us')}}">Contact Us</a>
                         </div>
                         <div class="det">
                             <a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank">Terms &

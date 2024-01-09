@@ -3,6 +3,9 @@
     Signup
 @endsection
 @section('content')
+    <style>
+        #page-body {height: auto;min-height: auto;}
+    </style>
     <section id="page-body">
         <div class="container-fluid">
             <div class="row">
@@ -29,14 +32,14 @@
                                                            name="question[{{$key}}][{{$key1}}]"
                                                            value="{{str_replace('[]',$children,$question['question'])}}">
                                                     @foreach($question['answer'] as $key3=>$answer)
-                                                        <div class="form-check mt-5">
+                                                        <div class="form-check {{ $key3 == 0 ? 'mt-5' : '' }}">
                                                             <input class="form-check-input" type="radio"
                                                                    name="answer[{{$key}}][{{$key1}}]"
-                                                                   id="answer_{{$key}}_{{$key1}}"
+                                                                   id="answer_{{$key}}_{{$key3}}"
                                                                    value="{{str_replace('[]',$children,$answer)}}"
                                                                    required>
 
-                                                            <label class="form-check-label" for="opt[{{$key1}}]">
+                                                            <label class="form-check-label" for="answer_{{$key}}_{{$key3}}">
                                                                 {{str_replace('[]',$children,$answer)}}
                                                             </label>
                                                         </div>

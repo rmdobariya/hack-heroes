@@ -34,27 +34,35 @@
                                 </a>
                             </li>
 
-{{--                            <li class="nav-item">--}}
-{{--                                <a class="nav-link text-active-primary d-flex align-items-center pb-5"--}}
-{{--                                   data-bs-toggle="tab" href="#app_setting">--}}
-{{--                                    <i class="ki-duotone ki-home fs-2 me-2"></i>--}}
-{{--                                    App--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
+                            {{--                            <li class="nav-item">--}}
+                            {{--                                <a class="nav-link text-active-primary d-flex align-items-center pb-5"--}}
+                            {{--                                   data-bs-toggle="tab" href="#app_setting">--}}
+                            {{--                                    <i class="ki-duotone ki-home fs-2 me-2"></i>--}}
+                            {{--                                    App--}}
+                            {{--                                </a>--}}
+                            {{--                            </li>--}}
 
-{{--                            <li class="nav-item">--}}
-{{--                                <a class="nav-link text-active-primary d-flex align-items-center pb-5"--}}
-{{--                                   data-bs-toggle="tab" href="#contact_info">--}}
-{{--                                    <i class="ki-duotone ki-home fs-2 me-2"></i>--}}
-{{--                                    Contact Info--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
+                            {{--                            <li class="nav-item">--}}
+                            {{--                                <a class="nav-link text-active-primary d-flex align-items-center pb-5"--}}
+                            {{--                                   data-bs-toggle="tab" href="#contact_info">--}}
+                            {{--                                    <i class="ki-duotone ki-home fs-2 me-2"></i>--}}
+                            {{--                                    Contact Info--}}
+                            {{--                                </a>--}}
+                            {{--                            </li>--}}
 
                             <li class="nav-item">
                                 <a class="nav-link text-active-primary d-flex align-items-center pb-5"
                                    data-bs-toggle="tab" href="#social_media_setting">
                                     <i class="ki-duotone ki-home fs-2 me-2"></i>
                                     Social Media
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-active-primary d-flex align-items-center pb-5"
+                                   data-bs-toggle="tab" href="#footer_setting">
+                                    <i class="ki-duotone ki-home fs-2 me-2"></i>
+                                    Footer
                                 </a>
                             </li>
                         </ul>
@@ -325,7 +333,9 @@
                                                 </div>
 
                                                 <div class="col-md-9">
-                                                    <textarea type="text" class="form-control form-control-solid" name="setting_key[{{$setting->setting_key}}]" id="{{$setting->setting_key}}">{{ $setting->setting_value }}</textarea>
+                                                    <textarea type="text" class="form-control form-control-solid"
+                                                              name="setting_key[{{$setting->setting_key}}]"
+                                                              id="{{$setting->setting_key}}">{{ $setting->setting_value }}</textarea>
                                                 </div>
                                             </div>
                                         @endif
@@ -456,6 +466,55 @@
                                     </div>
                                 </form>
                             </div>
+
+                            <div class="tab-pane fade" id="footer_setting" role="tabpanel">
+                                <form id="footer_form" class="form" action="#">
+                                    <div class="row mb-7">
+                                        <div class="col-md-9 offset-md-3">
+                                            <h2>Footer Settings</h2>
+                                        </div>
+                                    </div>
+                                    @foreach($settings as $setting)
+                                        @if((string)$setting->setting_key === 'TERMS_CONDITION' || (string)$setting->setting_key === 'PRIVACY_POLICY')
+                                            <div class="row fv-row mb-7">
+                                                <div class="col-md-3 text-md-end">
+                                                    <label class="fs-6 fw-semibold form-label mt-3">
+                                                        <span
+                                                            class="required">  {{str_replace('_',' ',ucfirst($setting->setting_key))}}</span>
+                                                        <span class="ms-1" data-bs-toggle="tooltip"
+                                                              title="Set the name of the store">
+	<i class="ki-duotone ki-information-5 text-gray-500 fs-6"><span class="path1"></span><span
+            class="path2"></span><span class="path3"></span></i></span> </label>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <input type="file" name="{{ $setting->setting_key }}"
+                                                           id="{{ $setting->setting_key }}"
+                                                           value="{{$setting->setting_value}}" accept=".pdf" required/>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    @if($setting->setting_value)
+                                                        <a href="{{$setting->setting_value}}" target="_blank">File
+                                                            uploaded
+                                                        </a>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+
+                                    <div class="d-flex justify-content-end mt-3 text-end p-3 btn-showcase">
+                                        <button class="btn btn-primary me-3" type="submit">
+                                            Submit
+                                        </button>
+                                        <a href="#">
+                                            <button class="btn btn-secondary" type="button">
+                                                Cancel
+                                            </button>
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -469,6 +528,7 @@
         var email_setting_form_url = '/email-setting-store';
         var app_setting_form_url = '/app-setting-store';
         var contact_info_form_url = '/contact-info-store';
+        var footer_form_url = '/footer-store';
         var social_media_form_url = '/social-media-store';
         var redirect_url = '/setting';
     </script>

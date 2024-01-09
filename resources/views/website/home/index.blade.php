@@ -122,7 +122,11 @@
                             <span class="line"></span>
                             <p>{{$plan->description}}</p>
                             <span class="line"></span>
-                            <h3>${{$plan->amount}}</h3>
+                            <h3>${{$plan->amount}}
+                                @if($plan->amount > 0)
+                                <span> p/month</span>
+                                @endif
+                            </h3>
                         </div>
                     </div>
                 @endforeach

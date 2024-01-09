@@ -117,3 +117,26 @@ $socialMediaForm.on('submit', function (e) {
             loaderHide();
         });
 })
+
+let $footerForm = $('#footer_form')
+$footerForm.on('submit', function (e) {
+    e.preventDefault()
+    loaderView();
+    let formData = new FormData($footerForm[0])
+    axios
+        .post(APP_URL + footer_form_url, formData)
+        .then(function (response) {
+            loaderHide();
+            if (typeof redirect_url !== 'undefined') {
+                setTimeout(function () {
+                    window.location.href = APP_URL + redirect_url
+                }, 1000)
+            }
+            notificationToast(response.data.message, 'success');
+        })
+        .catch(function (error) {
+            console.log(error)
+            notificationToast(error.response.data.message, 'warning')
+            loaderHide();
+        });
+})

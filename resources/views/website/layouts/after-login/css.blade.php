@@ -4,4 +4,5 @@
 <link rel='stylesheet' href='https://unpkg.com/aos@2.3.0/dist/aos.css'>
 <link rel="stylesheet" type="text/css" href="{{asset('assets/web/css/bootstrap.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/web/css/style.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/web/css/custom.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/web/css/developer.css')}}">

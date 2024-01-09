@@ -38,9 +38,12 @@ $getInTouchForm.on('submit', function (e) {
                 // window.location.href = APP_URL + '/home';
                 if (response.data.success == true) {
                     $getInTouchForm[0].reset();
-                    // notificationToast(response.data.message, 'success');
+                    //notificationToast(response.data.message, 'success');
+                    notificationToast('Form submitted successfully', 'success');                    
                     $('#get-in-touch-msg').removeClass('d-none')
-                    window.location.reload();
+                    setTimeout(function () {
+                        $('#get-in-touch-msg').addClass('d-none')
+                    }, 5000);
                 }
 
             })

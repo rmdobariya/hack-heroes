@@ -2199,6 +2199,7 @@ li.active.current1 span.span {
     padding: 100px 0;
     max-width: 90%;
 }
+.icon-contact img{width: 50px !important;}
 /***************Responsive******}**********/
 @media only screen and (max-width: 576px) {
     .pricing .left-signup {
