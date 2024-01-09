@@ -79,8 +79,10 @@
 {{--                                        <input class="form-check-input" id="all_selected" type="checkbox" value="">--}}
 {{--                                    </div>--}}
 {{--                                </th>--}}
-                                <th>Id</th>
-                                <th>Title For Recommendation</th>
+                                <th>Title</th>
+                                <th>Tags for associated risk</th>
+                                <th>Tags for age appropriateness</th>
+                                <th>Tags for visual grouping</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -111,8 +113,10 @@
         $.extend(true, $.fn.dataTable.defaults, {
             columns: [
                 // {data: 'check', name: 'check', orderable: false, searchable: false},
-                {data: 'id', name: 'recommendations.id'},
                 {data: 'title_for_recommendation', name: 'title_for_recommendation'},
+                {data: 'tags_for_associated_risk', name: 'tags_for_associated_risk'},
+                {data: 'tags_for_age_appropriateness', name: 'tags_for_age_appropriateness'},
+                {data: 'tags_for_visual_grouping', name: 'tags_for_visual_grouping'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
             order: [[0, 'DESC']],

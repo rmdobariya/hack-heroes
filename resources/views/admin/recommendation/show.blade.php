@@ -38,20 +38,20 @@
                                     <td>{{ $recommendation->recommendation }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">"Tags for associated risk
-                                        (separated by semi-colons)"
+                                    <th class="fw-bold" scope="row">Tags for associated risk
+                                        (separated by semi-colons)
                                     </th>
                                     <td>{{ $recommendation->tags_for_associated_risk }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">"Reasoning
-                                        (separated by semi-colons)"
+                                    <th class="fw-bold" scope="row">Reasoning
+                                        (separated by semi-colons)
                                     </th>
                                     <td>{{ $recommendation->reasoning }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">"Tags for age appropriateness
-                                        (separated by semi-colons)"
+                                    <th class="fw-bold" scope="row">Tags for age appropriateness
+                                        (separated by semi-colons)
                                     </th>
                                     <td>{{ $recommendation->tags_for_age_appropriateness }}</td>
                                 </tr>
@@ -68,11 +68,18 @@
                                     <td>{{ $recommendation->tag_if_resource }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">"Tags for visual grouping
-                                        (separated by semi-colons)"
+                                    <th class="fw-bold" scope="row">Tags for visual grouping
+                                        (separated by semi-colons)
                                     </th>
                                     <td>{{ $recommendation->tags_for_visual_grouping }}</td>
                                 </tr>
+                                @if($recommendation->image)
+                                <tr>
+                                    <th class="fw-bold" scope="row">Image
+                                    </th>
+                                    <td><img src="{{asset($recommendation->image)}}" width="150px"></td>
+                                </tr>
+                                @endif
                                 </tbody>
                             </table>
                         </div>

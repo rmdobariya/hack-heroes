@@ -77,7 +77,7 @@ class SubscribeController extends Controller
     {
         Subscribe::where('id', $id)->delete();
         return response()->json([
-            'message' => 'Subscribe Delete Successfully'
+            'message' => 'Subscriber Delete Successfully'
         ]);
     }
 
@@ -87,7 +87,7 @@ class SubscribeController extends Controller
             'deleted_at' => null
         ]);
         return response()->json([
-            'message' => 'Subscribe Restore Successfully'
+            'message' => 'Subscriber Restore Successfully'
         ]);
     }
 
@@ -95,7 +95,7 @@ class SubscribeController extends Controller
     {
         DB::table('subscribes')->where('id', $id)->delete();
         return response()->json([
-            'message' => 'Subscribe Delete Successfully'
+            'message' => 'Subscriber Delete Successfully'
         ]);
     }
 
@@ -110,7 +110,7 @@ class SubscribeController extends Controller
             }
         }
         return response()->json([
-            'message' => 'Subscribe Delete Successfully'
+            'message' => 'Subscriber Delete Successfully'
         ]);
     }
 }

@@ -107,7 +107,7 @@
                                 <span data-feather="cast"></span>
                              </span>
                         </span>
-                        <span class="menu-title"> Subscribe</span>
+                        <span class="menu-title"> Subscriber</span>
                     </a>
                 </div>
 

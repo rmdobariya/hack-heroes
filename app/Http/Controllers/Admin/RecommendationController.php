@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Helpers\CatchCreateHelper;
+use App\Helpers\ImageUploadHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\RecommendationUpdateStoreRequest;
 use App\Imports\RecommendationDataImport;
 use App\Jobs\RecommendationJob;
 use App\Models\PageTranslation;
@@ -38,39 +40,45 @@ class RecommendationController extends Controller
         return view('admin.recommendation.create');
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(RecommendationUpdateStoreRequest $request): JsonResponse
     {
-        if ((int)$request['edit_value'] === 0) {
-            ini_set('memory_limit', '-1');
-            $excelData = Excel::toArray(new RecommendationDataImport, $request->excel_file);
-            $chunks = array_chunk($excelData[0], 170);
-            foreach ($chunks as $chunk) {
-                unset($chunk[0]);
-                dispatch(new RecommendationJob($chunk));
-            }
-            return response()->json([
-                'message' => 'Recommendation Add Successfully'
-            ]);
-
-        } else {
-            $recommendation = Recommendation::find($request['edit_value']);
-            $recommendation->recommendation_type = $request['recommendation_type'];
-            $recommendation->title_for_recommendation = $request['title_for_recommendation'];
-            $recommendation->sub_text_for_recommendation = $request['subtext_for_recommendation'];
-            $recommendation->recommendation = $request['recommendation'];
-            $recommendation->tags_for_associated_risk = $request['tags_for_associated_risk'];
-            $recommendation->reasoning = $request['reasoning'];
-            $recommendation->tags_for_age_appropriateness = $request['tags_for_age_appropriateness'];
-            $recommendation->tag_for_frequency = $request['tag_for_frequency'];
-            $recommendation->tag_if_affiliate = $request['tag_if_affiliate'];
-            $recommendation->tag_if_resource = $request['tag_if_resource'];
-            $recommendation->tags_for_visual_grouping = $request['tags_for_visual_grouping'];
-            $recommendation->save();
-
-            return response()->json([
-                'message' => 'Recommendation Update Successfully'
-            ]);
+//        if ((int)$request['edit_value'] === 0) {
+//            ini_set('memory_limit', '-1');
+//            $excelData = Excel::toArray(new RecommendationDataImport, $request->excel_file);
+//            $chunks = array_chunk($excelData[0], 170);
+//            foreach ($chunks as $chunk) {
+//                unset($chunk[0]);
+//                dispatch(new RecommendationJob($chunk));
+//            }
+//            return response()->json([
+//                'message' => 'Recommendation Add Successfully'
+//            ]);
+//
+//        } else {
+        $recommendation = Recommendation::find($request['edit_value']);
+        $image = $recommendation->image;
+        if ($request->hasfile('image')) {
+            $image = ImageUploadHelper::imageUpload($request->file('image'), 'assets/web/recommendation');
         }
+
+        $recommendation->recommendation_type = $request['recommendation_type'];
+        $recommendation->title_for_recommendation = $request['title_for_recommendation'];
+        $recommendation->sub_text_for_recommendation = $request['sub_text_for_recommendation'];
+        $recommendation->recommendation = $request['recommendation'];
+        $recommendation->tags_for_associated_risk = $request['tags_for_associated_risk'];
+        $recommendation->reasoning = $request['reasoning'];
+        $recommendation->tags_for_age_appropriateness = $request['tags_for_age_appropriateness'];
+        $recommendation->tag_for_frequency = $request['tag_for_frequency'];
+        $recommendation->tag_if_affiliate = $request['tag_if_affiliate'];
+        $recommendation->tag_if_resource = $request['tag_if_resource'];
+        $recommendation->tags_for_visual_grouping = $request['tags_for_visual_grouping'];
+        $recommendation->image = $image;
+        $recommendation->save();
+
+        return response()->json([
+            'message' => 'Recommendation Update Successfully'
+        ]);
+//        }
     }
 
     public function edit($id)

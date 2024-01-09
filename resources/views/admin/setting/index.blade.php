@@ -430,7 +430,7 @@
                                         </div>
                                     </div>
                                     @foreach($settings as $setting)
-                                        @if((string)$setting->setting_key === 'FACEBOOK_LINK' || (string)$setting->setting_key === 'INSTAGRAM_LINK'
+                                        @if((string)$setting->setting_key === 'FACEBOOK_LINK' || (string)$setting->setting_key === 'INSTAGRAM_LINK' || (string)$setting->setting_key === 'LINKEDIN_LINK'
 //|| (string)$setting->setting_key === 'TWITTER_LINK' || (string)$setting->setting_key === 'PINTEREST_LINK' || (string)$setting->setting_key === 'DRIBBLE_LINK')
                                             )
                                             <div class="row fv-row mb-7">

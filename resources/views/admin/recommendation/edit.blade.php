@@ -3,7 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Pages'])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Edit Recommendation'])
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -56,22 +56,22 @@
                                 </div>
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class="form-label">"Tags for associated risk
-                                        (separated by semi-colons)"</label>
+                                    <label class="form-label">Tags for associated risk
+                                        (separated by semi-colons)</label>
                                     <textarea class="form-control" name="tags_for_associated_risk"
                                               id="tags_for_associated_risk">{{$recommendation->tags_for_associated_risk}}</textarea>
                                 </div>
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class="form-label">"Reasoning
-                                        (separated by semi-colons)"</label>
+                                    <label class="form-label">Reasoning
+                                        (separated by semi-colons)</label>
                                     <textarea class="form-control" name="reasoning"
                                               id="reasoning">{{$recommendation->reasoning}}</textarea>
                                 </div>
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class="form-label">"Tags for age appropriateness
-                                        (separated by semi-colons)"</label>
+                                    <label class="form-label">Tags for age appropriateness
+                                        (separated by semi-colons)</label>
                                     <textarea class="form-control" name="tags_for_age_appropriateness"
                                               id="tags_for_age_appropriateness">{{$recommendation->tags_for_age_appropriateness}}</textarea>
                                 </div>
@@ -118,15 +118,29 @@
                                 <div class="row">
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
                                         <label class="required fs-6 fw-bold mb-2" for="tags_for_visual_grouping">
-                                            "Tags for visual grouping
-                                            (separated by semi-colons)"
+                                            Tags for visual grouping
+                                            (separated by semi-colons)
                                         </label>
                                         <input type="text" class="form-control form-control-solid" required
                                                name="tags_for_visual_grouping"
                                                id="tags_for_visual_grouping"
                                                value="{{$recommendation->tags_for_visual_grouping}}"
-                                               placeholder=""Tags for visual grouping
+                                               placeholder="" Tags for visual grouping
                                                (separated by semi-colons)""/>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="required fs-6 fw-bold mb-2" for="image">
+                                        Image
+                                    </label>
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        @include('admin.layouts2.components.image-selection',
+                               [
+                               'id'=>'image',
+                               'description_string'=>'Image Thumbnail Description',
+                               'image'=>asset($recommendation->image)
+                               ])
                                     </div>
                                 </div>
                             </div>

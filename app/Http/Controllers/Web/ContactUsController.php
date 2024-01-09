@@ -11,11 +11,13 @@ class ContactUsController extends Controller
 {
     public function index()
     {
-        $facebook_link = DB::table('site_settings')->where('setting_key', 'FACEBOOK_LINK')->first()->setting_value;
-        $insta_link = DB::table('site_settings')->where('setting_key', 'INSTAGRAM_LINK')->first()->setting_value;
+        $fb_link = DB::table('site_settings')->where('setting_key','FACEBOOK_LINK')->first()->setting_value;
+        $insta_link = DB::table('site_settings')->where('setting_key','INSTAGRAM_LINK')->first()->setting_value;
+        $linkedin_link = DB::table('site_settings')->where('setting_key','LINKEDIN_LINK')->first()->setting_value;
         return view('website.contact-us.index', [
-            'facebook_link' => $facebook_link,
+            'fb_link' => $fb_link,
             'insta_link' => $insta_link,
+            'linkedin_link' => $linkedin_link,
         ]);
     }
 
