@@ -11,15 +11,16 @@
                         <h1>HackHeroes</h1>
                         <h2>Keep your information safe by creating a password</h2>
                         <form id="signup4" method="post">
-                            <input type="password" name="password" placeholder="Create a Password" class="form-control">
+                            <input type="password" name="password" id="password" placeholder="Create a Password" class="form-control">
                             <ul>
-                                <li>Number</li>
-                                <li>Symbol</li>
-                                <li>Uppercase letter</li>
-                                <li>At least 12 characters long</li>
-                                <li>Lowercase letter</li>
+                                <li class="has-number">Number</li>
+                                <li class="has-symbol">Symbol</li>
+                                <li class="has-uppercase">Uppercase letter</li>
+                                <li class="has-length">At least 12 characters long</li>
+                                <li class="has-lowercase">Lowercase letter</li>
                             </ul>
-                            <button class="btn signup-btn" type="submit">Continue</button>
+                            <button class="btn signup-btn" type="submit">Continue</button><br>
+                            <a class="btn signup-btn mt-4" id="skip_store" type="button">Skip And Submit</a>
                         </form>
                     </div>
                 </div>

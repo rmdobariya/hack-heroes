@@ -21,11 +21,11 @@
                             <ul>
                                 <li><a href="{{route('signup')}}">Create Account</a></li>
                                 <li><a href="{{route('login')}}">Login Now</a></li>
-                                <li><a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank">Terms &
+                                <li><a href="{{asset($terms_condition)}}" target="_blank">Terms &
                                         Conditions</a></li>
-                                <li><a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank">Privacy
+                                <li><a href="{{asset($privacy_policy)}}" target="_blank">Privacy
                                         Policy</a></li>
-                                <li><a href="{{route('contact-us')}}">Contact Us</a></li>
+                                <li><a class="icon-contact" href="#getintouch" data-href="{{route('contact-us')}}">Contact Us</a></li>
                             </ul>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                         <div class="f-logo">
                             <a href="{{route('home')}}" data-aos="fade-up" data-aos-delay="200">
                                 <img src="{{asset('assets/web/images/footer-logo.png')}}" alt="footer-logo">
-                                <img src="{{asset('assets/web/images/logo-txt.png')}}" alt="logo">
+                                <img src="{{asset($logo)}}" alt="logo">
                             </a>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
             </div>
             <div class="col-md-12 mt-5">
                 <p class="copyright">
-                    Copyright &copy; HackHeroes Pty Ltd 2023 | All rights reserved. HackHeroes® and our mascot logo are
+                    Copyright &copy; HackHeroes Pty Ltd {{date('Y')}} | All rights reserved. HackHeroes® and our mascot logo are
                     protected under trademark law.
                 </p>
             </div>

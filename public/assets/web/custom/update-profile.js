@@ -13,7 +13,9 @@ $updateProfileForm.on('submit', function (e) {
         .post(APP_URL + '/update-profile-store', formData)
         .then(function (response) {
             loaderHide();
-            window.location.href = APP_URL + '/profile';
+            setTimeout(function () {
+                window.location.href = APP_URL + '/profile';
+            }, 5000);
             notificationToast(response.data.message, 'success');
         })
         .catch(function (error) {

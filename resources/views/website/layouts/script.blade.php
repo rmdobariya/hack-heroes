@@ -10,7 +10,7 @@
 
 <script src="{{ asset('assets/plugins/blockUI/blockUI.js') }}"></script>
 <script src="{{ asset('assets/plugins/axios/axios.min.js') }}"></script>
-<script src="{{ asset('assets/admin/custom/custom.js') }}"></script>
+<script src="{{ asset('assets/web/custom/custom.js') }}"></script>
 <script>
     AOS.init({
         duration: 1200,

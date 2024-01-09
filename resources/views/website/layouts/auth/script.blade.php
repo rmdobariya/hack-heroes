@@ -13,7 +13,7 @@
 
 <script src="{{ asset('assets/plugins/blockUI/blockUI.js') }}"></script>
 <script src="{{ asset('assets/plugins/axios/axios.min.js') }}"></script>
-<script src="{{ asset('assets/admin/custom/custom.js') }}"></script>
+<script src="{{ asset('assets/web/custom/custom.js') }}"></script>
 <script type="text/javascript">
     var APP_URL = {!! json_encode(url('/')) !!};
     var JS_URL = '{{url('/')}}';

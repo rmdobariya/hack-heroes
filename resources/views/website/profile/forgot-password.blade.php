@@ -15,11 +15,11 @@
                             <input type="password" name="new_password" placeholder="Enter new password" class="form-control">
                             <input type="password" name="confirm_password" placeholder="Confirm new password" class="form-control">
                             <ul>
-                                <li>One number</li>
-                                <li>One special character</li>
-                                <li>Uppercase character</li>
-                                <li>12 characters minimum</li>
-                                <li>Lowercase character</li>
+                                <li class="has-number">One number</li>
+                                <li class="has-symbol">One special character</li>
+                                <li class="has-uppercase">Uppercase character</li>
+                                <li class="has-length">12 characters minimum</li>
+                                <li class="has-lowercase">Lowercase character</li>
                             </ul>
                             <button class="btn signup-btn login" type="submit">Continue</button>
                         </form>
@@ -28,7 +28,7 @@
                 <div class="col-md-6">
                     <div class="sign-logoimg">
                         <img src="{{asset('assets/web/images/hero-img.png')}}" alt="logo">
-                        <p>A study published in the journal 'Computers in Human Behaviour' in 2021 found that parental involvement in their child's online activities was associated with a lower risk of cyberbullying victimisation.*<br>*'Parental Mediation, Online Activities, and Cyberbullying' by Gustavo Mesch.</p>
+                        <p>A study published in the journal 'Computers in Human Behaviour' in 2021 found that parental involvement in their child's online activities was associated with a lower risk of cyberbullying victimisation.*<br><a href="https://www.researchgate.net/publication/26693782_Parental_Mediation_Online_Activities_and_Cyberbullying" target="_blank">*'Parental Mediation, Online Activities, and Cyberbullying' by Gustavo Mesch.</a></p>
                     </div>
                 </div>
             </div>

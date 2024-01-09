@@ -13,7 +13,7 @@ class ProfileController extends Controller
 {
     public function profile()
     {
-        $user = Auth::guard('web')->user();
+        $user = Auth::guard('web')->user();        
         $user_childrens = DB::table('user_childrens')->where('user_id', $user->id)->get();
         return view('website.profile.profile', [
             'user' => $user,
@@ -35,6 +35,7 @@ class ProfileController extends Controller
     {
         $user = User::find($request->user_id);
         $user->name = $request->name;
+        $user->full_name = $request->name;
         $user->email = $request->email;
         $user->save();
         if (isset($request->children_name)) {

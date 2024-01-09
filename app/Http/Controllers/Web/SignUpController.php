@@ -293,6 +293,62 @@ class SignUpController extends Controller
         ]);
     }
 
+    public function skipStore(SignUp4Request $request)
+    {
+        $user_childrens = Session::get('child_name');
+        $plan = Session::get('create_plan');
+        $user = new User();
+        $user->name = Session::get('name');
+        $user->full_name = Session::get('name');
+        $user->term_condition = 1;
+        $user->email = Session::get('email');
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        if (!empty($user_childrens)) {
+            foreach ($user_childrens as $key => $children) {
+                $user_children = new UserChildren();
+                $user_children->name = $children;
+                $user_children->user_id = $user->id;
+                $user_children->is_plan = 0;
+                $user_children->save();
+
+                $user_children_detail = new UserChildrenDetail();
+                $user_children_detail->user_id = $user->id;
+                $user_children_detail->user_children_id = $user_children->id;
+                $user_children_detail->age = Session::get('age') ? Session::get('age')[$key] : null;
+                $user_children_detail->sex = Session::get('sex') ? Session::get('sex')[$key] : null;
+                $user_children_detail->current_health = Session::get('current_health') ? Session::get('current_health')[$key] : null;
+                $user_children_detail->previous_health = Session::get('previous_health') ? Session::get('previous_health')[$key] : null;
+                $user_children_detail->language = Session::get('language') ? Session::get('language')[$key] : null;
+                $user_children_detail->sexual_orientation = Session::get('sexual_orientation') ? Session::get('sexual_orientation')[$key] : null;
+                $user_children_detail->family_structure = Session::get('family_structure') ? Session::get('family_structure')[$key] : null;
+                $user_children_detail->access_the_internet = Session::get('access_the_internet') ? Session::get('access_the_internet')[$key] : null;
+                $user_children_detail->online_activity_frequency = Session::get('online_activity_frequency') ? Session::get('online_activity_frequency')[$key] : null;
+                $user_children_detail->online_behaviour = Session::get('online_behaviour') ? Session::get('online_behaviour')[$key] : null;
+                $user_children_detail->geographic_location = Session::get('geographic_location') ? Session::get('geographic_location')[$key] : null;
+                $user_children_detail->socioeconomic_status = Session::get('socioeconomic_status') ? Session::get('socioeconomic_status')[$key] : null;
+                $user_children_detail->school_attendance = Session::get('school_attendance') ? Session::get('school_attendance')[$key] : null;
+                $user_children_detail->parental_involvement = Session::get('parental_involvement') ? Session::get('parental_involvement')[$key] : null;
+                $user_children_detail->support_system = Session::get('support_system') ? Session::get('support_system')[$key] : null;
+                $user_children_detail->peer_relationships = Session::get('peer_relationships') ? Session::get('peer_relationships')[$key] : null;
+                $user_children_detail->relationship_status = Session::get('relationship_status') ? Session::get('relationship_status')[$key] : null;
+                $user_children_detail->school_climate = Session::get('school_climate') ? Session::get('school_climate')[$key] : null;
+                $user_children_detail->academic_performance = Session::get('academic_performance') ? Session::get('academic_performance')[$key] : null;
+                $user_children_detail->save();
+            }
+        }
+        Session::forget('name');
+        Session::forget('email');
+        Session::forget('password');
+        Session::forget('create_plan');
+        Session::forget('term_condition');
+        return response()->json([
+            'success' => true,
+            'message' => 'User Register Successfully'
+        ]);
+    }
+
     public function getAttributeRow($rowNo)
     {
         $response = view('website.auth.getAttribute', [

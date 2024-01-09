@@ -4,6 +4,7 @@ use App\Http\Controllers\Web\ContactUsController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\LoginController;
+use App\Http\Controllers\Web\MatrixController;
 use App\Http\Controllers\Web\PricingController;
 use App\Http\Controllers\Web\ProfileController;
 use App\Http\Controllers\Web\ResetPasswordController;
@@ -38,6 +39,7 @@ Route::post('/signup_5', [SignUpController::class, 'signUp5'])->name('signup_5')
 Route::get('/signup_5_view', [SignUpController::class, 'signUp5View'])->name('signup_5_view');
 Route::post('/signup_6', [SignUpController::class, 'signUp6'])->name('signup_6');
 Route::post('/signup_store', [SignUpController::class, 'signUpStore'])->name('signup_store');
+Route::post('/skip_store', [SignUpController::class, 'skipStore'])->name('skip_store');
 Route::get('/signup_6_view', [SignUpController::class, 'signUp6View'])->name('signup_6_view');
 Route::get('forgetPassword', [ResetPasswordController::class, 'index'])->name('forgetPassword');
 Route::get('/checkout', [PricingController::class, 'checkout'])->name('checkout');
@@ -50,10 +52,14 @@ Route::get('getAttributeRowForPlan/{row}', [SignUpController::class, 'getAttribu
 Route::get('forgot-password/{token}', [ResetPasswordController::class, 'forgotPassword'])->name('forgot-password');
 Route::get('pricing', [PricingController::class, 'index'])->name('pricing');
 Route::post('forgot-password-submit', [ResetPasswordController::class, 'forgotPasswordSubmit'])->name('forgot-password-submit');
+
 Route::group(['middleware' => ['auth:web', 'webCheck']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
     Route::post('update-profile-store', [ProfileController::class, 'updateProfileStore'])->name('update-profile-store');
+    Route::get('matrix/{child_id}', [MatrixController::class, 'index'])->name('matrix');
+    Route::get('getRisk/{id}/{child_id}', [MatrixController::class, 'getRisk'])->name('getRisk');
+    Route::get('getRiskWiseRecommendation/{risk}/{child_id}', [MatrixController::class, 'getRiskWiseRecommendation'])->name('getRiskWiseRecommendation');
 });

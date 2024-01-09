@@ -1,0 +1,32 @@
+.custom-select {
+    font-size: 20px;
+    border: none;
+    background-size: 18px;
+    line-height: 20px;
+    background-color: #cde9e8;
+    color: #1A6B6B;
+    border-bottom: 2px solid #1A6B6B;
+    outline: none;
+    border-radius: 0px;
+    -webkit-appearance: menulist;
+}
+
+/* Safari */
+@media not all and (min-resolution: 0.001dpcm) {
+    .custom-select {
+        background-color: #cde9e8;
+    }
+}
+
+.custom-select::focus {
+    outline: none;
+}
+
+@media only screen and (max-width: 576px) {
+    .custom-select {
+        font-size: 16px;
+    }
+}
+
+
+.info-pragraph .next-prv-btn .signup-btn.link-btn {width: 120px;padding: 0px;}

@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Helpers\ImageUploadHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ContactInfoStoreRequest;
+use App\Http\Requests\Admin\FooterStoreRequest;
 use App\Http\Requests\Admin\GeneralSettingStoreRequest;
 use App\Http\Requests\Admin\EmailSettingStoreRequest;
 use App\Http\Requests\Admin\AppSettingStoreRequest;
@@ -111,6 +112,24 @@ class SettingController extends Controller
 
         return response()->json([
             'message' => 'Social Media Update Successfully',
+        ]);
+    }
+    public function footerStore(Request $request)
+    {
+        if ($request->hasfile('TERMS_CONDITION')) {
+            $terms_condition = ImageUploadHelper::imageUpload($request->file('TERMS_CONDITION'), 'assets/web/document');
+            DB::table('site_settings')->where('setting_key', 'TERMS_CONDITION')->update([
+                'setting_value' => $terms_condition
+            ]);
+        }
+        if ($request->hasfile('PRIVACY_POLICY')) {
+            $privacy_policy = ImageUploadHelper::imageUpload($request->file('PRIVACY_POLICY'), 'assets/web/document');
+            DB::table('site_settings')->where('setting_key', 'PRIVACY_POLICY')->update([
+                'setting_value' => $privacy_policy
+            ]);
+        }
+        return response()->json([
+            'message' => 'Footer File Update Successfully',
         ]);
     }
 
