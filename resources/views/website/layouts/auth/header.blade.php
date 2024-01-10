@@ -13,7 +13,7 @@
             <div class="collapse navbar-collapse fix-header" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link icon-contact" href="{{route('contact-us')}}"><img
+                        <a class="nav-link icon-contact" href="{{route('home')}}#getintouch"><img
                                 src="{{asset('assets/web/images/contact-us.png')}}" alt="contact-us"></a>
                     </li>
                 </ul>
