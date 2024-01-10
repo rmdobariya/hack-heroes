@@ -11,6 +11,7 @@ use App\Models\UserChildren;
 use App\Models\UserChildrenDetail;
 use App\Models\UserQuestion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -51,8 +52,12 @@ class SignUpController extends Controller
     public function signUp4View()
     {
         $childrens = Session::get('child_name');
+        $terms_condition = DB::table('site_settings')->where('setting_key','TERMS_CONDITION')->first()->setting_value;
+        $privacy_policy = DB::table('site_settings')->where('setting_key','PRIVACY_POLICY')->first()->setting_value;
         return view('website.auth.signup_4', [
-            'childrens' => $childrens
+            'childrens' => $childrens,
+            'terms_condition' => $terms_condition,
+            'privacy_policy' => $privacy_policy,
         ]);
     }
 

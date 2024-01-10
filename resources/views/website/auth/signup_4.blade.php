@@ -33,8 +33,8 @@
                                        id="flexCheckDefault" @if(Session::get('term_condition') == 'on') checked
                                        @endif required>
                                 <label class="form-check-label mb-4" for="flexCheckDefault">
-                                    I have read the <a href="{{asset('assets/web/images/privacy-policy.pdf')}}"
-                                                       target="_blank">Privacy</a> & <a href="images/privacy-policy.pdf"
+                                    I have read the <a href="{{$privacy_policy}}"
+                                                       target="_blank">Privacy</a> & <a href="{{$terms_condition}}"
                                                                                         target="_blank">Terms</a> and
                                     understand how the information I provide will be used.
                                 </label>

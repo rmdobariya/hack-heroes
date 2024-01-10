@@ -31,8 +31,10 @@ class MatrixController extends Controller
     {
         $child = DB::table('user_childrens')->where('id', $child_id)->first();
         $risk = DB::table('risks')->where('id', $id)->first();
+        $key = $risk->key;
         $child_detail = DB::table('user_children_details')->where('user_children_id', $child_id)->first();
-        $likelihood_score = $this->get_likelihood_score($risk->key);
+        $answer = DB::table('user_children_details')->where('user_children_id', $child_id)->first()->$key;
+        $likelihood_score = $this->get_likelihood_score($answer);
         $impact_score = $this->get_impact_criteria($child_id);
         $view = view('website.matrix.risk', [
             'risk' => $risk,
@@ -147,9 +149,9 @@ class MatrixController extends Controller
         } elseif ((int)$likelihood === 2) {
             $val = 'Possible';
         } elseif ((int)$likelihood === 3) {
-            $val = 'No';
-        } else {
             $val = 'Likely';
+        } else {
+            $val = 'No';
         }
         return $val;
     }
