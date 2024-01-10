@@ -103,8 +103,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            {{--                        <div id="myPlot" style="height:500px;"></div>--}}
-                            <img src="{{asset('assets/web/images/risk-matrix.png')}}" alt="risk-matrix">
+                            <canvas id="myChart" width="400" height="400"></canvas>
+{{--                            <img src="{{asset('assets/web/images/risk-matrix.png')}}" alt="risk-matrix">--}}
                         </div>
                     </div>
                 </div>
@@ -191,26 +191,54 @@
 @endsection
 @section('custom-script')
     <script src="{{asset('assets/web/custom/matrix.js')}}?v={{time()}}"></script>
-    {{--    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>--}}
-    {{--    <script>--}}
-    {{--        const xArray = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];--}}
-    {{--        const yArray = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];--}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
 
-    {{--        // Define Data--}}
-    {{--        const data = [{--}}
-    {{--            x: xArray,--}}
-    {{--            y: yArray,--}}
-    {{--            mode: "markers"--}}
-    {{--        }];--}}
+        var data = {
+            labels: ['Age', 'Sex', 'Geographic location','Current mental health','Previous mental health','Language','Online behaviour','Socioeconomic status','Sexual orientation','School attendance','Parental involvement','Support system','access the Internet','School climate','Family structure','Academic performance','Online activity frequency','Peer relationships','Relationship status'],
+            datasets: [{
+                label: 'Possible',
+                data: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19], // Replace with your data for 'Possible'
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Likely',
+                data: [19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1], // Replace with your data for 'Likely'
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Unlikely',
+                data: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19], // Replace with your data for 'Unlikely'
+                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
 
-    {{--        // Define Layout--}}
-    {{--        const layout = {--}}
-    {{--            xaxis: {range: [40, 160], title: "Square Meters"},--}}
-    {{--            yaxis: {range: [5, 16], title: "Price in Millions"},--}}
-    {{--            title: "House Prices vs. Size"--}}
-    {{--        };--}}
+        var options = {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Impact Levels'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: ['Unlikely','Likely','possible']
+                    }
+                }
+            }
+        };
 
-    {{--        // Display using Plotly--}}
-    {{--        Plotly.newPlot("myPlot", data, layout);--}}
-    {{--    </script>--}}
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: options
+        });
+    </script>
 @endsection
