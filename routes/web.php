@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\LoginController;
 use App\Http\Controllers\Web\MatrixController;
 use App\Http\Controllers\Web\PricingController;
 use App\Http\Controllers\Web\ProfileController;
+use App\Http\Controllers\Web\RecommendationController;
 use App\Http\Controllers\Web\ResetPasswordController;
 use App\Http\Controllers\Web\SignUpController;
 use Illuminate\Support\Facades\Route;
@@ -62,4 +63,5 @@ Route::group(['middleware' => ['auth:web', 'webCheck']], function () {
     Route::get('matrix/{child_id}', [MatrixController::class, 'index'])->name('matrix');
     Route::get('getRisk/{id}/{child_id}', [MatrixController::class, 'getRisk'])->name('getRisk');
     Route::get('getRiskWiseRecommendation/{risk}/{child_id}', [MatrixController::class, 'getRiskWiseRecommendation'])->name('getRiskWiseRecommendation');
+    Route::get('recommendation/{id}/{child_id}', [RecommendationController::class, 'index'])->name('recommendation');
 });
