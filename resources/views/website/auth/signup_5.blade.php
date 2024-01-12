@@ -98,9 +98,9 @@
                                             </select>
                                             . I
                                             <select name="parental_involvement[{{$key}}]" class="custom-select" required>
-                                                <option value="am highly involved in  {{$children}} s online activities and closely monitor  {{$children}} s online behaviour" selected>closely</option>
-                                                <option value="have some some level of involvement in  {{$children}} s online activities, but do not monitor them closely">somewhat</option>
-                                                <option value="am not involved in {{$children}} s online activities">don't</option>
+                                                <option value="am highly involved in child's online activities and closely monitor child's online behaviour" selected>closely</option>
+                                                <option value="have some some level of involvement in child's online activities, but do not monitor them closely">somewhat</option>
+                                                <option value="am not involved in child's online activities">don't</option>
                                             </select>
                                             monitor {{$children}}'s' online activities. {{$children}} has a
                                             <select name="support_system[{{$key}}]" class="custom-select" required>
