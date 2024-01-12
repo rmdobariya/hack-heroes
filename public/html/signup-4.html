@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>HackHeroes</title>
+	<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+	<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+<header>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="index.html">
+				<img src="images/logo-txt.png" alt="logo" class="logo">
+				<img src="images/logo.png" alt="logo" class="hover-logo">
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<img src="images/bar.png" alt="menu">
+			</button>
+			<div class="collapse navbar-collapse fix-header" id="navbarSupportedContent">
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link" href="index.html#getintouch"><img src="images/contact-us.png" alt="contact-us"></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<section id="page-body">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="left-signup">
+					<h1>HackHeroes</h1>
+					<h2>Get started on your personalised cyberbullying prevention plan</h2>
+					<form action="signup-5.html">
+						<p>Create plan for</p>
+						<div class="input-box">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="name">
+								<label class="form-check-label" for="name">
+									Alex
+								</label>
+							</div>
+						</div>
+						<div id="new_chq"></div>
+						<a href="javascript:void()" class="add-child" onclick="add()"><img src="images/plus-icon.png"> Add another Child</a>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+							<label class="form-check-label mb-4" for="flexCheckDefault">
+								I have read the <a href="images/privacy-policy.pdf" target="_blank">Privacy</a> & <a href="images/privacy-policy.pdf" target="_blank">Terms</a> and understand how the information I provide will be used.
+							</label>
+						</div>
+						
+						<button class="btn signup-btn">Continue</button>
+					</form>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="what-get text-center">
+							<h2>How it Works</h2>
+							<h3>Our plan comes with</h3>
+							<div class="row whats-sign2">
+								<div class="col-md-4">
+									<div class="whats-box">
+										<img src="images/how-it-works-1.png" alt="how-it-works">
+										<p>Help us understand your child by answering questions</p>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="whats-box">
+										<img src="images/how-it-works-2.png" alt="how-it-works">
+										<p>View results</p>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="whats-box">
+										<img src="images/how-it-works-3.png" alt="how-it-works">
+										<p>Personalised plan that suits your child’s profile</p>
+									</div>
+								</div>
+							</div>
+						</div>						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section id="page-footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="footer-menu">
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="images/privacy-policy.pdf" target="_blank">Terms & Conditions</a></li>
+						<li><a href="images/privacy-policy.pdf" target="_blank">Privacy Policy</a></li>
+						<li>Copyright &copy; HackHeroes Pty Ltd 2024 | All rights reserved. HackHeroes® and our mascot logo are protected under trademark law.</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-3 text-end">
+				<div class="signup-footerlogo">
+					<a href="index.html">
+						<img src="images/logo-txt.png" alt="logo" class="f-logo">					
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/script.js"></script>
+<script>
+	function add(){
+		var new_chq_no = parseInt($('#total_chq').val())+1;
+		var tot = $('#new_chq input').length;
+		var new_input="<div class='input-box'><div class='form-check'><input name='name_"+tot+"'  class='form-check-input' type='checkbox' id='new_"+new_chq_no+"'><label class='form-check-label' for='new_"+tot+"'>Alex</label></div></div>";
+		//var new_input="<input type='text' class='form-control' placeholder='Child’s first name' id='new_"+new_chq_no+"'>";
+		$('#new_chq').append(new_input);
+		$('#total_chq').val(new_chq_no);
+		if (tot == 8) {
+			$('.add-child').hide();
+		}
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>HackHeroes</title>
+	<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+	<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+<header>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="index.html">
+				<img src="images/logo-txt.png" alt="logo" class="logo">
+				<img src="images/logo.png" alt="logo" class="hover-logo">
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<img src="images/bar.png" alt="menu">
+			</button>
+			<div class="collapse navbar-collapse fix-header" id="navbarSupportedContent">
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link" href="index.html#getintouch"><img src="images/contact-us.png" alt="contact-us"></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<section id="page-body">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="left-signup">
+					<h1>HackHeroes</h1>
+					<h2>Keep your information safe by creating a password</h2>
+					<form action="signup-4.html">
+						<input type="password" name="password" placeholder="Create a Password" class="form-control">
+						<ul>
+							<li>Number</li>
+							<li>Symbol</li>
+							<li>Uppercase letter</li>
+							<li>At least 12 characters long</li>
+							<li>Lowercase letter</li>
+						</ul>
+						<button class="btn signup-btn">Continue</button>
+					</form>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="row darkbg">
+					<div class="col-md-12">
+						<div class="what-get text-center">
+							<h2>Our Affiliates</h2>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="whats-box">
+										<a href="https://bitdefender.f9tmep.net/Nkoq2q" target="_blank">
+											<img src="images/our-affiliates-1.png" alt="our-affiliates">
+										</a>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="whats-box">
+										<a href="https://nordvpn.com/special/?utm_medium=affiliate&utm_term&utm_content&utm_campaign=off15&utm_source=aff89536" target="_blank">
+											<img src="images/our-affiliates-2.png" alt="our-affiliates">
+										</a>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="whats-box">
+										<a href="http://www.awin1.com/cread.php?awinmid=7874&awinaffid=1376793" target="_blank">
+											<img src="images/our-affiliates-3.png" alt="our-affiliates">
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section id="page-footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="footer-menu">
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="images/privacy-policy.pdf" target="_blank">Terms & Conditions</a></li>
+						<li><a href="images/privacy-policy.pdf" target="_blank">Privacy Policy</a></li>
+						<li>Copyright &copy; HackHeroes Pty Ltd 2024 | All rights reserved. HackHeroes® and our mascot logo are protected under trademark law.</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-3 text-end">
+				<div class="signup-footerlogo">
+					<a href="index.html">
+						<img src="images/logo-txt.png" alt="logo" class="f-logo">					
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/script.js"></script>
+<script>
+	function add(){
+		var new_chq_no = parseInt($('#total_chq').val())+1;
+		var new_input="<input type='text' class='form-control' placeholder='Child’s first name' id='new_"+new_chq_no+"'>";
+		$('#new_chq').append(new_input);
+		$('#total_chq').val(new_chq_no)
+	}
+	function remove(){
+		var last_chq_no = $('#total_chq').val();
+		if(last_chq_no>1){
+			$('#new_'+last_chq_no).remove();
+			$('#total_chq').val(last_chq_no-1);
+		}
+	}
+</script>
+</body>
+</html>
