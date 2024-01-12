@@ -85,7 +85,7 @@ class MatrixController extends Controller
         $key = $risk->key;
         $child_detail = DB::table('user_children_details')->where('user_children_id', $child_id)->first();
         $answer = DB::table('user_children_details')->where('user_children_id', $child_id)->first()->$key;
-        $likelihood_score = $this->get_likelihood_score($answer);
+        $likelihood_score = $this->get_likelihood_score($answer,$child_id);
 
         $risk_array = $this->_risk_array;
         $user_questions = DB::table('user_questions')->where('user_child_id', $child_id)->orderBy('id', 'ASC')->get();
