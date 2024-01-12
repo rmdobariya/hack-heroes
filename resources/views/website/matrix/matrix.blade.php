@@ -115,12 +115,14 @@
                                                     @foreach($risk_array as  $key=>$array)
                                                         @foreach($child_score as  $score)
                                                             @if($score->risk_key == $key)
-                                                                <p role="button" data-bs-toggle="tooltip"
-                                                                   id="likely_1_{{$loop->parent->index}}_{{$key}}"
-                                                                   class="@if($score->likely_hood_score == 0) d-none @endif"
-                                                                   data-bs-placement="top"
-                                                                   title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
-                                                                   style="{{$style_array[$key]}}">{{$array}}</p>
+                                                                @if($score->likely_hood_score == 3 && $score->impact_score == 1)
+                                                                    <p role="button" data-bs-toggle="tooltip"
+                                                                       id="likely_1_{{$loop->parent->index}}_{{$key}}"
+                                                                       class="@if($score->likely_hood_score == 0) d-none @endif"
+                                                                       data-bs-placement="top"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
+                                                                       style="{{$style_array[$key]}}">{{$array}}</p>
+                                                                @endif
                                                             @endif
                                                         @endforeach
                                                     @endforeach
@@ -132,12 +134,14 @@
                                                     @foreach($risk_array as  $key=>$array)
                                                         @foreach($child_score as  $score)
                                                             @if($score->risk_key == $key)
-                                                                <p role="button" data-bs-toggle="tooltip"
-                                                                   id="likely_2_{{$key}}"
-                                                                   class="@if($score->likely_hood_score == 0) d-none @endif"
-                                                                   data-bs-placement="top"
-                                                                   title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
-                                                                   style="{{$style_array[$key]}}">{{$array}}</p>
+                                                                @if($score->likely_hood_score == 3 && $score->impact_score == 2)
+                                                                    <p role="button" data-bs-toggle="tooltip"
+                                                                       id="likely_2_{{$key}}"
+                                                                       class="@if($score->likely_hood_score == 0) d-none @endif"
+                                                                       data-bs-placement="top"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
+                                                                       style="{{$style_array[$key]}}">{{$array}}</p>
+                                                                @endif
                                                             @endif
                                                         @endforeach
                                                     @endforeach
@@ -149,12 +153,14 @@
                                                     @foreach($risk_array as  $key=>$array)
                                                         @foreach($child_score as  $score)
                                                             @if($score->risk_key == $key)
-                                                                <p role="button" data-bs-toggle="tooltip"
-                                                                   id="likely_3_{{$key}}"
-                                                                   class="@if($score->likely_hood_score == 0) d-none @endif"
-                                                                   data-bs-placement="top"
-                                                                   title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
-                                                                   style="{{$style_array[$key]}}">{{$array}}</p>
+                                                                @if($score->likely_hood_score == 3 && $score->impact_score == 3)
+                                                                    <p role="button" data-bs-toggle="tooltip"
+                                                                       id="likely_3_{{$key}}"
+                                                                       class="@if($score->likely_hood_score == 0) d-none @endif"
+                                                                       data-bs-placement="top"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
+                                                                       style="{{$style_array[$key]}}">{{$array}}</p>
+                                                                @endif
                                                             @endif
                                                         @endforeach
                                                     @endforeach
@@ -170,12 +176,14 @@
                                                     @foreach($risk_array as  $key=>$array)
                                                         @foreach($child_score as  $score)
                                                             @if($score->risk_key == $key)
-                                                                <p role="button" data-bs-toggle="tooltip"
-                                                                   id="possible_1_{{$key}}"
-                                                                   class="@if($score->likely_hood_score == 0) d-none @endif"
-                                                                   data-bs-placement="top"
-                                                                   title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
-                                                                   style="{{$style_array[$key]}}">{{$array}}</p>
+                                                                @if($score->likely_hood_score == 2 && $score->impact_score == 1)
+                                                                    <p role="button" data-bs-toggle="tooltip"
+                                                                       id="possible_1_{{$key}}"
+                                                                       class="@if($score->likely_hood_score == 0) d-none @endif"
+                                                                       data-bs-placement="top"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
+                                                                       style="{{$style_array[$key]}}">{{$array}}</p>
+                                                                @endif
                                                             @endif
                                                         @endforeach
                                                     @endforeach
@@ -187,12 +195,14 @@
                                                     @foreach($risk_array as  $key=>$array)
                                                         @foreach($child_score as  $score)
                                                             @if($score->risk_key == $key)
-                                                                <p role="button" data-bs-toggle="tooltip"
-                                                                   id="possible_2_{{$key}}"
-                                                                   class="@if($score->likely_hood_score == 0) d-none @endif"
-                                                                   data-bs-placement="top"
-                                                                   title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
-                                                                   style="{{$style_array[$key]}}">{{$array}}</p>
+                                                                @if($score->likely_hood_score == 2 && $score->impact_score == 2)
+                                                                    <p role="button" data-bs-toggle="tooltip"
+                                                                       id="possible_2_{{$key}}"
+                                                                       class="@if($score->likely_hood_score == 0) d-none @endif"
+                                                                       data-bs-placement="top"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
+                                                                       style="{{$style_array[$key]}}">{{$array}}</p>
+                                                                @endif
                                                             @endif
                                                         @endforeach
                                                     @endforeach
@@ -204,12 +214,14 @@
                                                     @foreach($risk_array as  $key=>$array)
                                                         @foreach($child_score as  $score)
                                                             @if($score->risk_key == $key)
-                                                                <p role="button" data-bs-toggle="tooltip"
-                                                                   id="possible_3_{{$key}}"
-                                                                   class="@if($score->likely_hood_score == 0) d-none @endif"
-                                                                   data-bs-placement="top"
-                                                                   title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
-                                                                   style="{{$style_array[$key]}}">{{$array}}</p>
+                                                                @if($score->likely_hood_score == 2 && $score->impact_score == 3)
+                                                                    <p role="button" data-bs-toggle="tooltip"
+                                                                       id="possible_3_{{$key}}"
+                                                                       class="@if($score->likely_hood_score == 0) d-none @endif"
+                                                                       data-bs-placement="top"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
+                                                                       style="{{$style_array[$key]}}">{{$array}}</p>
+                                                                @endif
                                                             @endif
                                                         @endforeach
                                                     @endforeach
@@ -225,12 +237,14 @@
                                                     @foreach($risk_array as  $key=>$array)
                                                         @foreach($child_score as  $score)
                                                             @if($score->risk_key == $key)
-                                                                <p role="button" data-bs-toggle="tooltip"
-                                                                   id="unlikely_1_{{$key}}"
-                                                                   class="@if($score->likely_hood_score == 0) d-none @endif"
-                                                                   data-bs-placement="top"
-                                                                   title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
-                                                                   style="{{$style_array[$key]}}">{{$array}}</p>
+                                                                @if($score->likely_hood_score == 1 && $score->impact_score == 1)
+                                                                    <p role="button" data-bs-toggle="tooltip"
+                                                                       id="unlikely_1_{{$key}}"
+                                                                       class="@if($score->likely_hood_score == 0) d-none @endif"
+                                                                       data-bs-placement="top"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
+                                                                       style="{{$style_array[$key]}}">{{$array}}</p>
+                                                                @endif
                                                             @endif
                                                         @endforeach
                                                     @endforeach
@@ -242,12 +256,14 @@
                                                     @foreach($risk_array as  $key=>$array)
                                                         @foreach($child_score as  $score)
                                                             @if($score->risk_key == $key)
-                                                                <p role="button" data-bs-toggle="tooltip"
-                                                                   id="unlikely_2_{{$key}}"
-                                                                   class="@if($score->likely_hood_score == 0) d-none @endif"
-                                                                   data-bs-placement="top"
-                                                                   title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
-                                                                   style="{{$style_array[$key]}}">{{$array}}</p>
+                                                                @if($score->likely_hood_score == 1 && $score->impact_score == 2)
+                                                                    <p role="button" data-bs-toggle="tooltip"
+                                                                       id="unlikely_2_{{$key}}"
+                                                                       class="@if($score->likely_hood_score == 0) d-none @endif"
+                                                                       data-bs-placement="top"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
+                                                                       style="{{$style_array[$key]}}">{{$array}}</p>
+                                                                @endif
                                                             @endif
                                                         @endforeach
                                                     @endforeach
@@ -259,12 +275,14 @@
                                                     @foreach($risk_array as  $key=>$array)
                                                         @foreach($child_score as  $score)
                                                             @if($score->risk_key == $key)
-                                                                <p role="button" data-bs-toggle="tooltip"
-                                                                   id="unlikely_3_{{$key}}"
-                                                                   class="@if($score->likely_hood_score == 0) d-none @endif"
-                                                                   data-bs-placement="top"
-                                                                   title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
-                                                                   style="{{$style_array[$key]}}">{{$array}}</p>
+                                                                @if($score->likely_hood_score == 1 && $score->impact_score == 3)
+                                                                    <p role="button" data-bs-toggle="tooltip"
+                                                                       id="unlikely_3_{{$key}}"
+                                                                       class="@if($score->likely_hood_score == 0) d-none @endif"
+                                                                       data-bs-placement="top"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
+                                                                       style="{{$style_array[$key]}}">{{$array}}</p>
+                                                                @endif
                                                             @endif
                                                         @endforeach
                                                     @endforeach
@@ -340,7 +358,8 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="options-btn">
-                                                    <a href="{{route('recommendation',[$recommendation->id,$child->id])}}" class="line-btns">More</a>
+                                                    <a href="{{route('recommendation',[$recommendation->id,$child->id])}}"
+                                                       class="line-btns">More</a>
                                                     <a href="https://calendar.google.com/" target="_blank"
                                                        class="dark-btns"><i
                                                             class="las la-calendar-alt"></i> Add to Calendar</a>
@@ -382,22 +401,22 @@
 @endsection
 @section('custom-script')
     <script src="{{asset('assets/web/custom/matrix.js')}}?v={{time()}}"></script>
-    {{--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>--}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         AOS.init({
             duration: 1200,
         })
-        // $(document).ready(function () {
-        //     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        //     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        //         return new bootstrap.Tooltip(tooltipTriggerEl)
-        //     })
-        //
-        // });
-    </script>
-    <script>
-        $(function () {
-            $('[data-bs-toggle="tooltip"]').tooltip();
+        $(document).ready(function () {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+
         });
     </script>
+    {{--    <script>--}}
+    {{--        $(function () {--}}
+    {{--            $('[data-bs-toggle="tooltip"]').tooltip();--}}
+    {{--        });--}}
+    {{--    </script>--}}
 @endsection

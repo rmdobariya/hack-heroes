@@ -272,7 +272,7 @@ class SignUpController extends Controller
                     $key = $risk->key;
                     $answer = DB::table('user_children_details')->where('id', $user_children_detail->id)->first()->$key;
                     $matrixController = new MatrixController();
-                    $likelihood_score = $matrixController->get_likelihood_score($answer);
+                    $likelihood_score = $matrixController->get_likelihood_score($answer,$user_children->id);
                     $impact_score = $matrixController->get_impact_criteria($user_children_detail->id);
                     if ($likelihood_score == 'Unlikely') {
                         $l_score = 1;

@@ -17,7 +17,7 @@ class MatrixController extends Controller
             ->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')
             ->first();
         $first_risk_key = $first_risks->risk_key;
-        $likelihood_score = $this->get_likelihood_score($child_detail->$first_risk_key);
+        $likelihood_score = $this->get_likelihood_score($child_detail->$first_risk_key, $child_id);
         $impact_score = $this->get_impact_criteria($child_id);
         $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . 'Age' . '%')->get();
         $risk_array = [
@@ -82,7 +82,7 @@ class MatrixController extends Controller
         $key = $risk->key;
         $child_detail = DB::table('user_children_details')->where('user_children_id', $child_id)->first();
         $answer = DB::table('user_children_details')->where('user_children_id', $child_id)->first()->$key;
-        $likelihood_score = $this->get_likelihood_score($answer);
+        $likelihood_score = $this->get_likelihood_score($answer, $child_id);
         $impact_score = $this->get_impact_criteria($child_id);
         $view = view('website.matrix.risk', [
             'risk' => $risk,
@@ -124,8 +124,9 @@ class MatrixController extends Controller
     }
 
 
-    public function get_likelihood_score($answer)
+    public function get_likelihood_score($answer, $child_id)
     {
+        $child = DB::table('user_childrens')->where('id', $child_id)->first();
         $arrayLikelihood = [
             "14-17 years old" => 1,
             "10-13 years old" => 2,
@@ -166,9 +167,9 @@ class MatrixController extends Controller
             "irregularly or are homeschooled" => 1,
             "regularly, but have occasional absences" => 2,
             "regularly with no or very few absences" => 3,
-            "am highly involved in [child's first name]'s online activities and closely monitor [child's first name]'s online behaviour" => 1,
-            "have some some level of involvement in [child's first name]'s online activities, but do not monitor them closely" => 2,
-            "am not involved in [child's first name]'s online activities" => 3,
+            "am highly involved in " . $child->name . " online activities and closely monitor " . $child->name . " online behaviour" => 1,
+            "have some some level of involvement in " . $child->name . " online activities, but do not monitor them closely" => 2,
+            "am not involved in " . $child->name . " online activities" => 3,
             "a strong support system, including family members, friends, and other adults who provide emotional support" => 1,
             "some supportive relationships, but may lack a strong support system" => 2,
             "few or no supportive relationships" => 3,
