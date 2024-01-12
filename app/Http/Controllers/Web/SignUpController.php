@@ -258,6 +258,7 @@ class SignUpController extends Controller
                 $user_children_detail->academic_performance = Session::get('academic_performance')[$key];
                 $user_children_detail->save();
 
+                $radio_button_answers = array();
                 foreach ($request->question as $q => $question) {
                     $user_question = new UserQuestion();
                     $user_question->question = $question[$key];
@@ -265,15 +266,18 @@ class SignUpController extends Controller
                     $user_question->user_id = $user->id;
                     $user_question->user_child_id = $user_children->id;
                     $user_question->save();
+
+                    $radio_button_answers[] = $request->answer[$q][$key];
                 }
 
                 $risks = DB::table('risks')->get();
+                $count = 0;
                 foreach ($risks as $risk) {
                     $key = $risk->key;
                     $answer = DB::table('user_children_details')->where('id', $user_children_detail->id)->first()->$key;
                     $matrixController = new MatrixController();
-                    $likelihood_score = $matrixController->get_likelihood_score($answer,$user_children->id);
-                    $impact_score = $matrixController->get_impact_criteria($user_children_detail->id);
+                    $likelihood_score = $matrixController->get_likelihood_score($answer);
+                    $impact_score = $matrixController->get_impact_criteria($radio_button_answers[$count]);
                     if ($likelihood_score == 'Unlikely') {
                         $l_score = 1;
                     } elseif ($likelihood_score == 'Possible') {
@@ -302,6 +306,7 @@ class SignUpController extends Controller
                         'impact_score' => $i_score,
                         'risk_key' => $risk->key,
                     ]);
+                    $count++;
                 }
             }
         }

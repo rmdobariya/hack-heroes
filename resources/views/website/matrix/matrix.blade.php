@@ -2,8 +2,8 @@
 @section('title')
     Matrix
 @endsection
-<link rel="stylesheet" type="text/css" href="{{asset('assets/web/css/matrix.css')}}">
 @section('content')
+<link rel="stylesheet" type="text/css" href="{{asset('assets/web/css/matrix.css')}}">
     <section class="feature dashboard contactus-page">
         <div class="container">
             <div class="row">
@@ -40,8 +40,12 @@
                                     <p>Click on the risk to view detailed description</p>
                                     <div class="summary-list">
                                         @php
-                                            $top_risks = DB::table('risk_score')->where('user_child_id', $child->id)->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')->orderBy('id','desc')->take(5)->get();
-                                            $top_risks_ids = DB::table('risk_score')->where('user_child_id', $child->id)->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')->orderBy('id','desc')->take(5)->pluck('id')->toArray();
+                                            $top_risks = DB::table('risk_score')->where('user_child_id', $child->id)->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')->take(5)->get();
+                                            $top_risks_ids = array();
+                                            if(!empty($top_risks)) {
+                                                $top_risks_ids = $top_risks->toArray();
+                                                $top_risks_ids = array_column($top_risks_ids,'id');
+                                            }
                                         @endphp
                                         @foreach($top_risks as $key=>$top_risk)
                                             <div class="list-box risk_event @if($loop->first) active @endif"
@@ -120,7 +124,7 @@
                                                                        id="likely_1_{{$loop->parent->index}}_{{$key}}"
                                                                        class="@if($score->likely_hood_score == 0) d-none @endif"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - (Likely - Minor)"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -139,7 +143,7 @@
                                                                        id="likely_2_{{$key}}"
                                                                        class="@if($score->likely_hood_score == 0) d-none @endif"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - (Likely - Moderate)"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -158,7 +162,7 @@
                                                                        id="likely_3_{{$key}}"
                                                                        class="@if($score->likely_hood_score == 0) d-none @endif"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - (Likely - Major)"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -181,7 +185,7 @@
                                                                        id="possible_1_{{$key}}"
                                                                        class="@if($score->likely_hood_score == 0) d-none @endif"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - (Possible - Minor)"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -200,7 +204,7 @@
                                                                        id="possible_2_{{$key}}"
                                                                        class="@if($score->likely_hood_score == 0) d-none @endif"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - (Possible - Moderate)"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -219,7 +223,7 @@
                                                                        id="possible_3_{{$key}}"
                                                                        class="@if($score->likely_hood_score == 0) d-none @endif"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - (Possible - Major)"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -242,7 +246,7 @@
                                                                        id="unlikely_1_{{$key}}"
                                                                        class="@if($score->likely_hood_score == 0) d-none @endif"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - (Unlikely - Minor)"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -261,7 +265,7 @@
                                                                        id="unlikely_2_{{$key}}"
                                                                        class="@if($score->likely_hood_score == 0) d-none @endif"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - (Unlikely - Moderate)"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -280,7 +284,7 @@
                                                                        id="unlikely_3_{{$key}}"
                                                                        class="@if($score->likely_hood_score == 0) d-none @endif"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - {{$score->likely_hood_score}}"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - (Unlikely - Major)"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
