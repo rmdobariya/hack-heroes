@@ -15,30 +15,29 @@ function risk(id, child_id) {
         loaderHide()
         $('#risk_wise_detail').html(data.data)
         $('#render_recommendation_part').html(data.recommendation)
-
+        $('.risk_change_event').val(data.risk_name);
+        $('.risk_change_event').trigger('change');
     }).fail(function (jqXHR, textStatus) {
         loaderHide()
         console.log('Request failed: ' + textStatus)
     })
 }
 
-// $('.recommendation').on('click', function () {
-//     var risk = $(this).data('name');
-//     var child_id = $(this).data('id');
-//     loaderView();
-//     $.ajax({
-//         url: APP_URL + '/getRiskWiseRecommendation/' + risk + '/' + child_id,
-//         method: 'GET',
-//
-//     }).done(function (data) {
-//         loaderHide()
-//         console.log(data.data)
-//         $('#recommendations').html(data.data)
-//
-//     }).fail(function (jqXHR, textStatus) {
-//         loaderHide()
-//         console.log('Request failed: ' + textStatus)
-//     })
-// })
+$(document).on('change', '.risk_change_event', function () {
+    var risk = $(this).val();
+    var id = $(this).find(':selected').data('child-id');
+    loaderView()
+    $.ajax({
+        url: APP_URL + '/risk-change-event/' + risk + '/' + id,
+        method: 'GET',
 
+    }).done(function (data) {
+        loaderHide()
+        $('.risk_wise_recommendation_part').html(data.data)
+
+    }).fail(function (jqXHR, textStatus) {
+        loaderHide()
+        console.log('Request failed: ' + textStatus)
+    })
+});
 

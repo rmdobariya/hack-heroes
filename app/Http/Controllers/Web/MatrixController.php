@@ -37,9 +37,10 @@ class MatrixController extends Controller
         $first_risks = DB::table('risk_score')
             ->where('user_child_id', $child_id)
             ->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')
+            ->orderBy('id','desc')
             ->first();
         $first_risk_key = $first_risks->risk_key;
-        $likelihood_score = $this->get_likelihood_score($child_detail->$first_risk_key);
+        $likelihood_score = $this->get_likelihood_score($child_detail->$first_risk_key, $child_id);
         $impact_score = $this->get_impact_criteria($child_id);
         $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . 'Age' . '%')->get();
         $risk_array = $this->_risk_array;
@@ -118,10 +119,12 @@ class MatrixController extends Controller
             'risk' => $risk,
             'child' => $child,
             'recommendations' => $recommendations,
+            'risk_array' => $risk_array,
         ])->render();
         return response()->json([
             'data' => $view,
             'recommendation' => $recommendation,
+            'risk_name' => $risk->name,
         ]);
     }
 
@@ -139,6 +142,20 @@ class MatrixController extends Controller
             'data' => $view
         ]);
     }
+    public function riskChangeEvent($risk_name, $child_id)
+    {
+        $child = DB::table('user_childrens')->where('id', $child_id)->first();
+        $risk = DB::table('risks')->where('name', $risk_name)->first();
+        $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->get();
+        $view = view('website.matrix.risk_change_event', [
+            'risk' => $risk,
+            'child' => $child,
+            'recommendations' => $recommendations,
+        ])->render();
+        return response()->json([
+            'data' => $view
+        ]);
+    }
 
 
     function get_matrix($answers = array())
@@ -146,8 +163,9 @@ class MatrixController extends Controller
     }
 
 
-    public function get_likelihood_score($answer)
+    public function get_likelihood_score($answer, $child_id)
     {
+        $child = DB::table('user_childrens')->where('id', $child_id)->first();
         $arrayLikelihood = [
             "14-17 years old" => 1,
             "10-13 years old" => 2,
