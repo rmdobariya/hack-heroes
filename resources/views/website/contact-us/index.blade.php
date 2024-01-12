@@ -55,9 +55,9 @@
 {{--                                        src="{{asset('assets/web/images/linkedin.png')}}" alt="linkedin"></a>--}}
 {{--                                <a href="{{$insta_link}}" target="_blank" data-aos="fade-up" data-aos-delay="300"><img--}}
 {{--                                        src="{{asset('assets/web/images/instagram.png')}}" alt="instagram"></a>--}}
-                            <a href="https://www.facebook.com/hackheroes" target="_blank" data-aos="fade-up" data-aos-delay="100"><img src="{{asset('assets/web/images/facebook.png')}}" alt="facebook"></a>
-                            <a href="https://www.linkedin.com/company/hackheroes/about/" target="_blank" data-aos="fade-up" data-aos-delay="200"><img src="{{asset('assets/web/images/linkedin.png')}}" alt="linkedin"></a>
-                            <a href="https://www.instagram.com/hackheroes/" target="_blank" data-aos="fade-up" data-aos-delay="300"><img src="{{asset('assets/web/images/instagram.png')}}" alt="instagram"></a>
+                            <a href="{{$fb_link}}" target="_blank" data-aos="fade-up" data-aos-delay="100"><img src="{{asset('assets/web/images/facebook.png')}}" alt="facebook"></a>
+                            <a href="{{$linkedin_link}}" target="_blank" data-aos="fade-up" data-aos-delay="200"><img src="{{asset('assets/web/images/linkedin.png')}}" alt="linkedin"></a>
+                            <a href="{{$insta_link}}" target="_blank" data-aos="fade-up" data-aos-delay="300"><img src="{{asset('assets/web/images/instagram.png')}}" alt="instagram"></a>
                         </div>
                     </div>
                 </div>

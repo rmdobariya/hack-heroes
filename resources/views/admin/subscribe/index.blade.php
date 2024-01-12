@@ -3,7 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Subscribes'])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Subscribers'])
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -76,7 +76,6 @@
                                         <input class="form-check-input" id="all_selected" type="checkbox" value="">
                                     </div>
                                 </th>
-                                <th>Id</th>
                                 <th>Email</th>
                                 <th>Action</th>
                             </tr>
@@ -91,13 +90,13 @@
 @endsection
 @section('custom-script')
     <script>
-        const sweetalert_delete_title = "Subscribe Delete?"
-        const sweetalert_delete_text = "Are You Sure Delete This Subscribe"
-        const sweetalert_restore_title = "Subscribe Restore?"
-        const sweetalert_restore_text = "Are You Sure Restore This Subscribe"
+        const sweetalert_delete_title = "Subscriber Delete?"
+        const sweetalert_delete_text = "Are You Sure Delete This Subscriber"
+        const sweetalert_restore_title = "Subscriber Restore?"
+        const sweetalert_restore_text = "Are You Sure Restore This Subscriber"
         const cancel_button_text = "Cancel"
         const delete_button_text = "Delete"
-        const sweetalert_change_status = "Subscribe Status Change"
+        const sweetalert_change_status = "Subscriber Status Change"
         const sweetalert_change_status_text = "Are You Sure Status Change This Record"
         const yes_change_it = "Yes"
         const form_url = '/subscribe'
@@ -105,14 +104,13 @@
         const hard_delete_url = '/subscribe-hard-delete'
         const restore_url = '/restore-subscribe'
         var arr = [];
-        const multiple_select_title = "Selected Subscribe Delete ?"
+        const multiple_select_title = "Selected Subscriber Delete ?"
         const multiple_select_text = "Are You Sure Selected Record Delete"
         const multiple_delete_url = '/multiple-subscribe-delete'
 
         $.extend(true, $.fn.dataTable.defaults, {
             columns: [
                 {data: 'check', name: 'check', orderable: false, searchable: false},
-                {data: 'id', name: 'subscribes.id'},
                 {data: 'email', name: 'subscribes.email'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],

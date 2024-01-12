@@ -9,6 +9,9 @@
         $fav = DB::table('site_settings')->where('setting_key','FAVICON_IMG')->first()->setting_value;
         $terms_condition = DB::table('site_settings')->where('setting_key','TERMS_CONDITION')->first()->setting_value;
         $privacy_policy = DB::table('site_settings')->where('setting_key','PRIVACY_POLICY')->first()->setting_value;
+        $fb_link = DB::table('site_settings')->where('setting_key','FACEBOOK_LINK')->first()->setting_value;
+        $insta_link = DB::table('site_settings')->where('setting_key','INSTAGRAM_LINK')->first()->setting_value;
+        $linkedin_link = DB::table('site_settings')->where('setting_key','LINKEDIN_LINK')->first()->setting_value;
     @endphp
     @if(!is_null($fav))
         <link rel="icon" href="{{asset($fav)}}" type="image/x-icon">

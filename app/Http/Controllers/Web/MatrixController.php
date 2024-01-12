@@ -10,20 +10,68 @@ class MatrixController extends Controller
     public function index($child_id)
     {
         $child = DB::table('user_childrens')->where('id', $child_id)->first();
+        $child_score = DB::table('risk_score')->where('user_child_id', $child_id)->get();
         $child_detail = DB::table('user_children_details')->where('user_children_id', $child_id)->first();
-        $risks = DB::table('risks')->whereNull('deleted_at')->whereIn('id', [1, 2, 3, 4, 5])->get();
-        $other_risks = DB::table('risks')->whereNull('deleted_at')->whereNotIn('id', [1, 2, 3, 4, 5])->get();
-        $likelihood_score = $this->get_likelihood_score($child_detail->age);
+        $first_risks = DB::table('risk_score')
+            ->where('user_child_id', $child_id)
+            ->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')
+            ->first();
+        $first_risk_key = $first_risks->risk_key;
+        $likelihood_score = $this->get_likelihood_score($child_detail->$first_risk_key);
         $impact_score = $this->get_impact_criteria($child_id);
         $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . 'Age' . '%')->get();
+        $risk_array = [
+            'age' => '⏳',
+            'sex' => '👫',
+            'current_health' => '🧠',
+            'previous_health' => '📜',
+            'language' => '🗣',
+            'sexual_orientation' => '🌈',
+            'family_structure' => '👨‍👩‍👧',
+            'access_the_internet' => '📱',
+            'online_activity_frequency' => '⏰',
+            'online_behaviour' => '👤',
+            'geographic_location' => '🌍',
+            'socioeconomic_status' => '💼',
+            'school_attendance' => '🏫',
+            'parental_involvement' => '👪',
+            'support_system' => '❤️',
+            'peer_relationships' => '👫',
+            'relationship_status' => '💍',
+            'school_climate' => '☀️',
+            'academic_performance' => '📚',
+        ];
+        $style_array = [
+            'age' => 'position: absolute;top:10px;left:20px;',
+            'sex' => 'position: absolute;top:10px;left:65px;',
+            'current_health' => 'position: absolute;top:10px;left:110px;',
+            'previous_health' => 'position: absolute;top:10px;left:155px;',
+            'language' => 'position: absolute;top:45px;left:20px;',
+            'sexual_orientation' => 'position: absolute;top:45px;left:65px;',
+            'family_structure' => 'position: absolute;top:45px;left:110px;',
+            'access_the_internet' => 'position: absolute;top:45px;left:155px;',
+            'online_activity_frequency' => 'position: absolute;top:80px;left:20px;',
+            'online_behaviour' => 'position: absolute;top:80px;left:65px;',
+            'geographic_location' => 'position: absolute;top:80px;left:110px;',
+            'socioeconomic_status' => 'position: absolute;top:80px;left:155px;',
+            'school_attendance' => 'position: absolute;top:115px;left:20px;',
+            'parental_involvement' => 'position: absolute;top:115px;left:65px;',
+            'support_system' => 'position: absolute;top:115px;left:110px;',
+            'peer_relationships' => 'position: absolute;top:115px;left:155px;',
+            'relationship_status' => 'position: absolute;top:150px;left:20px;',
+            'school_climate' => 'position: absolute;top:150px;left:65px;',
+            'academic_performance' => 'position: absolute;top:150px;left:110px;',
+        ];
         return view('website.matrix.matrix', [
             'child' => $child,
-            'risks' => $risks,
-            'other_risks' => $other_risks,
             'child_detail' => $child_detail,
             'likelihood_score' => $likelihood_score,
             'impact_score' => $impact_score,
             'recommendations' => $recommendations,
+            'risk_array' => $risk_array,
+            'style_array' => $style_array,
+            'child_score' => $child_score,
+            'first_risks' => $first_risks,
         ]);
     }
 
@@ -31,8 +79,10 @@ class MatrixController extends Controller
     {
         $child = DB::table('user_childrens')->where('id', $child_id)->first();
         $risk = DB::table('risks')->where('id', $id)->first();
+        $key = $risk->key;
         $child_detail = DB::table('user_children_details')->where('user_children_id', $child_id)->first();
-        $likelihood_score = $this->get_likelihood_score($risk->key);
+        $answer = DB::table('user_children_details')->where('user_children_id', $child_id)->first()->$key;
+        $likelihood_score = $this->get_likelihood_score($answer);
         $impact_score = $this->get_impact_criteria($child_id);
         $view = view('website.matrix.risk', [
             'risk' => $risk,
@@ -74,7 +124,7 @@ class MatrixController extends Controller
     }
 
 
-    function get_likelihood_score($answer)
+    public function get_likelihood_score($answer)
     {
         $arrayLikelihood = [
             "14-17 years old" => 1,
@@ -147,14 +197,14 @@ class MatrixController extends Controller
         } elseif ((int)$likelihood === 2) {
             $val = 'Possible';
         } elseif ((int)$likelihood === 3) {
-            $val = 'No';
-        } else {
             $val = 'Likely';
+        } else {
+            $val = 'No';
         }
         return $val;
     }
 
-    function get_impact_criteria($child_id)
+    public function get_impact_criteria($child_id)
     {
         $answers = DB::table('user_questions')->where('user_child_id', $child_id)->get();
 

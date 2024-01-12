@@ -33,11 +33,11 @@
                         <div class="links">
                             <h2>Connect</h2>
                             <ul>
-                                <li><a target="_blank" href="https://www.facebook.com/hackheroes"><img
+                                <li><a target="_blank" href="{{$fb_link}}"><img
                                             src="{{asset('assets/web/images/facebook.png')}}">Facebook</a></li>
-                                <li><a target="_blank" href="https://www.linkedin.com/company/hackheroes/about/"><img
+                                <li><a target="_blank" href="{{$linkedin_link}}"><img
                                             src="{{asset('assets/web/images/linkedin.png')}}">LinkedIn</a></li>
-                                <li><a target="_blank" href="https://www.instagram.com/hackheroes/"><img
+                                <li><a target="_blank" href="{{$insta_link}}"><img
                                             src="{{asset('assets/web/images/instagram.png')}}">Instagram</a></li>
                             </ul>
                         </div>

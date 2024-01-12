@@ -79,7 +79,6 @@
                                         <input class="form-check-input" id="all_selected" type="checkbox" value="">
                                     </div>
                                 </th>
-                                <th>Id</th>
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Amount</th>
@@ -119,7 +118,6 @@
         $.extend(true, $.fn.dataTable.defaults, {
             columns: [
                 {data: 'check', name: 'check', orderable: false, searchable: false},
-                {data: 'id', name: 'id'},
                 {data: 'title', name: 'title'},
                 {data: 'description', name: 'description'},
                 {data: 'amount', name: 'amount'},

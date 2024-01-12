@@ -11,6 +11,7 @@ use App\Models\UserChildren;
 use App\Models\UserChildrenDetail;
 use App\Models\UserQuestion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -51,8 +52,12 @@ class SignUpController extends Controller
     public function signUp4View()
     {
         $childrens = Session::get('child_name');
+        $terms_condition = DB::table('site_settings')->where('setting_key', 'TERMS_CONDITION')->first()->setting_value;
+        $privacy_policy = DB::table('site_settings')->where('setting_key', 'PRIVACY_POLICY')->first()->setting_value;
         return view('website.auth.signup_4', [
-            'childrens' => $childrens
+            'childrens' => $childrens,
+            'terms_condition' => $terms_condition,
+            'privacy_policy' => $privacy_policy,
         ]);
     }
 
@@ -260,6 +265,43 @@ class SignUpController extends Controller
                     $user_question->user_id = $user->id;
                     $user_question->user_child_id = $user_children->id;
                     $user_question->save();
+                }
+
+                $risks = DB::table('risks')->get();
+                foreach ($risks as $risk) {
+                    $key = $risk->key;
+                    $answer = DB::table('user_children_details')->where('id', $user_children_detail->id)->first()->$key;
+                    $matrixController = new MatrixController();
+                    $likelihood_score = $matrixController->get_likelihood_score($answer);
+                    $impact_score = $matrixController->get_impact_criteria($user_children_detail->id);
+                    if ($likelihood_score == 'Unlikely') {
+                        $l_score = 1;
+                    } elseif ($likelihood_score == 'Possible') {
+                        $l_score = 2;
+                    } elseif ($likelihood_score == 'Likely') {
+                        $l_score = 3;
+                    } else {
+                        $l_score = 0;
+                    }
+
+                    if ($impact_score == 'Minor') {
+                        $i_score = 1;
+                    } elseif ($impact_score == 'Moderate') {
+                        $i_score = 2;
+                    }else {
+                        $i_score = 3;
+                    }
+                    $pi_score = $l_score * $i_score;
+                    DB::table('risk_score')->insert([
+                        'user_id' => $user->id,
+                        'user_child_detail_id' => $user_children_detail->id,
+                        'user_child_id' => $user_children->id,
+                        'risk_id' => $risk->id,
+                        'pi_score' => $pi_score,
+                        'likely_hood_score' => $l_score,
+                        'impact_score' => $i_score,
+                        'risk_key' => $risk->key,
+                    ]);
                 }
             }
         }
