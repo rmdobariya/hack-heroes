@@ -15,6 +15,7 @@ class MatrixController extends Controller
         $first_risks = DB::table('risk_score')
             ->where('user_child_id', $child_id)
             ->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')
+            ->orderBy('id','desc')
             ->first();
         $first_risk_key = $first_risks->risk_key;
         $likelihood_score = $this->get_likelihood_score($child_detail->$first_risk_key, $child_id);
@@ -84,6 +85,27 @@ class MatrixController extends Controller
         $answer = DB::table('user_children_details')->where('user_children_id', $child_id)->first()->$key;
         $likelihood_score = $this->get_likelihood_score($answer, $child_id);
         $impact_score = $this->get_impact_criteria($child_id);
+        $risk_array = [
+            'age' => '⏳',
+            'sex' => '👫',
+            'current_health' => '🧠',
+            'previous_health' => '📜',
+            'language' => '🗣',
+            'sexual_orientation' => '🌈',
+            'family_structure' => '👨‍👩‍👧',
+            'access_the_internet' => '📱',
+            'online_activity_frequency' => '⏰',
+            'online_behaviour' => '👤',
+            'geographic_location' => '🌍',
+            'socioeconomic_status' => '💼',
+            'school_attendance' => '🏫',
+            'parental_involvement' => '👪',
+            'support_system' => '❤️',
+            'peer_relationships' => '👫',
+            'relationship_status' => '💍',
+            'school_climate' => '☀️',
+            'academic_performance' => '📚',
+        ];
         $view = view('website.matrix.risk', [
             'risk' => $risk,
             'child_detail' => $child_detail,
@@ -96,10 +118,12 @@ class MatrixController extends Controller
             'risk' => $risk,
             'child' => $child,
             'recommendations' => $recommendations,
+            'risk_array' => $risk_array,
         ])->render();
         return response()->json([
             'data' => $view,
             'recommendation' => $recommendation,
+            'risk_name' => $risk->name,
         ]);
     }
 
@@ -109,6 +133,20 @@ class MatrixController extends Controller
         $risk = DB::table('risks')->where('name', $risk_name)->first();
         $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->get();
         $view = view('website.matrix.risk_wise_recommendation', [
+            'risk' => $risk,
+            'child' => $child,
+            'recommendations' => $recommendations,
+        ])->render();
+        return response()->json([
+            'data' => $view
+        ]);
+    }
+    public function riskChangeEvent($risk_name, $child_id)
+    {
+        $child = DB::table('user_childrens')->where('id', $child_id)->first();
+        $risk = DB::table('risks')->where('name', $risk_name)->first();
+        $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->get();
+        $view = view('website.matrix.risk_change_event', [
             'risk' => $risk,
             'child' => $child,
             'recommendations' => $recommendations,

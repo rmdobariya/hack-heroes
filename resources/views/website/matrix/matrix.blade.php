@@ -40,8 +40,8 @@
                                     <p>Click on the risk to view detailed description</p>
                                     <div class="summary-list">
                                         @php
-                                            $top_risks = DB::table('risk_score')->where('user_child_id', $child->id)->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')->take(5)->get();
-                                            $top_risks_ids = DB::table('risk_score')->where('user_child_id', $child->id)->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')->take(5)->pluck('id')->toArray();
+                                            $top_risks = DB::table('risk_score')->where('user_child_id', $child->id)->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')->orderBy('id','desc')->take(5)->get();
+                                            $top_risks_ids = DB::table('risk_score')->where('user_child_id', $child->id)->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')->orderBy('id','desc')->take(5)->pluck('id')->toArray();
                                         @endphp
                                         @foreach($top_risks as $key=>$top_risk)
                                             <div class="list-box risk_event @if($loop->first) active @endif"
@@ -326,18 +326,18 @@
                                     <h2 data-aos="fade-right" data-aos-delay="100">Recommendations
                                         for {{$child->name}}</h2>
                                     <div class="form-filter" data-aos="fade-left" data-aos-delay="200">
-                                        <select class="form-control form-select">
+                                        <select class="form-control form-select risk_change_event">
                                             <option>All Categories</option>
-                                            <option>Risk categories</option>
-                                            <option>Age</option>
-                                            <option>Frequency</option>
+                                            @foreach($risk_array as  $key=>$array)
+                                                <option value="{{str_replace('_',' ',ucfirst($key))}}" data-child-id="{{$child->id}}">{{str_replace('_',' ',ucfirst($key))}}</option>
+                                            @endforeach
                                         </select>
                                         <i class="las la-filter"></i>
                                     </div>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
-                            <div class="col-md-12">
+                            <div class="col-md-12 risk_wise_recommendation_part">
                                 @foreach($recommendations as $recommendation)
                                     <div class="recomm-box" data-aos="fade-up" data-aos-delay="200">
                                         <div class="row">

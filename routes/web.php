@@ -64,4 +64,5 @@ Route::group(['middleware' => ['auth:web', 'webCheck']], function () {
     Route::get('getRisk/{id}/{child_id}', [MatrixController::class, 'getRisk'])->name('getRisk');
     Route::get('getRiskWiseRecommendation/{risk}/{child_id}', [MatrixController::class, 'getRiskWiseRecommendation'])->name('getRiskWiseRecommendation');
     Route::get('recommendation/{id}/{child_id}', [RecommendationController::class, 'index'])->name('recommendation');
+    Route::get('risk-change-event/{risk}/{child_id}', [MatrixController::class, 'riskChangeEvent'])->name('risk-change-event');
 });
