@@ -163,7 +163,7 @@ class MatrixController extends Controller
     }
 
 
-    public function get_likelihood_score($answer, $child_id)
+    public function get_likelihood_score($answer = '', $child_id = 0)
     {
         $child = DB::table('user_childrens')->where('id', $child_id)->first();
         $arrayLikelihood = [
