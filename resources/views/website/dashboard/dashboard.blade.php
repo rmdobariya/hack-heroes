@@ -35,18 +35,24 @@
                         @foreach($user_childrens as $user_children)
                             @php
                                 $delay += 200;
+                                $dashboard_score = DB::table('dashboard_score')->where('child_id',$user_children->id)->where('user_id',$user->id)->first();
+                                $today = Carbon\Carbon::now();
+                                $module_of_month = Carbon\Carbon::parse($dashboard_score->module_of_month);
+                                $view_recommendations_for = Carbon\Carbon::parse($dashboard_score->view_recommendations_for);
+                                $diff_module_of_month = $today->diffInDays($module_of_month);
+                                $diff_view_recommendations_for = $today->diffInDays($view_recommendations_for);
                             @endphp
                             <div class="next-tasklist" data-aos="fade-up" data-aos-delay="{{$delay}}">
                                 <div class="user-box">
                                     <img src="{{asset('assets/web/images/alex.svg')}}" alt="user">
-                                    <h3>{{$user_children->name}}</h3> 
+                                    <h3>{{$user_children->name}}</h3>
                                 </div>
                                 <div class="task-list">
                                     <ul>
                                         <li>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
-                                                       id="flexCheckDefault__{{$user_children->id}}" checked disabled>
+                                                       id="flexCheckDefault__{{$user_children->id}}" @if($dashboard_score->questionnaire == 1)  checked @endif disabled>
                                                 <label class="form-check-label"
                                                        for="flexCheckDefault__{{$user_children->id}}">
                                                     Questionnaire
@@ -56,7 +62,7 @@
                                         <li>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
-                                                       id="flexCheckDefault_{{$user_children->id}}" disabled>
+                                                       id="flexCheckDefault_{{$user_children->id}}" @if($dashboard_score->unique_risk_profile == 1)  checked @endif disabled>
                                                 <label class="form-check-label"
                                                        for="flexCheckDefault_{{$user_children->id}}">
                                                     Unique Risk Profile
@@ -66,7 +72,7 @@
                                         <li>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
-                                                       id="flexCheckDefault_{{$user_children->id}}" disabled>
+                                                       id="flexCheckDefault_{{$user_children->id}}" @if(30 < $diff_module_of_month)  checked @endif disabled>
                                                 <label class="form-check-label"
                                                        for="flexCheckDefault_{{$user_children->id}}">
                                                     Modules for Month #1
@@ -76,7 +82,7 @@
                                         <li>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
-                                                       id="flexCheckDefault_{{$user_children->id}}" disabled>
+                                                       id="flexCheckDefault_{{$user_children->id}}" @if(30 < $diff_view_recommendations_for)  checked @endif disabled>
                                                 <label class="form-check-label"
                                                        for="flexCheckDefault_{{$user_children->id}}">
                                                     View Recommendations for Month #1

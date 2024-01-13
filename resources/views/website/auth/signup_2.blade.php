@@ -11,6 +11,7 @@
                         <h1>HackHeroes</h1>
                         <h2>Join us today & get your personalised cyberbullying prevention plan</h2>
                         <form id="signup3" method="post">
+                            <input type="hidden" value="{{ !is_null(Auth::guard('web')->user()) ? Auth::guard('web')->user()->id : 0}}" name="user_id" id="user_id">
                             <input type="text" name="name[1]"  placeholder="Child’s first name"
                                    value="" class="form-control attribute-row attribute-row-1">
                             <div id="new_chq"></div>

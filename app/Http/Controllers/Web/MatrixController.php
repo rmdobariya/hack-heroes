@@ -37,11 +37,16 @@ class MatrixController extends Controller
         $first_risks = DB::table('risk_score')
             ->where('user_child_id', $child_id)
             ->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')
-            ->orderBy('id','desc')
+            ->orderBy('id', 'desc')
             ->first();
-        $first_risk_key = $first_risks->risk_key;
-        $likelihood_score = $this->get_likelihood_score($child_detail->$first_risk_key, $child_id);
-        $impact_score = $this->get_impact_criteria($child_id);
+        $first_risk_key = $first_risks ? $first_risks->risk_key : '';
+        $likelihood_score = 'pending_questionnaire';
+        $impact_score = 'pending_questionnaire';
+        if (!empty($first_risk_key)) {
+            $likelihood_score = $this->get_likelihood_score($child_detail->$first_risk_key, $child_id);
+            $impact_score = $this->get_impact_criteria($child_id);
+        }
+
         $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . 'Age' . '%')->get();
         $risk_array = $this->_risk_array;
         $style_array = [
@@ -65,6 +70,13 @@ class MatrixController extends Controller
             'school_climate' => 'position: absolute;top:150px;left:65px;',
             'academic_performance' => 'position: absolute;top:150px;left:110px;',
         ];
+        $dashboard_score = DB::table('dashboard_score')->where('child_id', $child_id)->first();
+        if ($dashboard_score->unique_risk_profile == 0) {
+            DB::table('dashboard_score')->where('child_id', $child_id)->update([
+                'unique_risk_profile' => 1
+            ]);
+        }
+
         return view('website.matrix.matrix', [
             'child' => $child,
             'child_detail' => $child_detail,
@@ -85,7 +97,7 @@ class MatrixController extends Controller
         $key = $risk->key;
         $child_detail = DB::table('user_children_details')->where('user_children_id', $child_id)->first();
         $answer = DB::table('user_children_details')->where('user_children_id', $child_id)->first()->$key;
-        $likelihood_score = $this->get_likelihood_score($answer,$child_id);
+        $likelihood_score = $this->get_likelihood_score($answer, $child_id);
 
         $risk_array = $this->_risk_array;
         $user_questions = DB::table('user_questions')->where('user_child_id', $child_id)->orderBy('id', 'ASC')->get();
@@ -142,6 +154,7 @@ class MatrixController extends Controller
             'data' => $view
         ]);
     }
+
     public function riskChangeEvent($risk_name, $child_id)
     {
         $child = DB::table('user_childrens')->where('id', $child_id)->first();
@@ -325,8 +338,6 @@ class MatrixController extends Controller
         }
         return $impact_score;
     }
-
-
 
 
     function get_risk_category()

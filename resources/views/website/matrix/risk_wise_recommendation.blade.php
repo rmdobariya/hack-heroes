@@ -40,8 +40,10 @@
                                     <a href="{{route('recommendation',[$recommendation->id,$child->id])}}" class="line-btns">More</a>
                                     <a href="https://calendar.google.com/" target="_blank" class="dark-btns"><i
                                             class="las la-calendar-alt"></i> Add to Calendar</a>
-                                    <a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank"
+                                    @if(!is_null($recommendation->pdf))
+                                    <a href="{{asset($recommendation->pdf)}}" target="_blank"
                                        class="dark-btns"><i class="las la-arrow-down"></i> Download Resource</a>
+                                    @endif
                                     <a href="{{ route('dashboard') }}" class="dark-btns">Done</a>
                                 </div>
                             </div>

@@ -241,7 +241,7 @@ signupStore.on('submit', function (e) {
             loaderHide()
             notificationToast(response.data.message, 'success')
             setTimeout(function () {
-                window.location.href = APP_URL + '/login';
+                window.location.href = APP_URL + '/dashboard';
             }, 5000);
         })
         .catch(function (error) {

@@ -78,10 +78,10 @@
 
                                 <div class="row">
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
-                                        <label class="required fs-6 fw-bold mb-2" for="tag_for_frequency">
+                                        <label class="fs-6 fw-bold mb-2" for="tag_for_frequency">
                                             Tag for frequency
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" required
+                                        <input type="text" class="form-control form-control-solid"
                                                name="tag_for_frequency"
                                                id="tag_for_frequency"
                                                value="{{$recommendation->tag_for_frequency}}"
@@ -91,10 +91,10 @@
 
                                 <div class="row">
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
-                                        <label class="required fs-6 fw-bold mb-2" for="tag_if_affiliate">
+                                        <label class="fs-6 fw-bold mb-2" for="tag_if_affiliate">
                                             Tag if affiliate
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" required
+                                        <input type="text" class="form-control form-control-solid"
                                                name="tag_if_affiliate"
                                                id="tag_if_affiliate"
                                                value="{{$recommendation->tag_if_affiliate}}"
@@ -104,10 +104,10 @@
 
                                 <div class="row">
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
-                                        <label class="required fs-6 fw-bold mb-2" for="tag_if_resource">
+                                        <label class="fs-6 fw-bold mb-2" for="tag_if_resource">
                                             Tag if resource
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" required
+                                        <input type="text" class="form-control form-control-solid"
                                                name="tag_if_resource"
                                                id="tag_if_resource"
                                                value="{{$recommendation->tag_if_resource}}"
@@ -131,7 +131,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <label class="required fs-6 fw-bold mb-2" for="image">
+                                    <label class="fs-6 fw-bold mb-2" for="image">
                                         Image
                                     </label>
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
@@ -141,6 +141,15 @@
                                'description_string'=>'Image Thumbnail Description',
                                'image'=>asset($recommendation->image)
                                ])
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="fs-6 fw-bold mb-2" for="pdf">
+                                        Attach PDF
+                                    </label>
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                     <input type="file" name="pdf" id="pdf">
                                     </div>
                                 </div>
                             </div>

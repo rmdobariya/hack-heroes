@@ -3,7 +3,7 @@
     Matrix
 @endsection
 @section('content')
-<link rel="stylesheet" type="text/css" href="{{asset('assets/web/css/matrix.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/web/css/matrix.css')}}">
     <section class="feature dashboard contactus-page">
         <div class="container">
             <div class="row">
@@ -27,7 +27,7 @@
         </div>
 
     </section>
-    @if($impact_score != 0)
+    @if($impact_score != 'pending_questionnaire')
         <div id="main">
             <section id="summary">
                 <div class="container">
@@ -333,7 +333,8 @@
                                         <select class="form-control form-select risk_change_event">
                                             <option>All Categories</option>
                                             @foreach($risk_array as  $key=>$array)
-                                                <option value="{{str_replace('_',' ',ucfirst($key))}}" data-child-id="{{$child->id}}">{{str_replace('_',' ',ucfirst($key))}}</option>
+                                                <option value="{{str_replace('_',' ',ucfirst($key))}}"
+                                                        data-child-id="{{$child->id}}">{{str_replace('_',' ',ucfirst($key))}}</option>
                                             @endforeach
                                         </select>
                                         <i class="las la-filter"></i>
@@ -367,10 +368,12 @@
                                                     <a href="https://calendar.google.com/" target="_blank"
                                                        class="dark-btns"><i
                                                             class="las la-calendar-alt"></i> Add to Calendar</a>
-                                                    <a href="{{asset('assets/web/images/privacy-policy.pdf')}}"
-                                                       target="_blank"
-                                                       class="dark-btns"><i class="las la-arrow-down"></i> Download
-                                                        Resource</a>
+                                                    @if(!is_null($recommendation->pdf))
+                                                        <a href="{{asset($recommendation->pdf)}}"
+                                                           target="_blank"
+                                                           class="dark-btns"><i class="las la-arrow-down"></i> Download
+                                                            Resource</a>
+                                                    @endif
                                                     <a href="{{ route('dashboard') }}" class="dark-btns">Done</a>
                                                 </div>
                                             </div>
@@ -394,12 +397,16 @@
                         <div class="col-md-12">
                             <div class="upgrade-plan" data-aos="fade-up" data-aos-delay="200">
                                 <h3>Teach your child about online privacy and help them adjust...</h3>
-                                <a href="pricing.html">Upgrade Plan</a>
+                                <a href="{{route('pricing')}}">Upgrade Plan</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+        </div>
+    @else
+        <div class="col-md-12">
+            <h2 data-aos="fade-right" data-aos-delay="200">your questionnaire process is not complete</h2>
         </div>
     @endif
 @endsection

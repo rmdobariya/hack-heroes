@@ -57,7 +57,7 @@
 {{--                    </div>--}}
                     <div class="col-md-12">
                         <div class="add-child" data-aos="fade-right" data-aos-delay="300">
-                            <a href="javascript:void(0);">+ Child</a>
+                            <a href="{{route('signup_2_view')}}">+ Child</a>
                         </div>
                     </div>
                 </div>

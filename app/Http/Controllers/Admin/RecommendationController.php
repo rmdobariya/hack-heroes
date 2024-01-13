@@ -57,8 +57,12 @@ class RecommendationController extends Controller
 //        } else {
         $recommendation = Recommendation::find($request['edit_value']);
         $image = $recommendation->image;
+        $pdf = $recommendation->pdf;
         if ($request->hasfile('image')) {
             $image = ImageUploadHelper::imageUpload($request->file('image'), 'assets/web/recommendation');
+        }
+        if ($request->hasfile('pdf')) {
+            $pdf = ImageUploadHelper::imageUpload($request->file('pdf'), 'assets/web/recommendation/pdf');
         }
 
         $recommendation->recommendation_type = $request['recommendation_type'];
@@ -73,6 +77,7 @@ class RecommendationController extends Controller
         $recommendation->tag_if_resource = $request['tag_if_resource'];
         $recommendation->tags_for_visual_grouping = $request['tags_for_visual_grouping'];
         $recommendation->image = $image;
+        $recommendation->pdf = $pdf;
         $recommendation->save();
 
         return response()->json([
