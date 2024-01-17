@@ -15,9 +15,13 @@ class ProfileController extends Controller
     {
         $user = Auth::guard('web')->user();        
         $user_childrens = DB::table('user_childrens')->where('user_id', $user->id)->get();
+        $terms_condition = DB::table('site_settings')->where('setting_key', 'TERMS_CONDITION')->first()->setting_value;
+        $privacy_policy = DB::table('site_settings')->where('setting_key', 'PRIVACY_POLICY')->first()->setting_value;
         return view('website.profile.profile', [
             'user' => $user,
             'user_childrens' => $user_childrens,
+            'terms_condition' => $terms_condition,
+            'privacy_policy' => $privacy_policy,
         ]);
     }
 

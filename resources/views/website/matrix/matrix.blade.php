@@ -121,10 +121,12 @@
                                                             @if($score->risk_key == $key)
                                                                 @if($score->likely_hood_score == 3 && $score->impact_score == 1)
                                                                     <p role="button" data-bs-toggle="tooltip"
+                                                                       data-child-id="{{$child->id}}"
                                                                        id="likely_1_{{$loop->parent->index}}_{{$key}}"
-                                                                       class="@if($score->likely_hood_score == 0) d-none @endif"
+                                                                       data-key="{{str_replace('_',' ',ucfirst($key))}}"
+                                                                       class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - (Likely - Minor)"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}}"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -140,10 +142,12 @@
                                                             @if($score->risk_key == $key)
                                                                 @if($score->likely_hood_score == 3 && $score->impact_score == 2)
                                                                     <p role="button" data-bs-toggle="tooltip"
+                                                                       data-child-id="{{$child->id}}"
                                                                        id="likely_2_{{$key}}"
-                                                                       class="@if($score->likely_hood_score == 0) d-none @endif"
+                                                                       data-key="{{str_replace('_',' ',ucfirst($key))}}"
+                                                                       class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - (Likely - Moderate)"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}}"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -159,10 +163,12 @@
                                                             @if($score->risk_key == $key)
                                                                 @if($score->likely_hood_score == 3 && $score->impact_score == 3)
                                                                     <p role="button" data-bs-toggle="tooltip"
+                                                                       data-child-id="{{$child->id}}"
                                                                        id="likely_3_{{$key}}"
-                                                                       class="@if($score->likely_hood_score == 0) d-none @endif"
+                                                                       data-key="{{str_replace('_',' ',ucfirst($key))}}"
+                                                                       class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - (Likely - Major)"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}}"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -182,10 +188,12 @@
                                                             @if($score->risk_key == $key)
                                                                 @if($score->likely_hood_score == 2 && $score->impact_score == 1)
                                                                     <p role="button" data-bs-toggle="tooltip"
+                                                                       data-child-id="{{$child->id}}"
                                                                        id="possible_1_{{$key}}"
-                                                                       class="@if($score->likely_hood_score == 0) d-none @endif"
+                                                                       data-key="{{str_replace('_',' ',ucfirst($key))}}"
+                                                                       class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - (Possible - Minor)"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}}"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -201,10 +209,12 @@
                                                             @if($score->risk_key == $key)
                                                                 @if($score->likely_hood_score == 2 && $score->impact_score == 2)
                                                                     <p role="button" data-bs-toggle="tooltip"
+                                                                       data-child-id="{{$child->id}}"
                                                                        id="possible_2_{{$key}}"
-                                                                       class="@if($score->likely_hood_score == 0) d-none @endif"
+                                                                       data-key="{{str_replace('_',' ',ucfirst($key))}}"
+                                                                       class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - (Possible - Moderate)"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}}"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -220,10 +230,12 @@
                                                             @if($score->risk_key == $key)
                                                                 @if($score->likely_hood_score == 2 && $score->impact_score == 3)
                                                                     <p role="button" data-bs-toggle="tooltip"
+                                                                       data-child-id="{{$child->id}}"
                                                                        id="possible_3_{{$key}}"
-                                                                       class="@if($score->likely_hood_score == 0) d-none @endif"
+                                                                       data-key="{{str_replace('_',' ',ucfirst($key))}}"
+                                                                       class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - (Possible - Major)"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}}"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -243,10 +255,12 @@
                                                             @if($score->risk_key == $key)
                                                                 @if($score->likely_hood_score == 1 && $score->impact_score == 1)
                                                                     <p role="button" data-bs-toggle="tooltip"
+                                                                       data-child-id="{{$child->id}}"
                                                                        id="unlikely_1_{{$key}}"
-                                                                       class="@if($score->likely_hood_score == 0) d-none @endif"
+                                                                       data-key="{{str_replace('_',' ',ucfirst($key))}}"
+                                                                       class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - (Unlikely - Minor)"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}}"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -262,10 +276,12 @@
                                                             @if($score->risk_key == $key)
                                                                 @if($score->likely_hood_score == 1 && $score->impact_score == 2)
                                                                     <p role="button" data-bs-toggle="tooltip"
+                                                                       data-child-id="{{$child->id}}"
                                                                        id="unlikely_2_{{$key}}"
-                                                                       class="@if($score->likely_hood_score == 0) d-none @endif"
+                                                                       data-key="{{str_replace('_',' ',ucfirst($key))}}"
+                                                                       class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - (Unlikely - Moderate)"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}}"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -281,10 +297,12 @@
                                                             @if($score->risk_key == $key)
                                                                 @if($score->likely_hood_score == 1 && $score->impact_score == 3)
                                                                     <p role="button" data-bs-toggle="tooltip"
+                                                                       data-child-id="{{$child->id}}"
                                                                        id="unlikely_3_{{$key}}"
-                                                                       class="@if($score->likely_hood_score == 0) d-none @endif"
+                                                                       data-key="{{str_replace('_',' ',ucfirst($key))}}"
+                                                                       class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}} - (Unlikely - Major)"
+                                                                       title="{{str_replace('_',' ',ucfirst($key))}}"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif

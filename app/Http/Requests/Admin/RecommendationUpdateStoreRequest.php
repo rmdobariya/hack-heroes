@@ -27,7 +27,7 @@ class RecommendationUpdateStoreRequest extends FormRequest
 //            'tag_if_affiliate' => 'required',
 //            'tag_if_resource' => 'required',
             'tags_for_visual_grouping' => 'required',
-            'pdf' => 'mimes:pdf',
+//            'pdf' => 'mimes:pdf',
         ];
     }
 

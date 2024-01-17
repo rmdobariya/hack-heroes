@@ -32,7 +32,7 @@ $signup2.on('submit', function (e) {
             .then(function (response) {
                 console.log(response)
                 loaderHide();
-                window.location.href = APP_URL + '/signup_2_view';
+                window.location.href = APP_URL + '/add-child-info';
             })
             .catch(function (error) {
                 console.log(error);
@@ -60,7 +60,11 @@ $signup3.on('submit', function (e) {
             .then(function (response) {
                 console.log(response)
                 loaderHide();
-                window.location.href = APP_URL + '/signup_3_view';
+                if (response.data.user_id == 0) {
+                    window.location.href = APP_URL + '/create-password';
+                } else {
+                    window.location.href = APP_URL + '/create-plan';
+                }
             })
             .catch(function (error) {
                 console.log(error);
@@ -181,7 +185,7 @@ $signup4.on('submit', function (e) {
             .then(function (response) {
                 console.log(response)
                 loaderHide();
-                window.location.href = APP_URL + '/signup_4_view';
+                window.location.href = APP_URL + '/create-plan';
             })
             .catch(function (error) {
                 console.log(error);
@@ -203,7 +207,7 @@ $signup5.on('submit', function (e) {
         .then(function (response) {
             console.log(response)
             loaderHide();
-            window.location.href = APP_URL + '/signup_5_view';
+            window.location.href = APP_URL + '/child-info';
         })
         .catch(function (error) {
             console.log(error);
@@ -221,7 +225,7 @@ $signup6.on('submit', function (e) {
         .then(function (response) {
             console.log(response)
             loaderHide();
-            window.location.href = APP_URL + '/signup_6_view';
+            window.location.href = APP_URL + '/child-characteristics';
         })
         .catch(function (error) {
             console.log(error);
@@ -260,7 +264,7 @@ $(document).on('click', '#skip_store', function () {
                 loaderHide()
                 notificationToast(response.data.message, 'success')
                 setTimeout(function () {
-                    window.location.href = APP_URL + '/login';
+                    window.location.href = APP_URL + '/dashboard';
                 }, 5000);
             })
             .catch(function (error) {

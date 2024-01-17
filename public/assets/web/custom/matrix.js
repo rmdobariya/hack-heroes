@@ -41,3 +41,23 @@ $(document).on('change', '.risk_change_event', function () {
     })
 });
 
+$(document).on('click', '.risk_wise_filter', function () {
+    var risk = $(this).data('key');
+    var id = $(this).data('child-id');
+    loaderView()
+    $.ajax({
+        url: APP_URL + '/risk-change-event/' + risk + '/' + id,
+        method: 'GET',
+
+    }).done(function (data) {
+        loaderHide()
+        $('.risk_change_event').val(risk);
+        $('.risk_change_event').trigger('change');
+        $('.risk_wise_recommendation_part').html(data.data)
+
+    }).fail(function (jqXHR, textStatus) {
+        loaderHide()
+        console.log('Request failed: ' + textStatus)
+    })
+});
+

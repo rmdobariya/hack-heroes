@@ -57,7 +57,7 @@
 {{--                    </div>--}}
                     <div class="col-md-12">
                         <div class="add-child" data-aos="fade-right" data-aos-delay="300">
-                            <a href="{{route('signup_2_view')}}">+ Child</a>
+                            <a href="{{route('add-child-info')}}">+ Child</a>
                         </div>
                     </div>
                 </div>
@@ -95,12 +95,10 @@
                             <a class="icon-contact" href="{{route('contact-us')}}">Contact Us</a>
                         </div>
                         <div class="det">
-                            <a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank">Terms &
-                                Conditions</a>
+                            <a href="{{asset($terms_condition)}}" target="_blank">Terms & Conditions</a>
                         </div>
                         <div class="det">
-                            <a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank">Privacy
-                                Policy</a>
+                            <a href="{{asset($privacy_policy)}}" target="_blank">Privacy Policy</a>
                         </div>
                         <div class="det">
                             <a href="{{route('logout')}}">Logout</a>

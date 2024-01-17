@@ -1,4 +1,7 @@
 @extends('admin.layouts2.simple.master')
+@section('title')
+    Edit Recommendation
+@endsection
 @section('content')
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
@@ -145,11 +148,20 @@
                                 </div>
 
                                 <div class="row">
-                                    <label class="fs-6 fw-bold mb-2" for="pdf">
-                                        Attach PDF
-                                    </label>
-                                    <div class="fv-row mb-7 fv-plugins-icon-container">
-                                     <input type="file" name="pdf" id="pdf">
+                                    <div class="col-6">
+                                        <label class="fs-6 fw-bold mb-2" for="pdf">
+                                            Attach PDF
+                                        </label>
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <input type="file" name="pdf" id="pdf">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div>
+                                            @if($recommendation->pdf)
+                                                <a href="{{asset($recommendation->pdf)}}">Link Uploaded</a>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +170,7 @@
                                 <button class="btn btn-primary" type="submit">
                                     Submit
                                 </button>
-                                <a href="{{ route('admin.page.index') }}">
+                                <a href="{{ route('admin.recommendation.index') }}">
                                     <button class="btn btn-secondary" type="button">
                                         Cancel
                                     </button>

@@ -40,6 +40,10 @@ class SignUpController extends Controller
     {
         Session::put('user_id', $request->user_id);
         Session::put('child_name', $request->name);
+        $user_id = Session::get('user_id');
+        return response()->json([
+            'user_id' => $user_id
+        ]);
     }
 
     public function signUp3View()
@@ -125,24 +129,24 @@ class SignUpController extends Controller
     {
         $childrens = Session::get('child_name');
         $questions = [[
-            'question' => 'Choose the option that best describes []  characteristics/behaviours.',
-            'answer' => ['[] feels slightly upset or bothered by online interactions.',
-                '[] experiences some emotional distress and minor changes in behaviour due to cyberbullying.',
-                '[] experiences significant emotional distress, withdrawal, or adverse effects on their mental health due to cyberbullying.'
+            'question' => 'Choose the option that best describes [] s  characteristics/behaviours.',
+            'answer' => ['[] s feels slightly upset or bothered by online interactions.',
+                '[] s experiences some emotional distress and minor changes in behaviour due to cyberbullying.',
+                '[] s experiences significant emotional distress, withdrawal, or adverse effects on their mental health due to cyberbullying.'
             ]],
-            ['question' => 'Select the answer that most applies to [].',
-                'answer' => ['[] occasionally encounters mild teasing or teasing online comments.',
-                    '[] experiences some negative emotions and occasional distress due to cyberbullying related to their sex.',
-                    '[] faces severe and persistent online harassment and experiences significant negative impacts on their self-esteem and overall well-being due to their sex.'],
+            ['question' => 'Select the answer that most applies to [] s.',
+                'answer' => ['[] s occasionally encounters mild teasing or teasing online comments.',
+                    '[] s experiences some negative emotions and occasional distress due to cyberbullying related to their sex.',
+                    '[] s faces severe and persistent online harassment and experiences significant negative impacts on their self-esteem and overall well-being due to their sex.'],
             ],
-            ['question' => 'Select the answer that most applies to [].',
-                'answer' => ['[] encounters occasional instances of online conflict or disagreement with peers from different regions.',
-                    '[] faces some challenges navigating online interactions with individuals from different regions or communities, leading to mild discomfort or misunderstanding.',
-                    '[] experiences frequent and intense online bullying or exclusion from peers in different regions or communities, resulting in significant emotional distress and feelings of isolation.'],
+            ['question' => 'Select the answer that most applies to [] s.',
+                'answer' => ['[] s encounters occasional instances of online conflict or disagreement with peers from different regions.',
+                    '[] s faces some challenges navigating online interactions with individuals from different regions or communities, leading to mild discomfort or misunderstanding.',
+                    '[] s experiences frequent and intense online bullying or exclusion from peers in different regions or communities, resulting in significant emotional distress and feelings of isolation.'],
             ],
-            ['question' => 'Please select the answer option that most accurately reflects [].',
-                'answer' => ['[] mental health is temporarily affected by online interactions, but they quickly recover.',
-                    '[] experiences increased stress or anxiety due to cyberbullying, requiring some support or coping strategies to manage their mental health.',
+            ['question' => 'Please select the answer option that most accurately reflects [] s.',
+                'answer' => ['[] s mental health is temporarily affected by online interactions, but they quickly recover.',
+                    '[] s experiences increased stress or anxiety due to cyberbullying, requiring some support or coping strategies to manage their mental health.',
                     '[] s mental health significantly deteriorates, leading to severe emotional distress, depression, or anxiety as a result of cyberbullying.'],
             ],
             ['question' => 'Choose the option that best describes [] s characteristics/behaviours.',
@@ -150,59 +154,59 @@ class SignUpController extends Controller
                     '[] s past mental health issues are triggered or worsened by cyberbullying, resulting in increased emotional challenges and requiring additional support.',
                     '[] s previous mental health problems resurface or intensify due to cyberbullying, leading to severe psychological distress and potentially requiring professional intervention.'],
             ],
-            ['question' => 'Select the answer that most applies to [].',
-                'answer' => ['[] never or occasionally encounters misunderstandings or language barriers during online interactions.',
-                    '[] faces some social exclusion or teasing related to their language skills, causing them occasional distress.',
-                    '[] experiences significant discrimination, bullying, or isolation due to their language, resulting in profound emotional and psychological impacts.'],
+            ['question' => 'Select the answer that most applies to [] s.',
+                'answer' => ['[] s never or occasionally encounters misunderstandings or language barriers during online interactions.',
+                    '[] s faces some social exclusion or teasing related to their language skills, causing them occasional distress.',
+                    '[] s experiences significant discrimination, bullying, or isolation due to their language, resulting in profound emotional and psychological impacts.'],
             ],
-            ['question' => 'Please select the answer option that most accurately reflects [].',
-                'answer' => ['[] never or occasionally engages in mild online conflicts or disagreements with others.',
+            ['question' => 'Please select the answer option that most accurately reflects [] s.',
+                'answer' => ['[] s never or occasionally engages in mild online conflicts or disagreements with others.',
                     '[] s own online behaviour attracts some negative attention or minor conflicts, leading to increased stress or discomfort.',
                     '[] s online behaviour triggers intense online harassment or retaliation, resulting in severe emotional distress and negative consequences for their online and offline life.'],
             ],
             ['question' => 'Choose the option that best describes [] s characteristics/behaviours.',
-                'answer' => ['[] never or occasionally faces subtle social exclusion or teasing related to their socioeconomic status.',
-                    '[] experiences occasional difficulties or challenges due to their socioeconomic status, leading to some emotional impact.',
-                    '[] faces significant discrimination, bullying, or stigmatisation due to their socioeconomic status, resulting in profound emotional distress and adverse effects on their well-being.'],
+                'answer' => ['[] s never or occasionally faces subtle social exclusion or teasing related to their socioeconomic status.',
+                    '[] s experiences occasional difficulties or challenges due to their socioeconomic status, leading to some emotional impact.',
+                    '[] s faces significant discrimination, bullying, or stigmatisation due to their socioeconomic status, resulting in profound emotional distress and adverse effects on their well-being.'],
             ],
-            ['question' => 'Select the answer that most applies to [].',
-                'answer' => ['[] never or occasionally encounters mild teasing or jokes related to their sexual orientation.',
-                    '[] experiences some negative emotions and occasional distress due to cyberbullying related to their sexual orientation.',
-                    '[] faces severe and persistent online harassment and experiences significant negative impacts on their self-esteem, mental health, and overall well-being due to their sexual orientation.'],
+            ['question' => 'Select the answer that most applies to [] s.',
+                'answer' => ['[] s never or occasionally encounters mild teasing or jokes related to their sexual orientation.',
+                    '[] s experiences some negative emotions and occasional distress due to cyberbullying related to their sexual orientation.',
+                    '[] s faces severe and persistent online harassment and experiences significant negative impacts on their self-esteem, mental health, and overall well-being due to their sexual orientation.'],
             ],
-            ['question' => 'Please select the answer option that most accurately reflects [].',
-                'answer' => ['[] does not experience, or experiences occasional, mild conflicts or disagreements with peers at school.',
-                    '[] faces some negative interactions or discomfort at school due to cyberbullying, resulting in noticeable changes in their behaviour, such as increased anxiety or reluctance to attend school.',
-                    '[] experiences persistent and severe cyberbullying victimisation at school, leading to significant emotional distress, social withdrawal, academic decline, and potentially impacting their overall attendance and educational experience.'],
+            ['question' => 'Please select the answer option that most accurately reflects [] s.',
+                'answer' => ['[] s does not experience, or experiences occasional, mild conflicts or disagreements with peers at school.',
+                    '[] s faces some negative interactions or discomfort at school due to cyberbullying, resulting in noticeable changes in their behaviour, such as increased anxiety or reluctance to attend school.',
+                    '[] s experiences persistent and severe cyberbullying victimisation at school, leading to significant emotional distress, social withdrawal, academic decline, and potentially impacting their overall attendance and educational experience.'],
             ],
             ['question' => 'Choose the option that best describes [] s characteristics/behaviours.',
-                'answer' => ['[] occasionally faces minor conflicts or challenges online but can resolve them independently.',
-                    '[] experiences occasional emotional distress or conflicts online, requiring some parental intervention or support to address the issues.',
-                    '[] faces severe and persistent online harassment or victimisation, leading to significant emotional distress and negative impacts on their well-being despite parental involvement.'],
+                'answer' => ['[] s occasionally faces minor conflicts or challenges online but can resolve them independently.',
+                    '[] s experiences occasional emotional distress or conflicts online, requiring some parental intervention or support to address the issues.',
+                    '[] s faces severe and persistent online harassment or victimisation, leading to significant emotional distress and negative impacts on their well-being despite parental involvement.'],
             ],
-            ['question' => 'Select the answer that most applies to [].',
+            ['question' => 'Select the answer that most applies to [] s.',
                 'answer' => ['[] s supportive relationships mitigate the impact of cyberbullying, resulting in minor or temporary emotional distress.',
-                    '[] experiences occasional emotional challenges due to cyberbullying, but support from relationships helps them cope and recover.',
-                    '[] lacks a strong support system to navigate the effects of cyberbullying, leading to significant emotional distress and long-lasting negative consequences.'],
+                    '[] s experiences occasional emotional challenges due to cyberbullying, but support from relationships helps them cope and recover.',
+                    '[] s lacks a strong support system to navigate the effects of cyberbullying, leading to significant emotional distress and long-lasting negative consequences.'],
             ],
-            ['question' => 'Please select the answer option that most accurately reflects [].',
-                'answer' => ['[] occasionally encounters minor online conflicts or negative experiences regardless of the device used.',
-                    '[] faces some challenges or risks specific to certain devices, resulting in occasional emotional distress or minor negative impacts.',
+            ['question' => 'Please select the answer option that most accurately reflects [] s.',
+                'answer' => ['[] s occasionally encounters minor online conflicts or negative experiences regardless of the device used.',
+                    '[] s faces some challenges or risks specific to certain devices, resulting in occasional emotional distress or minor negative impacts.',
                     '[] s use of certain devices exposes them to severe online harassment or risks, leading to significant emotional distress and detrimental consequences to their well-being.'],
             ],
             ['question' => 'Choose the option that best describes [] s characteristics/behaviours.',
-                'answer' => ['[] occasionally encounters minor conflicts or disagreements within the school environment.',
-                    '[] faces some challenges or negative experiences related to bullying or cyberbullying at school, resulting in occasional emotional distress or minor impact on their well-being.',
-                    '[] experiences a toxic or unsafe school climate with pervasive bullying or cyberbullying, leading to significant emotional distress, social isolation, and negative effects on their academic performance.'],
+                'answer' => ['[] s occasionally encounters minor conflicts or disagreements within the school environment.',
+                    '[] s faces some challenges or negative experiences related to bullying or cyberbullying at school, resulting in occasional emotional distress or minor impact on their well-being.',
+                    '[] s experiences a toxic or unsafe school climate with pervasive bullying or cyberbullying, leading to significant emotional distress, social isolation, and negative effects on their academic performance.'],
             ],
             ['question' => 'Select the answer that most applies to [].',
                 'answer' => ['[] occasionally faces minor challenges or conflicts related to their family structure.',
-                    '[] experiences occasional emotional difficulties or conflicts due to their family structure, requiring some support or coping strategies.',
-                    '[] faces significant emotional challenges, stigma, or social exclusion due to their family structure, resulting in severe emotional distress and negative impacts on their well-being.'],
+                    '[] s experiences occasional emotional difficulties or conflicts due to their family structure, requiring some support or coping strategies.',
+                    '[] s faces significant emotional challenges, stigma, or social exclusion due to their family structure, resulting in severe emotional distress and negative impacts on their well-being.'],
             ],
             ['question' => 'Please select the answer option that most accurately reflects [].',
                 'answer' => ['[] s academic performance remains unaffected by cyberbullying.',
-                    '[] experiences occasional distractions or minor decline in academic performance due to cyberbullying, requiring some support or intervention.',
+                    '[] s experiences occasional distractions or minor decline in academic performance due to cyberbullying, requiring some support or intervention.',
                     '[] s academic performance significantly deteriorates due to the emotional toll of cyberbullying, leading to severe distress and long-term negative effects on their educational attainment.'],
             ],
             ['question' => 'Choose the option that best describes [] s characteristics/behaviours.',
@@ -210,12 +214,12 @@ class SignUpController extends Controller
                     '[] s frequent online activity exposes them to occasional risks or challenges, resulting in some emotional distress or negative experiences.',
                     '[] s extensive online activity increases their vulnerability to severe cyberbullying, leading to significant emotional distress and detrimental consequences to their well-being.'],
             ],
-            ['question' => 'Select the answer that most applies to [].',
-                'answer' => ['[] never or occasionally experiences minor conflicts or disagreements with peers online.',
-                    '[] faces occasional challenges or negative experiences within their peer relationships online, resulting in some emotional distress or minor impact on their social well-being.',
-                    '[] experiences severe peer victimisation or exclusion online, leading to significant emotional distress, social isolation, and negative effects on their overall well-being.'],
+            ['question' => 'Select the answer that most applies to [] s.',
+                'answer' => ['[] s never or occasionally experiences minor conflicts or disagreements with peers online.',
+                    '[] s faces occasional challenges or negative experiences within their peer relationships online, resulting in some emotional distress or minor impact on their social well-being.',
+                    '[] s experiences severe peer victimisation or exclusion online, leading to significant emotional distress, social isolation, and negative effects on their overall well-being.'],
             ],
-            ['question' => 'Please select the answer option that most accurately reflects [].',
+            ['question' => 'Please select the answer option that most accurately reflects [] s.',
                 'answer' => ['[] s relationship status has minimal impact on their susceptibility to cyberbullying or well-being.',
                     '[] s casual or short-term relationship status occasionally contributes to some online conflicts or emotional challenges.',
                     '[] s serious or long-term relationship status exposes them to severe cyberbullying, online harassment, or relationship-related conflicts, resulting in significant emotional distress and negative impacts on their well-being.'],
@@ -374,7 +378,7 @@ class SignUpController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'User Register Successfully'
+            'message' => 'Registration successful'
         ]);
     }
 
@@ -445,7 +449,7 @@ class SignUpController extends Controller
         Session::forget('term_condition');
         return response()->json([
             'success' => true,
-            'message' => 'User Register Successfully'
+            'message' => 'Registration successful'
         ]);
     }
 
