@@ -34,12 +34,23 @@ class MatrixController extends Controller
         $child = DB::table('user_childrens')->where('id', $child_id)->first();
         $child_score = DB::table('risk_score')->where('user_child_id', $child_id)->get();
         $child_detail = DB::table('user_children_details')->where('user_children_id', $child_id)->first();
-        $first_risks = DB::table('risk_score')
+        $top_risks = DB::table('risk_score')->where('user_child_id', $child->id)->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')->take(5)->get();
+        $top_risks_ids = array();
+        if (!empty($top_risks)) {
+            $top_risks_ids = $top_risks->toArray();
+            $top_risks_ids = array_column($top_risks_ids, 'id');
+
+            $first_risks = DB::table('risk_score')
+            ->where('id', $top_risks_ids[0])
+            ->first();
+        } else {
+            $first_risks = DB::table('risk_score')
             ->where('user_child_id', $child_id)
             ->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')
             ->orderBy('id', 'desc')
             ->first();
-        $first_risk_key = $first_risks ? $first_risks->risk_key : '';
+        }
+        $first_risk_key = isset($first_risks->risk_key) ? $first_risks->risk_key : '';
         $likelihood_score = 'pending_questionnaire';
         $impact_score = 'pending_questionnaire';
         if (!empty($first_risk_key)) {
@@ -87,6 +98,8 @@ class MatrixController extends Controller
             'style_array' => $style_array,
             'child_score' => $child_score,
             'first_risks' => $first_risks,
+            'top_risks' => $top_risks,
+            'top_risks_ids' => $top_risks_ids,
         ]);
     }
 

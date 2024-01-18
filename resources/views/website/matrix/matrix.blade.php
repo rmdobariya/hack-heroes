@@ -39,14 +39,6 @@
                                     <b>{{$child->name}}’s top 5 risks </b>
                                     <p>Click on the risk to view detailed description</p>
                                     <div class="summary-list">
-                                        @php
-                                            $top_risks = DB::table('risk_score')->where('user_child_id', $child->id)->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')->take(5)->get();
-                                            $top_risks_ids = array();
-                                            if(!empty($top_risks)) {
-                                                $top_risks_ids = $top_risks->toArray();
-                                                $top_risks_ids = array_column($top_risks_ids,'id');
-                                            }
-                                        @endphp
                                         @foreach($top_risks as $key=>$top_risk)
                                             <div class="list-box risk_event @if($loop->first) active @endif"
                                                  data-id="{{$top_risk->risk_id}}" data-child-id="{{$child->id}}">
