@@ -361,4 +361,24 @@ class MatrixController extends Controller
             )
         );
     }
+
+    public function addToCalendar($title, $desc)
+    {
+        $url = 'https://calendar.google.com/calendar/r/eventedit';
+        $tomorrow = Carbon::now()->addDay(); // or Carbon::tomorrow();
+        $after_2_day = Carbon::now()->addDays(2);
+
+        $args = array(
+            'dates' => $tomorrow .'/'.$after_2_day,
+            'details' => $desc,
+            'text' => $title,
+            //'trp' => true
+        );
+
+        $url .= '?' . http_build_query($args);
+        $url .= '&trp=true';
+        return response()->json([
+            'url' => $url,
+        ]);
+    }
 }

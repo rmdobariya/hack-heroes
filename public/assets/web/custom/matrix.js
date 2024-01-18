@@ -61,3 +61,21 @@ $(document).on('click', '.risk_wise_filter', function () {
     })
 });
 
+$(document).on('click', '.add_to_calendar', function () {
+    var title = $(this).data('rec-title');
+    var desc = $(this).data('rec-des');
+    loaderView()
+    $.ajax({
+        url: APP_URL + '/add-to-calendar/' + title + '/' + desc,
+        method: 'GET',
+
+    }).done(function (data) {
+        loaderHide()
+       window.location.href = data.url;
+
+    }).fail(function (jqXHR, textStatus) {
+        loaderHide()
+        console.log('Request failed: ' + textStatus)
+    })
+});
+
