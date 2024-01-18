@@ -43,7 +43,7 @@
                                                                    required>
 
                                                             <label class="form-check-label" for="answer_{{$key}}_{{$key1}}_{{$key3}}">
-                                                                {{str_replace('[]',$children,$answer)}}
+                                                                {{str_replace('[] s',$children."'s",$answer)}}
                                                             </label>
                                                         </div>
                                                     @endforeach

@@ -71,7 +71,7 @@ $(document).on('click', '.add_to_calendar', function () {
 
     }).done(function (data) {
         loaderHide()
-       window.location.href = data.url;
+        window.open(data.url, '_blank');
 
     }).fail(function (jqXHR, textStatus) {
         loaderHide()
