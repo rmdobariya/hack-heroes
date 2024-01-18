@@ -30,3 +30,6 @@
 
 
 .info-pragraph .next-prv-btn .signup-btn.link-btn {width: 120px;padding: 0px;}
+.add_to_calendar{
+    cursor: pointer;
+}

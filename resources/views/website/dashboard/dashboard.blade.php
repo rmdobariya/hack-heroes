@@ -121,7 +121,7 @@
             <ul class="nav nav-tabs" id="myTabs">
                 @foreach($user_childrens as $user_children)
                     <li class="nav-item">
-                        <a class="nav-link active" id="home-tab-{{$user_children->id}}" data-bs-toggle="tab"
+                        <a class="nav-link @if($loop->first) active @endif" id="home-tab-{{$user_children->id}}" data-bs-toggle="tab"
                            href="#child-tab-{{$user_children->id}}">{{$user_children->name}}</a>
                     </li>
                 @endforeach
@@ -138,7 +138,7 @@
                         $diff_module_of_month = $today->diffInDays($module_of_month);
                         $diff_view_recommendations_for = $today->diffInDays($view_recommendations_for);
                     @endphp
-                    <div class="tab-pane fade show active" id="child-tab-{{$user_children->id}}">
+                    <div class="tab-pane fade @if($loop->first) show active @endif" id="child-tab-{{$user_children->id}}">
                         <div class="row">
                             <div class="clearfix"></div>
                             <div class="col-md-4">

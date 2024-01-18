@@ -1,1 +1,8 @@
 .error-message span.error {margin-top: -12px;}
+#myTabs .nav-link{
+    color:#000;
+}
+#myTabs .nav-link.active,#myTabs .nav-link:hover{
+    color: #195656;
+    font-weight: 700;
+}

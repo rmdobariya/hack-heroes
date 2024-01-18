@@ -4,7 +4,12 @@
             <div class="col-md-9">
                 <div class="footer-menu">
                     <ul>
-                        <li><a href="{{route('home')}}">Home</a></li>
+                        @if(!is_null(Auth::guard('web')->user()))
+                            <li><a href="{{route('dashboard')}}">Dashboard</a></li>
+                        @else
+                            <li><a href="{{route('home')}}">Home</a></li>
+                        @endif
+
                         <li><a href="{{asset($terms_condition)}}" target="_blank">Terms & Conditions</a></li>
                         <li><a href="{{asset($privacy_policy)}}" target="_blank">Privacy Policy</a></li>
                         <li>Copyright &copy; HackHeroes Pty Ltd {{date('Y')}} | All rights reserved. HackHeroes® and our mascot logo are protected under trademark law.</li>

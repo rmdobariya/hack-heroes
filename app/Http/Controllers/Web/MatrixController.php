@@ -366,8 +366,8 @@ class MatrixController extends Controller
     public function addToCalendar($title, $desc)
     {
         $url = 'https://calendar.google.com/calendar/r/eventedit';
-        $tomorrow = Carbon::now()->addDay(); // or Carbon::tomorrow();
-        $after_2_day = Carbon::now()->addDays(2);
+        $tomorrow = Carbon::now()->addDay()->format('Y-m-dTH:i:s'); // or Carbon::tomorrow();
+        $after_2_day = Carbon::now()->addDays(2)->format('Y-m-dTH:i:s');
 
         $args = array(
             'dates' => $tomorrow .'/'.$after_2_day,

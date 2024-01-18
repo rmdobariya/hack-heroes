@@ -24,7 +24,7 @@
                                          class=" @if($loop->first) first current @endif @if($loop->last) last @endif">
                                         @if(!is_null($childrens))
                                             @foreach($childrens as $key1=>$children)
-                                                <b>{{str_replace('[]',$children,$question['question'])}}</b>
+                                                <b>{{str_replace('[] s',$children."'s",$question['question'])}}</b>
                                                 <div class="text-centers">
                                                     <input type="hidden" class="selected_value"
                                                            name="answer[{{$key}}][{{$key1}}]">
