@@ -7,7 +7,7 @@
 <h4>Research We Trust</h4>
 <p>{{$risk->research_we_trust}}</p>
 <div class="rating-box">
-    <h4>{{$child->name}} {{$risk->name}} risk rating</h4>
+    <h4>{{$child->name}}'s {{strtolower($risk->name)}} risk rating</h4>
     <p>Likelihood <span>{{$likelihood_score}}</span></p>
     <p>Impact <span>{{$impact_score}}</span></p>
 </div>

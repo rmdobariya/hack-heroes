@@ -96,6 +96,16 @@ class MatrixController extends Controller
             ]);
         }
 
+        $risk_titles = array();
+        foreach ($risk_array as $risk_key => $risk_icon) {
+            $temp = DB::table('risks')->where('key', $risk_key)->pluck('name')->first();
+            if (!empty($temp)) {
+                $risk_titles[$risk_key] = $temp;
+            } else {
+                $risk_titles[$risk_key] = ucwords(str_replace('_', '', $risk_key));
+            }
+        }
+
         return view('website.matrix.matrix', [
             'child' => $child,
             'child_detail' => $child_detail,
@@ -107,6 +117,7 @@ class MatrixController extends Controller
             'child_score' => $child_score,
             'first_risks' => $first_risks,
             'top_risks' => $top_risks,
+            'risk_titles' => $risk_titles,
             'top_risks_ids' => $top_risks_ids,
         ]);
     }
@@ -122,6 +133,18 @@ class MatrixController extends Controller
         $likelihood_score = $this->get_likelihood_score($answer, $child_id);
 
         $risk_array = $this->_risk_array;
+
+
+        $risk_titles = array();
+        foreach ($risk_array as $risk_key => $risk_icon) {
+            $temp = DB::table('risks')->where('key', $risk_key)->pluck('name')->first();
+            if (!empty($temp)) {
+                $risk_titles[$risk_key] = $temp;
+            } else {
+                $risk_titles[$risk_key] = ucwords(str_replace('_', '', $risk_key));
+            }
+        }
+
         $user_questions = DB::table('user_questions')->where('user_child_id', $child_id)->orderBy('id', 'ASC')->get();
         $temp = array();
         if (!empty($user_questions)) {

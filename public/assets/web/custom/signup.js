@@ -177,6 +177,7 @@ function checkStrength(password) {
 
 let $signup4 = $('#signup4')
 $signup4.on('submit', function (e) {
+    $('span.error').remove();
     e.preventDefault()
     if (checkStrength($('#password').val())) {
         loaderView();
@@ -194,7 +195,8 @@ $signup4.on('submit', function (e) {
                 loaderHide();
             });
     } else {
-        $('<span class="error custom-validation-message ps-3">Please enter password having all below characters.</span>').insertAfter($('[name="password"]'));
+        var message = "Your password isn't quite ready yet. Check the requirements list – the items that aren't green need your attention. You can do it!";
+        $('<span class="error custom-validation-message ps-3">' + message + '</span>').insertAfter($('[name="password"]'));
     }
 })
 
@@ -256,11 +258,12 @@ signupStore.on('submit', function (e) {
 })
 
 $(document).on('click', '#skip_store', function () {
+    $('span.error').remove();
     var password = $('#password').val();
     if (checkStrength($('#password').val())) {
         // loaderView()
         axios
-            .post(APP_URL + '/skip_store', {password: password})
+            .post(APP_URL + '/skip_store', { password: password })
             .then(function (response) {
                 loaderHide()
                 notificationToast(response.data.message, 'success')
@@ -273,7 +276,8 @@ $(document).on('click', '#skip_store', function () {
                 loaderHide()
             })
     } else {
-        $('<span class="error custom-validation-message ps-3">Please enter password having all below characters.</span>').insertAfter($('[name="password"]'));
+        var message = "Your password isn't quite ready yet. Check the requirements list – the items that aren't green need your attention. You can do it!";
+        $('<span class="error custom-validation-message ps-3">' + message + '</span>').insertAfter($('[name="password"]'));
         loaderHide()
     }
 
@@ -351,7 +355,8 @@ $forgotPasswordForm.on('submit', function (e) {
                 });
         }
     } else {
-        $('<span class="error custom-validation-message ps-3">Please enter password having all below characters.</span>').insertAfter($('[name="password"]'));
+        var message = "Your password isn't quite ready yet. Check the requirements list – the items that aren't green need your attention. You can do it!";
+        $('<span class="error custom-validation-message ps-3">' + message + '</span>').insertAfter($('[name="password"]'));
     }
 })
 $('#send_mail').on('click', function () {
