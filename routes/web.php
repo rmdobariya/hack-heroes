@@ -10,6 +10,7 @@ use App\Http\Controllers\Web\ProfileController;
 use App\Http\Controllers\Web\RecommendationController;
 use App\Http\Controllers\Web\ResetPasswordController;
 use App\Http\Controllers\Web\SignUpController;
+use App\Http\Controllers\Web\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('reset-password/{token}', [ResetPasswordController::class, 'index'])->name('reset-password');
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/payment-success', [SubscriptionController::class, 'paymentSuccess'])->name('payment-success');
+Route::get('/payment-error', [SubscriptionController::class, 'paymentError'])->name('payment-error');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login-check', [LoginController::class, 'loginCheck'])->name('login-check');
 Route::get('contact-us', [ContactUsController::class, 'index'])->name('contact-us');
@@ -43,7 +46,7 @@ Route::post('/signup_store', [SignUpController::class, 'signUpStore'])->name('si
 Route::post('/skip_store', [SignUpController::class, 'skipStore'])->name('skip_store');
 Route::get('/child-characteristics', [SignUpController::class, 'signUp6View'])->name('child-characteristics');
 Route::get('forgetPassword', [ResetPasswordController::class, 'index'])->name('forgetPassword');
-Route::get('/checkout', [PricingController::class, 'checkout'])->name('checkout');
+//Route::get('/checkout', [PricingController::class, 'checkout'])->name('checkout');
 Route::post('/session', [PricingController::class, 'session'])->name('session');
 Route::get('/success', [PricingController::class, 'success'])->name('success');
 Route::post('send-mail', [ResetPasswordController::class, 'sendMail'])->name('send-mail');
@@ -53,9 +56,12 @@ Route::get('getAttributeRowForPlan/{row}', [SignUpController::class, 'getAttribu
 Route::get('forgot-password/{token}', [ResetPasswordController::class, 'forgotPassword'])->name('forgot-password');
 Route::get('pricing', [PricingController::class, 'index'])->name('pricing');
 Route::post('forgot-password-submit', [ResetPasswordController::class, 'forgotPasswordSubmit'])->name('forgot-password-submit');
-
+Route::get('/subscription', [SubscriptionController::class, 'subscribe'])->name('subscription');
+Route::post('/subscription', [SubscriptionController::class, 'processSubscription']);
+Route::get('/cancel-subscription', [SubscriptionController::class, 'cancelSubscription'])->name('cancel-subscription');
 Route::group(['middleware' => ['auth:web', 'webCheck']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/done/{child_id}/{id}', [DashboardController::class, 'done'])->name('done');
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
@@ -66,4 +72,6 @@ Route::group(['middleware' => ['auth:web', 'webCheck']], function () {
     Route::get('getRiskWiseRecommendation/{risk}/{child_id}', [MatrixController::class, 'getRiskWiseRecommendation'])->name('getRiskWiseRecommendation');
     Route::get('recommendation/{id}/{child_id}', [RecommendationController::class, 'index'])->name('recommendation');
     Route::get('risk-change-event/{risk}/{child_id}', [MatrixController::class, 'riskChangeEvent'])->name('risk-change-event');
+
+
 });

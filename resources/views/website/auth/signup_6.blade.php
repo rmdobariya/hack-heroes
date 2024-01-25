@@ -24,7 +24,7 @@
                                          class=" @if($loop->first) first current @endif @if($loop->last) last @endif">
                                         @if(!is_null($childrens))
                                             @foreach($childrens as $key1=>$children)
-                                                <b>{{str_replace('[] s',$children."'s",$question['question'])}}</b>
+                                                <b>{{str_replace('[]',$children."'",$question['question'])}}</b>
                                                 <div class="text-centers">
                                                     <input type="hidden" class="selected_value"
                                                            name="answer[{{$key}}][{{$key1}}]">
@@ -43,7 +43,7 @@
                                                                    required>
 
                                                             <label class="form-check-label" for="answer_{{$key}}_{{$key1}}_{{$key3}}">
-                                                                {{str_replace('[] s',$children."'s",$answer)}}
+                                                                {{str_replace('[]',$children."'",$answer)}}
                                                             </label>
                                                         </div>
                                                     @endforeach

@@ -4,6 +4,19 @@
 <head>
     <base href="../">
     <title> @yield('title') - Hack Heroes</title>
+    @php
+        $logo = DB::table('site_settings')->where('setting_key','LOGO_IMG')->first()->setting_value;
+        $fav = DB::table('site_settings')->where('setting_key','FAVICON_IMG')->first()->setting_value;
+    @endphp
+    @if(!is_null($fav))
+        <link rel="icon" href="{{asset($fav)}}" type="image/x-icon">
+        <link rel="shortcut icon" href="{{asset($fav)}}"
+              type="image/x-icon">
+    @else
+        <link rel="icon" href="{{asset('assets/web/images/logo.png')}}" type="image/x-icon">
+        <link rel="shortcut icon" href="{{asset('assets/web/images/logo.png')}}"
+              type="image/x-icon">
+    @endif
     <meta charset="utf-8"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>

@@ -15,18 +15,24 @@
                 <div class="col-md-8">
                     <div class="profile-plan" data-aos="fade-left" data-aos-delay="400">
                         <div class="plan-header">
-                            <h2>Plan</h2>
-                            <a href="javascript:void(0);">> Upgrade</a>
+                            <h2>{{$plan->title}}</h2>
+                            <a href="{{route('subscription')}}">> Upgrade</a>
                         </div>
                         <div class="plan-details">
-                            <h2>$39 <span>p/month</span></h2>
+                            <h2>${{$plan->amount }} <span>p/month</span></h2>
                             <ul>
-                                <li>Full access</li>
-                                <li>Top risks</li>
-                                <li>20 actionable recommendations</li>
+                                @if($plan->id == 1)
+                                    <li>Limited Recommendation</li>
+                                    <li>Take the survey</li>
+                                @else
+                                    <li>Full access</li>
+                                    <li>Top risks</li>
+                                    <li>20 actionable recommendations</li>
+                                @endif
                             </ul>
 
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -42,19 +48,19 @@
                         </div>
                     </div>
                     @foreach($user_childrens as $key=>$user_children)
-                    <div class="col-md-6">
-                        <div class="children-list" data-aos="fade-up" data-aos-delay="200">
-                            <img src="{{asset('assets/web/images/alex.svg')}}" alt="user">
-                            <h3>{{$user_children->name}}</h3>
+                        <div class="col-md-6">
+                            <div class="children-list" data-aos="fade-up" data-aos-delay="200">
+                                <img src="{{asset('assets/web/images/alex.svg')}}" alt="user">
+                                <h3>{{$user_children->name}}</h3>
+                            </div>
                         </div>
-                    </div>
                     @endforeach
-{{--                    <div class="col-md-6">--}}
-{{--                        <div class="children-list" data-aos="fade-up" data-aos-delay="400">--}}
-{{--                            <img src="{{asset('assets/web/images/taylor.svg')}}" alt="user">--}}
-{{--                            <h3>Taylor</h3>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                    {{--                    <div class="col-md-6">--}}
+                    {{--                        <div class="children-list" data-aos="fade-up" data-aos-delay="400">--}}
+                    {{--                            <img src="{{asset('assets/web/images/taylor.svg')}}" alt="user">--}}
+                    {{--                            <h3>Taylor</h3>--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
                     <div class="col-md-12">
                         <div class="add-child" data-aos="fade-right" data-aos-delay="300">
                             <a href="{{route('add-child-info')}}">+ Child</a>
@@ -110,4 +116,5 @@
     </section>
 @endsection
 @section('custom-script')
+    <script src="{{asset('assets/web/custom/signup.js')}}?v={{time()}}"></script>
 @endsection

@@ -33,3 +33,6 @@
 .add_to_calendar{
     cursor: pointer;
 }
+.subscriptionFormSubmit {
+    cursor: pointer;
+}

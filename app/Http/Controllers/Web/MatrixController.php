@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class MatrixController extends Controller
@@ -32,6 +33,8 @@ class MatrixController extends Controller
 
     public function index($child_id)
     {
+        $user = Auth::guard('web')->user();
+
         $child = DB::table('user_childrens')->where('id', $child_id)->first();
         $child_score = DB::table('risk_score')->where('user_child_id', $child_id)->get();
         $child_detail = DB::table('user_children_details')->where('user_children_id', $child_id)->first();
@@ -42,14 +45,14 @@ class MatrixController extends Controller
             $top_risks_ids = array_column($top_risks_ids, 'id');
 
             $first_risks = DB::table('risk_score')
-            ->where('id', $top_risks_ids[0])
-            ->first();
+                ->where('id', $top_risks_ids[0])
+                ->first();
         } else {
             $first_risks = DB::table('risk_score')
-            ->where('user_child_id', $child_id)
-            ->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')
-            ->orderBy('id', 'desc')
-            ->first();
+                ->where('user_child_id', $child_id)
+                ->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')
+                ->orderBy('id', 'desc')
+                ->first();
         }
         $first_risk_key = isset($first_risks->risk_key) ? $first_risks->risk_key : '';
         $likelihood_score = 'pending_questionnaire';
@@ -58,8 +61,12 @@ class MatrixController extends Controller
             $likelihood_score = $this->get_likelihood_score($child_detail->$first_risk_key, $child_id);
             $impact_score = $this->get_impact_criteria($child_id);
         }
+        if (!is_null($user->plan_id)) {
+            $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . 'Age' . '%')->get();
+        } else {
+            $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . 'Age' . '%')->limit(5)->get();
+        }
 
-        $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . 'Age' . '%')->get();
         $risk_array = $this->_risk_array;
         $style_array = [
             'age' => 'position: absolute;top:10px;left:20px;',
@@ -106,6 +113,7 @@ class MatrixController extends Controller
 
     public function getRisk($id, $child_id)
     {
+        $user = Auth::guard('web')->user();
         $child = DB::table('user_childrens')->where('id', $child_id)->first();
         $risk = DB::table('risks')->where('id', $id)->first();
         $key = $risk->key;
@@ -140,12 +148,18 @@ class MatrixController extends Controller
             'impact_score' => $impact_score,
             'child' => $child,
         ])->render();
-        $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk->name . '%')->get();
+        if (!is_null($user->plan_id)) {
+            $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk->name . '%')->get();
+        } else {
+            $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk->name . '%')->limit(5)->get();
+        }
+        $top_risks = DB::table('risk_score')->where('user_child_id', $child->id)->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')->take(5)->get();
         $recommendation = view('website.matrix.risk_wise_recommendation', [
             'risk' => $risk,
             'child' => $child,
             'recommendations' => $recommendations,
             'risk_array' => $risk_array,
+            'top_risks' => $top_risks,
         ])->render();
         return response()->json([
             'data' => $view,
@@ -156,9 +170,15 @@ class MatrixController extends Controller
 
     public function getRiskWiseRecommendation($risk_name, $child_id)
     {
+        $user = Auth::guard('web')->user();
         $child = DB::table('user_childrens')->where('id', $child_id)->first();
         $risk = DB::table('risks')->where('name', $risk_name)->first();
-        $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->get();
+        $top_risks = DB::table('risk_score')->where('user_child_id', $child->id)->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')->take(5)->get();
+        if (!is_null($user->plan_id)) {
+            $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->get();
+        } else {
+            $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->limit(5)->get();
+        }
         $view = view('website.matrix.risk_wise_recommendation', [
             'risk' => $risk,
             'child' => $child,
@@ -171,9 +191,15 @@ class MatrixController extends Controller
 
     public function riskChangeEvent($risk_name, $child_id)
     {
+        $user = Auth::guard('web')->user();
+
         $child = DB::table('user_childrens')->where('id', $child_id)->first();
         $risk = DB::table('risks')->where('name', $risk_name)->first();
-        $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->get();
+        if (!is_null($user->plan_id)) {
+            $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->get();
+        } else {
+            $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->limit(5)->get();
+        }
         $view = view('website.matrix.risk_change_event', [
             'risk' => $risk,
             'child' => $child,
@@ -366,11 +392,11 @@ class MatrixController extends Controller
     public function addToCalendar($title, $desc)
     {
         $url = 'https://calendar.google.com/calendar/r/eventedit';
-        $tomorrow = Carbon::now()->addDay()->format('Y-m-dTH:i:s'); // or Carbon::tomorrow();
-        $after_2_day = Carbon::now()->addDays(2)->format('Y-m-dTH:i:s');
+        $tomorrow = Carbon::now()->addDay()->format('YmdTHis'); // or Carbon::tomorrow();
+        $after_2_day = Carbon::now()->addDays(2)->format('YmdTHis');
 
         $args = array(
-            'dates' => $tomorrow .'/'.$after_2_day,
+            'dates' => $tomorrow . '/' . $after_2_day,
             'details' => $desc,
             'text' => $title,
             //'trp' => true

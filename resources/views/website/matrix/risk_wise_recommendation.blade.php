@@ -7,8 +7,9 @@
                     <div class="form-filter" data-aos="fade-left" data-aos-delay="200">
                         <select class="form-control form-select risk_change_event">
                             <option>All Categories</option>
-                            @foreach($risk_array as  $key=>$array)
-                                <option value="{{str_replace('_',' ',ucfirst($key))}}" data-child-id="{{$child->id}}">{{str_replace('_',' ',ucfirst($key))}}</option>
+                            @foreach($top_risks as $key=>$top_risk)
+                                <option value="{{str_replace('_',' ',ucfirst($top_risk->risk_key))}}"
+                                        data-child-id="{{$child->id}}">{{$risk_array[$top_risk->risk_key]}} {{str_replace('_',' ',ucfirst($top_risk->risk_key))}}</option>
                             @endforeach
                         </select>
                         <i class="las la-filter"></i>

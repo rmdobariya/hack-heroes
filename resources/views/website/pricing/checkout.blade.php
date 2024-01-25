@@ -18,13 +18,18 @@
                                         <p>{{$plan->description}}</p>
                                         <span class="line"></span>
                                         <h1>${{$plan->amount}}</h1>
-                                        <form action="/session" method="POST">
+                                        <form action="/session" method="post" id="payment-form">
                                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                                             <input type="hidden" name="total" value="{{$plan->amount}}">
                                             <input type="hidden" name="title" value="{{$plan->title}}">
                                             <input type="hidden" name="start_date" value="{{$plan->start_date}}">
+                                            <input type="hidden" name="plan_id" value="{{$plan->id}}">
                                             <input type="hidden" name="end_date" value="{{$plan->end_date}}">
-                                            <button type="submit">Purchase</button>
+                                            @if($loop->first)
+                                                <a href="#">Free</a>
+                                            @else
+                                                <a id="subscription-submit">Subscription</a>
+                                            @endif
                                         </form>
 
                                     </div>
@@ -38,5 +43,7 @@
     </section>
 @endsection
 @section('custom-script')
-{{--    <script src="{{asset('assets/web/custom/purchase.js')}}?v={{time()}}"></script>--}}
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{{ asset('assets/web/custom/stripe.js') }}"></script>
+    {{--    <script src="{{asset('assets/web/custom/purchase.js')}}?v={{time()}}"></script>--}}
 @endsection

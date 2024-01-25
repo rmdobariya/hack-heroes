@@ -11,37 +11,41 @@
                         <h1>Select HackHeroes Pricing</h1>
                         <div class="row">
                             @foreach($plans as $plan)
-                            <div class="col-md-4 text-center">
-                                <div class="price-box">
-                                    <h2>{{$plan->title}}</h2>
-                                    <span class="line"></span>
-                                    <p>{{$plan->description}}</p>
-                                    <span class="line"></span>
-                                    <h1>${{$plan->amount}}</h1>
-                                    <a href="#">Free Sign-up</a>
+                                @php
+                                    if (Auth::guard('web')->user()){
+                                         $user_id = Auth::guard('web')->user()->id;
+                                    }else{
+                                        $user_id = 0;
+                                    }
+
+                                @endphp
+                                <div class="col-md-4 text-center">
+                                    <div class="price-box">
+                                        <h2>{{$plan->title}}</h2>
+                                        <span class="line"></span>
+                                        <p>{{$plan->description}}</p>
+                                        <span class="line"></span>
+                                        <h3>${{$plan->amount }}
+                                            @if($plan->amount > 0)
+                                                <span> p/month</span>
+                                            @endif
+                                        </h3>
+                                        <form id="payment-form">
+                                            <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                            <input type="hidden" name="total" value="{{$plan->amount}}">
+                                            <input type="hidden" name="title" value="{{$plan->title}}">
+                                            <input type="hidden" name="start_date" value="{{$plan->start_date}}">
+                                            <input type="hidden" name="end_date" value="{{$plan->end_date}}">
+                                            @if($loop->first)
+{{--                                                <a href="#">Free Sign-up</a>--}}
+                                            @else
+                                                <a class="subscriptionFormSubmit" data-plan-id="{{$plan->id}}"
+                                                   data-user-id="{{$user_id}}">Subscribe</a>
+                                            @endif
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
                             @endforeach
-{{--                            <div class="col-md-4 text-center">--}}
-                                {{--                                <div class="price-box popular">--}}
-                                {{--                                    <h2>MOST POPULAR</h2>--}}
-                                {{--                                    <span class="line"></span>--}}
-                                {{--                                    <p>Get full access now. You are onboard for the full 3-month program.</p>--}}
-                                {{--                                    <span class="line"></span>--}}
-                                {{--                                    <h1>$39 <span> p/month</span></h1>--}}
-                                {{--                                    <a href="#" class="active">Program Sign-up</a>--}}
-                                {{--                                </div>--}}
-                                {{--                            </div>--}}
-                                {{--                            <div class="col-md-4 text-center">--}}
-{{--                                <div class="price-box">--}}
-{{--                                    <h2>CANCEL ANYTIME</h2>--}}
-{{--                                    <span class="line"></span>--}}
-{{--                                    <p>Get full access now. Full 3-month program, cancel anytime - no contract.</p>--}}
-{{--                                    <span class="line"></span>--}}
-{{--                                    <h1>$79 <span> p/month</span></h1>--}}
-{{--                                    <a href="#">Monthly Sign-up</a>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
                         </div>
                     </div>
                 </div>

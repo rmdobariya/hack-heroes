@@ -63,7 +63,8 @@
                                      data-aos-delay="300">
                                     <div class="downloads">
                                         <a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank"><img
-                                                src="{{asset('assets/web/images/download.svg')}}" alt="download"></a>
+                                                src="{{asset('assets/web/images/download.svg')}}"
+                                                alt="download"></a>
                                     </div>
                                     @php
                                         $first_risk = DB::table('risks')->where('id',$first_risks->risk_id)->first();
@@ -342,9 +343,9 @@
                                     <div class="form-filter" data-aos="fade-left" data-aos-delay="200">
                                         <select class="form-control form-select risk_change_event">
                                             <option>All Categories</option>
-                                            @foreach($risk_array as  $key=>$array)
-                                                <option value="{{str_replace('_',' ',ucfirst($key))}}"
-                                                        data-child-id="{{$child->id}}">{{str_replace('_',' ',ucfirst($key))}}</option>
+                                            @foreach($top_risks as $key=>$top_risk)
+                                                <option value="{{str_replace('_',' ',ucfirst($top_risk->risk_key))}}"
+                                                        data-child-id="{{$child->id}}">{{$risk_array[$top_risk->risk_key]}} {{str_replace('_',' ',ucfirst($top_risk->risk_key))}}</option>
                                             @endforeach
                                         </select>
                                         <i class="las la-filter"></i>
@@ -366,6 +367,7 @@
                                                 </p>
                                                 @php
                                                     $tags = explode('; ',$recommendation->tags_for_associated_risk);
+                                                    $recommendation_score = DB::table('recommendation_score')->where('recommendation_id',$recommendation->id)->where('child_id',$child->id)->first();
                                                 @endphp
                                                 @foreach($tags as $tag)
                                                     <span>{{$tag}}</span>
@@ -375,7 +377,9 @@
                                                 <div class="options-btn">
                                                     <a href="{{route('recommendation',[$recommendation->id,$child->id])}}"
                                                        class="line-btns">More</a>
-                                                    <a class="dark-btns add_to_calendar" data-rec-title="{{$recommendation->title_for_recommendation}}" data-rec-des="{{$recommendation->sub_text_for_recommendation}}">
+                                                    <a class="dark-btns add_to_calendar"
+                                                       data-rec-title="{{$recommendation->title_for_recommendation}}"
+                                                       data-rec-des="{{$recommendation->sub_text_for_recommendation}}">
                                                         <i class="las la-calendar-alt"></i> Add to Calendar
                                                     </a>
                                                     @if(!is_null($recommendation->pdf))
@@ -384,7 +388,10 @@
                                                            class="dark-btns"><i class="las la-arrow-down"></i> Download
                                                             Resource</a>
                                                     @endif
-                                                    <a href="{{ route('dashboard') }}" class="dark-btns">Done</a>
+                                                    @if(is_null($recommendation_score))
+                                                        <a href="{{ route('done',[$child->id,$recommendation->id]) }}"
+                                                           class="dark-btns">Done</a>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -407,7 +414,7 @@
                         <div class="col-md-12">
                             <div class="upgrade-plan" data-aos="fade-up" data-aos-delay="200">
                                 <h3>Teach your child about online privacy and help them adjust...</h3>
-                                <a href="{{route('pricing')}}">Upgrade Plan</a>
+                                <a href="{{route('subscription')}}">Upgrade Plan</a>
                             </div>
                         </div>
                     </div>

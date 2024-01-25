@@ -13,6 +13,7 @@
                         <form id="signup2" method="post">
                             <input type="text" name="name" placeholder="Name" class="form-control">
                             <input type="email" name="email" placeholder="Email" class="form-control">
+
                             <button class="btn signup-btn" type="submit">Let's go</button>
                         </form>
                     </div>
@@ -20,7 +21,12 @@
                 <div class="col-md-6">
                     <div class="sign-logoimg">
                         <img src="{{asset('assets/web/images/hero-img.png')}}" alt="logo">
-                        <p>A study published in the journal 'Computers in Human Behaviour' in 2021 found that parental involvement in their child's online activities was associated with a lower risk of cyberbullying victimisation.*<br><a href="https://www.researchgate.net/publication/26693782_Parental_Mediation_Online_Activities_and_Cyberbullying" target="_blank">*'Parental Mediation, Online Activities, and Cyberbullying' by Gustavo Mesch.</a></p>
+                        <p>A study published in the journal 'Computers in Human Behaviour' in 2021 found that parental
+                            involvement in their child's online activities was associated with a lower risk of
+                            cyberbullying victimisation.*<br><a
+                                href="https://www.researchgate.net/publication/26693782_Parental_Mediation_Online_Activities_and_Cyberbullying"
+                                target="_blank">*'Parental Mediation, Online Activities, and Cyberbullying' by Gustavo
+                                Mesch.</a></p>
                     </div>
                 </div>
             </div>
