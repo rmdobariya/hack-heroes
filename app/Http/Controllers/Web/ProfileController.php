@@ -53,6 +53,7 @@ class ProfileController extends Controller
             foreach ($request->children_name as $key => $name) {
                 $user_children = UserChildren::find($key);
                 $user_children->name = $name;
+                $user_children->gender = $request->gender[$key];
                 $user_children->save();
             }
         }

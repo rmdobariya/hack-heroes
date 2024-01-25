@@ -89,7 +89,7 @@
                         @foreach($user_childrens as $key=>$user_children)
                             <div class="det">
                                 <b>Your Child #{{$key+1}}</b>
-                                <p>{{$user_children->name}}</p>
+                                <p>{{$user_children->name}} ({{$user_children->gender}})</p>
                             </div>
                         @endforeach
                     </div>

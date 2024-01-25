@@ -408,4 +408,98 @@ class MatrixController extends Controller
             'url' => $url,
         ]);
     }
+
+    public function addToMicrosoftCalendar($title, $desc)
+    {
+//        $graph = new Graph();
+//        $graph->setAccessToken('YOUR_ACCESS_TOKEN');
+//
+//        $event = new Event([
+//            'subject' => $title,
+//            'body' => [
+//                'content' => $desc,
+//                'contentType' => 'text',
+//            ],
+//            'start' => [
+//                'dateTime' => Carbon::now()->addDay()->format('Y-m-d\TH:i:s'),
+//                'timeZone' => 'UTC',
+//            ],
+//            'end' => [
+//                'dateTime' => Carbon::now()->addDays(2)->format('Y-m-d\TH:i:s'),
+//                'timeZone' => 'UTC',
+//            ],
+//        ]);
+//
+//        $graph->createRequest('POST', '/me/calendar/events')
+//            ->attachBody($event)
+//            ->execute();
+//
+//        return response()->json([
+//            'success' => true,
+//        ]);
+        $url = 'https://outlook.live.com/calendar/deeplink/compose';
+        $tomorrow = Carbon::now()->addDay()->format('YmdTHis'); // or Carbon::tomorrow();
+        $after_2_day = Carbon::now()->addDays(2)->format('YmdTHis');
+
+        $args = array(
+            'dates' => $tomorrow . '/' . $after_2_day,
+            'details' => $desc,
+            'text' => $title,
+            //'trp' => true
+        );
+
+        $url .= '?' . http_build_query($args);
+        $url .= '&trp=true';
+        return response()->json([
+            'url' => $url,
+        ]);
+    }
+
+    public function addToAppleCalendar($title, $desc)
+    {
+        $url = 'https://calendar.google.com/calendar/r/eventedit';
+        $tomorrow = Carbon::now()->addDay()->format('YmdTHis'); // or Carbon::tomorrow();
+        $after_2_day = Carbon::now()->addDays(2)->format('YmdTHis');
+
+        $args = array(
+            'dates' => $tomorrow . '/' . $after_2_day,
+            'details' => $desc,
+            'text' => $title,
+            //'trp' => true
+        );
+
+        $url .= '?' . http_build_query($args);
+        $url .= '&trp=true';
+        return response()->json([
+            'url' => $url,
+        ]);
+//        $client = new Client();
+//
+//        $startDateTime = Carbon::now()->addDay()->format('Ymd\THis');
+//        $endDateTime = Carbon::now()->addDays(2)->format('Ymd\THis');
+//
+//        $response = $client->post('https://api.apple-cloudkit.com/database/1/iCloud.your_app_bundle_id/development/public/events', [
+//            'headers' => [
+//                'Authorization' => 'Bearer YOUR_JWT_TOKEN',
+//                'Content-Type' => 'application/json',
+//            ],
+//            'json' => [
+//                'records' => [
+//                    'fields' => [
+//                        // Your event data here
+//                        'title' => $title,
+//                        'description' => $desc,
+//                        'startDateTime' => $startDateTime,
+//                        'endDateTime' => $endDateTime,
+//                    ],
+//                ],
+//            ],
+//        ]);
+//
+//        $result = json_decode($response->getBody()->getContents(), true);
+//
+//        // Handle the result
+//
+//        return response()->json($result);
+    }
 }

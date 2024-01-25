@@ -35,10 +35,16 @@
                             <input type="email" name="email" class="form-control" placeholder="Email"
                                    value="{{$user->email}}" data-aos="fade-up" data-aos-delay="300">
                             @foreach($user_childrens as $key=>$user_children)
-                                <input type="text" name="children_name[{{$user_children->id}}]" class="form-control"
-                                       placeholder="Child Name" value="{{$user_children->name}}" data-aos="fade-up"
-                                       data-aos-delay="400">
-
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" name="children_name[{{$user_children->id}}]"
+                                           placeholder="Child Name" value="{{$user_children->name}}" data-aos="fade-up"
+                                           data-aos-delay="400">
+                                    <select name="gender[{{$user_children->id}}]" class="form-control" data-aos="fade-up"
+                                            data-aos-delay="400">
+                                        <option value="male" @if($user_children->gender == 'male') selected @endif>Male</option>
+                                        <option value="female" @if($user_children->gender == 'female') selected @endif>Female</option>
+                                    </select>
+                                </div>
                             @endforeach
 
                             <button class="btn btn-themecolor" type="submit">Save</button>
