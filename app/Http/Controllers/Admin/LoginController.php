@@ -38,7 +38,7 @@ class LoginController extends Controller
         } else {
             Auth::guard('admin')->login($admin);
             return response()->json([
-                'message' => 'Login Successfully',
+                'message' => 'Login Successful',
             ]);
         }
     }

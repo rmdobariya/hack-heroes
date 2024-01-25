@@ -24,9 +24,10 @@ class RecommendationUpdateStoreRequest extends FormRequest
             'reasoning' => 'required',
             'tags_for_age_appropriateness' => 'required',
             'tag_for_frequency' => 'required',
-            'tag_if_affiliate' => 'required',
-            'tag_if_resource' => 'required',
+//            'tag_if_affiliate' => 'required',
+//            'tag_if_resource' => 'required',
             'tags_for_visual_grouping' => 'required',
+//            'pdf' => 'mimes:pdf',
         ];
     }
 

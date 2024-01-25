@@ -17,7 +17,7 @@
                                 src="{{asset('assets/web/images/grid.png')}}" alt="grid"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::is('matrix') ? 'active' : ''  }}" href="javascript:void(0);"><img src="{{asset('assets/web/images/box.png')}}"
+                        <a class="nav-link {{ Route::is('matrix') ? 'active' : ''  }}" href="{{route('subscription')}}"><img src="{{asset('assets/web/images/box.png')}}"
                                                                     alt="box"></a>
                     </li>
                     <li class="nav-item">

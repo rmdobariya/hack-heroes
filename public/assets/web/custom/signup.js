@@ -32,7 +32,7 @@ $signup2.on('submit', function (e) {
             .then(function (response) {
                 console.log(response)
                 loaderHide();
-                window.location.href = APP_URL + '/signup_2_view';
+                window.location.href = APP_URL + '/add-child-info';
             })
             .catch(function (error) {
                 console.log(error);
@@ -47,7 +47,8 @@ $signup3.on('submit', function (e) {
     $('span.error').remove();
     var has_error = false;
     $('.attribute-row').each(function () {
-        if ($.trim($(this).val()) == '') {
+        var childName = $(this).find('input[name^="name["]').val(); // Find the input field inside each attribute-row
+        if ($.trim(childName) == '') {
             $('<span class="error custom-validation-message ps-3">Please enter child name.</span>').insertAfter($(this));
             has_error = true;
         }
@@ -60,7 +61,11 @@ $signup3.on('submit', function (e) {
             .then(function (response) {
                 console.log(response)
                 loaderHide();
-                window.location.href = APP_URL + '/signup_3_view';
+                if (response.data.user_id == 0) {
+                    window.location.href = APP_URL + '/create-password';
+                } else {
+                    window.location.href = APP_URL + '/create-plan';
+                }
             })
             .catch(function (error) {
                 console.log(error);
@@ -181,7 +186,7 @@ $signup4.on('submit', function (e) {
             .then(function (response) {
                 console.log(response)
                 loaderHide();
-                window.location.href = APP_URL + '/signup_4_view';
+                window.location.href = APP_URL + '/create-plan';
             })
             .catch(function (error) {
                 console.log(error);
@@ -203,7 +208,7 @@ $signup5.on('submit', function (e) {
         .then(function (response) {
             console.log(response)
             loaderHide();
-            window.location.href = APP_URL + '/signup_5_view';
+            window.location.href = APP_URL + '/child-info';
         })
         .catch(function (error) {
             console.log(error);
@@ -221,7 +226,7 @@ $signup6.on('submit', function (e) {
         .then(function (response) {
             console.log(response)
             loaderHide();
-            window.location.href = APP_URL + '/signup_6_view';
+            window.location.href = APP_URL + '/child-characteristics';
         })
         .catch(function (error) {
             console.log(error);
@@ -241,7 +246,7 @@ signupStore.on('submit', function (e) {
             loaderHide()
             notificationToast(response.data.message, 'success')
             setTimeout(function () {
-                window.location.href = APP_URL + '/login';
+                window.location.href = APP_URL + '/dashboard';
             }, 5000);
         })
         .catch(function (error) {
@@ -255,12 +260,12 @@ $(document).on('click', '#skip_store', function () {
     if (checkStrength($('#password').val())) {
         // loaderView()
         axios
-            .post(APP_URL + '/skip_store', { password: password })
+            .post(APP_URL + '/skip_store', {password: password})
             .then(function (response) {
                 loaderHide()
                 notificationToast(response.data.message, 'success')
                 setTimeout(function () {
-                    window.location.href = APP_URL + '/login';
+                    window.location.href = APP_URL + '/dashboard';
                 }, 5000);
             })
             .catch(function (error) {
@@ -430,3 +435,33 @@ function is_valid_email(email) {
     var regex = /^([a-zA-Z0-9_\'\+\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return regex.test(email);
 }
+
+$(document).on('click', '.subscriptionFormSubmit', function () {
+    loaderView();
+    let $paymentForm = $('#payment-form')
+    let plan_id = $(this).data('plan-id');
+    let user_id = $(this).data('user-id');
+    let formData = new FormData($paymentForm[0])
+    formData.append('plan_id', plan_id);
+    formData.append('user_id', user_id);
+    if (user_id == 0) {
+        setTimeout(function () {
+            window.location.href = APP_URL + '/login';
+        }, 5000);
+    } else {
+        axios
+            .post(APP_URL + '/session', formData)
+            .then(function (response) {
+                setTimeout(function () {
+                    window.location.href = response.data.redirect_url;
+                }, 5000);
+                loaderHide();
+            })
+            .catch(function (error) {
+                console.log(error);
+                notificationToast(error.response.data.message, 'warning')
+                loaderHide();
+            });
+    }
+
+})

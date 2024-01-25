@@ -35,7 +35,7 @@ class LoginController extends Controller
         } else {
             Auth::guard('web')->login($user);
             return response()->json([
-                'message' => 'Login Successfully',
+                'message' => 'Login Successful.',
             ]);
         }
     }

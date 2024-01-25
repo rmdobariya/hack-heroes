@@ -10,7 +10,9 @@ use App\Models\User;
 use App\Models\UserChildren;
 use App\Models\UserChildrenDetail;
 use App\Models\UserQuestion;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -36,12 +38,30 @@ class SignUpController extends Controller
 
     public function signUp3(Request $request)
     {
+        Session::put('user_id', $request->user_id);
         Session::put('child_name', $request->name);
+        Session::put('gender', $request->gender);
+        $user_id = Session::get('user_id');
+        return response()->json([
+            'user_id' => $user_id
+        ]);
     }
 
     public function signUp3View()
     {
-        return view('website.auth.signup_3');
+        if (Session::get('user_id') == 0) {
+
+            return view('website.auth.signup_3');
+        } else {
+            $childrens = Session::get('child_name');
+            $terms_condition = DB::table('site_settings')->where('setting_key', 'TERMS_CONDITION')->first()->setting_value;
+            $privacy_policy = DB::table('site_settings')->where('setting_key', 'PRIVACY_POLICY')->first()->setting_value;
+            return view('website.auth.signup_4', [
+                'childrens' => $childrens,
+                'terms_condition' => $terms_condition,
+                'privacy_policy' => $privacy_policy,
+            ]);
+        }
     }
 
     public function signUp4(SignUp4Request $request)
@@ -77,14 +97,13 @@ class SignUpController extends Controller
     public function signUp5View()
     {
         $childrens = Session::get('child_name');
-        return view('website.auth.signup_5', [
+        return view('website.auth.signup_5_new', [
             'childrens' => $childrens
         ]);
     }
 
     public function signUp6(Request $request)
     {
-
         Session::put('age', $request->age);
         Session::put('sex', $request->sex);
         Session::put('current_health', $request->current_health);
@@ -110,7 +129,7 @@ class SignUpController extends Controller
     {
         $childrens = Session::get('child_name');
         $questions = [[
-            'question' => 'Choose the option that best describes []  characteristics/behaviours.',
+            'question' => 'Choose the option that best describes [] s  characteristics/behaviours.',
             'answer' => ['[] feels slightly upset or bothered by online interactions.',
                 '[] experiences some emotional distress and minor changes in behaviour due to cyberbullying.',
                 '[] experiences significant emotional distress, withdrawal, or adverse effects on their mental health due to cyberbullying.'
@@ -126,7 +145,7 @@ class SignUpController extends Controller
                     '[] experiences frequent and intense online bullying or exclusion from peers in different regions or communities, resulting in significant emotional distress and feelings of isolation.'],
             ],
             ['question' => 'Please select the answer option that most accurately reflects [].',
-                'answer' => ['[] mental health is temporarily affected by online interactions, but they quickly recover.',
+                'answer' => ['[] s mental health is temporarily affected by online interactions, but they quickly recover.',
                     '[] experiences increased stress or anxiety due to cyberbullying, requiring some support or coping strategies to manage their mental health.',
                     '[] s mental health significantly deteriorates, leading to severe emotional distress, depression, or anxiety as a result of cyberbullying.'],
             ],
@@ -206,7 +225,7 @@ class SignUpController extends Controller
                     '[] s serious or long-term relationship status exposes them to severe cyberbullying, online harassment, or relationship-related conflicts, resulting in significant emotional distress and negative impacts on their well-being.'],
             ]
         ];
-        return view('website.auth.signup_6', [
+        return view('website.auth.signup_6_new', [
             'childrens' => $childrens,
             'questions' => $questions,
         ]);
@@ -216,27 +235,33 @@ class SignUpController extends Controller
     {
         $user_childrens = Session::get('child_name');
         $plan = Session::get('create_plan');
-        $user = new User();
-        $user->name = Session::get('name');
-        $user->full_name = Session::get('name');
-        $user->term_condition = 1;
-        $user->email = Session::get('email');
-        $user->password = Hash::make(Session::get('password'));
-        $user->save();
+        $user_id = Session::get('user_id');
+        if ($user_id == 0) {
+            $user = new User();
+            $user->name = Session::get('name');
+            $user->full_name = Session::get('name');
+            $user->term_condition = 1;
+            $user->email = Session::get('email');
+            $user->password = Hash::make(Session::get('password'));
+            $user->save();
+            $user_id = $user->id;
+        }
 
         if (!empty($user_childrens)) {
             foreach ($user_childrens as $key => $children) {
                 $user_children = new UserChildren();
                 $user_children->name = $children;
-                $user_children->user_id = $user->id;
+                $user_children->gender = Session::get('gender')[$key];
+                $user_children->user_id = $user_id;
                 if ($plan[$children] == 'on') {
                     $user_children->is_plan = 1;
                 }
                 $user_children->save();
 
                 $user_children_detail = new UserChildrenDetail();
-                $user_children_detail->user_id = $user->id;
+                $user_children_detail->user_id = $user_id;
                 $user_children_detail->user_children_id = $user_children->id;
+                $user_children_detail->gender = Session::get('gender')[$key];
                 $user_children_detail->age = Session::get('age')[$key];
                 $user_children_detail->sex = Session::get('sex')[$key];
                 $user_children_detail->current_health = Session::get('current_health')[$key];
@@ -257,23 +282,41 @@ class SignUpController extends Controller
                 $user_children_detail->school_climate = Session::get('school_climate')[$key];
                 $user_children_detail->academic_performance = Session::get('academic_performance')[$key];
                 $user_children_detail->save();
+                if (!is_null($user_children_detail->age)) {
+                    $questionnaire = 1;
+                } else {
+                    $questionnaire = 0;
+                }
+                DB::table('dashboard_score')->insert([
+                    'user_id' => $user_id,
+                    'child_id' => $user_children->id,
+                    'questionnaire' => $questionnaire,
+                    'unique_risk_profile' => 0,
+                    'module_of_month' => date('Y-m-d'),
+                    'view_recommendations_for' => 0,
+                    'created_at' => Carbon::now(),
+                ]);
 
+                $radio_button_answers = array();
                 foreach ($request->question as $q => $question) {
                     $user_question = new UserQuestion();
                     $user_question->question = $question[$key];
                     $user_question->answer = $request->answer[$q][$key];
-                    $user_question->user_id = $user->id;
+                    $user_question->user_id = $user_id;
                     $user_question->user_child_id = $user_children->id;
                     $user_question->save();
+
+                    $radio_button_answers[] = $request->answer[$q][$key];
                 }
 
                 $risks = DB::table('risks')->get();
+                $count = 0;
                 foreach ($risks as $risk) {
                     $key = $risk->key;
                     $answer = DB::table('user_children_details')->where('id', $user_children_detail->id)->first()->$key;
                     $matrixController = new MatrixController();
-                    $likelihood_score = $matrixController->get_likelihood_score($answer,$user_children->id);
-                    $impact_score = $matrixController->get_impact_criteria($user_children_detail->id);
+                    $likelihood_score = $matrixController->get_likelihood_score($answer);
+                    $impact_score = $matrixController->get_impact_criteria($radio_button_answers[$count]);
                     if ($likelihood_score == 'Unlikely') {
                         $l_score = 1;
                     } elseif ($likelihood_score == 'Possible') {
@@ -288,12 +331,12 @@ class SignUpController extends Controller
                         $i_score = 1;
                     } elseif ($impact_score == 'Moderate') {
                         $i_score = 2;
-                    }else {
+                    } else {
                         $i_score = 3;
                     }
                     $pi_score = $l_score * $i_score;
                     DB::table('risk_score')->insert([
-                        'user_id' => $user->id,
+                        'user_id' => $user_id,
                         'user_child_detail_id' => $user_children_detail->id,
                         'user_child_id' => $user_children->id,
                         'risk_id' => $risk->id,
@@ -302,12 +345,17 @@ class SignUpController extends Controller
                         'impact_score' => $i_score,
                         'risk_key' => $risk->key,
                     ]);
+                    $count++;
                 }
             }
         }
+        $user = User::where('id', $user_id)->first();
+
+        Auth::guard('web')->login($user);
         Session::forget('name');
         Session::forget('email');
         Session::forget('password');
+        Session::forget('gender');
         Session::forget('create_plan');
         Session::forget('term_condition');
         Session::forget('age');
@@ -329,9 +377,12 @@ class SignUpController extends Controller
         Session::forget('relationship_status');
         Session::forget('school_climate');
         Session::forget('academic_performance');
+        Session::forget('user_id');
+        Session::forget('gender');
+
         return response()->json([
             'success' => true,
-            'message' => 'User Register Successfully'
+            'message' => 'Registration successful'
         ]);
     }
 
@@ -378,6 +429,21 @@ class SignUpController extends Controller
                 $user_children_detail->school_climate = Session::get('school_climate') ? Session::get('school_climate')[$key] : null;
                 $user_children_detail->academic_performance = Session::get('academic_performance') ? Session::get('academic_performance')[$key] : null;
                 $user_children_detail->save();
+
+                if (!is_null($user_children_detail->age)) {
+                    $questionnaire = 1;
+                } else {
+                    $questionnaire = 0;
+                }
+                DB::table('dashboard_score')->insert([
+                    'user_id' => $user->id,
+                    'child_id' => $user_children->id,
+                    'questionnaire' => $questionnaire,
+                    'unique_risk_profile' => 0,
+                    'module_of_month' => date('Y-m-d'),
+                    'view_recommendations_for' => 0,
+                    'created_at' => Carbon::now(),
+                ]);
             }
         }
         Session::forget('name');
@@ -385,9 +451,10 @@ class SignUpController extends Controller
         Session::forget('password');
         Session::forget('create_plan');
         Session::forget('term_condition');
+        Session::forget('gender');
         return response()->json([
             'success' => true,
-            'message' => 'User Register Successfully'
+            'message' => 'Registration successful'
         ]);
     }
 

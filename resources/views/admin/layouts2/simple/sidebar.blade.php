@@ -111,17 +111,17 @@
                     </a>
                 </div>
 
-                <div class="menu-item">
-                    <a class="menu-link {{ (request()->segment(2) == 'subscription') ? 'active' : '' }}"
-                       href="{{ route('admin.subscription.index') }}">
-                               <span class="menu-icon">
-                            <span class="svg-icon svg-icon-2">
-                                <span data-feather="archive"></span>
-                             </span>
-                        </span>
-                        <span class="menu-title">Subscription</span>
-                    </a>
-                </div>
+{{--                <div class="menu-item">--}}
+{{--                    <a class="menu-link {{ (request()->segment(2) == 'subscription') ? 'active' : '' }}"--}}
+{{--                       href="{{ route('admin.subscription.index') }}">--}}
+{{--                               <span class="menu-icon">--}}
+{{--                            <span class="svg-icon svg-icon-2">--}}
+{{--                                <span data-feather="archive"></span>--}}
+{{--                             </span>--}}
+{{--                        </span>--}}
+{{--                        <span class="menu-title">Subscription</span>--}}
+{{--                    </a>--}}
+{{--                </div>--}}
 
                 <div class="menu-item">
                     <a class="menu-link {{ (request()->segment(2) == 'recommendation') ? 'active' : '' }}"
@@ -202,17 +202,17 @@
                             </div>
                         </div>
 
-                        <div class="menu-sub menu-sub-accordion menu-active-bg">
-                            <div class="menu-item">
-                                <a class="menu-link {{ (request()->segment(2) == 'page') ? 'active' : '' }}"
-                                   href="{{ route('admin.page.index') }}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                    <span class="menu-title">Page</span>
-                                </a>
-                            </div>
-                        </div>
+{{--                        <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
+{{--                            <div class="menu-item">--}}
+{{--                                <a class="menu-link {{ (request()->segment(2) == 'page') ? 'active' : '' }}"--}}
+{{--                                   href="{{ route('admin.page.index') }}">--}}
+{{--                                <span class="menu-bullet">--}}
+{{--                                    <span class="bullet bullet-dot"></span>--}}
+{{--                                </span>--}}
+{{--                                    <span class="menu-title">Page</span>--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
                         <div class="menu-sub menu-sub-accordion menu-active-bg">
                             <div class="menu-item">

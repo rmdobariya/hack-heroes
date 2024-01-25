@@ -1,4 +1,7 @@
 @extends('admin.layouts2.simple.master')
+@section('title')
+    Edit Recommendation
+@endsection
 @section('content')
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
@@ -78,10 +81,10 @@
 
                                 <div class="row">
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
-                                        <label class="required fs-6 fw-bold mb-2" for="tag_for_frequency">
+                                        <label class="fs-6 fw-bold mb-2" for="tag_for_frequency">
                                             Tag for frequency
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" required
+                                        <input type="text" class="form-control form-control-solid"
                                                name="tag_for_frequency"
                                                id="tag_for_frequency"
                                                value="{{$recommendation->tag_for_frequency}}"
@@ -91,10 +94,10 @@
 
                                 <div class="row">
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
-                                        <label class="required fs-6 fw-bold mb-2" for="tag_if_affiliate">
+                                        <label class="fs-6 fw-bold mb-2" for="tag_if_affiliate">
                                             Tag if affiliate
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" required
+                                        <input type="text" class="form-control form-control-solid"
                                                name="tag_if_affiliate"
                                                id="tag_if_affiliate"
                                                value="{{$recommendation->tag_if_affiliate}}"
@@ -104,10 +107,10 @@
 
                                 <div class="row">
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
-                                        <label class="required fs-6 fw-bold mb-2" for="tag_if_resource">
+                                        <label class="fs-6 fw-bold mb-2" for="tag_if_resource">
                                             Tag if resource
                                         </label>
-                                        <input type="text" class="form-control form-control-solid" required
+                                        <input type="text" class="form-control form-control-solid"
                                                name="tag_if_resource"
                                                id="tag_if_resource"
                                                value="{{$recommendation->tag_if_resource}}"
@@ -131,7 +134,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <label class="required fs-6 fw-bold mb-2" for="image">
+                                    <label class="fs-6 fw-bold mb-2" for="image">
                                         Image
                                     </label>
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
@@ -143,13 +146,31 @@
                                ])
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label class="fs-6 fw-bold mb-2" for="pdf">
+                                            Attach PDF
+                                        </label>
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <input type="file" name="pdf" id="pdf">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div>
+                                            @if($recommendation->pdf)
+                                                <a href="{{asset($recommendation->pdf)}}">Link Uploaded</a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="card-footer text-end p-3 btn-showcase">
                                 <button class="btn btn-primary" type="submit">
                                     Submit
                                 </button>
-                                <a href="{{ route('admin.page.index') }}">
+                                <a href="{{ route('admin.recommendation.index') }}">
                                     <button class="btn btn-secondary" type="button">
                                         Cancel
                                     </button>

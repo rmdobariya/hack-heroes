@@ -24,23 +24,26 @@
                                          class=" @if($loop->first) first current @endif @if($loop->last) last @endif">
                                         @if(!is_null($childrens))
                                             @foreach($childrens as $key1=>$children)
-                                                <b>{{str_replace('[]',$children,$question['question'])}}</b>
+                                                <b>{{str_replace('[]',$children."'",$question['question'])}}</b>
                                                 <div class="text-centers">
                                                     <input type="hidden" class="selected_value"
                                                            name="answer[{{$key}}][{{$key1}}]">
                                                     <input type="hidden" class="question"
                                                            name="question[{{$key}}][{{$key1}}]"
-                                                           value="{{str_replace('[]',$children,$question['question'])}}">
+                                                           data-value="{{str_replace('[]',$children,$question['question'])}}"
+                                                           value="{{str_replace('[] ','',str_replace('[]','',$question['question']))}}"
+                                                           >
                                                     @foreach($question['answer'] as $key3=>$answer)
                                                         <div class="form-check {{ $key3 == 0 ? 'mt-5' : '' }}">
                                                             <input class="form-check-input" type="radio"
                                                                    name="answer[{{$key}}][{{$key1}}]"
-                                                                   id="answer_{{$key}}_{{$key3}}"
-                                                                   value="{{str_replace('[]',$children,$answer)}}"
+                                                                   id="answer_{{$key}}_{{$key1}}_{{$key3}}"
+                                                                   data-value="{{str_replace('[]',$children,$answer)}}"
+                                                                   value="{{str_replace('[] ','',str_replace('[]','',$answer))}}"
                                                                    required>
 
-                                                            <label class="form-check-label" for="answer_{{$key}}_{{$key3}}">
-                                                                {{str_replace('[]',$children,$answer)}}
+                                                            <label class="form-check-label" for="answer_{{$key}}_{{$key1}}_{{$key3}}">
+                                                                {{str_replace('[]',$children."'",$answer)}}
                                                             </label>
                                                         </div>
                                                     @endforeach

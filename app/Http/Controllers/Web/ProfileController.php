@@ -13,11 +13,22 @@ class ProfileController extends Controller
 {
     public function profile()
     {
-        $user = Auth::guard('web')->user();        
+        $user = Auth::guard('web')->user();
+        if (!is_null($user->plan_id)){
+            $plan = DB::table('plans')->where('id', $user->plan_id)->first();
+        }else{
+            $plan = DB::table('plans')->where('id',1)->first();
+        }
+
         $user_childrens = DB::table('user_childrens')->where('user_id', $user->id)->get();
+        $terms_condition = DB::table('site_settings')->where('setting_key', 'TERMS_CONDITION')->first()->setting_value;
+        $privacy_policy = DB::table('site_settings')->where('setting_key', 'PRIVACY_POLICY')->first()->setting_value;
         return view('website.profile.profile', [
             'user' => $user,
             'user_childrens' => $user_childrens,
+            'terms_condition' => $terms_condition,
+            'privacy_policy' => $privacy_policy,
+            'plan' => $plan,
         ]);
     }
 
@@ -42,6 +53,7 @@ class ProfileController extends Controller
             foreach ($request->children_name as $key => $name) {
                 $user_children = UserChildren::find($key);
                 $user_children->name = $name;
+                $user_children->gender = $request->gender[$key];
                 $user_children->save();
             }
         }

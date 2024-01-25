@@ -64,10 +64,10 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::post('social-media-store', [SettingController::class, 'socialMediaStore'])->name('social-media-store');
     Route::post('footer-store', [SettingController::class, 'footerStore'])->name('footer-store');
 
-    Route::resource('page', PageController::class);
-    Route::get('get-page-list', [PageController::class, 'getPageList'])->name('get-page-list');
-    Route::get('page/status/{id}/{status}', [PageController::class, 'changeStatus'])->name('page.status.change');
-    Route::post('multiple-page-delete', [PageController::class, 'multiplePageDelete'])->name('multiple-page-delete');
+//    Route::resource('page', PageController::class);
+//    Route::get('get-page-list', [PageController::class, 'getPageList'])->name('get-page-list');
+//    Route::get('page/status/{id}/{status}', [PageController::class, 'changeStatus'])->name('page.status.change');
+//    Route::post('multiple-page-delete', [PageController::class, 'multiplePageDelete'])->name('multiple-page-delete');
 
     Route::resource('contact-us', ContactUsController::class);
     Route::get('get-contact-us-list', [ContactUsController::class, 'getContactUsList'])->name('get-contact-us-list');

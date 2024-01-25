@@ -11,10 +11,25 @@
                         <h1>HackHeroes</h1>
                         <h2>Join us today & get your personalised cyberbullying prevention plan</h2>
                         <form id="signup3" method="post">
-                            <input type="text" name="name[1]"  placeholder="Child’s first name"
-                                   value="" class="form-control attribute-row attribute-row-1">
+                            <input type="hidden"
+                                   value="{{ !is_null(Auth::guard('web')->user()) ? Auth::guard('web')->user()->id : 0}}"
+                                   name="user_id" id="user_id">
+                            {{--                            <input type="text" name="name[1]"  placeholder="Child’s first name"--}}
+                            {{--                                   value="" class="form-control attribute-row attribute-row-1">--}}
+                            <div class="attribute-row attribute-row-1">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" name="name[1]"
+                                           placeholder="Child’s first name">
+                                    <select name="gender[1]" class="form-control">
+                                        <option value="male" selected>Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <div id="new_chq"></div>
-                            <a href="javascript:void()" class="add-child" onclick="addAttribute(1)"><img src="{{asset('assets/web/images/plus-icon.png')}}"> Add another Child</a>
+                            <a href="javascript:void()" class="add-child" onclick="addAttribute(1)"><img
+                                    src="{{asset('assets/web/images/plus-icon.png')}}"> Add another Child</a>
                             <button class="btn signup-btn" type="submit">Continue</button>
                         </form>
                     </div>

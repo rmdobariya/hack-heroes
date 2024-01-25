@@ -1,6 +1,6 @@
 @extends('website.layouts.after-login.master')
 @section('title')
-    Update Profile
+    Dashboard
 @endsection
 @section('content')
     <div id="main">
@@ -35,28 +35,59 @@
                         @foreach($user_childrens as $user_children)
                             @php
                                 $delay += 200;
+                                $dashboard_score = DB::table('dashboard_score')->where('child_id',$user_children->id)->where('user_id',$user->id)->first();
+                                $recommendation_score = DB::table('recommendation_score')->where('child_id',$user_children->id)->get();
+                                $today = Carbon\Carbon::now();
+                                $module_of_month = Carbon\Carbon::parse($dashboard_score->module_of_month);
+                                $view_recommendations_for = Carbon\Carbon::parse($dashboard_score->view_recommendations_for);
+                                $diff_module_of_month = $today->diffInDays($module_of_month);
+                                $diff_view_recommendations_for = $today->diffInDays($view_recommendations_for);
                             @endphp
                             <div class="next-tasklist" data-aos="fade-up" data-aos-delay="{{$delay}}">
                                 <div class="user-box">
-                                    <img src="{{asset('assets/web/images/alex.svg')}}" alt="user">
-                                    <h3>{{$user_children->name}}</h3> 
+                                    @if((string)$user_children->gender === 'male')
+                                        <img src="{{asset('assets/web/images/alex.svg')}}" alt="user">
+                                    @else
+                                        <img src="{{asset('assets/web/images/taylor.svg')}}" alt="user">
+                                    @endif
+                                    <h3>{{$user_children->name}}</h3>
                                 </div>
                                 <div class="task-list">
                                     <ul>
                                         <li>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
-                                                       id="flexCheckDefault__{{$user_children->id}}" checked disabled>
+                                                       id="flexCheckDefault__{{$user_children->id}}"
+                                                       @if($dashboard_score->questionnaire == 1)  checked
+                                                       @endif disabled>
                                                 <label class="form-check-label"
                                                        for="flexCheckDefault__{{$user_children->id}}">
                                                     Questionnaire
                                                 </label>
                                             </div>
                                         </li>
+                                        @foreach($recommendation_score as $r_score)
+                                            @php
+                                                $rec = DB::table('recommendations')->where('id',$r_score->recommendation_id)->first();
+                                            @endphp
+                                            <li>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                           id="flexCheckDefault__{{$user_children->id}}"
+                                                           checked>
+                                                    <label class="form-check-label"
+                                                           for="flexCheckDefault__{{$user_children->id}}">
+                                                        {{$rec->title_for_recommendation}}
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        @endforeach
                                         <li>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
-                                                       id="flexCheckDefault_{{$user_children->id}}" disabled>
+                                                       id="flexCheckDefault_{{$user_children->id}}"
+                                                       @if($dashboard_score->unique_risk_profile == 1)  checked
+                                                       @endif disabled>
                                                 <label class="form-check-label"
                                                        for="flexCheckDefault_{{$user_children->id}}">
                                                     Unique Risk Profile
@@ -66,7 +97,8 @@
                                         <li>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
-                                                       id="flexCheckDefault_{{$user_children->id}}" disabled>
+                                                       id="flexCheckDefault_{{$user_children->id}}"
+                                                       @if(30 < $diff_module_of_month)  checked @endif disabled>
                                                 <label class="form-check-label"
                                                        for="flexCheckDefault_{{$user_children->id}}">
                                                     Modules for Month #1
@@ -76,7 +108,9 @@
                                         <li>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
-                                                       id="flexCheckDefault_{{$user_children->id}}" disabled>
+                                                       id="flexCheckDefault_{{$user_children->id}}"
+                                                       @if(30 < $diff_view_recommendations_for)  checked
+                                                       @endif disabled>
                                                 <label class="form-check-label"
                                                        for="flexCheckDefault_{{$user_children->id}}">
                                                     View Recommendations for Month #1
@@ -95,6 +129,7 @@
             </div>
         </section>
     </div>
+
     <section id="progress">
         <div class="container">
             <div class="row">
@@ -103,28 +138,75 @@
                         <h2 data-aos="fade-right" data-aos-delay="200">Your progress</h2>
                     </div>
                 </div>
-                <div class="clearfix"></div>
-                <div class="col-md-4">
-                    <div class="progress-box active" data-aos="fade-up" data-aos-delay="100">
-                        <img src="{{asset('assets/web/images/progress-1.svg')}}" alt="progress">
-                        <h2>Month #1</h2>
-                        <p>18 Done</p>
+            </div>
+            <ul class="nav nav-tabs" id="myTabs">
+                @foreach($user_childrens as $user_children)
+                    <li class="nav-item">
+                        <a class="nav-link @if($loop->first) active @endif" id="home-tab-{{$user_children->id}}"
+                           data-bs-toggle="tab"
+                           href="#child-tab-{{$user_children->id}}">{{$user_children->name}}</a>
+                    </li>
+                @endforeach
+            </ul>
+
+            <div class="tab-content mt-3" id="myTabsContent">
+                @foreach($user_childrens as $user_children)
+                    @php
+                        $delay += 200;
+                        $dashboard_score = DB::table('dashboard_score')->where('child_id',$user_children->id)->where('user_id',$user->id)->first();
+                        $today = Carbon\Carbon::now();
+                        $module_of_month = Carbon\Carbon::parse($dashboard_score->module_of_month);
+                        $view_recommendations_for = Carbon\Carbon::parse($dashboard_score->view_recommendations_for);
+                        $diff_module_of_month = $today->diffInDays($module_of_month);
+                        $diff_view_recommendations_for = $today->diffInDays($view_recommendations_for);
+                    @endphp
+                    <div class="tab-pane fade @if($loop->first) show active @endif"
+                         id="child-tab-{{$user_children->id}}">
+                        <div class="row">
+                            <div class="clearfix"></div>
+                            <div class="col-md-4">
+                                <div class="progress-box  @if($dashboard_score->questionnaire == 1)  active @endif"
+                                     data-aos="fade-up" data-aos-delay="100">
+                                    <img src="{{asset('assets/web/images/progress-1.svg')}}" alt="progress">
+                                    <h2>Month #1</h2>
+                                    @if($dashboard_score->unique_risk_profile == 1 && $dashboard_score->questionnaire != 1)
+                                        <p>
+                                            {{$dashboard_score->unique_risk_profile}} Done</p>
+                                    @endif
+                                    @if($dashboard_score->questionnaire == 1 && $dashboard_score->unique_risk_profile != 1)
+                                        <p>
+                                            {{$dashboard_score->unique_risk_profile}} Done</p>
+                                    @endif
+                                    @if($dashboard_score->questionnaire == 1 && $dashboard_score->unique_risk_profile == 1)
+                                        <p>
+                                            {{$dashboard_score->unique_risk_profile}} Done</p>
+                                    @endif
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="progress-box @if(30 < $diff_module_of_month)  active @endif"
+                                     data-aos="fade-up" data-aos-delay="300">
+                                    <img src="{{asset('assets/web/images/progress-2.svg')}}" alt="progress">
+                                    <h2>Month #2</h2>
+                                    @if(30 < $diff_module_of_month)
+                                        <p>1 Done</p>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="progress-box @if(30 < $diff_view_recommendations_for)  active @endif"
+                                     data-aos="fade-up" data-aos-delay="500">
+                                    <img src="{{asset('assets/web/images/progress-3.svg')}}" alt="progress">
+                                    <h2>Month #3</h2>
+                                    @if(30 < $diff_view_recommendations_for)
+                                        <p>1 Done</p>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="progress-box" data-aos="fade-up" data-aos-delay="300">
-                        <img src="{{asset('assets/web/images/progress-2.svg')}}" alt="progress">
-                        <h2>Month #2</h2>
-                        <p>0 Done</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="progress-box" data-aos="fade-up" data-aos-delay="500">
-                        <img src="{{asset('assets/web/images/progress-3.svg')}}" alt="progress">
-                        <h2>Month #3</h2>
-                        <p>0 Done</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

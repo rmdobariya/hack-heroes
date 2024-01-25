@@ -50,9 +50,13 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="options-btn">
-                                        <a href="https://calendar.google.com/" target="_blank" class="dark-btns" data-aos="fade-up" data-aos-delay="200"><i class="las la-calendar-alt"></i> Add to Calendar</a>
-                                        <a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank" class="dark-btns" data-aos="fade-up" data-aos-delay="400"><i class="las la-arrow-down"></i> Download Resource</a>
-                                        <a href="{{route('matrix',$child_id)}}" class="dark-btns" data-aos="fade-up" data-aos-delay="600">Done</a>
+                                        <a class="dark-btns add_to_calendar" data-rec-title="{{$recommendation->title_for_recommendation}}" data-rec-des="{{$recommendation->sub_text_for_recommendation}}">
+                                            <i class="las la-calendar-alt"></i> Add to Calendar
+                                        </a>
+                                        @if(!is_null($recommendation->pdf))
+                                        <a href="{{asset($recommendation->pdf)}}" target="_blank" class="dark-btns" data-aos="fade-up" data-aos-delay="400"><i class="las la-arrow-down"></i> Download Resource</a>
+                                        @endif
+                                            <a href="{{route('matrix',$child_id)}}" class="dark-btns" data-aos="fade-up" data-aos-delay="600">Done</a>
                                     </div>
                                 </div>
                             </div>
@@ -68,5 +72,5 @@
 
 @endsection
 @section('custom-script')
-
+    <script src="{{asset('assets/web/custom/matrix.js')}}?v={{time()}}"></script>
 @endsection

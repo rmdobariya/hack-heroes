@@ -22,7 +22,11 @@
                                             <input type="hidden" name="amount" value="{{$plan->amount}}">
                                             <input type="hidden" name="start_date" value="{{$plan->start_date}}">
                                             <input type="hidden" name="end_date" value="{{$plan->end_date}}">
-                                            <button type="submit">Purchase</button>
+                                            @if($loop->first)
+                                                <a href="#">Free Sign-up</a>
+                                            @else
+                                                <a href="@if(Auth::guard('web')->user()) {{route('subscription')}} @else {{route('login')}} @endif">Subscription</a>
+                                            @endif
                                         </form>
 
                                     </div>
