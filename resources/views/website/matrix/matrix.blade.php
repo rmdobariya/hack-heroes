@@ -42,7 +42,7 @@
                                         @foreach($top_risks as $key=>$top_risk)
                                             <div class="list-box risk_event @if($loop->first) active @endif"
                                                  data-id="{{$top_risk->risk_id}}" data-child-id="{{$child->id}}">
-                                                <p style="cursor: pointer">{{$risk_array[$top_risk->risk_key]}} {{str_replace('_',' ',ucfirst($top_risk->risk_key))}}</a>
+                                                <p style="cursor: pointer">{{$risk_array[$top_risk->risk_key]}} {{isset($risk_titles[$top_risk->risk_key]) ? $risk_titles[$top_risk->risk_key] : ''}}</a>
                                                 </p>
                                             </div>
                                         @endforeach
@@ -53,7 +53,7 @@
                                         @foreach($o_risks as $o_risk)
                                             <div class="list-box risk_event" data-id="{{$o_risk->risk_id}}"
                                                  data-child-id="{{$child->id}}">
-                                                <p style="cursor: pointer">{{$risk_array[$o_risk->risk_key]}} {{str_replace('_',' ',ucfirst($o_risk->risk_key))}}
+                                                <p style="cursor: pointer">{{$risk_array[$o_risk->risk_key]}} {{isset($risk_titles[$o_risk->risk_key]) ? $risk_titles[$o_risk->risk_key] : ''}}
                                                 </p>
                                             </div>
                                         @endforeach
@@ -109,7 +109,7 @@
                                             <td style="padding: 15px;border-left:3px solid #c5cad4;">
                                                 <div
                                                     style="width:200px;height: 200px;position: relative;border: 1px solid #eff4fa;border-bottom: 3px solid #c5cad4;">
-                                                    @foreach($risk_array as  $key=>$array)
+                                                    @foreach($risk_array as  $key=>$array)                                                    
                                                         @foreach($child_score as  $score)
                                                             @if($score->risk_key == $key)
                                                                 @if($score->likely_hood_score == 3 && $score->impact_score == 1)
@@ -119,7 +119,7 @@
                                                                        data-key="{{str_replace('_',' ',ucfirst($key))}}"
                                                                        class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}}"
+                                                                       title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -140,7 +140,7 @@
                                                                        data-key="{{str_replace('_',' ',ucfirst($key))}}"
                                                                        class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}}"
+                                                                       title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -161,7 +161,7 @@
                                                                        data-key="{{str_replace('_',' ',ucfirst($key))}}"
                                                                        class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}}"
+                                                                       title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -186,7 +186,7 @@
                                                                        data-key="{{str_replace('_',' ',ucfirst($key))}}"
                                                                        class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}}"
+                                                                       title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -207,7 +207,7 @@
                                                                        data-key="{{str_replace('_',' ',ucfirst($key))}}"
                                                                        class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}}"
+                                                                       title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -228,7 +228,7 @@
                                                                        data-key="{{str_replace('_',' ',ucfirst($key))}}"
                                                                        class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}}"
+                                                                       title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -253,7 +253,7 @@
                                                                        data-key="{{str_replace('_',' ',ucfirst($key))}}"
                                                                        class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}}"
+                                                                       title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -274,7 +274,7 @@
                                                                        data-key="{{str_replace('_',' ',ucfirst($key))}}"
                                                                        class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}}"
+                                                                       title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
@@ -295,7 +295,7 @@
                                                                        data-key="{{str_replace('_',' ',ucfirst($key))}}"
                                                                        class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter"
                                                                        data-bs-placement="top"
-                                                                       title="{{str_replace('_',' ',ucfirst($key))}}"
+                                                                       title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}"
                                                                        style="{{$style_array[$key]}}">{{$array}}</p>
                                                                 @endif
                                                             @endif
