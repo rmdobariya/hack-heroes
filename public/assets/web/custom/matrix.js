@@ -78,4 +78,21 @@ $(document).on('click', '.add_to_calendar', function () {
         console.log('Request failed: ' + textStatus)
     })
 });
+$(document).on('click', '.add_to_apple_calendar', function () {
+    var title = $(this).data('rec-title');
+    var desc = $(this).data('rec-des');
+    loaderView()
+    $.ajax({
+        url: APP_URL + '/add-to-apple-calendar/' + title + '/' + desc,
+        method: 'GET',
+
+    }).done(function (data) {
+        loaderHide()
+        window.open(data.url, '_blank');
+
+    }).fail(function (jqXHR, textStatus) {
+        loaderHide()
+        console.log('Request failed: ' + textStatus)
+    })
+});
 
