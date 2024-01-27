@@ -256,6 +256,27 @@ Signup
         $('#next').css('display', 'none');
         $('#signup_new_5').removeClass('d-none');
     }
+
+    $(document).ready(function() {
+        $('select').change(function() {
+            var text = $(this).find('option:selected').text()
+            var $aux = $('<select/>').append($('<option/>').text(text))
+            $(this).after($aux)
+            $(this).width($aux.width())
+            $aux.remove()
+        });
+
+        setTimeout(function() {
+            $('select').each(function() {
+                var text = $(this).find('option:first').text()
+                console.log(text);
+                var $aux = $('<select/>').append($('<option/>').text(text))
+                $(this).after($aux)
+                $(this).width($aux.innerWidth())
+                $aux.remove()
+            });
+        }, 1000);
+    });
 </script>
 <script src="{{asset('assets/web/custom/signup.js')}}?v={{time()}}"></script>
 @endsection

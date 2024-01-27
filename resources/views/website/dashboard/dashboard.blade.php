@@ -45,7 +45,7 @@
                             @endphp
                             <div class="next-tasklist" data-aos="fade-up" data-aos-delay="{{$delay}}">
                                 <div class="user-box">
-                                    @if((string)$user_children->gender === 'male')
+                                    @if((string)$user_children->gender === 'male' || (string)$user_children->gender === 'intersex')
                                         <img src="{{asset('assets/web/images/alex.svg')}}" alt="user">
                                     @else
                                         <img src="{{asset('assets/web/images/taylor.svg')}}" alt="user">
@@ -74,7 +74,7 @@
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value=""
                                                            id="flexCheckDefault__{{$user_children->id}}"
-                                                           checked>
+                                                           checked disabled>
                                                     <label class="form-check-label"
                                                            for="flexCheckDefault__{{$user_children->id}}">
                                                         {{$rec->title_for_recommendation}}

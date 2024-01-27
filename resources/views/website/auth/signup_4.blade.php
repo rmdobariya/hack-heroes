@@ -27,7 +27,11 @@
                                 @endforeach
                             @endif
                             {{--                        <div id="new_chq"></div>--}}
-                                                    <a href="javascript:void()" class="add-child" onclick="addAttributeForPlan({{count($childrens)}})"><img src="{{asset('assets/web/images/plus-icon.png')}}"> Add another Child</a>
+                            <div id="add-child-btn">
+                                <a href="javascript:void()" class="add-child"
+                                   onclick="addAttributeForPlan({{count($childrens)}})"><img
+                                        src="{{asset('assets/web/images/plus-icon.png')}}"> Add another Child</a>
+                            </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="term_condition"
                                        id="flexCheckDefault" @if(Session::get('term_condition') == 'on') checked

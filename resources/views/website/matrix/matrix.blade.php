@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="summary-right risk_wise_detail" id="risk_wise_detail" data-aos="fade-left"
                                      data-aos-delay="300">
-                                    <div class="downloads">
+                                    <div class="downloads" style="display: none;">
                                         <a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank"><img
                                                 src="{{asset('assets/web/images/download.svg')}}"
                                                 alt="download"></a>
@@ -71,7 +71,7 @@
                                     @endphp
                                     <h4>{{$first_risk->name}}</h4>
                                     <p>{{$first_risk->description}}</p>
-                                    <h4>Research We Trust</h4>
+                                    <h4>Research we trust</h4>
                                     <p>{{$first_risk->research_we_trust}}</p>
                                     <div class="rating-box">
                                         <h4>{{$child->name}}’s age risk rating</h4>
@@ -109,7 +109,7 @@
                                             <td style="padding: 15px;border-left:3px solid #c5cad4;">
                                                 <div
                                                     style="width:200px;height: 200px;position: relative;border: 1px solid #eff4fa;border-bottom: 3px solid #c5cad4;">
-                                                    @foreach($risk_array as  $key=>$array)                                                    
+                                                    @foreach($risk_array as  $key=>$array)
                                                         @foreach($child_score as  $score)
                                                             @if($score->risk_key == $key)
                                                                 @if($score->likely_hood_score == 3 && $score->impact_score == 1)
@@ -342,10 +342,10 @@
                                         for {{$child->name}}</h2>
                                     <div class="form-filter" data-aos="fade-left" data-aos-delay="200">
                                         <select class="form-control form-select risk_change_event">
-                                            <option>All Categories</option>
+                                            <option value="all_category" data-child-id="{{$child->id}}">All Categories</option>
                                             @foreach($top_risks as $key=>$top_risk)
-                                                <option value="{{str_replace('_',' ',ucfirst($top_risk->risk_key))}}"
-                                                        data-child-id="{{$child->id}}">{{$risk_array[$top_risk->risk_key]}} {{str_replace('_',' ',ucfirst($top_risk->risk_key))}}</option>
+                                                <option value="{{isset($risk_titles[$top_risk->risk_key]) ? $risk_titles[$top_risk->risk_key] : ''}}"
+                                                        data-child-id="{{$child->id}}">{{$risk_array[$top_risk->risk_key]}} {{isset($risk_titles[$top_risk->risk_key]) ? $risk_titles[$top_risk->risk_key] : ''}}</option>
                                             @endforeach
                                         </select>
                                         <i class="las la-filter"></i>
@@ -378,15 +378,16 @@
                                                     <a href="{{route('recommendation',[$recommendation->id,$child->id])}}"
                                                        class="line-btns">More</a>
                                                     <a class="dark-btns add_to_calendar"
+                                                       data-id="{{$recommendation->id}}" 
                                                        data-rec-title="{{$recommendation->title_for_recommendation}}"
                                                        data-rec-des="{{$recommendation->sub_text_for_recommendation}}">
                                                         <i class="las la-calendar-alt"></i> Add to Calendar
                                                     </a>
-                                                    <a class="dark-btns add_to_apple_calendar"
-                                                       data-rec-title="{{$recommendation->title_for_recommendation}}"
-                                                       data-rec-des="{{$recommendation->sub_text_for_recommendation}}">
-                                                        <i class="las la-calendar-alt"></i> Add to Apple Calendar
-                                                    </a>
+{{--                                                    <a class="dark-btns add_to_apple_calendar"--}}
+{{--                                                       data-rec-title="{{$recommendation->title_for_recommendation}}"--}}
+{{--                                                       data-rec-des="{{$recommendation->sub_text_for_recommendation}}">--}}
+{{--                                                        <i class="las la-calendar-alt"></i> Add to Apple Calendar--}}
+{{--                                                    </a>--}}
                                                     @if(!is_null($recommendation->pdf))
                                                         <a href="{{asset($recommendation->pdf)}}"
                                                            target="_blank"

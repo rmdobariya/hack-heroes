@@ -85,7 +85,7 @@ class SignUpController extends Controller
     {
         Session::put('child_name', $request->child);
         $create_plan = $request->create_plan;
-        $child_name = Session::get('child_name');
+        $child_name = $request->child;
         $result = [];
         foreach ($child_name as $key => $value) {
             $result[$value] = $create_plan[$key] ?? 'off';
@@ -96,7 +96,18 @@ class SignUpController extends Controller
 
     public function signUp5View()
     {
-        $childrens = Session::get('child_name');
+        $create_plan = Session::get('create_plan');
+        $child_name = Session::get('child_name');
+        $childrens = [];
+        $count = 0;
+        $key = 0;
+        foreach ($create_plan as $plan) {
+            $count++;
+            if ($plan == 'on') {
+                $key++;
+                $childrens[$key] = $child_name[$count];
+            }
+        }
         return view('website.auth.signup_5_new', [
             'childrens' => $childrens
         ]);
@@ -127,7 +138,18 @@ class SignUpController extends Controller
 
     public function signUp6View()
     {
-        $childrens = Session::get('child_name');
+        $create_plan = Session::get('create_plan');
+        $child_name = Session::get('child_name');
+        $childrens = [];
+        $count = 0;
+        $key = 0;
+        foreach ($create_plan as $plan) {
+            $count++;
+            if ($plan == 'on') {
+                $key++;
+                $childrens[$key] = $child_name[$count];
+            }
+        }
         $questions = [[
             'question' => 'Choose the option that best describes []&apos;s  characteristics/behaviours.',
             'answer' => ['[] feels slightly upset or bothered by online interactions.',
@@ -261,26 +283,26 @@ class SignUpController extends Controller
                 $user_children_detail = new UserChildrenDetail();
                 $user_children_detail->user_id = $user_id;
                 $user_children_detail->user_children_id = $user_children->id;
-                $user_children_detail->gender = Session::get('gender')[$key];
-                $user_children_detail->age = Session::get('age')[$key];
-                $user_children_detail->sex = Session::get('sex')[$key];
-                $user_children_detail->current_health = Session::get('current_health')[$key];
-                $user_children_detail->previous_health = Session::get('previous_health')[$key];
-                $user_children_detail->language = Session::get('language')[$key];
-                $user_children_detail->sexual_orientation = Session::get('sexual_orientation')[$key];
-                $user_children_detail->family_structure = Session::get('family_structure')[$key];
-                $user_children_detail->access_the_internet = Session::get('access_the_internet')[$key];
-                $user_children_detail->online_activity_frequency = Session::get('online_activity_frequency')[$key];
-                $user_children_detail->online_behaviour = Session::get('online_behaviour')[$key];
-                $user_children_detail->geographic_location = Session::get('geographic_location')[$key];
-                $user_children_detail->socioeconomic_status = Session::get('socioeconomic_status')[$key];
-                $user_children_detail->school_attendance = Session::get('school_attendance')[$key];
-                $user_children_detail->parental_involvement = Session::get('parental_involvement')[$key];
-                $user_children_detail->support_system = Session::get('support_system')[$key];
-                $user_children_detail->peer_relationships = Session::get('peer_relationships')[$key];
-                $user_children_detail->relationship_status = Session::get('relationship_status')[$key];
-                $user_children_detail->school_climate = Session::get('school_climate')[$key];
-                $user_children_detail->academic_performance = Session::get('academic_performance')[$key];
+                $user_children_detail->gender = isset(Session::get('gender')[$key]) ? Session::get('gender')[$key] : null;
+                $user_children_detail->age = isset(Session::get('age')[$key]) ? Session::get('age')[$key] : null;
+                $user_children_detail->sex = isset(Session::get('sex')[$key]) ? Session::get('sex')[$key] : null;
+                $user_children_detail->current_health = isset(Session::get('current_health')[$key]) ? Session::get('current_health')[$key] : null;
+                $user_children_detail->previous_health = isset(Session::get('previous_health')[$key]) ? Session::get('previous_health')[$key] : null;
+                $user_children_detail->language = isset(Session::get('language')[$key]) ? Session::get('language')[$key] : null;
+                $user_children_detail->sexual_orientation = isset(Session::get('sexual_orientation')[$key]) ? Session::get('sexual_orientation')[$key] : null;
+                $user_children_detail->family_structure = isset(Session::get('family_structure')[$key]) ? Session::get('family_structure')[$key] : null;
+                $user_children_detail->access_the_internet = isset(Session::get('access_the_internet')[$key]) ? Session::get('access_the_internet')[$key] : null;
+                $user_children_detail->online_activity_frequency = isset(Session::get('online_activity_frequency')[$key]) ? Session::get('online_activity_frequency')[$key] : null;
+                $user_children_detail->online_behaviour = isset(Session::get('online_behaviour')[$key]) ? Session::get('online_behaviour')[$key] : null;
+                $user_children_detail->geographic_location = isset(Session::get('geographic_location')[$key]) ? Session::get('geographic_location')[$key] : null;
+                $user_children_detail->socioeconomic_status = isset(Session::get('socioeconomic_status')[$key]) ? Session::get('socioeconomic_status')[$key] : null;
+                $user_children_detail->school_attendance = isset(Session::get('school_attendance')[$key]) ? Session::get('school_attendance')[$key] : null;
+                $user_children_detail->parental_involvement = isset(Session::get('parental_involvement')[$key]) ? Session::get('parental_involvement')[$key] : null;
+                $user_children_detail->support_system = isset(Session::get('support_system')[$key]) ? Session::get('support_system')[$key] : null;
+                $user_children_detail->peer_relationships = isset(Session::get('peer_relationships')[$key]) ? Session::get('peer_relationships')[$key] : null;
+                $user_children_detail->relationship_status = isset(Session::get('relationship_status')[$key]) ? Session::get('relationship_status')[$key] : null;
+                $user_children_detail->school_climate = isset(Session::get('school_climate')[$key]) ? Session::get('school_climate')[$key] : null;
+                $user_children_detail->academic_performance = isset(Session::get('academic_performance')[$key]) ? Session::get('academic_performance')[$key] : null;
                 $user_children_detail->save();
                 if (!is_null($user_children_detail->age)) {
                     $questionnaire = 1;
@@ -296,17 +318,16 @@ class SignUpController extends Controller
                     'view_recommendations_for' => 0,
                     'created_at' => Carbon::now(),
                 ]);
-
                 $radio_button_answers = array();
                 foreach ($request->question as $q => $question) {
                     $user_question = new UserQuestion();
-                    $user_question->question = $question[$key];
-                    $user_question->answer = $request->answer[$q][$key];
+                    $user_question->question = isset($question[$key]) ? $question[$key] : null;
+                    $user_question->answer = isset($request->answer[$q][$key]) ? $request->answer[$q][$key] : null;
                     $user_question->user_id = $user_id;
                     $user_question->user_child_id = $user_children->id;
                     $user_question->save();
 
-                    $radio_button_answers[] = $request->answer[$q][$key];
+                    $radio_button_answers[] = isset($request->answer[$q][$key]);
                 }
 
                 $risks = DB::table('risks')->get();
@@ -470,6 +491,15 @@ class SignUpController extends Controller
     {
         $response = view('website.auth.getAttributeRowForPlan', [
             'rowNo' => $rowNo,
+        ])->render();
+        return response()->json(['data' => $response]);
+    }
+
+    public function addChildBtnRefresh()
+    {
+        $count = count(Session::get('child_name'));
+        $response = view('website.auth.addChildBtnRefresh', [
+            'count' => $count,
         ])->render();
         return response()->json(['data' => $response]);
     }

@@ -53,6 +53,7 @@ Route::post('send-mail', [ResetPasswordController::class, 'sendMail'])->name('se
 Route::post('subscribe', [HomeController::class, 'subscribe'])->name('subscribe');
 Route::get('getAttributeRow/{row}', [SignUpController::class, 'getAttributeRow'])->name('getAttributeRow');
 Route::get('getAttributeRowForPlan/{row}', [SignUpController::class, 'getAttributeRowForPlan'])->name('getAttributeRowForPlan');
+Route::get('addChildBtnRefresh', [SignUpController::class, 'addChildBtnRefresh'])->name('addChildBtnRefresh');
 Route::get('forgot-password/{token}', [ResetPasswordController::class, 'forgotPassword'])->name('forgot-password');
 Route::get('pricing', [PricingController::class, 'index'])->name('pricing');
 Route::post('forgot-password-submit', [ResetPasswordController::class, 'forgotPasswordSubmit'])->name('forgot-password-submit');

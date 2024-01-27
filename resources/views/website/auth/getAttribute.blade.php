@@ -5,7 +5,8 @@
            class="form-control attribute-row-{{$rowNo}}"
            value="">
     <select name="gender[{{$rowNo}}]" class="form-control">
-        <option value="male" selected>Male</option>
-        <option value="female">Female</option>
+        <option value="female" selected>Female</option>
+        <option value="intersex">Intersex</option>
+        <option value="male">Male</option>
     </select>
 </div>

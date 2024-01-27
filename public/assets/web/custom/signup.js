@@ -398,6 +398,7 @@ $('#send_mail').on('click', function () {
 })
 
 function addAttribute(rowNo) {
+    addChildBtnRefresh()
     loaderView()
     rowNo = rowNo + 1;
     $.ajax({
@@ -414,7 +415,23 @@ function addAttribute(rowNo) {
     })
 }
 
+function addChildBtnRefresh() {
+    $.ajax({
+        url: APP_URL + '/addChildBtnRefresh',
+        method: 'GET',
+
+    }).done(function (data) {
+        $('#add-child-btn').html(data.data)
+
+    }).fail(function (jqXHR, textStatus) {
+        loaderHide()
+        console.log('Request failed: ' + textStatus)
+    })
+}
+
 function addAttributeForPlan(rowNo) {
+    addChildBtnRefresh()
+
     loaderView()
     rowNo = rowNo + 1;
     $.ajax({

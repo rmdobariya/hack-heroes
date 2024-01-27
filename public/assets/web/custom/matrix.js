@@ -64,9 +64,10 @@ $(document).on('click', '.risk_wise_filter', function () {
 $(document).on('click', '.add_to_calendar', function () {
     var title = $(this).data('rec-title');
     var desc = $(this).data('rec-des');
+    var id = $(this).data('id');
     loaderView()
     $.ajax({
-        url: APP_URL + '/add-to-calendar/' + title + '/' + desc,
+        url: APP_URL + '/add-to-calendar/' + title + '/' + id,
         method: 'GET',
 
     }).done(function (data) {

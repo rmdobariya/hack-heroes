@@ -50,7 +50,11 @@
                     @foreach($user_childrens as $key=>$user_children)
                         <div class="col-md-6">
                             <div class="children-list" data-aos="fade-up" data-aos-delay="200">
-                                <img src="{{asset('assets/web/images/alex.svg')}}" alt="user">
+                                @if((string)$user_children->gender === 'male' || (string)$user_children->gender === 'intersex')
+                                    <img src="{{asset('assets/web/images/alex.svg')}}" alt="user">
+                                @else
+                                    <img src="{{asset('assets/web/images/taylor.svg')}}" alt="user">
+                                @endif
                                 <h3>{{$user_children->name}}</h3>
                             </div>
                         </div>

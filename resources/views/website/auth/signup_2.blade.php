@@ -21,8 +21,9 @@
                                     <input type="text" class="form-control" name="name[1]"
                                            placeholder="Child’s first name">
                                     <select name="gender[1]" class="form-control">
-                                        <option value="male" selected>Male</option>
-                                        <option value="female">Female</option>
+                                        <option value="female" selected>Female</option>
+                                        <option value="intersex">Intersex</option>
+                                        <option value="male">Male</option>
                                     </select>
                                 </div>
                             </div>

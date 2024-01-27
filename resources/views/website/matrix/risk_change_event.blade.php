@@ -11,6 +11,7 @@
                 </p>
                 @php
                     $tags = explode('; ',$recommendation->tags_for_associated_risk);
+                     $recommendation_score = DB::table('recommendation_score')->where('recommendation_id',$recommendation->id)->where('child_id',$child->id)->first();
                 @endphp
                 @foreach($tags as $tag)
                     <span>{{$tag}}</span>
@@ -29,7 +30,10 @@
                        class="dark-btns"><i class="las la-arrow-down"></i> Download
                         Resource</a>
                     @endif
-                    <a href="{{ route('dashboard') }}" class="dark-btns">Done</a>
+                    @if(is_null($recommendation_score))
+                        <a href="{{ route('done',[$child->id,$recommendation->id]) }}"
+                           class="dark-btns">Done</a>
+                    @endif
                 </div>
             </div>
         </div>

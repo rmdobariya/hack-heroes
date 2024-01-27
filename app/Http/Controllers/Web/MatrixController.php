@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Request;
 
 class MatrixController extends Controller
 {
@@ -219,9 +220,17 @@ class MatrixController extends Controller
         $child = DB::table('user_childrens')->where('id', $child_id)->first();
         $risk = DB::table('risks')->where('name', $risk_name)->first();
         if (!is_null($user->plan_id)) {
-            $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->get();
+            if ($risk_name == 'all_category') {
+                $recommendations = DB::table('recommendations')->orderBy('id', 'desc')->get();
+            } else {
+                $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->orderBy('id', 'desc')->get();
+            }
         } else {
-            $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->limit(5)->get();
+            if ($risk_name == 'all_category') {
+                $recommendations = DB::table('recommendations')->limit(5)->orderBy('id', 'desc')->get();
+            } else {
+                $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->limit(5)->orderBy('id', 'desc')->get();
+            }
         }
         $view = view('website.matrix.risk_change_event', [
             'risk' => $risk,
@@ -412,16 +421,22 @@ class MatrixController extends Controller
         );
     }
 
-    public function addToCalendar($title, $desc)
+    public function addToCalendar($title, $id)
     {
         $url = 'https://calendar.google.com/calendar/r/eventedit';
         $tomorrow = Carbon::now()->addDay()->format('YmdTHis'); // or Carbon::tomorrow();
         $after_2_day = Carbon::now()->addDays(2)->format('YmdTHis');
 
+        $info = DB::table('recommendations')->where('id', $id)->get()->first();
+        $link = '';
+        if (isset($info->pdf) && !empty($info->pdf)) {
+            $link = asset($info->pdf);
+        }
+
         $args = array(
             'dates' => $tomorrow . '/' . $after_2_day,
-            'details' => $desc,
-            'text' => $title,
+            'details' => $info->recommendation . ' ' . $link,
+            'text' => $info->title_for_recommendation,
             //'trp' => true
         );
 
@@ -434,32 +449,32 @@ class MatrixController extends Controller
 
     public function addToMicrosoftCalendar($title, $desc)
     {
-//        $graph = new Graph();
-//        $graph->setAccessToken('YOUR_ACCESS_TOKEN');
-//
-//        $event = new Event([
-//            'subject' => $title,
-//            'body' => [
-//                'content' => $desc,
-//                'contentType' => 'text',
-//            ],
-//            'start' => [
-//                'dateTime' => Carbon::now()->addDay()->format('Y-m-d\TH:i:s'),
-//                'timeZone' => 'UTC',
-//            ],
-//            'end' => [
-//                'dateTime' => Carbon::now()->addDays(2)->format('Y-m-d\TH:i:s'),
-//                'timeZone' => 'UTC',
-//            ],
-//        ]);
-//
-//        $graph->createRequest('POST', '/me/calendar/events')
-//            ->attachBody($event)
-//            ->execute();
-//
-//        return response()->json([
-//            'success' => true,
-//        ]);
+        //        $graph = new Graph();
+        //        $graph->setAccessToken('YOUR_ACCESS_TOKEN');
+        //
+        //        $event = new Event([
+        //            'subject' => $title,
+        //            'body' => [
+        //                'content' => $desc,
+        //                'contentType' => 'text',
+        //            ],
+        //            'start' => [
+        //                'dateTime' => Carbon::now()->addDay()->format('Y-m-d\TH:i:s'),
+        //                'timeZone' => 'UTC',
+        //            ],
+        //            'end' => [
+        //                'dateTime' => Carbon::now()->addDays(2)->format('Y-m-d\TH:i:s'),
+        //                'timeZone' => 'UTC',
+        //            ],
+        //        ]);
+        //
+        //        $graph->createRequest('POST', '/me/calendar/events')
+        //            ->attachBody($event)
+        //            ->execute();
+        //
+        //        return response()->json([
+        //            'success' => true,
+        //        ]);
         $url = 'https://outlook.live.com/calendar/deeplink/compose';
         $tomorrow = Carbon::now()->addDay()->format('YmdTHis'); // or Carbon::tomorrow();
         $after_2_day = Carbon::now()->addDays(2)->format('YmdTHis');
@@ -478,11 +493,13 @@ class MatrixController extends Controller
         ]);
     }
 
-    public function addToAppleCalendar($title, $desc)
+    public function addToAppleCalendar(Request $request, $title, $desc)
     {
         $url = 'https://calendar.google.com/calendar/r/eventedit';
         $tomorrow = Carbon::now()->addDay()->format('YmdTHis'); // or Carbon::tomorrow();
         $after_2_day = Carbon::now()->addDays(2)->format('YmdTHis');
+
+        $id = $request->id;
 
         $args = array(
             'dates' => $tomorrow . '/' . $after_2_day,
@@ -496,33 +513,33 @@ class MatrixController extends Controller
         return response()->json([
             'url' => $url,
         ]);
-//        $client = new Client();
-//
-//        $startDateTime = Carbon::now()->addDay()->format('Ymd\THis');
-//        $endDateTime = Carbon::now()->addDays(2)->format('Ymd\THis');
-//
-//        $response = $client->post('https://api.apple-cloudkit.com/database/1/iCloud.your_app_bundle_id/development/public/events', [
-//            'headers' => [
-//                'Authorization' => 'Bearer YOUR_JWT_TOKEN',
-//                'Content-Type' => 'application/json',
-//            ],
-//            'json' => [
-//                'records' => [
-//                    'fields' => [
-//                        // Your event data here
-//                        'title' => $title,
-//                        'description' => $desc,
-//                        'startDateTime' => $startDateTime,
-//                        'endDateTime' => $endDateTime,
-//                    ],
-//                ],
-//            ],
-//        ]);
-//
-//        $result = json_decode($response->getBody()->getContents(), true);
-//
-//        // Handle the result
-//
-//        return response()->json($result);
+        //        $client = new Client();
+        //
+        //        $startDateTime = Carbon::now()->addDay()->format('Ymd\THis');
+        //        $endDateTime = Carbon::now()->addDays(2)->format('Ymd\THis');
+        //
+        //        $response = $client->post('https://api.apple-cloudkit.com/database/1/iCloud.your_app_bundle_id/development/public/events', [
+        //            'headers' => [
+        //                'Authorization' => 'Bearer YOUR_JWT_TOKEN',
+        //                'Content-Type' => 'application/json',
+        //            ],
+        //            'json' => [
+        //                'records' => [
+        //                    'fields' => [
+        //                        // Your event data here
+        //                        'title' => $title,
+        //                        'description' => $desc,
+        //                        'startDateTime' => $startDateTime,
+        //                        'endDateTime' => $endDateTime,
+        //                    ],
+        //                ],
+        //            ],
+        //        ]);
+        //
+        //        $result = json_decode($response->getBody()->getContents(), true);
+        //
+        //        // Handle the result
+        //
+        //        return response()->json($result);
     }
 }

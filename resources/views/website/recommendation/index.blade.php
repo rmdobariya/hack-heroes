@@ -43,6 +43,7 @@
                                     <b>{{$recommendation->recommendation}}</b>
                                     @php
                                         $tags = explode('; ',$recommendation->tags_for_associated_risk);
+                                         $recommendation_score = DB::table('recommendation_score')->where('recommendation_id',$recommendation->id)->where('child_id',$child_id)->first();
                                     @endphp
                                     @foreach($tags as $tag)
                                         <span>{{$tag}}</span>
@@ -50,13 +51,16 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="options-btn">
-                                        <a class="dark-btns add_to_calendar" data-rec-title="{{$recommendation->title_for_recommendation}}" data-rec-des="{{$recommendation->sub_text_for_recommendation}}">
+                                        <a class="dark-btns add_to_calendar" data-id="{{$recommendation->id}}" data-rec-title="{{$recommendation->title_for_recommendation}}" data-rec-des="{{$recommendation->sub_text_for_recommendation}}">
                                             <i class="las la-calendar-alt"></i> Add to Calendar
                                         </a>
                                         @if(!is_null($recommendation->pdf))
                                         <a href="{{asset($recommendation->pdf)}}" target="_blank" class="dark-btns" data-aos="fade-up" data-aos-delay="400"><i class="las la-arrow-down"></i> Download Resource</a>
                                         @endif
-                                            <a href="{{route('matrix',$child_id)}}" class="dark-btns" data-aos="fade-up" data-aos-delay="600">Done</a>
+                                        @if(is_null($recommendation_score))
+                                            <a href="{{ route('done',[$child_id,$recommendation->id]) }}"
+                                               class="dark-btns">Done</a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
