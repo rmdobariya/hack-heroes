@@ -46,10 +46,10 @@ $signup3.on('submit', function (e) {
     e.preventDefault()
     $('span.error').remove();
     var has_error = false;
-    $('.attribute-row').each(function () {
-        var childName = $(this).find('input[name^="name["]').val(); // Find the input field inside each attribute-row
+    $('.child-name').each(function () {
+        var childName = $(this).val(); // Find the input field inside each attribute-row
         if ($.trim(childName) == '') {
-            $('<span class="error custom-validation-message ps-3">Please enter child name.</span>').insertAfter($(this));
+            $('<span class="error custom-validation-message ps-3">Please enter child name.</span>').insertAfter($(this).closest('.input-group'));
             has_error = true;
         }
     });
@@ -203,20 +203,31 @@ $signup4.on('submit', function (e) {
 let $signup5 = $('#signup5')
 $signup5.on('submit', function (e) {
     e.preventDefault()
-    loaderView();
-    let formData = new FormData($signup5[0])
-    axios
-        .post(APP_URL + '/signup_5', formData)
-        .then(function (response) {
-            console.log(response)
-            loaderHide();
-            window.location.href = APP_URL + '/child-info';
-        })
-        .catch(function (error) {
-            console.log(error);
-            notificationToast(error.response.data.message, 'warning')
-            loaderHide();
-        });
+    $('span.error').remove();
+    var has_error = false;
+    $('.child-name').each(function () {
+        var childName = $(this).val(); // Find the input field inside each attribute-row
+        if ($.trim(childName) == '') {
+            $('<span class="error custom-validation-message ps-3 mt-0">Please enter child name.</span>').insertAfter($(this).closest('.input-group'));
+            has_error = true;
+        }
+    });
+    if (!has_error) {
+        loaderView();
+        let formData = new FormData($signup5[0])
+        axios
+            .post(APP_URL + '/signup_5', formData)
+            .then(function (response) {
+                console.log(response)
+                loaderHide();
+                window.location.href = APP_URL + '/child-info';
+            })
+            .catch(function (error) {
+                console.log(error);
+                notificationToast(error.response.data.message, 'warning')
+                loaderHide();
+            });
+    }
 })
 let $signup6 = $('#signup6')
 $signup6.on('submit', function (e) {
@@ -249,7 +260,7 @@ signupStore.on('submit', function (e) {
             notificationToast(response.data.message, 'success')
             setTimeout(function () {
                 window.location.href = APP_URL + '/dashboard';
-            }, 5000);
+            }, 2000);
         })
         .catch(function (error) {
             notificationToast(error.response.data.message, 'warning')
@@ -398,21 +409,32 @@ $('#send_mail').on('click', function () {
 })
 
 function addAttribute(rowNo) {
-    addChildBtnRefresh()
-    loaderView()
-    rowNo = rowNo + 1;
-    $.ajax({
-        url: APP_URL + '/getAttributeRow/' + rowNo,
-        method: 'GET',
+    $('span.error').remove();
+    var has_error = false;
+    $('.child-name').each(function () {
+        var childName = $(this).val(); // Find the input field inside each attribute-row
+        if ($.trim(childName) == '') {
+            $('<span class="error custom-validation-message ps-3">Please enter child name.</span>').insertAfter($(this).closest('.input-group'));
+            has_error = true;
+        }
+    });
+    if (!has_error) {
+        // addChildBtnRefresh()
+        loaderView()
+        rowNo = $(document).find('.child-name').length + 1;
+        $.ajax({
+            url: APP_URL + '/getAttributeRow/' + rowNo,
+            method: 'GET',
 
-    }).done(function (data) {
-        loaderHide()
-        $('.attribute-row:last').after(data.data)
+        }).done(function (data) {
+            loaderHide()
+            $('.attribute-row').append(data.data)
 
-    }).fail(function (jqXHR, textStatus) {
-        loaderHide()
-        console.log('Request failed: ' + textStatus)
-    })
+        }).fail(function (jqXHR, textStatus) {
+            loaderHide()
+            console.log('Request failed: ' + textStatus)
+        })
+    }
 }
 
 function addChildBtnRefresh() {
@@ -430,22 +452,32 @@ function addChildBtnRefresh() {
 }
 
 function addAttributeForPlan(rowNo) {
-    addChildBtnRefresh()
+    // addChildBtnRefresh()
+    $('span.error').remove();
+    var has_error = false;
+    $('.child-name').each(function () {
+        var childName = $(this).val(); // Find the input field inside each attribute-row
+        if ($.trim(childName) == '') {
+            $('<span class="error custom-validation-message ps-3 mt-0">Please enter child name.</span>').insertAfter($(this).closest('.input-group'));
+            has_error = true;
+        }
+    });
+    if (!has_error) {
+        loaderView()
+        rowNo = $(document).find('.child-name').length + 1;
+        $.ajax({
+            url: APP_URL + '/getAttributeRowForPlan/' + rowNo,
+            method: 'GET',
 
-    loaderView()
-    rowNo = rowNo + 1;
-    $.ajax({
-        url: APP_URL + '/getAttributeRowForPlan/' + rowNo,
-        method: 'GET',
+        }).done(function (data) {
+            loaderHide()
+            $('.attribute-row:last').after(data.data)
 
-    }).done(function (data) {
-        loaderHide()
-        $('.attribute-row:last').after(data.data)
-
-    }).fail(function (jqXHR, textStatus) {
-        loaderHide()
-        console.log('Request failed: ' + textStatus)
-    })
+        }).fail(function (jqXHR, textStatus) {
+            loaderHide()
+            console.log('Request failed: ' + textStatus)
+        })
+    }
 }
 
 function deleteAttribute(rowNo, attributeNo) {

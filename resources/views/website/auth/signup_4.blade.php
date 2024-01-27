@@ -16,7 +16,7 @@
                                 @foreach($childrens as $key=>$children)
                                     <div class="input-box attribute-row attribute-row-{{$key}}">
                                         <div class="form-check">
-                                            <input type="hidden" name="child[{{$key}}]" value="{{$children}}">
+                                            <input type="hidden" name="child[{{$key}}]" class="child-name" value="{{$children}}">
                                             <input class="form-check-input" type="checkbox" name="create_plan[{{$key}}]"
                                                    id="create_plan_{{$key}}">
                                             <label class="form-check-label" for="create_plan_{{$key}}">

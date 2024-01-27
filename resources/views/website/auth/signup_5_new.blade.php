@@ -25,8 +25,14 @@ Signup
                     <form id="signup6" method="post">
                         <div id="mains">
                             @if(!is_null($childrens))
+                            @php
+                            $count = 0;
+                            @endphp
                             @foreach($childrens as $key1 => $children)
-                            <div id="div{{$key1}}" class=" @if($loop->first) first current @endif @if($loop->last) last @endif">
+                            <div id="div-{{$key1}}" class="@if( $count == 0) first current @endif @if($loop->last) last @endif" style="{{$count == 0 ? '' : 'display:none;'}}">
+                            @php
+                            $count++;
+                            @endphp
                                 <b>Please select the option that you feel best represents {{$children}}</b>
                                 <div class="text-center">
                                     <p>{{$children}} is
@@ -157,7 +163,7 @@ Signup
                                                 don't
                                             </option>
                                         </select>
-                                        monitor {{$children}}'s' online activities. {{$children}} has a
+                                        monitor {{$children}}'s online activities. {{$children}} has a
                                         <select name="support_system[{{$key1}}]" class="custom-select" required>
                                             <option value="a strong support system, including family members, friends, and other adults who provide emotional support" selected>strong
                                             </option>
@@ -245,6 +251,14 @@ Signup
             $('#signup_new_5').removeClass('d-none');
         }
         $('#prev').css('display', 'inline-block');
+        $('select:visible').each(function() {
+            var text = $(this).find('option:first').text()
+            console.log(text);
+            var $aux = $('<select/>').append($('<option/>').text(text))
+            $(this).after($aux)
+            $(this).width($aux.innerWidth())
+            $aux.remove()
+        });
 
     })
     $('#prev').on('click', function() {

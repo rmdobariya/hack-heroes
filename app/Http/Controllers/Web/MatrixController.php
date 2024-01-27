@@ -39,9 +39,9 @@ class MatrixController extends Controller
         $child = DB::table('user_childrens')->where('id', $child_id)->first();
         $child_score = DB::table('risk_score')->where('user_child_id', $child_id)->get();
         $child_detail = DB::table('user_children_details')->where('user_children_id', $child_id)->first();
-        $top_risks = DB::table('risk_score')->where('user_child_id', $child->id)->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')->take(5)->get();
+        $top_risks = DB::table('risk_score')->where('user_child_id', $child->id)->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')->take(5)->get();        
         $top_risks_ids = array();
-        if (!empty($top_risks)) {
+        if (count($top_risks) > 0) {            
             $top_risks_ids = $top_risks->toArray();
             $top_risks_ids = array_column($top_risks_ids, 'id');
 

@@ -84,12 +84,13 @@ class SignUpController extends Controller
     public function signUp5(Request $request)
     {
         Session::put('child_name', $request->child);
+        Session::put('gender', $request->gender);
         $create_plan = $request->create_plan;
         $child_name = $request->child;
         $result = [];
         foreach ($child_name as $key => $value) {
-            $result[$value] = $create_plan[$key] ?? 'off';
-        }
+            $result[$key] = isset($create_plan[$key]) && $create_plan[$key] == 'on' ? 'on' : 'off';
+        }        
         Session::put('create_plan', $result);
         Session::put('term_condition', $request->term_condition);
     }
@@ -97,17 +98,14 @@ class SignUpController extends Controller
     public function signUp5View()
     {
         $create_plan = Session::get('create_plan');
-        $child_name = Session::get('child_name');
+        $child_name = Session::get('child_name');        
+
         $childrens = [];
-        $count = 0;
-        $key = 0;
-        foreach ($create_plan as $plan) {
-            $count++;
-            if ($plan == 'on') {
-                $key++;
-                $childrens[$key] = $child_name[$count];
+        foreach($child_name as $key => $value) {
+            if(isset($create_plan[$key]) && $create_plan[$key] == 'on') {
+                $childrens[$key] = $value;
             }
-        }
+        }        
         return view('website.auth.signup_5_new', [
             'childrens' => $childrens
         ]);
@@ -141,110 +139,163 @@ class SignUpController extends Controller
         $create_plan = Session::get('create_plan');
         $child_name = Session::get('child_name');
         $childrens = [];
-        $count = 0;
-        $key = 0;
-        foreach ($create_plan as $plan) {
-            $count++;
-            if ($plan == 'on') {
-                $key++;
-                $childrens[$key] = $child_name[$count];
+        foreach($child_name as $key => $value) {
+            if(isset($create_plan[$key]) && $create_plan[$key] == 'on') {
+                $childrens[$key] = $value;
             }
-        }
-        $questions = [[
-            'question' => 'Choose the option that best describes []&apos;s  characteristics/behaviours.',
-            'answer' => ['[] feels slightly upset or bothered by online interactions.',
-                '[] experiences some emotional distress and minor changes in behaviour due to cyberbullying.',
-                '[] experiences significant emotional distress, withdrawal, or adverse effects on their mental health due to cyberbullying.'
-            ]],
-            ['question' => 'Select the answer that most applies to [].',
-                'answer' => ['[] occasionally encounters mild teasing or teasing online comments.',
+        }     
+        $questions = [
+            [
+                'question' => 'Choose the option that best describes []&apos;s  characteristics/behaviours.',
+                'answer' => [
+                    '[] feels slightly upset or bothered by online interactions.',
+                    '[] experiences some emotional distress and minor changes in behaviour due to cyberbullying.',
+                    '[] experiences significant emotional distress, withdrawal, or adverse effects on their mental health due to cyberbullying.'
+                ]
+            ],
+            [
+                'question' => 'Select the answer that most applies to [].',
+                'answer' => [
+                    '[] occasionally encounters mild teasing or teasing online comments.',
                     '[] experiences some negative emotions and occasional distress due to cyberbullying related to their sex.',
-                    '[] faces severe and persistent online harassment and experiences significant negative impacts on their self-esteem and overall well-being due to their sex.'],
+                    '[] faces severe and persistent online harassment and experiences significant negative impacts on their self-esteem and overall well-being due to their sex.'
+                ],
             ],
-            ['question' => 'Select the answer that most applies to [].',
-                'answer' => ['[] encounters occasional instances of online conflict or disagreement with peers from different regions.',
+            [
+                'question' => 'Select the answer that most applies to [].',
+                'answer' => [
+                    '[] encounters occasional instances of online conflict or disagreement with peers from different regions.',
                     '[] faces some challenges navigating online interactions with individuals from different regions or communities, leading to mild discomfort or misunderstanding.',
-                    '[] experiences frequent and intense online bullying or exclusion from peers in different regions or communities, resulting in significant emotional distress and feelings of isolation.'],
+                    '[] experiences frequent and intense online bullying or exclusion from peers in different regions or communities, resulting in significant emotional distress and feelings of isolation.'
+                ],
             ],
-            ['question' => 'Please select the answer option that most accurately reflects [].',
-                'answer' => ['[]&apos;s mental health is temporarily affected by online interactions, but they quickly recover.',
+            [
+                'question' => 'Please select the answer option that most accurately reflects [].',
+                'answer' => [
+                    '[]&apos;s mental health is temporarily affected by online interactions, but they quickly recover.',
                     '[] experiences increased stress or anxiety due to cyberbullying, requiring some support or coping strategies to manage their mental health.',
-                    '[]&apos;s mental health significantly deteriorates, leading to severe emotional distress, depression, or anxiety as a result of cyberbullying.'],
+                    '[]&apos;s mental health significantly deteriorates, leading to severe emotional distress, depression, or anxiety as a result of cyberbullying.'
+                ],
             ],
-            ['question' => 'Choose the option that best describes []&apos;s characteristics/behaviours.',
-                'answer' => ['[]&apos;s history of mental health issues does not significantly impact their experience of cyberbullying.',
+            [
+                'question' => 'Choose the option that best describes []&apos;s characteristics/behaviours.',
+                'answer' => [
+                    '[]&apos;s history of mental health issues does not significantly impact their experience of cyberbullying.',
                     '[]&apos;s past mental health issues are triggered or worsened by cyberbullying, resulting in increased emotional challenges and requiring additional support.',
-                    '[]&apos;s previous mental health problems resurface or intensify due to cyberbullying, leading to severe psychological distress and potentially requiring professional intervention.'],
+                    '[]&apos;s previous mental health problems resurface or intensify due to cyberbullying, leading to severe psychological distress and potentially requiring professional intervention.'
+                ],
             ],
-            ['question' => 'Select the answer that most applies to [].',
-                'answer' => ['[] never or occasionally encounters misunderstandings or language barriers during online interactions.',
+            [
+                'question' => 'Select the answer that most applies to [].',
+                'answer' => [
+                    '[] never or occasionally encounters misunderstandings or language barriers during online interactions.',
                     '[] faces some social exclusion or teasing related to their language skills, causing them occasional distress.',
-                    '[] experiences significant discrimination, bullying, or isolation due to their language, resulting in profound emotional and psychological impacts.'],
+                    '[] experiences significant discrimination, bullying, or isolation due to their language, resulting in profound emotional and psychological impacts.'
+                ],
             ],
-            ['question' => 'Please select the answer option that most accurately reflects [].',
-                'answer' => ['[] never or occasionally engages in mild online conflicts or disagreements with others.',
+            [
+                'question' => 'Please select the answer option that most accurately reflects [].',
+                'answer' => [
+                    '[] never or occasionally engages in mild online conflicts or disagreements with others.',
                     '[]&apos;s own online behaviour attracts some negative attention or minor conflicts, leading to increased stress or discomfort.',
-                    '[]&apos;s online behaviour triggers intense online harassment or retaliation, resulting in severe emotional distress and negative consequences for their online and offline life.'],
+                    '[]&apos;s online behaviour triggers intense online harassment or retaliation, resulting in severe emotional distress and negative consequences for their online and offline life.'
+                ],
             ],
-            ['question' => 'Choose the option that best describes []&apos;s characteristics/behaviours.',
-                'answer' => ['[] never or occasionally faces subtle social exclusion or teasing related to their socioeconomic status.',
+            [
+                'question' => 'Choose the option that best describes []&apos;s characteristics/behaviours.',
+                'answer' => [
+                    '[] never or occasionally faces subtle social exclusion or teasing related to their socioeconomic status.',
                     '[] experiences occasional difficulties or challenges due to their socioeconomic status, leading to some emotional impact.',
-                    '[] faces significant discrimination, bullying, or stigmatisation due to their socioeconomic status, resulting in profound emotional distress and adverse effects on their well-being.'],
+                    '[] faces significant discrimination, bullying, or stigmatisation due to their socioeconomic status, resulting in profound emotional distress and adverse effects on their well-being.'
+                ],
             ],
-            ['question' => 'Select the answer that most applies to [].',
-                'answer' => ['[] never or occasionally encounters mild teasing or jokes related to their sexual orientation.',
+            [
+                'question' => 'Select the answer that most applies to [].',
+                'answer' => [
+                    '[] never or occasionally encounters mild teasing or jokes related to their sexual orientation.',
                     '[] experiences some negative emotions and occasional distress due to cyberbullying related to their sexual orientation.',
-                    '[] faces severe and persistent online harassment and experiences significant negative impacts on their self-esteem, mental health, and overall well-being due to their sexual orientation.'],
+                    '[] faces severe and persistent online harassment and experiences significant negative impacts on their self-esteem, mental health, and overall well-being due to their sexual orientation.'
+                ],
             ],
-            ['question' => 'Please select the answer option that most accurately reflects [].',
-                'answer' => ['[] does not experience, or experiences occasional, mild conflicts or disagreements with peers at school.',
+            [
+                'question' => 'Please select the answer option that most accurately reflects [].',
+                'answer' => [
+                    '[] does not experience, or experiences occasional, mild conflicts or disagreements with peers at school.',
                     '[] faces some negative interactions or discomfort at school due to cyberbullying, resulting in noticeable changes in their behaviour, such as increased anxiety or reluctance to attend school.',
-                    '[] experiences persistent and severe cyberbullying victimisation at school, leading to significant emotional distress, social withdrawal, academic decline, and potentially impacting their overall attendance and educational experience.'],
+                    '[] experiences persistent and severe cyberbullying victimisation at school, leading to significant emotional distress, social withdrawal, academic decline, and potentially impacting their overall attendance and educational experience.'
+                ],
             ],
-            ['question' => 'Choose the option that best describes []&apos;s characteristics/behaviours.',
-                'answer' => ['[] occasionally faces minor conflicts or challenges online but can resolve them independently.',
+            [
+                'question' => 'Choose the option that best describes []&apos;s characteristics/behaviours.',
+                'answer' => [
+                    '[] occasionally faces minor conflicts or challenges online but can resolve them independently.',
                     '[] experiences occasional emotional distress or conflicts online, requiring some parental intervention or support to address the issues.',
-                    '[] faces severe and persistent online harassment or victimisation, leading to significant emotional distress and negative impacts on their well-being despite parental involvement.'],
+                    '[] faces severe and persistent online harassment or victimisation, leading to significant emotional distress and negative impacts on their well-being despite parental involvement.'
+                ],
             ],
-            ['question' => 'Select the answer that most applies to [].',
-                'answer' => ['[]&apos;s supportive relationships mitigate the impact of cyberbullying, resulting in minor or temporary emotional distress.',
+            [
+                'question' => 'Select the answer that most applies to [].',
+                'answer' => [
+                    '[]&apos;s supportive relationships mitigate the impact of cyberbullying, resulting in minor or temporary emotional distress.',
                     '[] experiences occasional emotional challenges due to cyberbullying, but support from relationships helps them cope and recover.',
-                    '[] lacks a strong support system to navigate the effects of cyberbullying, leading to significant emotional distress and long-lasting negative consequences.'],
+                    '[] lacks a strong support system to navigate the effects of cyberbullying, leading to significant emotional distress and long-lasting negative consequences.'
+                ],
             ],
-            ['question' => 'Please select the answer option that most accurately reflects [].',
-                'answer' => ['[] occasionally encounters minor online conflicts or negative experiences regardless of the device used.',
+            [
+                'question' => 'Please select the answer option that most accurately reflects [].',
+                'answer' => [
+                    '[] occasionally encounters minor online conflicts or negative experiences regardless of the device used.',
                     '[] faces some challenges or risks specific to certain devices, resulting in occasional emotional distress or minor negative impacts.',
-                    '[]&apos;s use of certain devices exposes them to severe online harassment or risks, leading to significant emotional distress and detrimental consequences to their well-being.'],
+                    '[]&apos;s use of certain devices exposes them to severe online harassment or risks, leading to significant emotional distress and detrimental consequences to their well-being.'
+                ],
             ],
-            ['question' => 'Choose the option that best describes []&apos;s characteristics/behaviours.',
-                'answer' => ['[] occasionally encounters minor conflicts or disagreements within the school environment.',
+            [
+                'question' => 'Choose the option that best describes []&apos;s characteristics/behaviours.',
+                'answer' => [
+                    '[] occasionally encounters minor conflicts or disagreements within the school environment.',
                     '[] faces some challenges or negative experiences related to bullying or cyberbullying at school, resulting in occasional emotional distress or minor impact on their well-being.',
-                    '[] experiences a toxic or unsafe school climate with pervasive bullying or cyberbullying, leading to significant emotional distress, social isolation, and negative effects on their academic performance.'],
+                    '[] experiences a toxic or unsafe school climate with pervasive bullying or cyberbullying, leading to significant emotional distress, social isolation, and negative effects on their academic performance.'
+                ],
             ],
-            ['question' => 'Select the answer that most applies to [].',
-                'answer' => ['[] occasionally faces minor challenges or conflicts related to their family structure.',
+            [
+                'question' => 'Select the answer that most applies to [].',
+                'answer' => [
+                    '[] occasionally faces minor challenges or conflicts related to their family structure.',
                     '[] experiences occasional emotional difficulties or conflicts due to their family structure, requiring some support or coping strategies.',
-                    '[] faces significant emotional challenges, stigma, or social exclusion due to their family structure, resulting in severe emotional distress and negative impacts on their well-being.'],
+                    '[] faces significant emotional challenges, stigma, or social exclusion due to their family structure, resulting in severe emotional distress and negative impacts on their well-being.'
+                ],
             ],
-            ['question' => 'Please select the answer option that most accurately reflects [].',
-                'answer' => ['[]&apos;s academic performance remains unaffected by cyberbullying.',
+            [
+                'question' => 'Please select the answer option that most accurately reflects [].',
+                'answer' => [
+                    '[]&apos;s academic performance remains unaffected by cyberbullying.',
                     '[] experiences occasional distractions or minor decline in academic performance due to cyberbullying, requiring some support or intervention.',
-                    '[]&apos;s academic performance significantly deteriorates due to the emotional toll of cyberbullying, leading to severe distress and long-term negative effects on their educational attainment.'],
+                    '[]&apos;s academic performance significantly deteriorates due to the emotional toll of cyberbullying, leading to severe distress and long-term negative effects on their educational attainment.'
+                ],
             ],
-            ['question' => 'Choose the option that best describes []&apos;s characteristics/behaviours.',
-                'answer' => ['[]&apos;s moderate online activity does not significantly impact their well-being or susceptibility to cyberbullying.',
+            [
+                'question' => 'Choose the option that best describes []&apos;s characteristics/behaviours.',
+                'answer' => [
+                    '[]&apos;s moderate online activity does not significantly impact their well-being or susceptibility to cyberbullying.',
                     '[]&apos;s frequent online activity exposes them to occasional risks or challenges, resulting in some emotional distress or negative experiences.',
-                    '[]&apos;s extensive online activity increases their vulnerability to severe cyberbullying, leading to significant emotional distress and detrimental consequences to their well-being.'],
+                    '[]&apos;s extensive online activity increases their vulnerability to severe cyberbullying, leading to significant emotional distress and detrimental consequences to their well-being.'
+                ],
             ],
-            ['question' => 'Select the answer that most applies to [].',
-                'answer' => ['[] never or occasionally experiences minor conflicts or disagreements with peers online.',
+            [
+                'question' => 'Select the answer that most applies to [].',
+                'answer' => [
+                    '[] never or occasionally experiences minor conflicts or disagreements with peers online.',
                     '[] faces occasional challenges or negative experiences within their peer relationships online, resulting in some emotional distress or minor impact on their social well-being.',
-                    '[] experiences severe peer victimisation or exclusion online, leading to significant emotional distress, social isolation, and negative effects on their overall well-being.'],
+                    '[] experiences severe peer victimisation or exclusion online, leading to significant emotional distress, social isolation, and negative effects on their overall well-being.'
+                ],
             ],
-            ['question' => 'Please select the answer option that most accurately reflects [].',
-                'answer' => ['[]&apos;s relationship status has minimal impact on their susceptibility to cyberbullying or well-being.',
+            [
+                'question' => 'Please select the answer option that most accurately reflects [].',
+                'answer' => [
+                    '[]&apos;s relationship status has minimal impact on their susceptibility to cyberbullying or well-being.',
                     '[]&apos;s casual or short-term relationship status occasionally contributes to some online conflicts or emotional challenges.',
-                    '[]&apos;s serious or long-term relationship status exposes them to severe cyberbullying, online harassment, or relationship-related conflicts, resulting in significant emotional distress and negative impacts on their well-being.'],
+                    '[]&apos;s serious or long-term relationship status exposes them to severe cyberbullying, online harassment, or relationship-related conflicts, resulting in significant emotional distress and negative impacts on their well-being.'
+                ],
             ]
         ];
         return view('website.auth.signup_6_new', [
@@ -255,8 +306,15 @@ class SignUpController extends Controller
 
     public function signUpStore(SignUpStoreRequest $request)
     {
+        // echo '<pre>';
         $user_childrens = Session::get('child_name');
         $plan = Session::get('create_plan');
+        // print_r($user_childrens);
+        // print_r($plan);
+        //     print_r($_POST);
+        // print_r(Session::get('age'));
+        // exit;
+        
         $user_id = Session::get('user_id');
         if ($user_id == 0) {
             $user = new User();
@@ -270,108 +328,124 @@ class SignUpController extends Controller
         }
 
         if (!empty($user_childrens)) {
+            $counter = 0;
             foreach ($user_childrens as $key => $children) {
                 $user_children = new UserChildren();
                 $user_children->name = $children;
-                $user_children->gender = Session::get('gender')[$key];
+                $user_children->gender = isset(Session::get('gender')[$key]) ? Session::get('gender')[$key] : 'male';
                 $user_children->user_id = $user_id;
-                if ($plan[$children] == 'on') {
+                if ($plan[$key] == 'on') {
                     $user_children->is_plan = 1;
                 }
                 $user_children->save();
 
-                $user_children_detail = new UserChildrenDetail();
-                $user_children_detail->user_id = $user_id;
-                $user_children_detail->user_children_id = $user_children->id;
-                $user_children_detail->gender = isset(Session::get('gender')[$key]) ? Session::get('gender')[$key] : null;
-                $user_children_detail->age = isset(Session::get('age')[$key]) ? Session::get('age')[$key] : null;
-                $user_children_detail->sex = isset(Session::get('sex')[$key]) ? Session::get('sex')[$key] : null;
-                $user_children_detail->current_health = isset(Session::get('current_health')[$key]) ? Session::get('current_health')[$key] : null;
-                $user_children_detail->previous_health = isset(Session::get('previous_health')[$key]) ? Session::get('previous_health')[$key] : null;
-                $user_children_detail->language = isset(Session::get('language')[$key]) ? Session::get('language')[$key] : null;
-                $user_children_detail->sexual_orientation = isset(Session::get('sexual_orientation')[$key]) ? Session::get('sexual_orientation')[$key] : null;
-                $user_children_detail->family_structure = isset(Session::get('family_structure')[$key]) ? Session::get('family_structure')[$key] : null;
-                $user_children_detail->access_the_internet = isset(Session::get('access_the_internet')[$key]) ? Session::get('access_the_internet')[$key] : null;
-                $user_children_detail->online_activity_frequency = isset(Session::get('online_activity_frequency')[$key]) ? Session::get('online_activity_frequency')[$key] : null;
-                $user_children_detail->online_behaviour = isset(Session::get('online_behaviour')[$key]) ? Session::get('online_behaviour')[$key] : null;
-                $user_children_detail->geographic_location = isset(Session::get('geographic_location')[$key]) ? Session::get('geographic_location')[$key] : null;
-                $user_children_detail->socioeconomic_status = isset(Session::get('socioeconomic_status')[$key]) ? Session::get('socioeconomic_status')[$key] : null;
-                $user_children_detail->school_attendance = isset(Session::get('school_attendance')[$key]) ? Session::get('school_attendance')[$key] : null;
-                $user_children_detail->parental_involvement = isset(Session::get('parental_involvement')[$key]) ? Session::get('parental_involvement')[$key] : null;
-                $user_children_detail->support_system = isset(Session::get('support_system')[$key]) ? Session::get('support_system')[$key] : null;
-                $user_children_detail->peer_relationships = isset(Session::get('peer_relationships')[$key]) ? Session::get('peer_relationships')[$key] : null;
-                $user_children_detail->relationship_status = isset(Session::get('relationship_status')[$key]) ? Session::get('relationship_status')[$key] : null;
-                $user_children_detail->school_climate = isset(Session::get('school_climate')[$key]) ? Session::get('school_climate')[$key] : null;
-                $user_children_detail->academic_performance = isset(Session::get('academic_performance')[$key]) ? Session::get('academic_performance')[$key] : null;
-                $user_children_detail->save();
-                if (!is_null($user_children_detail->age)) {
-                    $questionnaire = 1;
-                } else {
-                    $questionnaire = 0;
-                }
-                DB::table('dashboard_score')->insert([
-                    'user_id' => $user_id,
-                    'child_id' => $user_children->id,
-                    'questionnaire' => $questionnaire,
-                    'unique_risk_profile' => 0,
-                    'module_of_month' => date('Y-m-d'),
-                    'view_recommendations_for' => 0,
-                    'created_at' => Carbon::now(),
-                ]);
-                $radio_button_answers = array();
-                foreach ($request->question as $q => $question) {
-                    $user_question = new UserQuestion();
-                    $user_question->question = isset($question[$key]) ? $question[$key] : null;
-                    $user_question->answer = isset($request->answer[$q][$key]) ? $request->answer[$q][$key] : null;
-                    $user_question->user_id = $user_id;
-                    $user_question->user_child_id = $user_children->id;
-                    $user_question->save();
-
-                    $radio_button_answers[] = isset($request->answer[$q][$key]);
-                }
-
-                $risks = DB::table('risks')->get();
-                $count = 0;
-                foreach ($risks as $risk) {
-                    $key = $risk->key;
-                    $answer = DB::table('user_children_details')->where('id', $user_children_detail->id)->first()->$key;
-                    $matrixController = new MatrixController();
-                    $likelihood_score = $matrixController->get_likelihood_score($answer);
-                    $impact_score = $matrixController->get_impact_criteria($radio_button_answers[$count]);
-                    if ($likelihood_score == 'Unlikely') {
-                        $l_score = 1;
-                    } elseif ($likelihood_score == 'Possible') {
-                        $l_score = 2;
-                    } elseif ($likelihood_score == 'Likely') {
-                        $l_score = 3;
+                if ($plan[$key] == 'on') {
+                    $counter++;
+                    $user_children_detail = new UserChildrenDetail();
+                    $user_children_detail->user_id = $user_id;
+                    $user_children_detail->user_children_id = $user_children->id;
+                    $user_children_detail->gender = isset(Session::get('gender')[$key]) ? Session::get('gender')[$key] : null;
+                    $user_children_detail->age = isset(Session::get('age')[$key]) ? Session::get('age')[$key] : null;
+                    $user_children_detail->sex = isset(Session::get('sex')[$key]) ? Session::get('sex')[$key] : null;
+                    $user_children_detail->current_health = isset(Session::get('current_health')[$key]) ? Session::get('current_health')[$key] : null;
+                    $user_children_detail->previous_health = isset(Session::get('previous_health')[$key]) ? Session::get('previous_health')[$key] : null;
+                    $user_children_detail->language = isset(Session::get('language')[$key]) ? Session::get('language')[$key] : null;
+                    $user_children_detail->sexual_orientation = isset(Session::get('sexual_orientation')[$key]) ? Session::get('sexual_orientation')[$key] : null;
+                    $user_children_detail->family_structure = isset(Session::get('family_structure')[$key]) ? Session::get('family_structure')[$key] : null;
+                    $user_children_detail->access_the_internet = isset(Session::get('access_the_internet')[$key]) ? Session::get('access_the_internet')[$key] : null;
+                    $user_children_detail->online_activity_frequency = isset(Session::get('online_activity_frequency')[$key]) ? Session::get('online_activity_frequency')[$key] : null;
+                    $user_children_detail->online_behaviour = isset(Session::get('online_behaviour')[$key]) ? Session::get('online_behaviour')[$key] : null;
+                    $user_children_detail->geographic_location = isset(Session::get('geographic_location')[$key]) ? Session::get('geographic_location')[$key] : null;
+                    $user_children_detail->socioeconomic_status = isset(Session::get('socioeconomic_status')[$key]) ? Session::get('socioeconomic_status')[$key] : null;
+                    $user_children_detail->school_attendance = isset(Session::get('school_attendance')[$key]) ? Session::get('school_attendance')[$key] : null;
+                    $user_children_detail->parental_involvement = isset(Session::get('parental_involvement')[$key]) ? Session::get('parental_involvement')[$key] : null;
+                    $user_children_detail->support_system = isset(Session::get('support_system')[$key]) ? Session::get('support_system')[$key] : null;
+                    $user_children_detail->peer_relationships = isset(Session::get('peer_relationships')[$key]) ? Session::get('peer_relationships')[$key] : null;
+                    $user_children_detail->relationship_status = isset(Session::get('relationship_status')[$key]) ? Session::get('relationship_status')[$key] : null;
+                    $user_children_detail->school_climate = isset(Session::get('school_climate')[$key]) ? Session::get('school_climate')[$key] : null;
+                    $user_children_detail->academic_performance = isset(Session::get('academic_performance')[$key]) ? Session::get('academic_performance')[$key] : null;
+                    $user_children_detail->save();
+                    if (!is_null($user_children_detail->age)) {
+                        $questionnaire = 1;
                     } else {
-                        $l_score = 0;
+                        $questionnaire = 0;
                     }
-
-                    if ($impact_score == 'Minor') {
-                        $i_score = 1;
-                    } elseif ($impact_score == 'Moderate') {
-                        $i_score = 2;
-                    } else {
-                        $i_score = 3;
-                    }
-                    $pi_score = $l_score * $i_score;
-                    DB::table('risk_score')->insert([
+                    DB::table('dashboard_score')->insert([
                         'user_id' => $user_id,
-                        'user_child_detail_id' => $user_children_detail->id,
-                        'user_child_id' => $user_children->id,
-                        'risk_id' => $risk->id,
-                        'pi_score' => $pi_score,
-                        'likely_hood_score' => $l_score,
-                        'impact_score' => $i_score,
-                        'risk_key' => $risk->key,
+                        'child_id' => $user_children->id,
+                        'questionnaire' => $questionnaire,
+                        'unique_risk_profile' => 0,
+                        'module_of_month' => date('Y-m-d'),
+                        'view_recommendations_for' => 0,
+                        'created_at' => Carbon::now(),
                     ]);
-                    $count++;
+                    $radio_button_answers = array();
+                    if (isset($request->question[$key])) {
+                        foreach ($request->question[$key] as $q => $question) {
+                            $user_question = new UserQuestion();
+                            $user_question->question = isset($question) ? $question : null;
+                            $user_question->answer = isset($request->answer[$key][$q]) ? $request->answer[$key][$q] : null;
+                            $user_question->user_id = $user_id;
+                            $user_question->user_child_id = $user_children->id;
+                            $user_question->save();
+
+                            $radio_button_answers[] = isset($request->answer[$key][$q]) ? $request->answer[$key][$q] : null;
+                        }
+                    }
+                    $risks = DB::table('risks')->get();
+                    $count = 0;
+                    foreach ($risks as $risk) {
+                        $key = $risk->key;
+                        $answer = DB::table('user_children_details')->where('id', $user_children_detail->id)->first()->$key;
+                        $matrixController = new MatrixController();
+                        $likelihood_score = $matrixController->get_likelihood_score($answer);
+                        $impact_score = isset($radio_button_answers[$count]) ? $matrixController->get_impact_criteria($radio_button_answers[$count]) : 0;
+                        if ($likelihood_score == 'Unlikely') {
+                            $l_score = 1;
+                        } elseif ($likelihood_score == 'Possible') {
+                            $l_score = 2;
+                        } elseif ($likelihood_score == 'Likely') {
+                            $l_score = 3;
+                        } else {
+                            $l_score = 0;
+                        }
+
+                        if ($impact_score == 'Minor') {
+                            $i_score = 1;
+                        } elseif ($impact_score == 'Moderate') {
+                            $i_score = 2;
+                        } else {
+                            $i_score = 3;
+                        }
+                        $pi_score = $l_score * $i_score;
+                        DB::table('risk_score')->insert([
+                            'user_id' => $user_id,
+                            'user_child_detail_id' => $user_children_detail->id,
+                            'user_child_id' => $user_children->id,
+                            'risk_id' => $risk->id,
+                            'pi_score' => $pi_score,
+                            'likely_hood_score' => $l_score,
+                            'impact_score' => $i_score,
+                            'risk_key' => $risk->key,
+                        ]);
+                        $count++;
+                    }
+                    $counter++;
+                } else {
+                    DB::table('dashboard_score')->insert([
+                        'user_id' => $user_id,
+                        'child_id' => $user_children->id,
+                        'questionnaire' => 0,
+                        'unique_risk_profile' => 0,
+                        'module_of_month' => date('Y-m-d'),
+                        'view_recommendations_for' => 0,
+                        'created_at' => Carbon::now(),
+                    ]);
                 }
             }
         }
         $user = User::where('id', $user_id)->first();
-
+        // exit('Success detail');
         Auth::guard('web')->login($user);
         Session::forget('name');
         Session::forget('email');
@@ -497,7 +571,7 @@ class SignUpController extends Controller
 
     public function addChildBtnRefresh()
     {
-        $count = count(Session::get('child_name'));
+        $count = is_array(Session::get('child_name')) ? count(Session::get('child_name')) : 1;
         $response = view('website.auth.addChildBtnRefresh', [
             'count' => $count,
         ])->render();
