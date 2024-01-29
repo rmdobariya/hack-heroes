@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Request;
+use Spatie\IcalendarGenerator\Components\Calendar;
+use Spatie\IcalendarGenerator\Components\Event;
 
 class MatrixController extends Controller
 {
@@ -39,9 +41,9 @@ class MatrixController extends Controller
         $child = DB::table('user_childrens')->where('id', $child_id)->first();
         $child_score = DB::table('risk_score')->where('user_child_id', $child_id)->get();
         $child_detail = DB::table('user_children_details')->where('user_children_id', $child_id)->first();
-        $top_risks = DB::table('risk_score')->where('user_child_id', $child->id)->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')->take(5)->get();        
+        $top_risks = DB::table('risk_score')->where('user_child_id', $child->id)->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')->take(5)->get();
         $top_risks_ids = array();
-        if (count($top_risks) > 0) {            
+        if (count($top_risks) > 0) {
             $top_risks_ids = $top_risks->toArray();
             $top_risks_ids = array_column($top_risks_ids, 'id');
 
@@ -495,51 +497,29 @@ class MatrixController extends Controller
 
     public function addToAppleCalendar(Request $request, $title, $desc)
     {
-        $url = 'https://calendar.google.com/calendar/r/eventedit';
-        $tomorrow = Carbon::now()->addDay()->format('YmdTHis'); // or Carbon::tomorrow();
+        $calendar = Calendar::create();
+        dd($calendar);
+        $tomorrow = Carbon::now()->addDay()->format('YmdTHis');
         $after_2_day = Carbon::now()->addDays(2)->format('YmdTHis');
+        // Add an event to the calendar
+        $event = Event::create()
+            ->name('Example Event')
+            ->description('This is an example event')
+            ->starts(now())
+            ->ends(now()->addHour());
 
-        $id = $request->id;
+        $calendar->event($event);
 
-        $args = array(
-            'dates' => $tomorrow . '/' . $after_2_day,
-            'details' => $desc,
-            'text' => $title,
-            //'trp' => true
-        );
+        // Generate the iCalendar content
+        $content = $calendar->get();
 
-        $url .= '?' . http_build_query($args);
-        $url .= '&trp=true';
-        return response()->json([
-            'url' => $url,
-        ]);
-        //        $client = new Client();
-        //
-        //        $startDateTime = Carbon::now()->addDay()->format('Ymd\THis');
-        //        $endDateTime = Carbon::now()->addDays(2)->format('Ymd\THis');
-        //
-        //        $response = $client->post('https://api.apple-cloudkit.com/database/1/iCloud.your_app_bundle_id/development/public/events', [
-        //            'headers' => [
-        //                'Authorization' => 'Bearer YOUR_JWT_TOKEN',
-        //                'Content-Type' => 'application/json',
-        //            ],
-        //            'json' => [
-        //                'records' => [
-        //                    'fields' => [
-        //                        // Your event data here
-        //                        'title' => $title,
-        //                        'description' => $desc,
-        //                        'startDateTime' => $startDateTime,
-        //                        'endDateTime' => $endDateTime,
-        //                    ],
-        //                ],
-        //            ],
-        //        ]);
-        //
-        //        $result = json_decode($response->getBody()->getContents(), true);
-        //
-        //        // Handle the result
-        //
-        //        return response()->json($result);
+        // Set the headers for the response
+        $headers = [
+            'Content-Type' => 'text/calendar; charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="calendar.ics"',
+        ];
+
+        // Return the response with the iCalendar content and headers
+        return response($content, 200, $headers);
     }
 }

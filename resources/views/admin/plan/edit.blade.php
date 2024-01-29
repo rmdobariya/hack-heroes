@@ -48,33 +48,6 @@
                                     <label class="form-label">Description</label>
                                     <textarea class="form-control" name="description" id="description">{{$plan->description}}</textarea>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="start_date">
-                                                Start Date
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid date-picker" required
-                                                   name="start_date"
-                                                   id="start_date"
-                                                   value="{{$plan->start_date}}"
-                                                   placeholder="Start Date"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="end_date">
-                                                End Date
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid date-picker" required
-                                                   name="end_date"
-                                                   id="end_date"
-                                                   value="{{$plan->end_date}}"
-                                                   placeholder="End Date"/>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                             <div class="card-footer text-end p-3 btn-showcase">

@@ -378,16 +378,16 @@
                                                     <a href="{{route('recommendation',[$recommendation->id,$child->id])}}"
                                                        class="line-btns">More</a>
                                                     <a class="dark-btns add_to_calendar"
-                                                       data-id="{{$recommendation->id}}" 
+                                                       data-id="{{$recommendation->id}}"
                                                        data-rec-title="{{$recommendation->title_for_recommendation}}"
                                                        data-rec-des="{{$recommendation->sub_text_for_recommendation}}">
                                                         <i class="las la-calendar-alt"></i> Add to Calendar
                                                     </a>
-{{--                                                    <a class="dark-btns add_to_apple_calendar"--}}
-{{--                                                       data-rec-title="{{$recommendation->title_for_recommendation}}"--}}
-{{--                                                       data-rec-des="{{$recommendation->sub_text_for_recommendation}}">--}}
-{{--                                                        <i class="las la-calendar-alt"></i> Add to Apple Calendar--}}
-{{--                                                    </a>--}}
+                                                    <a class="dark-btns add_to_apple_calendar"
+                                                       data-rec-title="{{$recommendation->title_for_recommendation}}"
+                                                       data-rec-des="{{$recommendation->sub_text_for_recommendation}}">
+                                                        <i class="las la-calendar-alt"></i> Add to Apple Calendar
+                                                    </a>
                                                     @if(!is_null($recommendation->pdf))
                                                         <a href="{{asset($recommendation->pdf)}}"
                                                            target="_blank"

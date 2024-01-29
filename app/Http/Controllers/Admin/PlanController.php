@@ -87,8 +87,8 @@ class PlanController extends Controller
             $plan->title = $request->title;
             $plan->description = $request->description;
             $plan->amount = $request->amount;
-            $plan->start_date = $request->start_date;
-            $plan->end_date = $request->end_date;
+//            $plan->start_date = $request->start_date;
+//            $plan->end_date = $request->end_date;
             $plan->save();
 
             return response()->json([
@@ -99,8 +99,8 @@ class PlanController extends Controller
             $plan->title = $request->title;
             $plan->description = $request->description;
             $plan->amount = $request->amount;
-            $plan->start_date = $request->start_date;
-            $plan->end_date = $request->end_date;
+//            $plan->start_date = $request->start_date;
+//            $plan->end_date = $request->end_date;
             $plan->save();
 
             return response()->json([

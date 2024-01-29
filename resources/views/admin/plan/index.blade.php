@@ -82,8 +82,6 @@
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Amount</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -121,8 +119,6 @@
                 {data: 'title', name: 'title'},
                 {data: 'description', name: 'description'},
                 {data: 'amount', name: 'amount'},
-                {data: 'start_date', name: 'start_date'},
-                {data: 'end_date', name: 'end_date'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
             order: [[0, 'DESC']],

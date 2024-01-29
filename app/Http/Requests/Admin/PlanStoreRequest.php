@@ -22,8 +22,8 @@ class PlanStoreRequest extends FormRequest
             'title' => 'required',
             'description' => 'required',
             'amount' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
+//            'start_date' => 'required',
+//            'end_date' => 'required',
         ];
     }
 
