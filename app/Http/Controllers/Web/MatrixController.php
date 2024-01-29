@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Spatie\IcalendarGenerator\Components\Calendar;
 use Spatie\IcalendarGenerator\Components\Event;
+use Carbon\Carbon;
 
 class MatrixController extends Controller
 {
@@ -495,31 +496,34 @@ class MatrixController extends Controller
         ]);
     }
 
-    public function addToAppleCalendar(Request $request, $title, $desc)
+    public function addToAppleCalendar($title, $desc)
     {
+        // Create a new calendar
         $calendar = Calendar::create();
-        dd($calendar);
-        $tomorrow = Carbon::now()->addDay()->format('YmdTHis');
-        $after_2_day = Carbon::now()->addDays(2)->format('YmdTHis');
+
         // Add an event to the calendar
         $event = Event::create()
-            ->name('Example Event')
-            ->description('This is an example event')
-            ->starts(now())
-            ->ends(now()->addHour());
+            ->name($title)
+            ->description($desc)
+            ->startsAt(Carbon::now())
+            ->endsAt(Carbon::now()->addHour());
 
+        $calendar->event($event);
+
+        // Generate the iCalendar content
         $calendar->event($event);
 
         // Generate the iCalendar content
         $content = $calendar->get();
 
-        // Set the headers for the response
-        $headers = [
-            'Content-Type' => 'text/calendar; charset=utf-8',
-            'Content-Disposition' => 'attachment; filename="calendar.ics"',
-        ];
+        // Save the iCalendar content to a file (optional)
+        $filename = 'calendar.ics';
+        file_put_contents(public_path($filename), $content);
 
-        // Return the response with the iCalendar content and headers
-        return response($content, 200, $headers);
+        // Generate the URL for the iCalendar file
+        $url = url($filename);
+dd($url);
+        // Redirect to the URL
+        return Redirect::to($url);
     }
 }

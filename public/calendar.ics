@@ -1,0 +1,30 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:spatie/icalendar-generator
+BEGIN:VTIMEZONE
+TZID:UTC
+BEGIN:STANDARD
+DTSTART:20230504T105658Z
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:65b7847a00e87
+DTSTAMP:20240129T105658Z
+SUMMARY:The Journey of Sam\, The Safe Surfer
+DESCRIPTION:Set clear rules and guidelines: Establish clear guidelines for 
+ internet usage and educate your child about the dangers of cyberbullying.
+DTSTART:20240129T105658Z
+DTEND:20240129T115658Z
+END:VEVENT
+BEGIN:VEVENT
+UID:65b7847a00e87
+DTSTAMP:20240129T105658Z
+SUMMARY:The Journey of Sam\, The Safe Surfer
+DESCRIPTION:Set clear rules and guidelines: Establish clear guidelines for 
+ internet usage and educate your child about the dangers of cyberbullying.
+DTSTART:20240129T105658Z
+DTEND:20240129T115658Z
+END:VEVENT
+END:VCALENDAR
