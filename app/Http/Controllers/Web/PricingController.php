@@ -37,6 +37,7 @@ class PricingController extends Controller
                     'user_id' => $user->id,
                     'amount' => $plan->amount * 100,
                     'frequency' => 'month',
+                    'duration' => $plan->duration,
                     'email' => $user->email,
                     'name' => $user->name,
                     'phone' => $user->contact_no,
@@ -51,7 +52,6 @@ class PricingController extends Controller
                 ]);
 //            return redirect()->away($result['redirect_url']);
             }
-
         } else {
             return redirect()->route('login');
         }
@@ -93,7 +93,7 @@ class PricingController extends Controller
 
 
             $product = $stripe->products->create([
-                'name' => '1 ' . $array['frequency'] . ' Hack Heroes Subscription',
+                'name' => $array['duration'] . ' ' . $array['frequency'] . ' Hack Heroes Subscription',
             ]);
 
             $price = $stripe->prices->create([

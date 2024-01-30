@@ -25,7 +25,6 @@ Matrix
             </div>
         </div>
     </div>
-
 </section>
 @if($impact_score != 'pending_questionnaire')
 <div id="main">
@@ -252,7 +251,6 @@ Matrix
             </div>
         </div>
     </section>
-
     <div id="render_recommendation_part">
         <section id="recommendations">
             <div class="container">
@@ -336,7 +334,6 @@ Matrix
                             more</h2>
                     </div>
                 </div>
-
                 <div class="col-md-12">
                     <div class="upgrade-plan" data-aos="fade-up" data-aos-delay="200">
                         <h3>Teach your child about online privacy and help them adjust...</h3>
