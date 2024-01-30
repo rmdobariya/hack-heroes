@@ -1,11 +1,11 @@
 $(document).on('click', '.risk_event', function () {
     var clickedElement = $(this);
-    risk($(this).data('id'), $(this).data('child-id'));
+    get_risk($(this).data('id'), $(this).data('child-id'));
     clickedElement.addClass('active');
     $('.risk_event').not(clickedElement).removeClass('active');
 });
 
-function risk(id, child_id) {
+function get_risk(id, child_id) {
     loaderView()
     $.ajax({
         url: APP_URL + '/getRisk/' + id + '/' + child_id,
@@ -14,13 +14,13 @@ function risk(id, child_id) {
     }).done(function (data) {
         loaderHide()
         $('#risk_wise_detail').html(data.data)
-        $('#render_recommendation_part').html(data.recommendation)
+        // $('#render_recommendation_part').html(data.recommendation)
         // $('.risk_change_event').val(data.risk_name);
         // $('.risk_change_event').trigger('change');
-         if ($('.risk_change_event [value="' + data.risk_name + '"]').length == 0) {
-            $('.risk_change_event').val('all_category');
+         if ($(document).find('.risk_change_event [value="' + data.risk_name + '"]').length == 0) {
+            $(document).find('.risk_change_event').val('all_category').trigger('change');
         } else {
-            $('.risk_change_event').val(risk);
+            $(document).find('.risk_change_event').val(data.risk_name).trigger('change');
         }
     }).fail(function (jqXHR, textStatus) {
         loaderHide()
