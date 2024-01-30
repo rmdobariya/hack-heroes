@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Spatie\IcalendarGenerator\Components\Calendar;
 use Spatie\IcalendarGenerator\Components\Event;
+use Carbon\Carbon;
 
 class MatrixController extends Controller
 {
@@ -65,7 +66,7 @@ class MatrixController extends Controller
             $impact_score = $this->get_impact_criteria($child_id);
         }
         if (!is_null($user->plan_id)) {
-            $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . 'Age' . '%')->get();
+            $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . 'Age' . '%')->limit(20)->get();
         } else {
             $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . 'Age' . '%')->limit(5)->get();
         }
@@ -111,6 +112,7 @@ class MatrixController extends Controller
 
         return view('website.matrix.matrix', [
             'child' => $child,
+            'user' => $user,
             'child_detail' => $child_detail,
             'likelihood_score' => $likelihood_score,
             'impact_score' => $impact_score,
@@ -175,7 +177,7 @@ class MatrixController extends Controller
             'child' => $child,
         ])->render();
         if (!is_null($user->plan_id)) {
-            $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk->name . '%')->get();
+            $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk->name . '%')->limit(20)->get();
         } else {
             $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk->name . '%')->limit(5)->get();
         }
@@ -201,7 +203,7 @@ class MatrixController extends Controller
         $risk = DB::table('risks')->where('name', $risk_name)->first();
         $top_risks = DB::table('risk_score')->where('user_child_id', $child->id)->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')->take(5)->get();
         if (!is_null($user->plan_id)) {
-            $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->get();
+            $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->limit(20)->get();
         } else {
             $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->limit(5)->get();
         }
@@ -223,9 +225,9 @@ class MatrixController extends Controller
         $risk = DB::table('risks')->where('name', $risk_name)->first();
         if (!is_null($user->plan_id)) {
             if ($risk_name == 'all_category') {
-                $recommendations = DB::table('recommendations')->orderBy('id', 'desc')->get();
+                $recommendations = DB::table('recommendations')->orderBy('id', 'desc')->limit(20)->get();
             } else {
-                $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->orderBy('id', 'desc')->get();
+                $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->orderBy('id', 'desc')->limit(20)->get();
             }
         } else {
             if ($risk_name == 'all_category') {
@@ -436,7 +438,7 @@ class MatrixController extends Controller
         }
 
         $args = array(
-            'dates' => $tomorrow . '/' . $after_2_day,
+//            'dates' => $tomorrow . '/' . $after_2_day,
             'details' => $info->recommendation . ' ' . $link,
             'text' => $info->title_for_recommendation,
             //'trp' => true
@@ -495,31 +497,26 @@ class MatrixController extends Controller
         ]);
     }
 
-    public function addToAppleCalendar(Request $request, $title, $desc)
+    public function addToAppleCalendar($title, $desc)
     {
+        // Create a new calendar
         $calendar = Calendar::create();
-        dd($calendar);
-        $tomorrow = Carbon::now()->addDay()->format('YmdTHis');
-        $after_2_day = Carbon::now()->addDays(2)->format('YmdTHis');
+
         // Add an event to the calendar
         $event = Event::create()
-            ->name('Example Event')
-            ->description('This is an example event')
-            ->starts(now())
-            ->ends(now()->addHour());
+            ->name($title)
+            ->description($desc)
+            ->startsAt(Carbon::now())
+            ->endsAt(Carbon::now()->addHour());
 
         $calendar->event($event);
 
-        // Generate the iCalendar content
         $content = $calendar->get();
 
-        // Set the headers for the response
-        $headers = [
-            'Content-Type' => 'text/calendar; charset=utf-8',
-            'Content-Disposition' => 'attachment; filename="calendar.ics"',
-        ];
+        $filename = 'calendar.ics';
+        file_put_contents(public_path($filename), $content);
 
-        // Return the response with the iCalendar content and headers
-        return response($content, 200, $headers);
+        $url = url($filename);
+        return redirect()->away($url);
     }
 }

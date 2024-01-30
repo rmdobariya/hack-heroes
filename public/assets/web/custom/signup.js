@@ -521,7 +521,7 @@ $(document).on('click', '.subscriptionFormSubmit', function () {
             .then(function (response) {
                 setTimeout(function () {
                     window.location.href = response.data.redirect_url;
-                }, 5000);
+                }, 1000);
                 loaderHide();
             })
             .catch(function (error) {

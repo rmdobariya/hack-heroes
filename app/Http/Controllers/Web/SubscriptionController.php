@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class SubscriptionController extends Controller
 {
@@ -34,6 +38,16 @@ class SubscriptionController extends Controller
 
     public function paymentSuccess(Request $request)
     {
+        $user = Auth::guard('web')->user();
+        $user = User::find($user->id);
+        $user->stripe_customer_id = Session::get('customer_id');
+        $user->payment_id = Session::get('payment_id');
+        $user->plan_id = Session::get('plan_id');
+        $user->plan_created_at = date('Y-m-d');
+        $user->save();
+        Session::forget('customer_id');
+        Session::forget('payment_id');
+        Session::forget('plan_id');
         return redirect('dashboard')->with('success', 'Subscription successful!');
     }
 
