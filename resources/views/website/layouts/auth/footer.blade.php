@@ -18,7 +18,7 @@
             </div>
             <div class="col-md-3 text-end">
                 <div class="signup-footerlogo">
-                    <a href="{{route('home')}}">
+                    <a href="@if(!is_null(Auth::guard('web')->user())) {{route('dashboard')}} @else {{route('home')}} @endif">
                         <img src="{{asset($logo)}}" alt="logo" class="f-logo">
                     </a>
                 </div>

@@ -35,9 +35,14 @@ class MatrixController extends Controller
         'academic_performance' => '📚',
     ];
 
-    public function index($child_id)
+    public function index($child_id = '')
     {
         $user = Auth::guard('web')->user();
+
+        if(empty($child_id)) {
+            $child_id = DB::table('user_childrens')->where('user_id', $user->id)->first();
+            $child_id = $child_id->id;
+        }
 
         $child = DB::table('user_childrens')->where('id', $child_id)->first();
         $child_score = DB::table('risk_score')->where('user_child_id', $child_id)->get();

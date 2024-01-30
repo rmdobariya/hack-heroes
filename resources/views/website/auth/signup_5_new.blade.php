@@ -89,14 +89,9 @@ Signup
                                         </select>
                                         , and comes from a
                                         <select name="family_structure[{{$key1}}]" class="custom-select" required>
-                                            <option value="two-parent household with a stable and supportive family environment" selected>supportive two-
-                                            </option>
-                                            <option value="single-parent household, but has a stable and supportive family environment">
-                                                supportive single-
-                                            </option>
-                                            <option value="single-parent household with a less stable or unsupportive family environment">
-                                                unsupportive single-
-                                            </option>
+                                            <option value="two-parent household with a stable and supportive family environment" selected>supportive two</option>
+                                            <option value="single-parent household, but has a stable and supportive family environment">supportive single</option>
+                                            <option value="single-parent household with a less stable or unsupportive family environment">unsupportive single</option>
                                         </select>
                                         parent household. {{$children}} primarily uses a
                                         <select name="access_the_internet[{{$key1}}]" class="custom-select" required>

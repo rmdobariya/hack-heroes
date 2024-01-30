@@ -20,13 +20,13 @@ class SubscriptionController extends Controller
         ]);
     }
 
-//    public function checkout()
-//    {
-//        $plans = DB::table('plans')->whereNull('deleted_at')->get();
-//        return view('website.pricing.checkout', [
-//            'plans' => $plans
-//        ]);
-//    }
+    //    public function checkout()
+    //    {
+    //        $plans = DB::table('plans')->whereNull('deleted_at')->get();
+    //        return view('website.pricing.checkout', [
+    //            'plans' => $plans
+    //        ]);
+    //    }
 
     public function subscribe()
     {
@@ -48,8 +48,9 @@ class SubscriptionController extends Controller
         Session::forget('customer_id');
         Session::forget('payment_id');
         Session::forget('plan_id');
-        return redirect()->route('dashboard')
-            ->with('message', 'Subscription successful!');
+        Session::put('payment-success', 'Subscription successful');
+        return redirect('dashboard')->with('success', 'Subscription successful!');
+        // return redirect()->route('dashboard')->with('message', 'Subscription successful!');
 //        return redirect('dashboard')->with('success', 'Subscription successful!');
     }
 
@@ -60,5 +61,11 @@ class SubscriptionController extends Controller
         $user->subscription('default')->cancel();
 
         return redirect('/dashboard')->with('success', 'Subscription canceled.');
+    }
+
+    public function paymentError(Request $request)
+    {
+        Session::put('payment-failure', 'You have cancelled your payment.');
+        return redirect('/dashboard')->with('payment-failure', 'You have cancelled your payment.');
     }
 }

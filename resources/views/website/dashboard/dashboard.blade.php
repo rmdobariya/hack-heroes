@@ -200,4 +200,17 @@
     </section>
 @endsection
 @section('custom-script')
+<script>
+    $(document).ready(function(){
+        var payment_failure = "{{ isset($payment_failure) && strlen(trim($payment_failure)) > 0 ? $payment_failure : '' }}";
+        if(payment_failure != '') {
+            toastr.success(payment_failure);
+        }
+
+        var payment_success = "{{ isset($payment_success) && strlen(trim($payment_success)) > 0 ? $payment_success : '' }}";
+        if(payment_success != '') {
+            toastr.success(payment_success);
+        }
+    });
+</script>
 @endsection
