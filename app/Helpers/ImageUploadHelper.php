@@ -22,6 +22,21 @@ class ImageUploadHelper
         $files->move($destination_path, $file_name);
         return $image_path . '/' . $file_name;
     }
+    public static function pdfUpload( $files ,$folder): string
+    {
+        $image_path = $folder;
+//        date('Y') . '/' . date('m')
+        if (!File::exists(public_path() . "/" . $image_path)) {
+            File::makeDirectory(public_path() . "/" . $image_path, 0777, true);
+        }
+//        $extension = $files->getClientOriginalExtension();
+        $image_name = $files->getClientOriginalName();
+        $image_name = str_replace(' ','-',$image_name);
+        $destination_path = public_path() . '/' . $image_path;
+        $file_name = uniqid() . '-' . $image_name ;
+        $files->move($destination_path, $file_name);
+        return $image_path . '/' . $file_name;
+    }
 
     public static function deleteImage( $files ): bool
     {

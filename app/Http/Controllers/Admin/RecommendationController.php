@@ -57,18 +57,18 @@ class RecommendationController extends Controller
 //        } else {
         $recommendation = Recommendation::find($request['edit_value']);
         $image = $recommendation->image;
-        $pdf = $recommendation->pdf;
+//        $pdf = $recommendation->pdf;
         if ($request->hasfile('image')) {
             $image = ImageUploadHelper::imageUpload($request->file('image'), 'assets/web/recommendation');
         }
         if ($request->hasfile('pdf')) {
-            $pdf = ImageUploadHelper::imageUpload($request->file('pdf'), 'assets/web/recommendation/pdf');
+            $pdf = ImageUploadHelper::pdfUpload($request->file('pdf'), 'assets/web/recommendation/pdf');
         }
-        $validationRules = [
-            'pdf' => ($pdf === null) ? 'required|mimes:pdf' : 'sometimes|mimes:pdf',
-        ];
+//        $validationRules = [
+//            'pdf' => ($pdf === null) ? 'required|mimes:pdf' : 'mimes:pdf',
+//        ];
 
-        $request->validate($validationRules);
+//        $request->validate($validationRules);
         $recommendation->recommendation_type = $request['recommendation_type'];
         $recommendation->title_for_recommendation = $request['title_for_recommendation'];
         $recommendation->sub_text_for_recommendation = $request['sub_text_for_recommendation'];
