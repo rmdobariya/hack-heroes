@@ -14,8 +14,10 @@
                                 @php
                                     if (Auth::guard('web')->user()){
                                          $user_id = Auth::guard('web')->user()->id;
+                                         $user = DB::table('users')->where('id',$user_id)->first();
                                     }else{
                                         $user_id = 0;
+                                        $user = null;
                                     }
 
                                 @endphp
@@ -37,11 +39,33 @@
                                             <input type="hidden" name="start_date" value="{{$plan->start_date}}">
                                             <input type="hidden" name="end_date" value="{{$plan->end_date}}">
                                             @if($loop->first)
-{{--                                                <a href="#">Free Sign-up</a>--}}
+                                                {{--                                                <a href="#">Free Sign-up</a>--}}
                                             @else
-                                                <a class="subscriptionFormSubmit" data-plan-id="{{$plan->id}}"
-                                                   data-user-id="{{$user_id}}">Subscribe</a>
+                                                @if(!is_null($user))
+                                                    @if($user->plan_id == $plan->id)
+                                                        @if(!is_null($user->plan_created_at))
+                                                            @if($user->plan_created_at < date('Y-m-d'))
+                                                                <a class="subscriptionFormSubmit"
+                                                                   data-plan-id="{{$plan->id}}"
+                                                                   data-user-id="{{$user_id}}">Upgrade
+                                                                </a>
+                                                            @else
+                                                                <span class="text-dark">Already Subscribe</span>
+                                                            @endif
+                                                        @endif
+                                                    @else
+                                                        <a class="subscriptionFormSubmit" data-plan-id="{{$plan->id}}"
+                                                           data-user-id="{{$user_id}}">Subscribe
+                                                        </a>
+                                                    @endif
+                                                @else
+                                                    <a class="subscriptionFormSubmit" data-plan-id="{{$plan->id}}"
+                                                       data-user-id="{{$user_id}}">Subscribe
+                                                    </a>
+                                                @endif
+
                                             @endif
+
                                         </form>
                                     </div>
                                 </div>

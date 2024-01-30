@@ -342,10 +342,12 @@
                                         for {{$child->name}}</h2>
                                     <div class="form-filter" data-aos="fade-left" data-aos-delay="200">
                                         <select class="form-control form-select risk_change_event">
-                                            <option value="all_category" data-child-id="{{$child->id}}">All Categories</option>
+                                            <option value="all_category" data-child-id="{{$child->id}}">All Categories
+                                            </option>
                                             @foreach($top_risks as $key=>$top_risk)
-                                                <option value="{{isset($risk_titles[$top_risk->risk_key]) ? $risk_titles[$top_risk->risk_key] : ''}}"
-                                                        data-child-id="{{$child->id}}">{{$risk_array[$top_risk->risk_key]}} {{isset($risk_titles[$top_risk->risk_key]) ? $risk_titles[$top_risk->risk_key] : ''}}</option>
+                                                <option
+                                                    value="{{isset($risk_titles[$top_risk->risk_key]) ? $risk_titles[$top_risk->risk_key] : ''}}"
+                                                    data-child-id="{{$child->id}}">{{$risk_array[$top_risk->risk_key]}} {{isset($risk_titles[$top_risk->risk_key]) ? $risk_titles[$top_risk->risk_key] : ''}}</option>
                                             @endforeach
                                         </select>
                                         <i class="las la-filter"></i>
@@ -408,24 +410,32 @@
                     </div>
                 </section>
             </div>
-            <section id="upgrade">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="heading">
-                                <h2 data-aos="fade-right" data-aos-delay="200">Find value in the above? Upgrade for
-                                    more</h2>
+            @if(!is_null($user))
+                @if(!is_null($user->plan_id))
+                    @if($user->plan_created_at < date('Y-m-d'))
+                        <section id="upgrade">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="heading">
+                                            <h2 data-aos="fade-right" data-aos-delay="200">Find value in the above?
+                                                Upgrade for
+                                                more</h2>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="upgrade-plan" data-aos="fade-up" data-aos-delay="200">
+                                            <h3>Teach your child about online privacy and help them adjust...</h3>
+                                            <a href="{{route('subscription')}}">Upgrade Plan</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="upgrade-plan" data-aos="fade-up" data-aos-delay="200">
-                                <h3>Teach your child about online privacy and help them adjust...</h3>
-                                <a href="{{route('subscription')}}">Upgrade Plan</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                        </section>
+                    @endif
+                @endif
+            @endif
         </div>
     @else
         <div class="col-md-12">
