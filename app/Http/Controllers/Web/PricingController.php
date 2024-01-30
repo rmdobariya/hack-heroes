@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class PricingController extends Controller
 {
@@ -41,7 +42,7 @@ class PricingController extends Controller
                     'phone' => $user->contact_no,
                     'plan_id' => $plan->id,
                     'stripe_customer_id' => $user->stripe_customer_id,
-                    'currency_code' => 'USD',
+                    'currency_code' => 'AUD',
                 ];
 
                 $result = $this->subscriptionPayment($array);
@@ -113,15 +114,13 @@ class PricingController extends Controller
                     ]
                 ],
                 'mode' => 'subscription',
-                'success_url' => route('dashboard'),
+                'success_url' => route('payment-success'),
                 'cancel_url' => route('payment-error'),
             ]);
 
-            $user = User::find($array['user_id']);
-            $user->stripe_customer_id = $customer_id;
-            $user->payment_id = $session->id;
-            $user->plan_id = $array['plan_id'];
-            $user->save();
+            Session::put('customer_id', $customer_id);
+            Session::put('payment_id', $session->id);
+            Session::put('plan_id', $array['plan_id']);
             return [
                 'success' => true,
                 'message' => 'Payment Done',
