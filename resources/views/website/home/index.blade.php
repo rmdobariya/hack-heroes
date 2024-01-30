@@ -103,7 +103,7 @@
                 <div class="col-md-12">
                     <div class="sec-heading-1">
                         <h2 data-aos="fade-right" data-aos-delay="200">HackHeroes Pricing</h2>
-                        <a href="{{route('pricing')}}" data-aos="fade-left" data-aos-delay="200"> > Start now, it’s
+                        <a href="{{route('signup')}}" data-aos="fade-left" data-aos-delay="200"> > Start now, it’s
                             Free</a>
                     </div>
                 </div>

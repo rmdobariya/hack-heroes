@@ -15,8 +15,13 @@ function risk(id, child_id) {
         loaderHide()
         $('#risk_wise_detail').html(data.data)
         $('#render_recommendation_part').html(data.recommendation)
-        $('.risk_change_event').val(data.risk_name);
-        $('.risk_change_event').trigger('change');
+        // $('.risk_change_event').val(data.risk_name);
+        // $('.risk_change_event').trigger('change');
+         if ($('.risk_change_event [value="' + data.risk_name + '"]').length == 0) {
+            $('.risk_change_event').val('all_category');
+        } else {
+            $('.risk_change_event').val(risk);
+        }
     }).fail(function (jqXHR, textStatus) {
         loaderHide()
         console.log('Request failed: ' + textStatus)
@@ -51,8 +56,13 @@ $(document).on('click', '.risk_wise_filter', function () {
 
     }).done(function (data) {
         loaderHide()
-        $('.risk_change_event').val(risk);
-        $('.risk_change_event').trigger('change');
+        // $('.risk_change_event').val(risk);
+        // $('.risk_change_event').trigger('change');
+        if ($('.risk_change_event [value="' + risk + '"]').length == 0) {
+            $('.risk_change_event').val('all_category');
+        } else {
+            $('.risk_change_event').val(risk);
+        }
         $('.risk_wise_recommendation_part').html(data.data)
 
     }).fail(function (jqXHR, textStatus) {

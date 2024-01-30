@@ -39,8 +39,16 @@ class SignUpController extends Controller
     public function signUp3(Request $request)
     {
         Session::put('user_id', $request->user_id);
-        Session::put('child_name', $request->name);
-        Session::put('gender', $request->gender);
+        $child_name = array();
+        $gender = array();
+        foreach ($request->name as $key => $child) {
+            if (strlen(trim($child)) > 0 && strlen(trim($request->gender[$key])) > 0) {
+                $child_name[] = $child;
+                $gender[] = $request->gender[$key];
+            }
+        }
+        Session::put('child_name', $child_name);
+        Session::put('gender', $gender);
         $user_id = Session::get('user_id');
         return response()->json([
             'user_id' => $user_id
@@ -53,7 +61,7 @@ class SignUpController extends Controller
 
             return view('website.auth.signup_3');
         } else {
-            $childrens = Session::get('child_name');
+            $childrens = Session::get('child_name');            
             $terms_condition = DB::table('site_settings')->where('setting_key', 'TERMS_CONDITION')->first()->setting_value;
             $privacy_policy = DB::table('site_settings')->where('setting_key', 'PRIVACY_POLICY')->first()->setting_value;
             return view('website.auth.signup_4', [
@@ -72,10 +80,12 @@ class SignUpController extends Controller
     public function signUp4View()
     {
         $childrens = Session::get('child_name');
+        $gender = Session::get('gender');
         $terms_condition = DB::table('site_settings')->where('setting_key', 'TERMS_CONDITION')->first()->setting_value;
         $privacy_policy = DB::table('site_settings')->where('setting_key', 'PRIVACY_POLICY')->first()->setting_value;
         return view('website.auth.signup_4', [
             'childrens' => $childrens,
+            'gender' => $gender,
             'terms_condition' => $terms_condition,
             'privacy_policy' => $privacy_policy,
         ]);
@@ -83,14 +93,22 @@ class SignUpController extends Controller
 
     public function signUp5(Request $request)
     {
-        Session::put('child_name', $request->child);
-        Session::put('gender', $request->gender);
+        $child_name = array();
+        $gender = array();
+        foreach ($request->child as $key => $child) {
+            if (strlen(trim($child)) > 0 && strlen(trim($request->gender[$key])) > 0) {
+                $child_name[] = $child;
+                $gender[] = $request->gender[$key];
+            }
+        }
+        Session::put('child_name', $child_name);
+        Session::put('gender', $gender);
         $create_plan = $request->create_plan;
-        $child_name = $request->child;
+        //        $child_name = $request->child;
         $result = [];
         foreach ($child_name as $key => $value) {
-            $result[$key] = isset($create_plan[$key]) && $create_plan[$key] == 'on' ? 'on' : 'off';
-        }        
+            $result[$key] = isset($create_plan[($key)]) && $create_plan[($key)] == 'on' ? 'on' : 'off';
+        }
         Session::put('create_plan', $result);
         Session::put('term_condition', $request->term_condition);
     }
@@ -98,16 +116,18 @@ class SignUpController extends Controller
     public function signUp5View()
     {
         $create_plan = Session::get('create_plan');
-        $child_name = Session::get('child_name');        
+        $child_name = Session::get('child_name');
+        $gender = Session::get('gender');
 
         $childrens = [];
-        foreach($child_name as $key => $value) {
-            if(isset($create_plan[$key]) && $create_plan[$key] == 'on') {
+        foreach ($child_name as $key => $value) {
+            if (isset($create_plan[$key]) && $create_plan[$key] == 'on') {
                 $childrens[$key] = $value;
             }
-        }        
+        }
         return view('website.auth.signup_5_new', [
-            'childrens' => $childrens
+            'childrens' => $childrens,
+            'gender' => $gender
         ]);
     }
 
@@ -139,11 +159,11 @@ class SignUpController extends Controller
         $create_plan = Session::get('create_plan');
         $child_name = Session::get('child_name');
         $childrens = [];
-        foreach($child_name as $key => $value) {
-            if(isset($create_plan[$key]) && $create_plan[$key] == 'on') {
+        foreach ($child_name as $key => $value) {
+            if (isset($create_plan[$key]) && $create_plan[$key] == 'on') {
                 $childrens[$key] = $value;
             }
-        }     
+        }
         $questions = [
             [
                 'question' => 'Choose the option that best describes []&apos;s  characteristics/behaviours.',
@@ -314,7 +334,7 @@ class SignUpController extends Controller
         //     print_r($_POST);
         // print_r(Session::get('age'));
         // exit;
-        
+
         $user_id = Session::get('user_id');
         if ($user_id == 0) {
             $user = new User();

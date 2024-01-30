@@ -42,10 +42,10 @@ Signup
                                             <option value="6-9 years old">6-9</option>
                                         </select>
                                         years old and was assigned
-                                        <select name="sex[{{$key1}}]" class="custom-select" required>
-                                            <option value="male" selected>male</option>
-                                            <option value="intersex">intersex</option>
-                                            <option value="female">female</option>
+                                        <select name="sex[{{$key1}}]" class="custom-select" required>                                            
+                                            <option value="male" {{ isset($gender[$key1]) && $gender[$key1] == 'male' ? 'selected' : '' }}>male</option>
+                                            <option value="female"  {{ isset($gender[$key1]) && $gender[$key1] == 'female' ? 'selected' : '' }}>female</option>
+                                            <option value="intersex"  {{ isset($gender[$key1]) && $gender[$key1] == 'intersex' ? 'selected' : '' }}>intersex</option>                                            
                                         </select>
                                         at birth. They have
                                         <select name="current_health[{{$key1}}]" class="custom-select" required>
@@ -98,7 +98,7 @@ Signup
                                                 unsupportive single-
                                             </option>
                                         </select>
-                                        parent household. They primarily use a
+                                        parent household. {{$children}} primarily uses a
                                         <select name="access_the_internet[{{$key1}}]" class="custom-select" required>
                                             <option value="desktop computer or laptop" selected>
                                                 computer/laptop
@@ -117,7 +117,7 @@ Signup
                                             <option value="large amount of time (more than 4 hours)">&gt;4
                                             </option>
                                         </select>
-                                        hours online each day, and engage in
+                                        hours online each day, and engages in
                                         <select name="online_behaviour[{{$key1}}]" class="custom-select" required>
                                             <option value="are cautious and responsible online, and avoid risky behaviour" selected>minimal
                                             </option>
@@ -227,7 +227,7 @@ Signup
                         <div class="next-prv-btn">
                             <button type="button" id="prev" class="btn signup-btn link-btn">&lt; Back</button>
                             <button type="button" id="next" class="btn signup-btn link-btn next-btn">Next &gt;</button>
-                            <button class="btn signup-btn link-btn d-none" id="signup_new_5" type="submit">Continue</button>
+                            <button class="btn signup-btn link-btn d-none" id="signup_new_5" type="submit">Continue &gt;</button>
                         </div>
                     </form>
                 </div>
@@ -252,7 +252,7 @@ Signup
         }
         $('#prev').css('display', 'inline-block');
         $('select:visible').each(function() {
-            var text = $(this).find('option:first').text()
+            var text = $(this).find('option:selected').text()
             console.log(text);
             var $aux = $('<select/>').append($('<option/>').text(text))
             $(this).after($aux)
@@ -282,7 +282,7 @@ Signup
 
         setTimeout(function() {
             $('select').each(function() {
-                var text = $(this).find('option:first').text()
+                var text = $(this).find('option:selected').text()
                 console.log(text);
                 var $aux = $('<select/>').append($('<option/>').text(text))
                 $(this).after($aux)

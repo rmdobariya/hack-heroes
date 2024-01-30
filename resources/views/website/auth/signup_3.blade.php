@@ -20,7 +20,7 @@
                                 <li class="has-lowercase">Lowercase letter</li>
                             </ul>
                             <button class="btn signup-btn" type="submit">Continue</button><br>
-                            <a class="btn signup-btn mt-4" id="skip_store" type="button">Skip And Submit</a>
+                            <a class="btn signup-btn mt-4" style="display: none;" id="skip_store" type="button">Skip And Submit</a>
                         </form>
                     </div>
                 </div>

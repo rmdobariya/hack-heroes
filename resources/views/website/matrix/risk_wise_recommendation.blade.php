@@ -6,7 +6,7 @@
                     <h2 data-aos="fade-right" data-aos-delay="100">Recommendations for {{$child->name}}</h2>
                     <div class="form-filter" data-aos="fade-left" data-aos-delay="200">
                         <select class="form-control form-select risk_change_event">
-                            <option>All Categories</option>
+                            <option value="all_category" data-child-id="{{$child->id}}">All Categories</option>
                             @foreach($top_risks as $key=>$top_risk)
                                 <option value="{{str_replace('_',' ',ucfirst($top_risk->risk_key))}}"
                                         data-child-id="{{$child->id}}">{{$risk_array[$top_risk->risk_key]}} {{str_replace('_',' ',ucfirst($top_risk->risk_key))}}</option>
@@ -66,4 +66,3 @@
     })
 
 </script>
-<script src="{{asset('assets/web/custom/matrix.js')}}?v={{time()}}"></script>
