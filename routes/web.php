@@ -68,6 +68,7 @@ Route::group(['middleware' => ['auth:web', 'webCheck']], function () {
     Route::get('updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
     Route::post('update-profile-store', [ProfileController::class, 'updateProfileStore'])->name('update-profile-store');
     Route::get('matrix/{child_id}', [MatrixController::class, 'index'])->name('matrix');
+    Route::get('matrix', [MatrixController::class, 'index'])->name('matrix-header');
     Route::get('getRisk/{id}/{child_id}', [MatrixController::class, 'getRisk'])->name('getRisk');
     Route::get('add-to-calendar/{title}/{desc}', [MatrixController::class, 'addToCalendar'])->name('add-to-calendar');
     Route::get('add-to-apple-calendar/{title}/{desc}', [MatrixController::class, 'addToAppleCalendar'])->name('add-to-apple-calendar');

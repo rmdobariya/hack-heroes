@@ -17,8 +17,7 @@
                                 src="{{asset('assets/web/images/grid.png')}}" alt="grid"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::is('matrix') ? 'active' : ''  }}" href="{{route('subscription')}}"><img src="{{asset('assets/web/images/box.png')}}"
-                                                                    alt="box"></a>
+                        <a class="nav-link {{ Route::is('matrix') || Route::is('matrix-header') ? 'active' : ''  }}" href="{{route('matrix-header')}}"><img src="{{asset('assets/web/images/box.png')}}" alt="box"></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link icon-contact {{ Route::is('contact-us') ? 'active' : ''  }}" href="{{route('contact-us')}}"><img
