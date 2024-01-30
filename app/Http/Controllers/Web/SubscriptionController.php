@@ -48,7 +48,9 @@ class SubscriptionController extends Controller
         Session::forget('customer_id');
         Session::forget('payment_id');
         Session::forget('plan_id');
-        return redirect('dashboard')->with('success', 'Subscription successful!');
+        return redirect()->route('dashboard')
+            ->with('message', 'Subscription successful!');
+//        return redirect('dashboard')->with('success', 'Subscription successful!');
     }
 
     public function cancelSubscription(Request $request)
