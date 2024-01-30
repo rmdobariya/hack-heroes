@@ -1,4 +1,4 @@
-<div class="downloads">
+<div class="downloads" style="display: none;">
     <a href="{{asset('assets/web/images/privacy-policy.pdf')}}" target="_blank"><img
             src="{{asset('assets/web/images/download.svg')}}" alt="download"></a>
 </div>

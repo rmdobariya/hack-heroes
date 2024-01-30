@@ -6,3 +6,8 @@
     color: #195656;
     font-weight: 700;
 }
+select.with-arrow {
+    -webkit-appearance: menulist;
+  -moz-appearance: menulist;
+  appearance: menulist;
+}

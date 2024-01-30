@@ -15,14 +15,13 @@ Signup
                         {{-- <input type="text" name="name[1]"  placeholder="Child’s first name"--}}
                         {{-- value="" class="form-control attribute-row attribute-row-1">--}}
                         <div class="attribute-row attribute-row-1">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control child-name" name="name[1]" placeholder="Child’s first name">
-                                <select name="gender[1]" class="form-control">
-                                    <option value="male" selected>Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="intersex">Intersex</option>
-                                </select>
-                            </div>
+                            <input type="text" class="form-control child-name" name="name[0]" placeholder="Child’s first name">
+                            <select name="gender[0]" class="form-control child-sex with-arrow mt-1">
+                                <option value="">Child's sex</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="intersex">Intersex</option>
+                            </select>
                         </div>
 
                         <div id="new_chq"></div>

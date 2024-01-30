@@ -37,7 +37,7 @@
                                             <input type="hidden" name="start_date" value="{{$plan->start_date}}">
                                             <input type="hidden" name="end_date" value="{{$plan->end_date}}">
                                             @if($loop->first)
-{{--                                                <a href="#">Free Sign-up</a>--}}
+                                                <a href="javascript:void(0);" disabled>Free</a>
                                             @else
                                                 <a class="subscriptionFormSubmit" data-plan-id="{{$plan->id}}"
                                                    data-user-id="{{$user_id}}">Subscribe</a>

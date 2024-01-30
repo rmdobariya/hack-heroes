@@ -41,8 +41,8 @@ Signup
                                     <input type="hidden" class="selected_value" name="answer[{{$key1}}][]">
                                     <input type="hidden" class="question" name="question[{{$key1}}][]" data-value="{{str_replace('[]',$children,$question['question'])}}" value="{{str_replace('[] ','',str_replace('[]','',$question['question']))}}">
                                     @foreach($question['answer'] as $key3=>$answer)
-                                    <div class="form-check {{ $key3 == 0 ? 'mt-5' : '' }}">
-                                        <input class="form-check-input update-answer" type="radio" name="radio_answer[{{$key1}}][]" id="answer_{{$key}}_{{$key1}}_{{$key3}}" data-value="{{str_replace('[]',$children,$answer)}}" value="{{trim(str_replace('[]&apos;s','',str_replace('[] ','',str_replace('[]','',$answer))))}}" required>
+                                    <div class="form-check select-answer {{ $key3 == 0 ? 'mt-5' : '' }}" data-for="answer_{{$key}}_{{$key1}}_{{$key3}}">
+                                        <input class="form-check-input update-answer" type="radio" name="radio_answer_{{$key}}_{{$key1}}" id="answer_{{$key}}_{{$key1}}_{{$key3}}" data-value="{{str_replace('[]',$children,$answer)}}" value="{{trim(str_replace('[]&apos;s','',str_replace('[] ','',str_replace('[]','',$answer))))}}" required>
 
                                         <label class="form-check-label" for="answer_{{$key}}_{{$key1}}_{{$key3}}" data-value="{{trim(str_replace('[]&apos;s','',str_replace('[] ','',str_replace('[]','',$answer))))}}">
                                             {!!str_replace('[]',$children,$answer)!!}
@@ -57,7 +57,7 @@ Signup
                             @endif
                         </div>
                         <div class="next-prv-btn">
-                            <button type="button" id="prev" class="btn signup-btn link-btn">&lt; Back</button>
+                            <button type="button" id="prev" class="btn signup-btn link-btn back-btn">&lt; Back</button>
                             <button type="button" id="next" class="btn signup-btn link-btn next-btn">Next &gt;</button>
                             <button class="btn signup-btn link-btn d-none" id="signup_store" type="submit">Submit</button>
                         </div>
@@ -70,11 +70,36 @@ Signup
 @endsection
 @section('custom-script')
 <script>
-    $('.update-answer').click(function(){        
+    $('.update-answer').click(function() {
         $(this).closest('.qa-sec').find('.selected_value').val($(this).val());
     });
 
     var child = '{{!is_null($childrens) ? count($childrens) : 0}}'
+
+    $('.back-btn').on('click', function() {
+        var currentStep = $('.qa-sec:visible');
+
+        // currentStep.find('.selected_value').val(label)
+        // $('.current').removeClass('current').hide().next().show().addClass('current');
+        // $('.current1').removeClass('current1').removeClass('active').next().addClass('active').addClass('current1');
+        // $("li.current1").prevAll().find('span').addClass('active1');
+        currentStep.hide();
+        currentStep.prev('.qa-sec').show();        
+        if ($('.pages').find('li').length == $('.pages').find('li.active').length) {
+            $('#next').css('display', 'none');
+            $('#signup_store').removeClass('d-none');
+        } else {
+            $('#signup_store').addClass('d-none');
+        }
+        //$('#prev').css('display', 'inline-block');
+        if($('.qa-sec:visible').index() == $('.qa-sec:first').index()) {
+            $('.pages').find('li:first').addClass('active').addClass('current1');
+            $('.back-btn').hide();
+        } else {
+            $('.pages').find('li.active').is(':last').removeClass('active').removeClass('current1');
+        }
+    });
+
     $('.next-btn').on('click', function() {
         var currentStep = $('.qa-sec:visible');
         if (currentStep.find('input[type=radio]:checked').length < 1) {
@@ -92,10 +117,10 @@ Signup
             if ($('.pages').find('li').length == $('.pages').find('li.active').length) {
                 $('#next').css('display', 'none');
                 $('#signup_store').removeClass('d-none');
-            }            
+            }
             $('#prev').css('display', 'inline-block');
         }
-    })
+    });
 </script>
 <script src="{{asset('assets/web/custom/signup.js')}}?v={{time()}}"></script>
 @endsection

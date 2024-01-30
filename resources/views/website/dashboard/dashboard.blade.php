@@ -86,7 +86,7 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value=""
                                                        id="flexCheckDefault_{{$user_children->id}}"
-                                                       @if($dashboard_score->unique_risk_profile == 1)  checked
+                                                       @if($dashboard_score->unique_risk_profile >= 1)  checked
                                                        @endif disabled>
                                                 <label class="form-check-label"
                                                        for="flexCheckDefault_{{$user_children->id}}">
@@ -165,23 +165,11 @@
                         <div class="row">
                             <div class="clearfix"></div>
                             <div class="col-md-4">
-                                <div class="progress-box  @if($dashboard_score->questionnaire == 1)  active @endif"
+                                <div class="progress-box  @if($dashboard_score->unique_risk_profile + $dashboard_score->questionnaire > 0)  active @endif"
                                      data-aos="fade-up" data-aos-delay="100">
                                     <img src="{{asset('assets/web/images/progress-1.svg')}}" alt="progress">
-                                    <h2>Month #1</h2>
-                                    @if($dashboard_score->unique_risk_profile == 1 && $dashboard_score->questionnaire != 1)
-                                        <p>
-                                            {{$dashboard_score->unique_risk_profile}} Done</p>
-                                    @endif
-                                    @if($dashboard_score->questionnaire == 1 && $dashboard_score->unique_risk_profile != 1)
-                                        <p>
-                                            {{$dashboard_score->unique_risk_profile}} Done</p>
-                                    @endif
-                                    @if($dashboard_score->questionnaire == 1 && $dashboard_score->unique_risk_profile == 1)
-                                        <p>
-                                            {{$dashboard_score->unique_risk_profile}} Done</p>
-                                    @endif
-
+                                    <h2>Month #1</h2>                                    
+                                    <p>{{$dashboard_score->unique_risk_profile + $dashboard_score->questionnaire}} Done</p>
                                 </div>
                             </div>
                             <div class="col-md-4">

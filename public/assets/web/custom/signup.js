@@ -48,11 +48,19 @@ $signup3.on('submit', function (e) {
     var has_error = false;
     $('.child-name').each(function () {
         var childName = $(this).val(); // Find the input field inside each attribute-row
-        if ($.trim(childName) == '') {
-            $('<span class="error custom-validation-message ps-3">Please enter child name.</span>').insertAfter($(this).closest('.input-group'));
-            has_error = true;
+        if ($.trim(childName) != '') {
+            //            $('<span class="error custom-validation-message ps-3">Please enter child name.</span>').insertAfter($(this));
+            //has_error = true;
+            if ($(this).next('.child-sex').val() == '') {
+                $('<span class="error custom-validation-message ps-3">Please select gender.</span>').insertAfter($(this).next('.child-sex'));
+                has_error = true;
+            }
         }
     });
+    if ($('.child-name').length == 1 && $.trim($('.child-name').val()) == '') {
+        $('<span class="error custom-validation-message ps-3">Please enter child name.</span>').insertAfter($('.child-name'));
+        has_error = true;
+    }
     if (!has_error) {
         loaderView();
         let formData = new FormData($signup3[0])
@@ -205,11 +213,15 @@ $signup5.on('submit', function (e) {
     e.preventDefault()
     $('span.error').remove();
     var has_error = false;
-    $('.child-name').each(function () {
-        var childName = $(this).val(); // Find the input field inside each attribute-row
-        if ($.trim(childName) == '') {
-            $('<span class="error custom-validation-message ps-3 mt-0">Please enter child name.</span>').insertAfter($(this).closest('.input-group'));
-            has_error = true;
+    $('.sec-add-child').each(function () {
+        var childName = $(this).find('.child-name').val(); // Find the input field inside each attribute-row
+        if ($.trim(childName) != '') {
+            // $('<span class="error custom-validation-message ps-3 mt-0">Please enter child name.</span>').insertAfter($(this));
+            // has_error = true;
+            if ($(this).find('.child-sex').val() == '') {
+                $('<span class="error custom-validation-message ps-3">Please select gender.</span>').insertAfter($(this).find('.child-sex'));
+                has_error = true;
+            }
         }
     });
     if (!has_error) {
@@ -414,14 +426,21 @@ function addAttribute(rowNo) {
     $('.child-name').each(function () {
         var childName = $(this).val(); // Find the input field inside each attribute-row
         if ($.trim(childName) == '') {
-            $('<span class="error custom-validation-message ps-3">Please enter child name.</span>').insertAfter($(this).closest('.input-group'));
+            $('<span class="error custom-validation-message ps-3">Please enter child name.</span>').insertAfter($(this));
+            has_error = true;
+        }
+    });
+    $('.child-sex').each(function () {
+        var childName = $(this).val(); // Find the input field inside each attribute-row
+        if ($.trim(childName) == '') {
+            $('<span class="error custom-validation-message ps-3">Please select gender.</span>').insertAfter($(this));
             has_error = true;
         }
     });
     if (!has_error) {
         // addChildBtnRefresh()
         loaderView()
-        rowNo = $(document).find('.child-name').length + 1;
+        rowNo = $(document).find('.child-name').length;
         $.ajax({
             url: APP_URL + '/getAttributeRow/' + rowNo,
             method: 'GET',
@@ -437,19 +456,6 @@ function addAttribute(rowNo) {
     }
 }
 
-function addChildBtnRefresh() {
-    $.ajax({
-        url: APP_URL + '/addChildBtnRefresh',
-        method: 'GET',
-
-    }).done(function (data) {
-        $('#add-child-btn').html(data.data)
-
-    }).fail(function (jqXHR, textStatus) {
-        loaderHide()
-        console.log('Request failed: ' + textStatus)
-    })
-}
 
 function addAttributeForPlan(rowNo) {
     // addChildBtnRefresh()
@@ -458,21 +464,28 @@ function addAttributeForPlan(rowNo) {
     $('.child-name').each(function () {
         var childName = $(this).val(); // Find the input field inside each attribute-row
         if ($.trim(childName) == '') {
-            $('<span class="error custom-validation-message ps-3 mt-0">Please enter child name.</span>').insertAfter($(this).closest('.input-group'));
+            $('<span class="error custom-validation-message ps-3 mt-0">Please enter child name.</span>').insertAfter($(this));
+            has_error = true;
+        }
+    });
+    $('.child-sex').each(function () {
+        var childName = $(this).val(); // Find the input field inside each attribute-row
+        if ($.trim(childName) == '') {
+            $('<span class="error custom-validation-message ps-3">Please select gender.</span>').insertAfter($(this));
             has_error = true;
         }
     });
     if (!has_error) {
         loaderView()
-        rowNo = $(document).find('.child-name').length + 1;
+        rowNo = $(document).find('.child-name').length;
         $.ajax({
             url: APP_URL + '/getAttributeRowForPlan/' + rowNo,
             method: 'GET',
 
         }).done(function (data) {
             loaderHide()
-            $('.attribute-row:last').after(data.data)
-
+            //$('.attribute-row:last').after(data.data)
+            $(data.data).insertBefore($('#add-child-btn'));
         }).fail(function (jqXHR, textStatus) {
             loaderHide()
             console.log('Request failed: ' + textStatus)
@@ -519,3 +532,18 @@ $(document).on('click', '.subscriptionFormSubmit', function () {
     }
 
 })
+
+
+function addChildBtnRefresh() {
+    $.ajax({
+        url: APP_URL + '/addChildBtnRefresh',
+        method: 'GET',
+
+    }).done(function (data) {
+        $('#add-child-btn').html(data.data)
+
+    }).fail(function (jqXHR, textStatus) {
+        loaderHide()
+        console.log('Request failed: ' + textStatus)
+    })
+}
