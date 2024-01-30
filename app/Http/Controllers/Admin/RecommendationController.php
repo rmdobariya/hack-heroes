@@ -62,10 +62,10 @@ class RecommendationController extends Controller
             $image = ImageUploadHelper::imageUpload($request->file('image'), 'assets/web/recommendation');
         }
         if ($request->hasfile('pdf')) {
-            $pdf = ImageUploadHelper::imageUpload($request->file('pdf'), 'assets/web/recommendation/pdf');
+            $pdf = ImageUploadHelper::pdfUpload($request->file('pdf'), 'assets/web/recommendation/pdf');
         }
         $validationRules = [
-            'pdf' => ($pdf === null) ? 'required|mimes:pdf' : 'sometimes|mimes:pdf',
+            'pdf' => ($pdf === null) ? 'required|mimes:pdf' : 'mimes:pdf',
         ];
 
         $request->validate($validationRules);
