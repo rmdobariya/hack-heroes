@@ -412,7 +412,7 @@
             </div>
             @if(!is_null($user))
                 @if(!is_null($user->plan_id))
-                    @if($user->plan_created_at < date('Y-m-d'))
+                    @if(\Carbon\Carbon::parse($user->plan_created_at)->addMonths(1)->lt(\Carbon\Carbon::now()))
                         <section id="upgrade">
                             <div class="container">
                                 <div class="row">

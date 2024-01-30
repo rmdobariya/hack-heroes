@@ -44,7 +44,7 @@
                                                 @if(!is_null($user))
                                                     @if($user->plan_id == $plan->id)
                                                         @if(!is_null($user->plan_created_at))
-                                                            @if($user->plan_created_at < date('Y-m-d'))
+                                                            @if(\Carbon\Carbon::parse($user->plan_created_at)->addMonths(1)->lt(\Carbon\Carbon::now()))
                                                                 <a class="subscriptionFormSubmit"
                                                                    data-plan-id="{{$plan->id}}"
                                                                    data-user-id="{{$user_id}}">Upgrade
