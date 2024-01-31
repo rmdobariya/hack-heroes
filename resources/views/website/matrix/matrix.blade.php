@@ -290,6 +290,30 @@ Matrix
                                     @foreach($tags as $tag)
                                     <span>{{$tag}}</span>
                                     @endforeach
+                                    @php
+                                        $tags = !empty($recommendation->tags_for_age_appropriateness) ? explode('; ',$recommendation->tags_for_age_appropriateness) : array();
+                                    @endphp
+                                    @foreach($tags as $tag)
+                                        <span>{{$tag}}</span>
+                                    @endforeach
+                                    @php
+                                        $tags = !empty($recommendation->tag_for_frequency) ? explode('; ',$recommendation->tag_for_frequency) : array();
+                                    @endphp
+                                    @foreach($tags as $tag)
+                                        <span>{{$tag}}</span>
+                                    @endforeach
+                                    @if(!empty($recommendation->tag_if_affiliate))
+                                        <span>Affiliate</span>
+                                    @endif
+                                    @if(!empty($recommendation->tag_if_resource))
+                                        <span>Resource</span>
+                                    @endif
+                                    @php
+                                        $tags = !empty($recommendation->tags_for_visual_grouping) ? explode('; ',$recommendation->tags_for_visual_grouping) : array();
+                                    @endphp
+                                    @foreach($tags as $tag)
+                                        <span>{{$tag}}</span>
+                                    @endforeach  
                                 </div>
                                 <div class="col-md-4">
                                     <div class="options-btn">
