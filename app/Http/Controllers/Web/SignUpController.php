@@ -473,7 +473,7 @@ class SignUpController extends Controller
         $token = Password::getRepository()->create($user);
         $array = [
             'name' => $user->name,
-            'actionUrl' => route('continue', [$token]),
+            'actionUrl' => route('home'),
             'mail_title' => 'Welcome Mail',
             'main_title_text' => 'Welcome Mail',
             'subject' => 'Welcome Mail',

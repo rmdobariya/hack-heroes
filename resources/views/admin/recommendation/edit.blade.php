@@ -76,7 +76,7 @@
                                     <label class="form-label">Tags for age appropriateness
                                         (separated by semi-colons)</label>
                                     <textarea class="form-control" name="tags_for_age_appropriateness"
-                                              id="tags_for_age_appropriateness">{{$recommendation->tags_for_age_appropriateness}}</textarea>
+                                              id="tags_for_age_appropriateness" readonly>{{$recommendation->tags_for_age_appropriateness}}</textarea>
                                 </div>
 
                                 <div class="row">
@@ -88,7 +88,7 @@
                                                name="tag_for_frequency"
                                                id="tag_for_frequency"
                                                value="{{$recommendation->tag_for_frequency}}"
-                                               placeholder="Tag for frequency"/>
+                                               placeholder="Tag for frequency" readonly/>
                                     </div>
                                 </div>
 
@@ -101,7 +101,7 @@
                                                name="tag_if_affiliate"
                                                id="tag_if_affiliate"
                                                value="{{$recommendation->tag_if_affiliate}}"
-                                               placeholder="Tag for frequency"/>
+                                               placeholder="Tag for frequency" readonly/>
                                     </div>
                                 </div>
 
@@ -114,7 +114,7 @@
                                                name="tag_if_resource"
                                                id="tag_if_resource"
                                                value="{{$recommendation->tag_if_resource}}"
-                                               placeholder="Tag if resource"/>
+                                               placeholder="Tag if resource" readonly/>
                                     </div>
                                 </div>
 
@@ -128,8 +128,8 @@
                                                name="tags_for_visual_grouping"
                                                id="tags_for_visual_grouping"
                                                value="{{$recommendation->tags_for_visual_grouping}}"
-                                               placeholder="" Tags for visual grouping
-                                               (separated by semi-colons)""/>
+                                               placeholder="Tags for visual grouping
+                                               (separated by semi-colons)" readonly/>
                                     </div>
                                 </div>
 
