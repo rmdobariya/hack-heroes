@@ -4,7 +4,7 @@
             <tr>
                 <td class="content-cell" align="center">
 {{--                    {{ Illuminate\Mail\Markdown::parse($slot) }}--}}
-                    © {{ date('Y') }} HackHeroes. All Right Reserved.
+                    © HackHeroes Pty Ltd  {{ date('Y') }} | All rights reserved.
                 </td>
             </tr>
         </table>

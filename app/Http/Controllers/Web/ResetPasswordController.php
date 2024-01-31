@@ -29,7 +29,7 @@ class ResetPasswordController extends Controller
                 'name' => $user->name,
                 'actionUrl' => route('forgot-password', [$token]),
                 'mail_title' => 'Forgot Password',
-                'reset_password_subject' => 'Forgot Password',
+                'reset_password_subject' => 'Forgot Your HackHeroes Password',
                 'main_title_text' => 'Forgot Your Password',
                 'subject' => 'Forgot Password',
             ];

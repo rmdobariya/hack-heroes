@@ -24,16 +24,6 @@ class ForgotPasswordMail extends Mailable
     public function build()
     {
 
-//        return $this->from(config('mail.from.address'), config('mail.from.name'))
-//            ->with([
-//                'main_title_text' => $this->details['main_title_text'],
-//                'name'            => $this->details['name'],
-//                'actionUrl'       => $this->details['actionUrl'],
-//                'store_logo'       => $this->details['store_logo'],
-//                'app_local'       => app()->getLocale(),
-//            ])
-//            ->subject($this->details['subject'])
-//            ->view('emails.forgotPassword');
         return $this->from(config('mail.from.address'), config('mail.from.name'))
             ->subject($this->details['reset_password_subject'])
             ->markdown('emails.resetPassword')

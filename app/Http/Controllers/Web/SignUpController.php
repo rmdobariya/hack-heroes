@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\SignUp1Request;
 use App\Http\Requests\Web\SignUp4Request;
 use App\Http\Requests\Web\SignUpStoreRequest;
-use App\Mail\ForgotPasswordMail;
 use App\Mail\VerifyMail;
 use App\Mail\WelcomeMail;
 use App\Models\User;
@@ -474,16 +473,16 @@ class SignUpController extends Controller
         $array = [
             'name' => $user->name,
             'actionUrl' => route('home'),
-            'mail_title' => 'Welcome Mail',
-            'main_title_text' => 'Welcome Mail',
-            'subject' => 'Welcome Mail',
+            'mail_title' => 'Welcome to HackHeroes – Empowering Your Digital Parenting Journey',
+            'main_title_text' => 'Welcome to HackHeroes – Empowering Your Digital Parenting Journey',
+            'subject' => 'Welcome to HackHeroes – Empowering Your Digital Parenting Journey',
         ];
         $verify_mail_array = [
             'name' => $user->name,
             'actionUrl' => route('continue', [$token]),
-            'mail_title' => 'Verify Mail',
-            'main_title_text' => 'Verify Mail',
-            'subject' => 'Verify Mail',
+            'mail_title' => 'Welcome to HackHeroes: Verify Your Email',
+            'main_title_text' => 'Welcome to HackHeroes: Verify Your Email',
+            'subject' => 'Welcome to HackHeroes: Verify Your Email',
         ];
         Mail::to($user->email)->send(new WelcomeMail($array));
         Mail::to($user->email)->send(new VerifyMail($verify_mail_array));
