@@ -322,7 +322,7 @@ Matrix
     {{--
     @if(!is_null($user))
     @if(!is_null($user->plan_id))
-    @if($user->plan_created_at < date('Y-m-d')) 
+    @if($user->plan_created_at < date('Y-m-d'))
 --}}
     <section id="upgrade">
         <div class="container">

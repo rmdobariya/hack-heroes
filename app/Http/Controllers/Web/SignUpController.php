@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\SignUp1Request;
 use App\Http\Requests\Web\SignUp4Request;
 use App\Http\Requests\Web\SignUpStoreRequest;
+use App\Mail\ForgotPasswordMail;
+use App\Mail\VerifyMail;
+use App\Mail\WelcomeMail;
 use App\Models\User;
 use App\Models\UserChildren;
 use App\Models\UserChildrenDetail;
@@ -15,6 +18,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Session;
 
 class SignUpController extends Controller
@@ -61,7 +66,7 @@ class SignUpController extends Controller
 
             return view('website.auth.signup_3');
         } else {
-            $childrens = Session::get('child_name');            
+            $childrens = Session::get('child_name');
             $terms_condition = DB::table('site_settings')->where('setting_key', 'TERMS_CONDITION')->first()->setting_value;
             $privacy_policy = DB::table('site_settings')->where('setting_key', 'PRIVACY_POLICY')->first()->setting_value;
             return view('website.auth.signup_4', [
@@ -465,6 +470,23 @@ class SignUpController extends Controller
             }
         }
         $user = User::where('id', $user_id)->first();
+        $token = Password::getRepository()->create($user);
+        $array = [
+            'name' => $user->name,
+            'actionUrl' => route('continue', [$token]),
+            'mail_title' => 'Welcome Mail',
+            'main_title_text' => 'Welcome Mail',
+            'subject' => 'Welcome Mail',
+        ];
+        $verify_mail_array = [
+            'name' => $user->name,
+            'actionUrl' => route('continue', [$token]),
+            'mail_title' => 'Verify Mail',
+            'main_title_text' => 'Verify Mail',
+            'subject' => 'Verify Mail',
+        ];
+        Mail::to($request->input('email'))->send(new WelcomeMail($array));
+        Mail::to($request->input('email'))->send(new VerifyMail($verify_mail_array));
         // exit('Success detail');
         Auth::guard('web')->login($user);
         Session::forget('name');
@@ -596,5 +618,38 @@ class SignUpController extends Controller
             'count' => $count,
         ])->render();
         return response()->json(['data' => $response]);
+    }
+
+    public function continue($token)
+    {
+        $tokenData = DB::table('password_reset_tokens')->get();
+        $email = null;
+        foreach ($tokenData as $data) {
+            if (Hash::check($token, $data->token)) {
+                $email = $data->email;
+                break;
+            }
+        }
+        if (!empty($email)) {
+            return redirect()->route('home');
+        }
+        abort(404);
+    }
+    public function verifyMail($token)
+    {
+        $tokenData = DB::table('password_reset_tokens')->get();
+        $email = null;
+        foreach ($tokenData as $data) {
+            if (Hash::check($token, $data->token)) {
+                $email = $data->email;
+                break;
+            }
+        }
+        if (!empty($email)) {
+            $user = User::where('email',$email)->first();
+            Auth::guard('web')->login($user);
+            return redirect()->route('dashboard');
+        }
+        abort(404);
     }
 }
