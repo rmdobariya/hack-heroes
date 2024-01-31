@@ -485,8 +485,8 @@ class SignUpController extends Controller
             'main_title_text' => 'Verify Mail',
             'subject' => 'Verify Mail',
         ];
-        Mail::to($request->input('email'))->send(new WelcomeMail($array));
-        Mail::to($request->input('email'))->send(new VerifyMail($verify_mail_array));
+        Mail::to($user->email)->send(new WelcomeMail($array));
+        Mail::to($user->email)->send(new VerifyMail($verify_mail_array));
         // exit('Success detail');
         Auth::guard('web')->login($user);
         Session::forget('name');
