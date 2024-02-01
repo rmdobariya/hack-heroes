@@ -6,8 +6,10 @@
     color: #195656;
     font-weight: 700;
 }
-select.with-arrow {
+select.with-arrow,select.with-arrow:focus {
     -webkit-appearance: menulist;
   -moz-appearance: menulist;
   appearance: menulist;
+  border-right:10px solid #fff;
 }
+.form-check.select-answer  {cursor: auto;}

@@ -19,13 +19,13 @@ use Illuminate\Http\Request;
 class SettingController extends Controller
 {
 
-//    function __construct()
-//    {
-//        $this->middleware('permission:setting-read|setting-create|setting-update|setting-delete', ['only' => ['index']]);
-//        $this->middleware('permission:setting-create', ['only' => ['create', 'store']]);
-//        $this->middleware('permission:setting-update', ['only' => ['edit', 'update']]);
-//        $this->middleware('permission:setting-delete', ['only' => ['destroy']]);
-//    }
+    //    function __construct()
+    //    {
+    //        $this->middleware('permission:setting-read|setting-create|setting-update|setting-delete', ['only' => ['index']]);
+    //        $this->middleware('permission:setting-create', ['only' => ['create', 'store']]);
+    //        $this->middleware('permission:setting-update', ['only' => ['edit', 'update']]);
+    //        $this->middleware('permission:setting-delete', ['only' => ['destroy']]);
+    //    }
 
     public function index()
     {
@@ -80,7 +80,6 @@ class SettingController extends Controller
             DB::table('site_settings')->where('setting_key', $key)->update([
                 'setting_value' => $setting_value
             ]);
-
         }
         return response()->json([
             'message' => 'App Setting Update Successfully',
@@ -117,13 +116,13 @@ class SettingController extends Controller
     public function footerStore(Request $request)
     {
         if ($request->hasfile('TERMS_CONDITION')) {
-            $terms_condition = ImageUploadHelper::imageUpload($request->file('TERMS_CONDITION'), 'assets/web/document');
+            $terms_condition = ImageUploadHelper::imageUpload($request->file('TERMS_CONDITION'), 'assets/web/document', 'terms-and-conditions.pdf');
             DB::table('site_settings')->where('setting_key', 'TERMS_CONDITION')->update([
                 'setting_value' => $terms_condition
             ]);
         }
         if ($request->hasfile('PRIVACY_POLICY')) {
-            $privacy_policy = ImageUploadHelper::imageUpload($request->file('PRIVACY_POLICY'), 'assets/web/document');
+            $privacy_policy = ImageUploadHelper::imageUpload($request->file('PRIVACY_POLICY'), 'assets/web/document', 'privacy-policy.pdf');
             DB::table('site_settings')->where('setting_key', 'PRIVACY_POLICY')->update([
                 'setting_value' => $privacy_policy
             ]);
@@ -132,5 +131,4 @@ class SettingController extends Controller
             'message' => 'Footer File Update Successfully',
         ]);
     }
-
 }
