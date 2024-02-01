@@ -1,10 +1,13 @@
 @component('mail::message')
-# Hello {{ $details['name'] }},
-How are you?<br>
-Please verify your email address for HackHeroes!<br>
+# Hi {{ $details['name'] }},
+You're just one step away from joining the HackHeroes family. To keep your account secure and get started, please verify your email address:<br>
+
 @component('mail::button', ['url' => $details['actionUrl']])
-Verify now
-@endcomponent
-Warm regards,<br/>
-HackHeroes Care Team
+Verify My Email
+@endcomponent<br>
+
+By verifying, you're gearing up to become a digital guardian for your child. Welcome aboard!<br/>
+
+Cheers,<br/>
+The HackHeroes Team
 @endcomponent

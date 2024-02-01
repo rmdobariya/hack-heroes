@@ -78,7 +78,7 @@ class ProfileController extends Controller
             $array = [
                 'name' => $user->name,
                 'actionUrl' => route('reset-password', [$token]),
-                'reset_password_subject' => 'Forgot password',
+                'reset_password_subject' => 'Reset Your HackHeroes Password',
                 'reset_password_body' => 'Reset Password',
             ];
             Mail::to($request['email'])->send(new ResetPasswordMail($array));

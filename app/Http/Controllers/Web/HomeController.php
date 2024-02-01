@@ -18,16 +18,16 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // $user = Auth::guard('web')->user();
-        // $token = Password::getRepository()->create($user);
-        // $array = [
-        //     'name' => $user->name,
-        //     'actionUrl' => route('verify-email', [$token]),
-        //     'mail_title' => 'Verify Mail',
-        //     'main_title_text' => 'Verify Mail',
-        //     'subject' => 'Verify Mail',
-        // ];
-        // Mail::to($user->email)->send(new VerifyMail($array));
+//         $user = Auth::guard('web')->user();
+//         $token = Password::getRepository()->create($user);
+//         $array = [
+//             'name' => $user->name,
+//             'actionUrl' => route('continue', [$token]),
+//             'mail_title' => 'Welcome to HackHeroes: Verify Your Email',
+//             'main_title_text' => 'Welcome to HackHeroes: Verify Your Email',
+//             'subject' => 'Welcome to HackHeroes: Verify Your Email',
+//         ];
+//         Mail::to($user->email)->send(new WelcomeMail($array));
         $plans = DB::table('plans')->whereNull('deleted_at')->get();
         $faqs = DB::table('faqs')->whereNull('deleted_at')->get();
         return view('website.home.index', [

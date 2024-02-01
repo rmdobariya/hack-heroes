@@ -19,7 +19,7 @@ class ResetPasswordMail extends Mailable
 
     public function build(): ResetPasswordMail
     {
-        return $this->from('noreply@equsonline.com', config('mail.from.name'))
+        return $this->from(config('mail.from.address'), config('mail.from.name'))
             ->with([
                 'name' => $this->details['name'],
                 'reset_password_body' => $this->details['reset_password_body'],
