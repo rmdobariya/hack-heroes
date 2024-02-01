@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Spatie\CalendarLinks\Link;
 use Spatie\IcalendarGenerator\Components\Calendar;
 use Spatie\IcalendarGenerator\Components\Event;
 use Carbon\Carbon;
@@ -810,27 +812,36 @@ class MatrixController extends Controller
         );
     }
 
-    public function addToCalendar($title, $id)
+    public function addToCalendar($title, $desc)
     {
-        $url = 'https://calendar.google.com/calendar/r/eventedit';
-        $tomorrow = Carbon::now()->addDay()->format('YmdTHis'); // or Carbon::tomorrow();
-        $after_2_day = Carbon::now()->addDays(2)->format('YmdTHis');
+//        $url = 'https://calendar.google.com/calendar/r/eventedit';
+//        $tomorrow = Carbon::now()->addDay()->format('YmdTHis'); // or Carbon::tomorrow();
+//        $after_2_day = Carbon::now()->addDays(2)->format('YmdTHis');
+//
+//        $info = DB::table('recommendations')->where('id', $id)->get()->first();
+//        $link = '';
+//        if (isset($info->pdf) && !empty($info->pdf)) {
+//            $link = asset($info->pdf);
+//        }
+//
+//        $args = array(
+////            'dates' => $tomorrow . '/' . $after_2_day,
+//            'details' => $info->recommendation . ' ' . $link,
+//            'text' => $info->title_for_recommendation,
+//            //'trp' => true
+//        );
+//
+//        $url .= '?' . http_build_query($args);
+//        $url .= '&trp=true';
+        $tomorrow = Carbon::now()->addDay()->format('Y-m-d H:i');
+        $after_2_day = Carbon::now()->addDays(2)->format('Y-m-d H:i');
+        $from = DateTime::createFromFormat('Y-m-d H:i', $tomorrow);
+        $to = DateTime::createFromFormat('Y-m-d H:i', $after_2_day);
 
-        $info = DB::table('recommendations')->where('id', $id)->get()->first();
-        $link = '';
-        if (isset($info->pdf) && !empty($info->pdf)) {
-            $link = asset($info->pdf);
-        }
+        $link = Link::create($title, $from, $to)
+            ->description($desc);
 
-        $args = array(
-            //            'dates' => $tomorrow . '/' . $after_2_day,
-            'details' => $info->recommendation . ' ' . $link,
-            'text' => $info->title_for_recommendation,
-            //'trp' => true
-        );
-
-        $url .= '?' . http_build_query($args);
-        $url .= '&trp=true';
+        $url = $link->google();
         return response()->json([
             'url' => $url,
         ]);
@@ -838,45 +849,15 @@ class MatrixController extends Controller
 
     public function addToMicrosoftCalendar($title, $desc)
     {
-        //        $graph = new Graph();
-        //        $graph->setAccessToken('YOUR_ACCESS_TOKEN');
-        //
-        //        $event = new Event([
-        //            'subject' => $title,
-        //            'body' => [
-        //                'content' => $desc,
-        //                'contentType' => 'text',
-        //            ],
-        //            'start' => [
-        //                'dateTime' => Carbon::now()->addDay()->format('Y-m-d\TH:i:s'),
-        //                'timeZone' => 'UTC',
-        //            ],
-        //            'end' => [
-        //                'dateTime' => Carbon::now()->addDays(2)->format('Y-m-d\TH:i:s'),
-        //                'timeZone' => 'UTC',
-        //            ],
-        //        ]);
-        //
-        //        $graph->createRequest('POST', '/me/calendar/events')
-        //            ->attachBody($event)
-        //            ->execute();
-        //
-        //        return response()->json([
-        //            'success' => true,
-        //        ]);
-        $url = 'https://outlook.live.com/calendar/deeplink/compose';
-        $tomorrow = Carbon::now()->addDay()->format('YmdTHis'); // or Carbon::tomorrow();
-        $after_2_day = Carbon::now()->addDays(2)->format('YmdTHis');
+        $tomorrow = Carbon::now()->addDay()->format('Y-m-d H:i');
+        $after_2_day = Carbon::now()->addDays(2)->format('Y-m-d H:i');
+        $from = DateTime::createFromFormat('Y-m-d H:i', $tomorrow);
+        $to = DateTime::createFromFormat('Y-m-d H:i', $after_2_day);
 
-        $args = array(
-            'dates' => $tomorrow . '/' . $after_2_day,
-            'details' => $desc,
-            'text' => $title,
-            //'trp' => true
-        );
+        $link = Link::create($title, $from, $to)
+            ->description($desc);
 
-        $url .= '?' . http_build_query($args);
-        $url .= '&trp=true';
+        $url = $link->webOutlook();
         return response()->json([
             'url' => $url,
         ]);
@@ -884,25 +865,18 @@ class MatrixController extends Controller
 
     public function addToAppleCalendar($title, $desc)
     {
-        // Create a new calendar
-        $calendar = Calendar::create();
+        $tomorrow = Carbon::now()->addDay()->format('Y-m-d H:i');
+        $after_2_day = Carbon::now()->addDays(2)->format('Y-m-d H:i');
+        $from = DateTime::createFromFormat('Y-m-d H:i', $tomorrow);
+        $to = DateTime::createFromFormat('Y-m-d H:i', $after_2_day);
 
-        // Add an event to the calendar
-        $event = Event::create()
-            ->name($title)
-            ->description($desc)
-            ->startsAt(Carbon::now())
-            ->endsAt(Carbon::now()->addHour());
+        $link = Link::create($title, $from, $to)
+            ->description($desc);
 
-        $calendar->event($event);
-
-        $content = $calendar->get();
-
-        $filename = 'calendar.ics';
-        file_put_contents(public_path($filename), $content);
-
-        $url = url($filename);
-        return redirect()->away($url);
+        $url = $link->ics();
+        return response()->json([
+            'url' => $url,
+        ]);
     }
 
     private function getRecommendation($age)
