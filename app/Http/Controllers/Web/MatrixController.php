@@ -41,7 +41,7 @@ class MatrixController extends Controller
     {
         $user = Auth::guard('web')->user();
 
-        if(empty($child_id)) {
+        if (empty($child_id)) {
             $child_id = DB::table('user_childrens')->where('user_id', $user->id)->first();
             $child_id = $child_id->id;
         }
@@ -74,7 +74,7 @@ class MatrixController extends Controller
         }
         if (!is_null($user->plan_id)) {
             $recommendations_age = DB::table('recommendations')
-//                ->where('tags_for_associated_risk', 'LIKE', '%' . 'Age' . '%')
+                //                ->where('tags_for_associated_risk', 'LIKE', '%' . 'Age' . '%')
                 ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
                 ->limit(20)->get();
 
@@ -141,11 +141,11 @@ class MatrixController extends Controller
 
             $sortedRecords = $uniqueRecords->sortByDesc('id');
 
-            $recommendations = $sortedRecords->take(20)->values()->all();
-
+            $recommendations = $sortedRecords->take(20)->values()->all();            
+            $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age))->get();
         } else {
             $recommendations = DB::table('recommendations')
-//                ->where('tags_for_associated_risk', 'LIKE', '%' . 'Age' . '%')
+                //                ->where('tags_for_associated_risk', 'LIKE', '%' . 'Age' . '%')
                 ->limit(5)->get();
         }
         $risk_array = $this->_risk_array;
@@ -334,6 +334,7 @@ class MatrixController extends Controller
             $sortedRecords = $uniqueRecords->sortByDesc('id');
 
             $recommendations = $sortedRecords->take(20)->values()->all();
+            $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age))->get();
         } else {
             $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk->name . '%')->limit(5)->get();
         }
@@ -440,6 +441,7 @@ class MatrixController extends Controller
             $sortedRecords = $uniqueRecords->sortByDesc('id');
 
             $recommendations = $sortedRecords->take(20)->values()->all();
+            $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age))->get();
         } else {
             $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->limit(5)->get();
         }
@@ -530,6 +532,7 @@ class MatrixController extends Controller
                 $sortedRecords = $uniqueRecords->sortByDesc('id');
 
                 $recommendations = $sortedRecords->take(20)->values()->all();
+                $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age))->get();
             } else {
                 $recommendations_age = DB::table('recommendations')
                     ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
@@ -611,6 +614,7 @@ class MatrixController extends Controller
                 $sortedRecords = $uniqueRecords->sortByDesc('id');
 
                 $recommendations = $sortedRecords->take(20)->values()->all();
+                $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age))->get();
             }
         } else {
             if ($risk_name == 'all_category') {
@@ -873,5 +877,176 @@ class MatrixController extends Controller
         return response()->json([
             'url' => $url,
         ]);
+    }
+
+    private function getRecommendation($age)
+    {
+
+        $total = array();
+        $total['affiliate'] = array();
+        $total['resource'] = array();
+        $total['monthly'] = array();
+        $total['weekly'] = array();
+        $total['daily'] = array();
+        $total['one_time'] = array();
+
+        $total['all'] = array();
+
+        $get3_affiliate = DB::select("SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_if_affiliate = 'Affiliate' LIMIT 3");
+        if (count($get3_affiliate) > 0) {
+            foreach ($get3_affiliate as $value) {
+                $total['all'][$value->id] = $value;
+                $total['affiliate'][$value->id] = $value;
+                if ($value->tag_for_frequency == 'One-time') {
+                    if (count($total['one_time']) != 8) {
+                        $total['one_time'][$value->id] = $value;
+                    }
+                } else if ($value->tag_for_frequency == 'Monthly') {
+                    if (count($total['monthly']) != 6) {
+                        $total['monthly'][$value->id] = $value;
+                    }
+                } else if ($value->tag_for_frequency == 'Weekly') {
+                    if (count($total['weekly']) != 4) {
+                        $total['weekly'][$value->id] = $value;
+                    }
+                } else if ($value->tag_for_frequency == 'Daily') {
+                    if (count($total['daily']) != 2) {
+                        $total['daily'][$value->id] = $value;
+                    }
+                }
+            }
+        }
+
+        $get3_resource = DB::select("SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_if_resource = 'Resource' LIMIT 8");
+        if (count($get3_resource) > 0) {
+            foreach ($get3_resource as $value) {
+                $total['all'][$value->id] = $value;
+                $total['resource'][$value->id] = $value;
+                if ($value->tag_for_frequency == 'One-time') {
+                    if (count($total['one_time']) != 8) {
+                        $total['one_time'][$value->id] = $value;
+                    }
+                } else if ($value->tag_for_frequency == 'Monthly') {
+                    if (count($total['monthly']) != 6) {
+                        $total['monthly'][$value->id] = $value;
+                    }
+                } else if ($value->tag_for_frequency == 'Weekly') {
+                    if (count($total['weekly']) != 4) {
+                        $total['weekly'][$value->id] = $value;
+                    }
+                } else if ($value->tag_for_frequency == 'Daily') {
+                    if (count($total['daily']) != 2) {
+                        $total['daily'][$value->id] = $value;
+                    }
+                }
+            }
+        }
+
+        //For One time
+        $limit = 8 - count($total['one_time']);
+        if ($limit > 0) {
+            $sub_query = '';
+            if (count($total['one_time']) > 0) {
+                $sub_query = " AND id NOT IN (" . implode(',', array_keys($total['one_time'])) . ") ";
+            }
+            $sql = "SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_for_frequency = 'One-time' " . $sub_query . " LIMIT " . $limit;
+            $get3_one_time = DB::select($sql);
+            if (count($get3_one_time) > 0) {
+                foreach ($get3_one_time as $value) {
+                    $total['all'][$value->id] = $value;
+                    $total['one_time'][$value->id] = $value;
+                }
+            }
+        }
+
+        //For Monthly
+        $limit = 6 - count($total['monthly']);
+        if ($limit > 0) {
+            $sub_query = '';
+            if (count($total['monthly']) > 0) {
+                $sub_query = " AND id NOT IN (" . implode(',', array_keys($total['monthly'])) . ") ";
+            }
+            $sql = "SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_for_frequency = 'Monthly' " . $sub_query . " LIMIT " . $limit;
+            $get3_monthly = DB::select($sql);
+            if (count($get3_monthly) > 0) {
+                foreach ($get3_monthly as $value) {
+                    $total['all'][$value->id] = $value;
+                    $total['monthly'][$value->id] = $value;
+                }
+            }
+        }
+
+        //For Weekly
+        $limit = 4 - count($total['weekly']);
+        if ($limit > 0) {
+            $sub_query = '';
+            if (count($total['weekly']) > 0) {
+                $sub_query = " AND id NOT IN (" . implode(',', array_keys($total['weekly'])) . ") ";
+            }
+            $sql = "SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_for_frequency = 'Weekly' " . $sub_query . " LIMIT " . $limit;
+            $get3_weekly = DB::select($sql);
+            if (count($get3_weekly) > 0) {
+                foreach ($get3_weekly as $value) {
+                    $total['all'][$value->id] = $value;
+                    $total['weekly'][$value->id] = $value;
+                }
+            }
+        }
+
+        //For Daily
+        $limit = 2 - count($total['daily']);
+        if ($limit > 0) {
+            $sub_query = '';
+            if (count($total['daily']) > 0) {
+                $sub_query = " AND id NOT IN (" . implode(',', array_keys($total['daily'])) . ") ";
+            }
+            $sql = "SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_for_frequency = 'Daily' " . $sub_query . " LIMIT " . $limit;            
+            $get3_daily = DB::select($sql);
+            if (count($get3_daily) > 0) {
+                foreach ($get3_daily as $value) {
+                    $total['all'][$value->id] = $value;
+                    $total['daily'][$value->id] = $value;
+                }
+            }
+        }
+
+        $visual_grouping = array(
+            'Family Environment', 'School/Peer Environment', 'Technical Recommendations', 'Emotional Well-Being Strategies', 'Internet Usage Type: Gaming', 'Internet Usage Type: Social Media'
+        );
+        foreach ($visual_grouping as $group_name) {
+            $total[$group_name] = array();
+            $sub_query = '';
+            $sub_query = " AND id IN (" . implode(',', array_keys($total['all'])) . ") ";
+            $sql = "SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tags_for_visual_grouping LIKE '%" . $group_name . "%' " . $sub_query . " LIMIT 2";
+            $info = DB::select($sql);
+
+            if (count($info) > 0) {
+                foreach ($info as $value) {
+                    $total['all'][$value->id] = $value;
+                    $total[$group_name][] = $value;
+                }
+            }
+
+            if (count($info) < 2) {
+                $limit = 2 - count($info);
+                $sql = "SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tags_for_visual_grouping LIKE '%" . $group_name . "%' LIMIT " . $limit;
+                $info = DB::select($sql);
+                if (count($info) > 0) {
+                    foreach ($info as $value) {
+                        $total['all'][$value->id] = $value;
+                        $total[$group_name][] = $value;
+                    }
+                }
+            }
+        }
+
+        $id = array();
+        foreach ($total['all'] as $id_key => $info) {
+            $id[] =  $id_key;
+            if (count($id) == 20) {
+                break;
+            }
+        }
+        return $id;
     }
 }

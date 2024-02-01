@@ -22,8 +22,9 @@
                             <h2>${{$plan->amount }} <span>p/month</span></h2>
                             <ul>
                                 @if($plan->id == 1)
-                                    <li>Limited Recommendation</li>
-                                    <li>Take the survey</li>
+                                    <li>Limited preview</li>
+                                    <li>Top risks</li>
+                                    <li>5 actionable recommendations</li>
                                 @else
                                     <li>Full access</li>
                                     <li>Top risks</li>

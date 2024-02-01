@@ -490,7 +490,7 @@
                                                 <div class="col-md-6">
                                                     <input type="file" name="{{ $setting->setting_key }}"
                                                            id="{{ $setting->setting_key }}"
-                                                           value="{{$setting->setting_value}}" accept=".pdf" required/>
+                                                           value="{{$setting->setting_value}}" accept=".pdf" />
                                                 </div>
                                                 <div class="col-md-3">
                                                     @if($setting->setting_value)
