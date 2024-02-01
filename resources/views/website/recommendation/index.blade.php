@@ -32,7 +32,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="heading">
-                            <h2 data-aos="fade-right" data-aos-delay="200">Recommendation for Taylor</h2>
+                            <h2 data-aos="fade-right" data-aos-delay="200">Recommendation for {{ isset($child_info->name) ? $child_info->name : '' }}</h2>
                         </div>
                     </div>
                     <div class="clearfix"></div>

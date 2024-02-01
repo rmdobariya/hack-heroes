@@ -15,10 +15,13 @@ class RecommendationController extends Controller
             'view_recommendations_for' => date('Y-m-d')
         ]);
         $recommendation = DB::table('recommendations')->where('id', $id)->first();
+
+        $child_info = DB::table('user_childrens')->where('id', $child_id)->first();
         return view('website.recommendation.index', [
             'user' => $user,
             'recommendation' => $recommendation,
             'child_id' => $child_id,
+            'child_info' => $child_info
         ]);
     }
 }
