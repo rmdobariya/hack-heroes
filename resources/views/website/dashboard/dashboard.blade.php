@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="heading">
-                            <h3 data-aos="fade-right" data-aos-delay="200">Your next tasks</h3>
+                            <h3 data-aos="fade-right" data-aos-delay="200">Continue scrolling to discover your next tasks</h3>
                         </div>
                     </div>
                     <div class="col-md-12">

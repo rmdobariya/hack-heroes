@@ -4,7 +4,7 @@
 </div>
 <h4>{{$risk->name}}</h4>
 <p>{{$risk->description}}</p>
-<h4>Research We Trust</h4>
+<h4>Research we trust</h4>
 <p>{{$risk->research_we_trust}}</p>
 <div class="rating-box">
     <h4>{{$child->name}}'s {{strtolower($risk->name)}} risk rating</h4>

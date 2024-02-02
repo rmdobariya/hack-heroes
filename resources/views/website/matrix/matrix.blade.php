@@ -89,7 +89,7 @@ Matrix
                     <div class="matrix-box overflow-auto">
                         <div class="heading">
                             <h2>Risk Matrix </h2>
-                            <p>Explore the risks by clicking on the emojis for details</p>
+                            <p>Hover over any emoji to unveil the risk it represents</p>
                         </div>
 
                         <div class="matrix-table">
@@ -105,7 +105,7 @@ Matrix
                                             @foreach($child_score as $score)
                                             @if($score->risk_key == $key)
                                             @if($score->likely_hood_score == 3 && $score->impact_score == 1)
-                                            <p role="button" data-bs-toggle="tooltip" data-child-id="{{$child->id}}" id="likely_1_{{$loop->parent->index}}_{{$key}}" data-key="{{str_replace('_',' ',ucfirst($key))}}" class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter" data-bs-placement="top" title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}" style="{{$style_array[$key]}}">{{$array}}</p>
+                                            <p data-bs-toggle="tooltip" data-child-id="{{$child->id}}" id="likely_1_{{$loop->parent->index}}_{{$key}}" data-key="{{str_replace('_',' ',ucfirst($key))}}" class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter-disable cursor-default" data-bs-placement="top" title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}" style="{{$style_array[$key]}}">{{$array}}</p>
                                             @endif
                                             @endif
                                             @endforeach
@@ -118,7 +118,7 @@ Matrix
                                             @foreach($child_score as $score)
                                             @if($score->risk_key == $key)
                                             @if($score->likely_hood_score == 3 && $score->impact_score == 2)
-                                            <p role="button" data-bs-toggle="tooltip" data-child-id="{{$child->id}}" id="likely_2_{{$key}}" data-key="{{str_replace('_',' ',ucfirst($key))}}" class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter" data-bs-placement="top" title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}" style="{{$style_array[$key]}}">{{$array}}</p>
+                                            <p data-bs-toggle="tooltip" data-child-id="{{$child->id}}" id="likely_2_{{$key}}" data-key="{{str_replace('_',' ',ucfirst($key))}}" class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter-disable cursor-default" data-bs-placement="top" title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}" style="{{$style_array[$key]}}">{{$array}}</p>
                                             @endif
                                             @endif
                                             @endforeach
@@ -131,7 +131,7 @@ Matrix
                                             @foreach($child_score as $score)
                                             @if($score->risk_key == $key)
                                             @if($score->likely_hood_score == 3 && $score->impact_score == 3)
-                                            <p role="button" data-bs-toggle="tooltip" data-child-id="{{$child->id}}" id="likely_3_{{$key}}" data-key="{{str_replace('_',' ',ucfirst($key))}}" class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter" data-bs-placement="top" title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}" style="{{$style_array[$key]}}">{{$array}}</p>
+                                            <p data-bs-toggle="tooltip" data-child-id="{{$child->id}}" id="likely_3_{{$key}}" data-key="{{str_replace('_',' ',ucfirst($key))}}" class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter-disable cursor-default" data-bs-placement="top" title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}" style="{{$style_array[$key]}}">{{$array}}</p>
                                             @endif
                                             @endif
                                             @endforeach
@@ -148,7 +148,7 @@ Matrix
                                             @foreach($child_score as $score)
                                             @if($score->risk_key == $key)
                                             @if($score->likely_hood_score == 2 && $score->impact_score == 1)
-                                            <p role="button" data-bs-toggle="tooltip" data-child-id="{{$child->id}}" id="possible_1_{{$key}}" data-key="{{str_replace('_',' ',ucfirst($key))}}" class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter" data-bs-placement="top" title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}" style="{{$style_array[$key]}}">{{$array}}</p>
+                                            <p data-bs-toggle="tooltip" data-child-id="{{$child->id}}" id="possible_1_{{$key}}" data-key="{{str_replace('_',' ',ucfirst($key))}}" class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter-disable cursor-default" data-bs-placement="top" title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}" style="{{$style_array[$key]}}">{{$array}}</p>
                                             @endif
                                             @endif
                                             @endforeach
@@ -161,7 +161,7 @@ Matrix
                                             @foreach($child_score as $score)
                                             @if($score->risk_key == $key)
                                             @if($score->likely_hood_score == 2 && $score->impact_score == 2)
-                                            <p role="button" data-bs-toggle="tooltip" data-child-id="{{$child->id}}" id="possible_2_{{$key}}" data-key="{{str_replace('_',' ',ucfirst($key))}}" class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter" data-bs-placement="top" title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}" style="{{$style_array[$key]}}">{{$array}}</p>
+                                            <p data-bs-toggle="tooltip" data-child-id="{{$child->id}}" id="possible_2_{{$key}}" data-key="{{str_replace('_',' ',ucfirst($key))}}" class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter-disable cursor-default" data-bs-placement="top" title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}" style="{{$style_array[$key]}}">{{$array}}</p>
                                             @endif
                                             @endif
                                             @endforeach
@@ -174,7 +174,7 @@ Matrix
                                             @foreach($child_score as $score)
                                             @if($score->risk_key == $key)
                                             @if($score->likely_hood_score == 2 && $score->impact_score == 3)
-                                            <p role="button" data-bs-toggle="tooltip" data-child-id="{{$child->id}}" id="possible_3_{{$key}}" data-key="{{str_replace('_',' ',ucfirst($key))}}" class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter" data-bs-placement="top" title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}" style="{{$style_array[$key]}}">{{$array}}</p>
+                                            <p data-bs-toggle="tooltip" data-child-id="{{$child->id}}" id="possible_3_{{$key}}" data-key="{{str_replace('_',' ',ucfirst($key))}}" class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter-disable cursor-default" data-bs-placement="top" title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}" style="{{$style_array[$key]}}">{{$array}}</p>
                                             @endif
                                             @endif
                                             @endforeach
@@ -190,7 +190,7 @@ Matrix
                                             @foreach($child_score as $score)
                                             @if($score->risk_key == $key)
                                             @if($score->likely_hood_score == 1 && $score->impact_score == 1)
-                                            <p role="button" data-bs-toggle="tooltip" data-child-id="{{$child->id}}" id="unlikely_1_{{$key}}" data-key="{{str_replace('_',' ',ucfirst($key))}}" class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter" data-bs-placement="top" title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}" style="{{$style_array[$key]}}">{{$array}}</p>
+                                            <p data-bs-toggle="tooltip" data-child-id="{{$child->id}}" id="unlikely_1_{{$key}}" data-key="{{str_replace('_',' ',ucfirst($key))}}" class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter-disable cursor-default" data-bs-placement="top" title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}" style="{{$style_array[$key]}}">{{$array}}</p>
                                             @endif
                                             @endif
                                             @endforeach
@@ -203,7 +203,7 @@ Matrix
                                             @foreach($child_score as $score)
                                             @if($score->risk_key == $key)
                                             @if($score->likely_hood_score == 1 && $score->impact_score == 2)
-                                            <p role="button" data-bs-toggle="tooltip" data-child-id="{{$child->id}}" id="unlikely_2_{{$key}}" data-key="{{str_replace('_',' ',ucfirst($key))}}" class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter" data-bs-placement="top" title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}" style="{{$style_array[$key]}}">{{$array}}</p>
+                                            <p data-bs-toggle="tooltip" data-child-id="{{$child->id}}" id="unlikely_2_{{$key}}" data-key="{{str_replace('_',' ',ucfirst($key))}}" class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter-disable cursor-default" data-bs-placement="top" title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}" style="{{$style_array[$key]}}">{{$array}}</p>
                                             @endif
                                             @endif
                                             @endforeach
@@ -216,7 +216,7 @@ Matrix
                                             @foreach($child_score as $score)
                                             @if($score->risk_key == $key)
                                             @if($score->likely_hood_score == 1 && $score->impact_score == 3)
-                                            <p role="button" data-bs-toggle="tooltip" data-child-id="{{$child->id}}" id="unlikely_3_{{$key}}" data-key="{{str_replace('_',' ',ucfirst($key))}}" class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter" data-bs-placement="top" title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}" style="{{$style_array[$key]}}">{{$array}}</p>
+                                            <p data-bs-toggle="tooltip" data-child-id="{{$child->id}}" id="unlikely_3_{{$key}}" data-key="{{str_replace('_',' ',ucfirst($key))}}" class="@if($score->likely_hood_score == 0) d-none @endif risk_wise_filter-disable cursor-default" data-bs-placement="top" title="{{isset($risk_titles[$key]) ? $risk_titles[$key] : ''}}" style="{{$style_array[$key]}}">{{$array}}</p>
                                             @endif
                                             @endif
                                             @endforeach
@@ -321,12 +321,12 @@ Matrix
                                         <a class="dark-btns add_to_calendar" data-id="{{$recommendation->id}}" data-rec-title="{{$recommendation->title_for_recommendation}}" data-rec-des="{{$recommendation->sub_text_for_recommendation}}">
                                             <i class="las la-calendar-alt"></i> Add to Calendar
                                         </a>
-                                         <a class="dark-btns add_to_apple_calendar"
+                                         <a class="dark-btns add_to_apple_calendar d-none"
                                          data-rec-title="{{$recommendation->title_for_recommendation}}"
                                          data-rec-des="{{$recommendation->sub_text_for_recommendation}}">
                                          <i class="las la-calendar-alt"></i> Add to Apple Calendar
                                          </a>
-                                        <a class="dark-btns add_to_micro_soft_calendar"
+                                        <a class="dark-btns add_to_micro_soft_calendar d-none"
                                          data-rec-title="{{$recommendation->title_for_recommendation}}"
                                          data-rec-des="{{$recommendation->sub_text_for_recommendation}}">
                                          <i class="las la-calendar-alt"></i> Add to Microsoft Calendar

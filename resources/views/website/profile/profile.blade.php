@@ -24,7 +24,7 @@
                                 @if($plan->id == 1)
                                     <li>Limited preview</li>
                                     <li>Top risks</li>
-                                    <li>5 actionable recommendations</li>
+                                    <li>3 actionable recommendations</li>
                                 @else
                                     <li>Full access</li>
                                     <li>Top risks</li>
