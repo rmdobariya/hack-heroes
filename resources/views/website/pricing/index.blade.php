@@ -39,7 +39,7 @@
                                             <input type="hidden" name="start_date" value="{{$plan->start_date}}">
                                             <input type="hidden" name="end_date" value="{{$plan->end_date}}">
                                             @if($loop->first)
-                                                <a href="javascript:void(0);" class="show-message" data-message="You are already on the free plan">Free Sign-up</a>
+                                                <a href="javascript:void(0);" class="show-message" data-message="You are already on the free plan"><i class="fa-regular fa-check"></i>Subscribed </a>
                                             @else
                                                 @if(!is_null($user))
                                                     @if($user->plan_id == $plan->id)
@@ -50,7 +50,7 @@
                                                                    data-user-id="{{$user_id}}">Upgrade
                                                                 </a>
                                                             @else
-                                                                <a class="show-message" data-message="You are already on the {{$plan->title}} plan">Subscribe</a>
+                                                                <a class="show-message" data-message="You are already on the {{$plan->title}} plan">Subscribed</a>
                                                             @endif
                                                         @endif
                                                     @else
