@@ -91,9 +91,15 @@ class PricingController extends Controller
                 );
             }
 
-
+            if ($array['plan_id'] == 2) {
+                $text = '3-Month Hack Heroes Program - Monthly Payments';
+            } elseif ($array['plan_id'] == 3) {
+                $text = '3-Month Full Access To Hack Heroes Program - Cancel Anytime';
+            } else {
+                $text = $array['duration'] . ' ' . $array['frequency'] . ' Hack Heroes Subscription';
+            }
             $product = $stripe->products->create([
-                'name' => $array['duration'] . ' ' . $array['frequency'] . ' Hack Heroes Subscription',
+                'name' => $text,
             ]);
 
             $price = $stripe->prices->create([
