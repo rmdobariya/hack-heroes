@@ -68,83 +68,89 @@ class MatrixController extends Controller
         $first_risk_key = isset($first_risks->risk_key) ? $first_risks->risk_key : '';
         $likelihood_score = 'pending_questionnaire';
         $impact_score = 'pending_questionnaire';
-        if (!empty($first_risk_key)) {
-            $likelihood_score = $this->get_likelihood_score($child_detail->$first_risk_key, $child_id);
-            $impact_score = $this->get_impact_criteria($child_id);
+        if (!is_null($child_detail)) {
+            if (!empty($first_risk_key)) {
+                $likelihood_score = $this->get_likelihood_score($child_detail->$first_risk_key, $child_id);
+                $impact_score = $this->get_impact_criteria($child_id);
+            }
         }
-        if (!is_null($user->plan_id)) {
-            $recommendations_age = DB::table('recommendations')
-                //                ->where('tags_for_associated_risk', 'LIKE', '%' . 'Age' . '%')
-                ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                ->limit(20)->get();
+        if ($impact_score != 'pending_questionnaire') {
+            if (!is_null($user->plan_id)) {
+                $recommendations_age = DB::table('recommendations')
+                    //                ->where('tags_for_associated_risk', 'LIKE', '%' . 'Age' . '%')
+                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                    ->limit(20)->get();
 
-            $recommendations_affiliate  = DB::table('recommendations')
-                ->where('tag_if_affiliate', 'Affiliate')
-                ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                ->limit(3)->get();
+                $recommendations_affiliate  = DB::table('recommendations')
+                    ->where('tag_if_affiliate', 'Affiliate')
+                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                    ->limit(3)->get();
 
-            $recommendations_one_time  = DB::table('recommendations')
-                ->where('tag_for_frequency', 'One-time')
-                ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                ->limit(8)->get();
-            $recommendations_monthly  = DB::table('recommendations')
-                ->where('tag_for_frequency', 'Monthly')
-                ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                ->limit(6)->get();
-            $recommendations_weekly  = DB::table('recommendations')
-                ->where('tag_for_frequency', 'Weekly')
-                ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                ->limit(4)->get();
-            $recommendations_daily  = DB::table('recommendations')
-                ->where('tag_for_frequency', 'Daily')
-                ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                ->limit(2)->get();
-            $recommendations_family_env  = DB::table('recommendations')
-                ->where('tags_for_visual_grouping', 'Family Environment')
-                ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                ->limit(2)->get();
-            $recommendations_peer_env  = DB::table('recommendations')
-                ->where('tags_for_visual_grouping', 'School/Peer Environment')
-                ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                ->limit(2)->get();
-            $recommendations_technical  = DB::table('recommendations')
-                ->where('tags_for_visual_grouping', 'Technical Recommendations')
-                ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                ->limit(2)->get();
-            $recommendations_well_being  = DB::table('recommendations')
-                ->where('tags_for_visual_grouping', 'Emotional Well-Being Strategies')
-                ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                ->limit(2)->get();
-            $recommendations_internet_usage  = DB::table('recommendations')
-                ->where('tags_for_visual_grouping', 'Internet Usage Type: Gaming')
-                ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                ->limit(2)->get();
-            $recommendations_social_media  = DB::table('recommendations')
-                ->where('tags_for_visual_grouping', 'Internet Usage Type: Social Media')
-                ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                ->limit(2)->get();
+                $recommendations_one_time  = DB::table('recommendations')
+                    ->where('tag_for_frequency', 'One-time')
+                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                    ->limit(8)->get();
+                $recommendations_monthly  = DB::table('recommendations')
+                    ->where('tag_for_frequency', 'Monthly')
+                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                    ->limit(6)->get();
+                $recommendations_weekly  = DB::table('recommendations')
+                    ->where('tag_for_frequency', 'Weekly')
+                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                    ->limit(4)->get();
+                $recommendations_daily  = DB::table('recommendations')
+                    ->where('tag_for_frequency', 'Daily')
+                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                    ->limit(2)->get();
+                $recommendations_family_env  = DB::table('recommendations')
+                    ->where('tags_for_visual_grouping', 'Family Environment')
+                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                    ->limit(2)->get();
+                $recommendations_peer_env  = DB::table('recommendations')
+                    ->where('tags_for_visual_grouping', 'School/Peer Environment')
+                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                    ->limit(2)->get();
+                $recommendations_technical  = DB::table('recommendations')
+                    ->where('tags_for_visual_grouping', 'Technical Recommendations')
+                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                    ->limit(2)->get();
+                $recommendations_well_being  = DB::table('recommendations')
+                    ->where('tags_for_visual_grouping', 'Emotional Well-Being Strategies')
+                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                    ->limit(2)->get();
+                $recommendations_internet_usage  = DB::table('recommendations')
+                    ->where('tags_for_visual_grouping', 'Internet Usage Type: Gaming')
+                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                    ->limit(2)->get();
+                $recommendations_social_media  = DB::table('recommendations')
+                    ->where('tags_for_visual_grouping', 'Internet Usage Type: Social Media')
+                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                    ->limit(2)->get();
 
-            $mergedArray = $recommendations_age
-                ->merge($recommendations_affiliate)
-                ->merge($recommendations_one_time)
-                ->merge($recommendations_monthly)
-                ->merge($recommendations_weekly)
-                ->merge($recommendations_daily)
-                ->merge($recommendations_family_env)
-                ->merge($recommendations_peer_env)
-                ->merge($recommendations_technical)
-                ->merge($recommendations_well_being)
-                ->merge($recommendations_internet_usage)
-                ->merge($recommendations_social_media);
+                $mergedArray = $recommendations_age
+                    ->merge($recommendations_affiliate)
+                    ->merge($recommendations_one_time)
+                    ->merge($recommendations_monthly)
+                    ->merge($recommendations_weekly)
+                    ->merge($recommendations_daily)
+                    ->merge($recommendations_family_env)
+                    ->merge($recommendations_peer_env)
+                    ->merge($recommendations_technical)
+                    ->merge($recommendations_well_being)
+                    ->merge($recommendations_internet_usage)
+                    ->merge($recommendations_social_media);
 
-            $uniqueRecords = $mergedArray->unique('id');
+                $uniqueRecords = $mergedArray->unique('id');
 
-            $sortedRecords = $uniqueRecords->sortByDesc('id');
+                $sortedRecords = $uniqueRecords->sortByDesc('id');
 
-            $recommendations = $sortedRecords->take(20)->values()->all();
-            $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age))->get();
+                $recommendations = $sortedRecords->take(20)->values()->all();
+                $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age))->get();
+            } else {
+                $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age, 'free'))->get();
+            }
         } else {
-            $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age, 'free'))->get();
+            $recommendations = array();
         }
         $risk_array = $this->_risk_array;
         $style_array = [
@@ -462,165 +468,166 @@ class MatrixController extends Controller
         $risk = DB::table('risks')->where('name', $risk_name)->first();
         if (!is_null($user->plan_id)) {
             if ($risk_name == 'all_category') {
-                $recommendations_age = DB::table('recommendations')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(20)->get();
+                // $recommendations_age = DB::table('recommendations')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(20)->get();
 
-                $recommendations_affiliate  = DB::table('recommendations')
-                    ->where('tag_if_affiliate', 'Affiliate')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(3)->get();
+                // $recommendations_affiliate  = DB::table('recommendations')
+                //     ->where('tag_if_affiliate', 'Affiliate')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(3)->get();
 
-                $recommendations_one_time  = DB::table('recommendations')
-                    ->where('tag_for_frequency', 'One-time')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(8)->get();
-                $recommendations_monthly  = DB::table('recommendations')
-                    ->where('tag_for_frequency', 'Monthly')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(6)->get();
-                $recommendations_weekly  = DB::table('recommendations')
-                    ->where('tag_for_frequency', 'Weekly')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(4)->get();
-                $recommendations_daily  = DB::table('recommendations')
-                    ->where('tag_for_frequency', 'Daily')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(2)->get();
-                $recommendations_family_env  = DB::table('recommendations')
-                    ->where('tags_for_visual_grouping', 'Family Environment')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(2)->get();
-                $recommendations_peer_env  = DB::table('recommendations')
-                    ->where('tags_for_visual_grouping', 'School/Peer Environment')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(2)->get();
-                $recommendations_technical  = DB::table('recommendations')
-                    ->where('tags_for_visual_grouping', 'Technical Recommendations')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(2)->get();
-                $recommendations_well_being  = DB::table('recommendations')
-                    ->where('tags_for_visual_grouping', 'Emotional Well-Being Strategies')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(2)->get();
-                $recommendations_internet_usage  = DB::table('recommendations')
-                    ->where('tags_for_visual_grouping', 'Internet Usage Type: Gaming')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(2)->get();
-                $recommendations_social_media  = DB::table('recommendations')
-                    ->where('tags_for_visual_grouping', 'Internet Usage Type: Social Media')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(2)->get();
+                // $recommendations_one_time  = DB::table('recommendations')
+                //     ->where('tag_for_frequency', 'One-time')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(8)->get();
+                // $recommendations_monthly  = DB::table('recommendations')
+                //     ->where('tag_for_frequency', 'Monthly')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(6)->get();
+                // $recommendations_weekly  = DB::table('recommendations')
+                //     ->where('tag_for_frequency', 'Weekly')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(4)->get();
+                // $recommendations_daily  = DB::table('recommendations')
+                //     ->where('tag_for_frequency', 'Daily')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(2)->get();
+                // $recommendations_family_env  = DB::table('recommendations')
+                //     ->where('tags_for_visual_grouping', 'Family Environment')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(2)->get();
+                // $recommendations_peer_env  = DB::table('recommendations')
+                //     ->where('tags_for_visual_grouping', 'School/Peer Environment')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(2)->get();
+                // $recommendations_technical  = DB::table('recommendations')
+                //     ->where('tags_for_visual_grouping', 'Technical Recommendations')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(2)->get();
+                // $recommendations_well_being  = DB::table('recommendations')
+                //     ->where('tags_for_visual_grouping', 'Emotional Well-Being Strategies')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(2)->get();
+                // $recommendations_internet_usage  = DB::table('recommendations')
+                //     ->where('tags_for_visual_grouping', 'Internet Usage Type: Gaming')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(2)->get();
+                // $recommendations_social_media  = DB::table('recommendations')
+                //     ->where('tags_for_visual_grouping', 'Internet Usage Type: Social Media')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(2)->get();
 
-                $mergedArray = $recommendations_age
-                    ->merge($recommendations_affiliate)
-                    ->merge($recommendations_one_time)
-                    ->merge($recommendations_monthly)
-                    ->merge($recommendations_weekly)
-                    ->merge($recommendations_daily)
-                    ->merge($recommendations_family_env)
-                    ->merge($recommendations_peer_env)
-                    ->merge($recommendations_technical)
-                    ->merge($recommendations_well_being)
-                    ->merge($recommendations_internet_usage)
-                    ->merge($recommendations_social_media);
+                // $mergedArray = $recommendations_age
+                //     ->merge($recommendations_affiliate)
+                //     ->merge($recommendations_one_time)
+                //     ->merge($recommendations_monthly)
+                //     ->merge($recommendations_weekly)
+                //     ->merge($recommendations_daily)
+                //     ->merge($recommendations_family_env)
+                //     ->merge($recommendations_peer_env)
+                //     ->merge($recommendations_technical)
+                //     ->merge($recommendations_well_being)
+                //     ->merge($recommendations_internet_usage)
+                //     ->merge($recommendations_social_media);
 
-                $uniqueRecords = $mergedArray->unique('id');
+                // $uniqueRecords = $mergedArray->unique('id');
 
-                $sortedRecords = $uniqueRecords->sortByDesc('id');
+                // $sortedRecords = $uniqueRecords->sortByDesc('id');
 
-                $recommendations = $sortedRecords->take(20)->values()->all();
+                // $recommendations = $sortedRecords->take(20)->values()->all();
                 $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age))->get();
             } else {
-                $recommendations_age = DB::table('recommendations')
-                    ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(20)->get();
+                // $recommendations_age = DB::table('recommendations')
+                //     ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(20)->get();
 
-                $recommendations_affiliate  = DB::table('recommendations')
-                    ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
-                    ->where('tag_if_affiliate', 'Affiliate')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(3)->get();
+                // $recommendations_affiliate  = DB::table('recommendations')
+                //     ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
+                //     ->where('tag_if_affiliate', 'Affiliate')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(3)->get();
 
-                $recommendations_one_time  = DB::table('recommendations')
-                    ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
-                    ->where('tag_for_frequency', 'One-time')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(8)->get();
-                $recommendations_monthly  = DB::table('recommendations')
-                    ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
-                    ->where('tag_for_frequency', 'Monthly')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(6)->get();
-                $recommendations_weekly  = DB::table('recommendations')
-                    ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
-                    ->where('tag_for_frequency', 'Weekly')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(4)->get();
-                $recommendations_daily  = DB::table('recommendations')
-                    ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
-                    ->where('tag_for_frequency', 'Daily')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(2)->get();
-                $recommendations_family_env  = DB::table('recommendations')
-                    ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
-                    ->where('tags_for_visual_grouping', 'Family Environment')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(2)->get();
-                $recommendations_peer_env  = DB::table('recommendations')
-                    ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
-                    ->where('tags_for_visual_grouping', 'School/Peer Environment')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(2)->get();
-                $recommendations_technical  = DB::table('recommendations')
-                    ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
-                    ->where('tags_for_visual_grouping', 'Technical Recommendations')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(2)->get();
-                $recommendations_well_being  = DB::table('recommendations')
-                    ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
-                    ->where('tags_for_visual_grouping', 'Emotional Well-Being Strategies')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(2)->get();
-                $recommendations_internet_usage  = DB::table('recommendations')
-                    ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
-                    ->where('tags_for_visual_grouping', 'Internet Usage Type: Gaming')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(2)->get();
-                $recommendations_social_media  = DB::table('recommendations')
-                    ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
-                    ->where('tags_for_visual_grouping', 'Internet Usage Type: Social Media')
-                    ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
-                    ->limit(2)->get();
+                // $recommendations_one_time  = DB::table('recommendations')
+                //     ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
+                //     ->where('tag_for_frequency', 'One-time')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(8)->get();
+                // $recommendations_monthly  = DB::table('recommendations')
+                //     ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
+                //     ->where('tag_for_frequency', 'Monthly')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(6)->get();
+                // $recommendations_weekly  = DB::table('recommendations')
+                //     ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
+                //     ->where('tag_for_frequency', 'Weekly')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(4)->get();
+                // $recommendations_daily  = DB::table('recommendations')
+                //     ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
+                //     ->where('tag_for_frequency', 'Daily')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(2)->get();
+                // $recommendations_family_env  = DB::table('recommendations')
+                //     ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
+                //     ->where('tags_for_visual_grouping', 'Family Environment')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(2)->get();
+                // $recommendations_peer_env  = DB::table('recommendations')
+                //     ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
+                //     ->where('tags_for_visual_grouping', 'School/Peer Environment')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(2)->get();
+                // $recommendations_technical  = DB::table('recommendations')
+                //     ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
+                //     ->where('tags_for_visual_grouping', 'Technical Recommendations')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(2)->get();
+                // $recommendations_well_being  = DB::table('recommendations')
+                //     ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
+                //     ->where('tags_for_visual_grouping', 'Emotional Well-Being Strategies')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(2)->get();
+                // $recommendations_internet_usage  = DB::table('recommendations')
+                //     ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
+                //     ->where('tags_for_visual_grouping', 'Internet Usage Type: Gaming')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(2)->get();
+                // $recommendations_social_media  = DB::table('recommendations')
+                //     ->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')
+                //     ->where('tags_for_visual_grouping', 'Internet Usage Type: Social Media')
+                //     ->where('tags_for_age_appropriateness', 'LIKE', '%' . $child_detail->age . '%')
+                //     ->limit(2)->get();
 
-                $mergedArray = $recommendations_age
-                    ->merge($recommendations_affiliate)
-                    ->merge($recommendations_one_time)
-                    ->merge($recommendations_monthly)
-                    ->merge($recommendations_weekly)
-                    ->merge($recommendations_daily)
-                    ->merge($recommendations_family_env)
-                    ->merge($recommendations_peer_env)
-                    ->merge($recommendations_technical)
-                    ->merge($recommendations_well_being)
-                    ->merge($recommendations_internet_usage)
-                    ->merge($recommendations_social_media);
+                // $mergedArray = $recommendations_age
+                //     ->merge($recommendations_affiliate)
+                //     ->merge($recommendations_one_time)
+                //     ->merge($recommendations_monthly)
+                //     ->merge($recommendations_weekly)
+                //     ->merge($recommendations_daily)
+                //     ->merge($recommendations_family_env)
+                //     ->merge($recommendations_peer_env)
+                //     ->merge($recommendations_technical)
+                //     ->merge($recommendations_well_being)
+                //     ->merge($recommendations_internet_usage)
+                //     ->merge($recommendations_social_media);
 
-                $uniqueRecords = $mergedArray->unique('id');
+                // $uniqueRecords = $mergedArray->unique('id');
 
-                $sortedRecords = $uniqueRecords->sortByDesc('id');
+                // $sortedRecords = $uniqueRecords->sortByDesc('id');
 
-                $recommendations = $sortedRecords->take(20)->values()->all();
-                $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age))->get();
+                // $recommendations = $sortedRecords->take(20)->values()->all();
+                $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->whereIn('id', $this->getRecommendation($child_detail->age))->get();
             }
         } else {
-            // if ($risk_name == 'all_category') {
-            //     $recommendations = DB::table('recommendations')->limit(5)->orderBy('id', 'desc')->get();
-            // } else {
-            //     $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->limit(5)->orderBy('id', 'desc')->get();
-            // }
-            $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age, 'free'))->get();
+            if ($risk_name == 'all_category') {
+                //$recommendations = DB::table('recommendations')->limit(5)->orderBy('id', 'desc')->get();
+                $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age, 'free'))->get();
+            } else {
+                //$recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->limit(5)->orderBy('id', 'desc')->get();
+                $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age, 'free'))->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->get();
+            }
         }
         $view = view('website.matrix.risk_change_event', [
             'risk' => $risk,
@@ -813,24 +820,24 @@ class MatrixController extends Controller
 
     public function addToCalendar($title, $id)
     {
-                $url = 'https://calendar.google.com/calendar/r/eventedit';
-                $tomorrow = Carbon::now()->addDay()->format('YmdTHis'); // or Carbon::tomorrow();
-                $after_2_day = Carbon::now()->addDays(2)->format('YmdTHis');
-        
-                $info = DB::table('recommendations')->where('id', $id)->get()->first();
-                $link = '';
-                if (isset($info->pdf) && !empty($info->pdf)) {
-                    $link = asset($info->pdf);
-                }
-        
-                $args = array(
-        //            'dates' => $tomorrow . '/' . $after_2_day,
-                    'details' => $info->recommendation . ' ' . $link,
-                    'text' => $info->title_for_recommendation,
-                    //'trp' => true
-                );
-        
-                $url .= '?' . http_build_query($args);
+        $url = 'https://calendar.google.com/calendar/r/eventedit';
+        $tomorrow = Carbon::now()->addDay()->format('YmdTHis'); // or Carbon::tomorrow();
+        $after_2_day = Carbon::now()->addDays(2)->format('YmdTHis');
+
+        $info = DB::table('recommendations')->where('id', $id)->get()->first();
+        $link = '';
+        if (isset($info->pdf) && !empty($info->pdf)) {
+            $link = asset($info->pdf);
+        }
+
+        $args = array(
+            //            'dates' => $tomorrow . '/' . $after_2_day,
+            'details' => $info->recommendation . ' ' . $link,
+            'text' => $info->title_for_recommendation,
+            //'trp' => true
+        );
+
+        $url .= '?' . http_build_query($args);
         //        $url .= '&trp=true';
         // $tomorrow = Carbon::now()->addDay()->format('Y-m-d H:i');
         // $after_2_day = Carbon::now()->addDays(2)->format('Y-m-d H:i');
