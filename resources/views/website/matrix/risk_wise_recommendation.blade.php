@@ -67,7 +67,7 @@
                                     <a class="dark-btns add_to_calendar" data-id="{{$recommendation->id}}"  data-rec-title="{{$recommendation->title_for_recommendation}}" data-rec-des="{{$recommendation->sub_text_for_recommendation}}">
                                         <i class="las la-calendar-alt"></i> Add to Calendar
                                     </a>
-                                    @if(!is_null($recommendation->pdf))
+                                    @if(!is_null($recommendation->pdf) && !empty($recommendation->pdf))
                                     <a href="{{asset($recommendation->pdf)}}" target="_blank"
                                        class="dark-btns"><i class="las la-arrow-down"></i> Download Resource</a>
                                     @endif

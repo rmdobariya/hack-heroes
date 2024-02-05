@@ -1,14 +1,14 @@
 @component('mail::message')
 # Hi {{ $details['name'] }},
-Welcome to HackHeroes!<br>
+<p>Welcome to HackHeroes!</p>
 
-You've taken a significant step towards safeguarding your child's online experience. Here's what you can look forward to:<br>
+<p>You've taken a significant step towards safeguarding your child's online experience. Here's what you can look forward to:</p>
 
-- Tailored cyberbullying prevention plans for your family.<br>
-- User-friendly tools, including our 'add-to-calendar' feature, designed for non-tech-savvy parents.<br>
-- Access to resources and guides to support your role as a digital guardian.<br>
+<p>&bull; Tailored cyberbullying prevention plans for your family.</p>
+<p>&bull; User-friendly tools, including our 'add-to-calendar' feature, designed for non-tech-savvy parents.</p>
+<p>&bull; Access to resources and guides to support your role as a digital guardian.</p>
 
-Together, we're committed to making the digital world a safer place for children.<br>
+<p>Together, we're committed to making the digital world a safer place for children.</p>
 
 Warm regards,<br>
 The HackHeroes Team

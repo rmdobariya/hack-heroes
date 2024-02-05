@@ -811,36 +811,36 @@ class MatrixController extends Controller
         );
     }
 
-    public function addToCalendar($title, $desc)
+    public function addToCalendar($title, $id)
     {
-        //        $url = 'https://calendar.google.com/calendar/r/eventedit';
-        //        $tomorrow = Carbon::now()->addDay()->format('YmdTHis'); // or Carbon::tomorrow();
-        //        $after_2_day = Carbon::now()->addDays(2)->format('YmdTHis');
-        //
-        //        $info = DB::table('recommendations')->where('id', $id)->get()->first();
-        //        $link = '';
-        //        if (isset($info->pdf) && !empty($info->pdf)) {
-        //            $link = asset($info->pdf);
-        //        }
-        //
-        //        $args = array(
-        ////            'dates' => $tomorrow . '/' . $after_2_day,
-        //            'details' => $info->recommendation . ' ' . $link,
-        //            'text' => $info->title_for_recommendation,
-        //            //'trp' => true
-        //        );
-        //
-        //        $url .= '?' . http_build_query($args);
+                $url = 'https://calendar.google.com/calendar/r/eventedit';
+                $tomorrow = Carbon::now()->addDay()->format('YmdTHis'); // or Carbon::tomorrow();
+                $after_2_day = Carbon::now()->addDays(2)->format('YmdTHis');
+        
+                $info = DB::table('recommendations')->where('id', $id)->get()->first();
+                $link = '';
+                if (isset($info->pdf) && !empty($info->pdf)) {
+                    $link = asset($info->pdf);
+                }
+        
+                $args = array(
+        //            'dates' => $tomorrow . '/' . $after_2_day,
+                    'details' => $info->recommendation . ' ' . $link,
+                    'text' => $info->title_for_recommendation,
+                    //'trp' => true
+                );
+        
+                $url .= '?' . http_build_query($args);
         //        $url .= '&trp=true';
-        $tomorrow = Carbon::now()->addDay()->format('Y-m-d H:i');
-        $after_2_day = Carbon::now()->addDays(2)->format('Y-m-d H:i');
-        $from = DateTime::createFromFormat('Y-m-d H:i', $tomorrow);
-        $to = DateTime::createFromFormat('Y-m-d H:i', $after_2_day);
+        // $tomorrow = Carbon::now()->addDay()->format('Y-m-d H:i');
+        // $after_2_day = Carbon::now()->addDays(2)->format('Y-m-d H:i');
+        // $from = DateTime::createFromFormat('Y-m-d H:i', $tomorrow);
+        // $to = DateTime::createFromFormat('Y-m-d H:i', $after_2_day);
 
-        $link = Link::create($title, $from, $to)
-            ->description($desc);
+        // $link = Link::create($title, $from, $to)
+        //     ->description($desc);
 
-        $url = $link->google();
+        // $url = $link->google();
         return response()->json([
             'url' => $url,
         ]);
