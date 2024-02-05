@@ -94,29 +94,29 @@
                                                 </label>
                                             </div>
                                         </li>
-                                        <li>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="flexCheckDefault_{{$user_children->id}}"
-                                                       @if(30 < $diff_module_of_month)  checked @endif disabled>
-                                                <label class="form-check-label"
-                                                       for="flexCheckDefault_{{$user_children->id}}">
-                                                    Modules for Month #1
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                       id="flexCheckDefault_{{$user_children->id}}"
-                                                       @if(30 < $diff_view_recommendations_for)  checked
-                                                       @endif disabled>
-                                                <label class="form-check-label"
-                                                       for="flexCheckDefault_{{$user_children->id}}">
-                                                    View Recommendations for Month #1
-                                                </label>
-                                            </div>
-                                        </li>
+{{--                                        <li>--}}
+{{--                                            <div class="form-check">--}}
+{{--                                                <input class="form-check-input" type="checkbox" value=""--}}
+{{--                                                       id="flexCheckDefault_{{$user_children->id}}"--}}
+{{--                                                       @if(30 < $diff_module_of_month)  checked @endif disabled>--}}
+{{--                                                <label class="form-check-label"--}}
+{{--                                                       for="flexCheckDefault_{{$user_children->id}}">--}}
+{{--                                                    Modules for Month #1--}}
+{{--                                                </label>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
+{{--                                        <li>--}}
+{{--                                            <div class="form-check">--}}
+{{--                                                <input class="form-check-input" type="checkbox" value=""--}}
+{{--                                                       id="flexCheckDefault_{{$user_children->id}}"--}}
+{{--                                                       @if(30 < $diff_view_recommendations_for)  checked--}}
+{{--                                                       @endif disabled>--}}
+{{--                                                <label class="form-check-label"--}}
+{{--                                                       for="flexCheckDefault_{{$user_children->id}}">--}}
+{{--                                                    View Recommendations for Month #1--}}
+{{--                                                </label>--}}
+{{--                                            </div>--}}
+{{--                                        </li>--}}
                                     </ul>
                                     <div class="btnlinks">
                                         <a href="{{route('matrix',$user_children->id)}}">> Continue</a>
@@ -168,7 +168,7 @@
                                 <div class="progress-box  @if($dashboard_score->unique_risk_profile + $dashboard_score->questionnaire > 0)  active @endif"
                                      data-aos="fade-up" data-aos-delay="100">
                                     <img src="{{asset('assets/web/images/progress-1.svg')}}" alt="progress">
-                                    <h2>Month #1</h2>                                    
+                                    <h2>Month #1</h2>
                                     <p>{{$dashboard_score->unique_risk_profile + $dashboard_score->questionnaire}} Done</p>
                                 </div>
                             </div>

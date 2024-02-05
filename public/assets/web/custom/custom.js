@@ -160,3 +160,8 @@ $(document).ready(function () {
         });
     }
 });
+$(document).ready(function () {
+    $(".navbar-toggler").on("click", function () {
+        $("#navbarSupportedContent").toggle();
+    });
+});

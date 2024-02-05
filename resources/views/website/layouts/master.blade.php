@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HackHeroes: @yield('title')</title>
     @php
         $logo = DB::table('site_settings')->where('setting_key','LOGO_IMG')->first()->setting_value;
