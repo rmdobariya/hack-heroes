@@ -1,6 +1,6 @@
 @extends('website.layouts.master')
 @section('title')
-    Home
+    Empowering Parents with Personalised Cyberbullying Prevention Plans
 @endsection
 @section('content')
     <section id="hero">
@@ -13,7 +13,7 @@
                             Prevention</h1>
                         <h2 data-aos="fade-up" data-aos-delay="200">Focused on Cyber Safety, Designed for Your
                             Child</h2>
-                        <p data-aos="fade-up" data-aos-delay="300">Specialist-backed recommendations uniquely tailored
+                        <p data-aos="fade-up" data-aos-delay="300">Specialist-advised recommendations uniquely tailored
                             to
                             your family empower you to safeguard your child online. Our platform addresses the
                             intricacies
@@ -87,7 +87,7 @@
                             <h2>The Benefits of HackHeroes</h2>
                             <p>Become the digital guardian your child needs with actionable, tailored recommendations.
                                 Integrate these cyber safety steps into daily life with our 'add-to-calendar' feature.
-                                Relish the peace of mind that comes with expert-backed strategies, prioritising your
+                                Relish the peace of mind that comes with expert-advised strategies, prioritising your
                                 child's
                                 digital well-being.</p>
                             <a href="{{route('signup')}}" class="line-button dark-btn">Create an account</a>

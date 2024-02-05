@@ -141,12 +141,10 @@ class MatrixController extends Controller
 
             $sortedRecords = $uniqueRecords->sortByDesc('id');
 
-            $recommendations = $sortedRecords->take(20)->values()->all();            
+            $recommendations = $sortedRecords->take(20)->values()->all();
             $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age))->get();
         } else {
-            $recommendations = DB::table('recommendations')
-                //                ->where('tags_for_associated_risk', 'LIKE', '%' . 'Age' . '%')
-                ->limit(5)->get();
+            $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age, 'free'))->get();
         }
         $risk_array = $this->_risk_array;
         $style_array = [
@@ -336,7 +334,7 @@ class MatrixController extends Controller
             $recommendations = $sortedRecords->take(20)->values()->all();
             $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age))->get();
         } else {
-            $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk->name . '%')->limit(5)->get();
+            $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age, 'free'))->get();
         }
         $top_risks = DB::table('risk_score')->where('user_child_id', $child->id)->orderBy(DB::raw('CAST(pi_score AS DECIMAL)'), 'desc')->take(5)->get();
         $recommendation = view('website.matrix.risk_wise_recommendation', [
@@ -443,7 +441,7 @@ class MatrixController extends Controller
             $recommendations = $sortedRecords->take(20)->values()->all();
             $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age))->get();
         } else {
-            $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->limit(5)->get();
+            $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age, 'free'))->get();
         }
         $view = view('website.matrix.risk_wise_recommendation', [
             'risk' => $risk,
@@ -617,11 +615,12 @@ class MatrixController extends Controller
                 $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age))->get();
             }
         } else {
-            if ($risk_name == 'all_category') {
-                $recommendations = DB::table('recommendations')->limit(5)->orderBy('id', 'desc')->get();
-            } else {
-                $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->limit(5)->orderBy('id', 'desc')->get();
-            }
+            // if ($risk_name == 'all_category') {
+            //     $recommendations = DB::table('recommendations')->limit(5)->orderBy('id', 'desc')->get();
+            // } else {
+            //     $recommendations = DB::table('recommendations')->where('tags_for_associated_risk', 'LIKE', '%' . $risk_name . '%')->limit(5)->orderBy('id', 'desc')->get();
+            // }
+            $recommendations = DB::table('recommendations')->whereIn('id', $this->getRecommendation($child_detail->age, 'free'))->get();
         }
         $view = view('website.matrix.risk_change_event', [
             'risk' => $risk,
@@ -812,36 +811,36 @@ class MatrixController extends Controller
         );
     }
 
-    public function addToCalendar($title, $desc)
+    public function addToCalendar($title, $id)
     {
-//        $url = 'https://calendar.google.com/calendar/r/eventedit';
-//        $tomorrow = Carbon::now()->addDay()->format('YmdTHis'); // or Carbon::tomorrow();
-//        $after_2_day = Carbon::now()->addDays(2)->format('YmdTHis');
-//
-//        $info = DB::table('recommendations')->where('id', $id)->get()->first();
-//        $link = '';
-//        if (isset($info->pdf) && !empty($info->pdf)) {
-//            $link = asset($info->pdf);
-//        }
-//
-//        $args = array(
-////            'dates' => $tomorrow . '/' . $after_2_day,
-//            'details' => $info->recommendation . ' ' . $link,
-//            'text' => $info->title_for_recommendation,
-//            //'trp' => true
-//        );
-//
-//        $url .= '?' . http_build_query($args);
-//        $url .= '&trp=true';
-        $tomorrow = Carbon::now()->addDay()->format('Y-m-d H:i');
-        $after_2_day = Carbon::now()->addDays(2)->format('Y-m-d H:i');
-        $from = DateTime::createFromFormat('Y-m-d H:i', $tomorrow);
-        $to = DateTime::createFromFormat('Y-m-d H:i', $after_2_day);
+                $url = 'https://calendar.google.com/calendar/r/eventedit';
+                $tomorrow = Carbon::now()->addDay()->format('YmdTHis'); // or Carbon::tomorrow();
+                $after_2_day = Carbon::now()->addDays(2)->format('YmdTHis');
+        
+                $info = DB::table('recommendations')->where('id', $id)->get()->first();
+                $link = '';
+                if (isset($info->pdf) && !empty($info->pdf)) {
+                    $link = asset($info->pdf);
+                }
+        
+                $args = array(
+        //            'dates' => $tomorrow . '/' . $after_2_day,
+                    'details' => $info->recommendation . ' ' . $link,
+                    'text' => $info->title_for_recommendation,
+                    //'trp' => true
+                );
+        
+                $url .= '?' . http_build_query($args);
+        //        $url .= '&trp=true';
+        // $tomorrow = Carbon::now()->addDay()->format('Y-m-d H:i');
+        // $after_2_day = Carbon::now()->addDays(2)->format('Y-m-d H:i');
+        // $from = DateTime::createFromFormat('Y-m-d H:i', $tomorrow);
+        // $to = DateTime::createFromFormat('Y-m-d H:i', $after_2_day);
 
-        $link = Link::create($title, $from, $to)
-            ->description($desc);
+        // $link = Link::create($title, $from, $to)
+        //     ->description($desc);
 
-        $url = $link->google();
+        // $url = $link->google();
         return response()->json([
             'url' => $url,
         ]);
@@ -879,12 +878,58 @@ class MatrixController extends Controller
         ]);
     }
 
-    private function getRecommendation($age)
+    private function getRecommendation($age, $plan = 'paid')
     {
 
         $total = array();
         $total['affiliate'] = array();
         $total['resource'] = array();
+
+        if ($plan == 'free') {
+            $get3_affiliate = DB::select("SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_if_affiliate = 'Affiliate' AND tag_if_affiliate != 'Resource' ORDER BY id ASC LIMIT 1");
+            if (count($get3_affiliate) > 0) {
+                foreach ($get3_affiliate as $value) {
+                    $total['all'][$value->id] = $value;
+                    $total['affiliate'][$value->id] = $value;
+                }
+            }
+
+            $sub_query = '';
+            if (!empty($total['all'])) {
+                $sub_query = ' AND id NOT IN (' . implode(',', array_keys($total['all'])) . ') ';
+            }
+
+            $get3_resource = DB::select("SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_if_resource = 'Resource' " . $sub_query . " ORDER BY id ASC LIMIT 1");
+            if (count($get3_resource) > 0) {
+                foreach ($get3_resource as $value) {
+                    $total['all'][$value->id] = $value;
+                    $total['resource'][$value->id] = $value;
+                }
+            }
+
+            $sub_query = '';
+            if (!empty($total['all'])) {
+                $sub_query = ' AND id NOT IN (' . implode(',', array_keys($total['all'])) . ') ';
+            }
+
+            $get3_resource = DB::select("SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' " . $sub_query . " ORDER BY id ASC LIMIT 1");
+            if (count($get3_resource) > 0) {
+                foreach ($get3_resource as $value) {
+                    $total['all'][$value->id] = $value;
+                }
+            }
+
+            $id = array();
+            foreach ($total['all'] as $id_key => $info) {
+                $id[] =  $id_key;
+                if (count($id) == 20) {
+                    break;
+                }
+            }
+            return $id;
+        }
+
+
         $total['monthly'] = array();
         $total['weekly'] = array();
         $total['daily'] = array();
@@ -892,7 +937,7 @@ class MatrixController extends Controller
 
         $total['all'] = array();
 
-        $get3_affiliate = DB::select("SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_if_affiliate = 'Affiliate' LIMIT 3");
+        $get3_affiliate = DB::select("SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_if_affiliate = 'Affiliate' ORDER BY id ASC LIMIT 3");
         if (count($get3_affiliate) > 0) {
             foreach ($get3_affiliate as $value) {
                 $total['all'][$value->id] = $value;
@@ -917,7 +962,7 @@ class MatrixController extends Controller
             }
         }
 
-        $get3_resource = DB::select("SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_if_resource = 'Resource' LIMIT 8");
+        $get3_resource = DB::select("SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_if_resource = 'Resource' ORDER BY id ASC LIMIT 8");
         if (count($get3_resource) > 0) {
             foreach ($get3_resource as $value) {
                 $total['all'][$value->id] = $value;
@@ -949,7 +994,7 @@ class MatrixController extends Controller
             if (count($total['one_time']) > 0) {
                 $sub_query = " AND id NOT IN (" . implode(',', array_keys($total['one_time'])) . ") ";
             }
-            $sql = "SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_for_frequency = 'One-time' " . $sub_query . " LIMIT " . $limit;
+            $sql = "SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_for_frequency = 'One-time' " . $sub_query . " ORDER BY id ASC LIMIT " . $limit;
             $get3_one_time = DB::select($sql);
             if (count($get3_one_time) > 0) {
                 foreach ($get3_one_time as $value) {
@@ -966,7 +1011,7 @@ class MatrixController extends Controller
             if (count($total['monthly']) > 0) {
                 $sub_query = " AND id NOT IN (" . implode(',', array_keys($total['monthly'])) . ") ";
             }
-            $sql = "SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_for_frequency = 'Monthly' " . $sub_query . " LIMIT " . $limit;
+            $sql = "SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_for_frequency = 'Monthly' " . $sub_query . " ORDER BY id ASC LIMIT " . $limit;
             $get3_monthly = DB::select($sql);
             if (count($get3_monthly) > 0) {
                 foreach ($get3_monthly as $value) {
@@ -983,7 +1028,7 @@ class MatrixController extends Controller
             if (count($total['weekly']) > 0) {
                 $sub_query = " AND id NOT IN (" . implode(',', array_keys($total['weekly'])) . ") ";
             }
-            $sql = "SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_for_frequency = 'Weekly' " . $sub_query . " LIMIT " . $limit;
+            $sql = "SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_for_frequency = 'Weekly' " . $sub_query . " ORDER BY id ASC LIMIT " . $limit;
             $get3_weekly = DB::select($sql);
             if (count($get3_weekly) > 0) {
                 foreach ($get3_weekly as $value) {
@@ -1000,7 +1045,7 @@ class MatrixController extends Controller
             if (count($total['daily']) > 0) {
                 $sub_query = " AND id NOT IN (" . implode(',', array_keys($total['daily'])) . ") ";
             }
-            $sql = "SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_for_frequency = 'Daily' " . $sub_query . " LIMIT " . $limit;            
+            $sql = "SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tag_for_frequency = 'Daily' " . $sub_query . " ORDER BY id ASC LIMIT " . $limit;
             $get3_daily = DB::select($sql);
             if (count($get3_daily) > 0) {
                 foreach ($get3_daily as $value) {
@@ -1017,7 +1062,7 @@ class MatrixController extends Controller
             $total[$group_name] = array();
             $sub_query = '';
             $sub_query = " AND id IN (" . implode(',', array_keys($total['all'])) . ") ";
-            $sql = "SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tags_for_visual_grouping LIKE '%" . $group_name . "%' " . $sub_query . " LIMIT 2";
+            $sql = "SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tags_for_visual_grouping LIKE '%" . $group_name . "%' " . $sub_query . " ORDER BY id ASC LIMIT 2";
             $info = DB::select($sql);
 
             if (count($info) > 0) {
@@ -1029,7 +1074,7 @@ class MatrixController extends Controller
 
             if (count($info) < 2) {
                 $limit = 2 - count($info);
-                $sql = "SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tags_for_visual_grouping LIKE '%" . $group_name . "%' LIMIT " . $limit;
+                $sql = "SELECT * FROM `recommendations` WHERE tags_for_age_appropriateness LIKE '%" . $age . "%' AND tags_for_visual_grouping LIKE '%" . $group_name . "%' ORDER BY id ASC LIMIT " . $limit;
                 $info = DB::select($sql);
                 if (count($info) > 0) {
                     foreach ($info as $value) {

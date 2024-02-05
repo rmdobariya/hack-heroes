@@ -13,3 +13,4 @@ select.with-arrow,select.with-arrow:focus {
   border-right:10px solid #fff;
 }
 .form-check.select-answer  {cursor: auto;}
+.cursor-default {cursor: default;}

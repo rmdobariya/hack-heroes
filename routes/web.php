@@ -13,6 +13,13 @@ use App\Http\Controllers\Web\SignUpController;
 use App\Http\Controllers\Web\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/clear', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:clear');
+    return "Cleared!";
+});
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
