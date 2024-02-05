@@ -17,11 +17,14 @@ function get_risk(id, child_id) {
         // $('#render_recommendation_part').html(data.recommendation)
         // $('.risk_change_event').val(data.risk_name);
         // $('.risk_change_event').trigger('change');
-         if ($(document).find('.risk_change_event [value="' + data.risk_name + '"]').length == 0) {
+        if ($(document).find('.risk_change_event [value="' + data.risk_name + '"]').length == 0) {
             $(document).find('.risk_change_event').val('all_category').trigger('change');
         } else {
             $(document).find('.risk_change_event').val(data.risk_name).trigger('change');
         }
+        $('html, body').animate({
+            scrollTop: $("#risk_wise_detail").offset().top
+        }, 500);
     }).fail(function (jqXHR, textStatus) {
         loaderHide()
         console.log('Request failed: ' + textStatus)

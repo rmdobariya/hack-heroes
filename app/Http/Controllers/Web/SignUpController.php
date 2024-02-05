@@ -330,15 +330,9 @@ class SignUpController extends Controller
 
     public function signUpStore(SignUpStoreRequest $request)
     {
-        // echo '<pre>';
         $user_childrens = Session::get('child_name');
         $plan = Session::get('create_plan');
-        // print_r($user_childrens);
-        // print_r($plan);
-        //     print_r($_POST);
-        // print_r(Session::get('age'));
-        // exit;
-
+        $is_new_user = false;
         $user_id = Session::get('user_id');
         if ($user_id == 0) {
             $user = new User();
@@ -349,6 +343,7 @@ class SignUpController extends Controller
             $user->password = Hash::make(Session::get('password'));
             $user->save();
             $user_id = $user->id;
+            $is_new_user = true;
         }
 
         if (!empty($user_childrens)) {
@@ -484,8 +479,10 @@ class SignUpController extends Controller
             'main_title_text' => 'Welcome to HackHeroes: Verify Your Email',
             'subject' => 'Welcome to HackHeroes: Verify Your Email',
         ];
-        Mail::to($user->email)->send(new WelcomeMail($array));
-        Mail::to($user->email)->send(new VerifyMail($verify_mail_array));
+        if ($is_new_user) {
+            Mail::to($user->email)->send(new WelcomeMail($array));
+            Mail::to($user->email)->send(new VerifyMail($verify_mail_array));
+        }
         // exit('Success detail');
         Auth::guard('web')->login($user);
         Session::forget('name');
@@ -645,7 +642,7 @@ class SignUpController extends Controller
             }
         }
         if (!empty($email)) {
-            $user = User::where('email',$email)->first();
+            $user = User::where('email', $email)->first();
             Auth::guard('web')->login($user);
             return redirect()->route('dashboard');
         }

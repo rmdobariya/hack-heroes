@@ -18,6 +18,7 @@ class ImageUploadHelper
         //        $extension = $files->getClientOriginalExtension();
         $image_name = $files->getClientOriginalName();
         $destination_path = public_path() . '/' . $image_path;
+        $destination_path =  $image_path;
         // exit;
         if ($file_name == '') {
             $file_name = uniqid() . '-' . $image_name;
@@ -37,6 +38,7 @@ class ImageUploadHelper
         $image_name = $files->getClientOriginalName();
         $image_name = str_replace(' ', '-', $image_name);
         $destination_path = public_path() . '/' . $image_path;
+        $destination_path = $image_path;
         $file_name = uniqid() . '-' . $image_name;
         $files->move($destination_path, $file_name);
         return $image_path . '/' . $file_name;
