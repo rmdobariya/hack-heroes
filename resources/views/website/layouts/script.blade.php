@@ -9,7 +9,7 @@
 <script src="{{ asset('assets/plugins/parsley-js/parsley.min.js') }}"></script>
 
 <script src="{{ asset('assets/plugins/blockUI/blockUI.js') }}"></script>
-<script src="{{ asset('assets/plugins/axios/axios.min.js') }}"></script>x
+<script src="{{ asset('assets/plugins/axios/axios.min.js') }}"></script>
 <script src="{{ asset('assets/web/custom/custom.js') }}"></script>
 <script>
     AOS.init({

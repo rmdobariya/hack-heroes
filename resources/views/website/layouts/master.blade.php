@@ -1,34 +1,60 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HackHeroes: @yield('title')</title>
     @php
-        $logo = DB::table('site_settings')->where('setting_key','LOGO_IMG')->first()->setting_value;
-        $fav = DB::table('site_settings')->where('setting_key','FAVICON_IMG')->first()->setting_value;
-        $terms_condition = DB::table('site_settings')->where('setting_key','TERMS_CONDITION')->first()->setting_value;
-        $privacy_policy = DB::table('site_settings')->where('setting_key','PRIVACY_POLICY')->first()->setting_value;
-        $fb_link = DB::table('site_settings')->where('setting_key','FACEBOOK_LINK')->first()->setting_value;
-        $insta_link = DB::table('site_settings')->where('setting_key','INSTAGRAM_LINK')->first()->setting_value;
-        $linkedin_link = DB::table('site_settings')->where('setting_key','LINKEDIN_LINK')->first()->setting_value;
+    $logo = DB::table('site_settings')->where('setting_key','LOGO_IMG')->first()->setting_value;
+    $fav = DB::table('site_settings')->where('setting_key','FAVICON_IMG')->first()->setting_value;
+    $terms_condition = DB::table('site_settings')->where('setting_key','TERMS_CONDITION')->first()->setting_value;
+    $privacy_policy = DB::table('site_settings')->where('setting_key','PRIVACY_POLICY')->first()->setting_value;
+    $fb_link = DB::table('site_settings')->where('setting_key','FACEBOOK_LINK')->first()->setting_value;
+    $insta_link = DB::table('site_settings')->where('setting_key','INSTAGRAM_LINK')->first()->setting_value;
+    $linkedin_link = DB::table('site_settings')->where('setting_key','LINKEDIN_LINK')->first()->setting_value;
     @endphp
     @if(!is_null($fav))
-        <link rel="icon" href="{{asset($fav)}}" type="image/x-icon">
-        <link rel="shortcut icon" href="{{asset($fav)}}"
-              type="image/x-icon">
+    <link rel="icon" href="{{asset($fav)}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset($fav)}}" type="image/x-icon">
     @else
-        <link rel="icon" href="{{asset('assets/web/images/logo.png')}}" type="image/x-icon">
-        <link rel="shortcut icon" href="{{asset('assets/web/images/logo.png')}}"
-              type="image/x-icon">
+    <link rel="icon" href="{{asset('assets/web/images/logo.png')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset('assets/web/images/logo.png')}}" type="image/x-icon">
     @endif
     @include('website.layouts.css')
+    <!-- Meta Pixel Code -->
+    <script>
+        ! function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '3728812060682073');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height=“1” width=“1" style=“display:none” src=“https://www.facebook.com/tr?id=3728812060682073&ev=PageView&noscript=1” /></noscript>
+    <!-- End Meta Pixel Code -->
 </head>
+
 <body>
-@include('website.layouts.header')
-@yield('content')
-@include('website.layouts.footer')
-@include('website.layouts.script')
-@yield('custom-script')
+    @include('website.layouts.header')
+    @yield('content')
+    @include('website.layouts.footer')
+    @include('website.layouts.script')
+    @yield('custom-script')
 </body>
+
 </html>

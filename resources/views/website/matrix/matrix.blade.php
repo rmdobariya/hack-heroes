@@ -291,28 +291,28 @@ Matrix
                                     <span>{{$tag}}</span>
                                     @endforeach
                                     @php
-                                        $tags = !empty($recommendation->tags_for_age_appropriateness) ? explode('; ',$recommendation->tags_for_age_appropriateness) : array();
+                                    $tags = !empty($recommendation->tags_for_age_appropriateness) ? explode('; ',$recommendation->tags_for_age_appropriateness) : array();
                                     @endphp
                                     @foreach($tags as $tag)
-                                        <span>{{$tag}}</span>
+                                    <span>{{$tag}}</span>
                                     @endforeach
                                     @php
-                                        $tags = !empty($recommendation->tag_for_frequency) ? explode('; ',$recommendation->tag_for_frequency) : array();
+                                    $tags = !empty($recommendation->tag_for_frequency) ? explode('; ',$recommendation->tag_for_frequency) : array();
                                     @endphp
                                     @foreach($tags as $tag)
-                                        <span>{{$tag}}</span>
+                                    <span>{{$tag}}</span>
                                     @endforeach
                                     @if(!empty($recommendation->tag_if_affiliate))
-                                        <span>Affiliate</span>
+                                    <span>Affiliate</span>
                                     @endif
                                     @if(!empty($recommendation->tag_if_resource))
-                                        <span>Resource</span>
+                                    <span>Resource</span>
                                     @endif
                                     @php
-                                        $tags = !empty($recommendation->tags_for_visual_grouping) ? explode('; ',$recommendation->tags_for_visual_grouping) : array();
+                                    $tags = !empty($recommendation->tags_for_visual_grouping) ? explode('; ',$recommendation->tags_for_visual_grouping) : array();
                                     @endphp
                                     @foreach($tags as $tag)
-                                        <span>{{$tag}}</span>
+                                    <span>{{$tag}}</span>
                                     @endforeach
                                 </div>
                                 <div class="col-md-4">
@@ -321,16 +321,12 @@ Matrix
                                         <a class="dark-btns add_to_calendar" data-id="{{$recommendation->id}}" data-rec-title="{{$recommendation->title_for_recommendation}}" data-rec-des="{{$recommendation->sub_text_for_recommendation}}">
                                             <i class="las la-calendar-alt"></i> Add to Calendar
                                         </a>
-                                         <a class="dark-btns add_to_apple_calendar d-none"
-                                         data-rec-title="{{$recommendation->title_for_recommendation}}"
-                                         data-rec-des="{{$recommendation->sub_text_for_recommendation}}">
-                                         <i class="las la-calendar-alt"></i> Add to Apple Calendar
-                                         </a>
-                                        <a class="dark-btns add_to_micro_soft_calendar d-none"
-                                         data-rec-title="{{$recommendation->title_for_recommendation}}"
-                                         data-rec-des="{{$recommendation->sub_text_for_recommendation}}">
-                                         <i class="las la-calendar-alt"></i> Add to Microsoft Calendar
-                                         </a>
+                                        <a class="dark-btns add_to_apple_calendar d-none" data-rec-title="{{$recommendation->title_for_recommendation}}" data-rec-des="{{$recommendation->sub_text_for_recommendation}}">
+                                            <i class="las la-calendar-alt"></i> Add to Apple Calendar
+                                        </a>
+                                        <a class="dark-btns add_to_micro_soft_calendar d-none" data-rec-title="{{$recommendation->title_for_recommendation}}" data-rec-des="{{$recommendation->sub_text_for_recommendation}}">
+                                            <i class="las la-calendar-alt"></i> Add to Microsoft Calendar
+                                        </a>
                                         @if(!is_null($recommendation->pdf) && !empty($recommendation->pdf))
                                         <a href="{{asset($recommendation->pdf)}}" target="_blank" class="dark-btns"><i class="las la-arrow-down"></i> Download
                                             Resource</a>
@@ -348,11 +344,9 @@ Matrix
             </div>
         </section>
     </div>
-    {{--
+
     @if(!is_null($user))
-    @if(!is_null($user->plan_id))
-    @if($user->plan_created_at < date('Y-m-d'))
---}}
+    @if(is_null($user->plan_id) || empty($user->plan_id))    
     <section id="upgrade">
         <div class="container">
             <div class="row">
@@ -372,11 +366,8 @@ Matrix
             </div>
         </div>
     </section>
-    {{--
-        @endif
-        @endif
-        @endif
-        --}}
+    @endif
+    @endif
 </div>
 @else
 <div id="main">

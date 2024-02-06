@@ -14,6 +14,9 @@ class LoginController extends Controller
 {
     public function index()
     {
+        if (Auth::guard('web')->user()) {
+            return redirect(route('dashboard'));
+        }
         return view('website.auth.login',);
     }
 

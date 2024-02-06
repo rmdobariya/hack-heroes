@@ -16,7 +16,11 @@
                     <div class="profile-plan" data-aos="fade-left" data-aos-delay="400">
                         <div class="plan-header">
                             <h2>{{$plan->title}}</h2>
+                            @if(!is_null($user))
+                            @if(is_null($user->plan_id) || empty($user->plan_id))    
                             <a href="{{route('subscription')}}">> Upgrade</a>
+                            @endif
+                            @endif
                         </div>
                         <div class="plan-details">
                             <h2>${{$plan->amount }} <span>p/month</span></h2>

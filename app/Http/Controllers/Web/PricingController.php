@@ -92,9 +92,9 @@ class PricingController extends Controller
             }
 
             if ($array['plan_id'] == 2) {
-                $text = '3-Month Hack Heroes Program - Monthly Payments';
+                $text = '3-Month HackHeroes Program - Monthly Payments';
             } elseif ($array['plan_id'] == 3) {
-                $text = '3-Month Full Access To Hack Heroes Program - Cancel Anytime';
+                $text = '3-Month Full Access To HackHeroes Program - Cancel Anytime';
             } else {
                 $text = $array['duration'] . ' ' . $array['frequency'] . ' Hack Heroes Subscription';
             }

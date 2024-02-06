@@ -21,7 +21,7 @@ class ForgotPasswordStoreRequest extends FormRequest
                 'required',
                 'string',
                 'min:12',
-                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s:])[\w\d@$!%*?&]{12,}$/',
+                // 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s:])[\w\d@$!%*?&]{12,}$/',
             ],
             'confirm_password' => 'required|same:new_password',
         ];

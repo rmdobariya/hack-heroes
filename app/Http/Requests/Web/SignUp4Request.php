@@ -20,7 +20,7 @@ class SignUp4Request extends FormRequest
                 'required',
                 'string',
                 'min:12',
-                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s:])[\w\d@$!%*?&]{12,}$/',
+               // 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s:])[\w\d@$!%*?&]{12,}$/',
             ],
         ];
     }

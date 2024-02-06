@@ -28,12 +28,21 @@
                     <li class="nav-item">
                         <a class="nav-link icon-contact" href="#getintouch"  data-href="{{route('contact-us')}}">Contact Us</a>
                     </li>
+                    @if(Auth::guard('web')->user())
+                    <li class="nav-item">
+                        <a class="nav-link login" href="{{route('logout')}}">Log out</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link signup" href="{{route('dashboard')}}">Dashboard</a>
+                    </li>
+                    @else
                     <li class="nav-item">
                         <a class="nav-link login" href="{{route('login')}}">Log in</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link signup" href="{{route('signup')}}">Create Account</a>
-                    </li>
+                    </li>                   
+                    @endif
                 </ul>
             </div>
         </div>

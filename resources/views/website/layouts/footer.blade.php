@@ -19,8 +19,13 @@
                         <div class="links">
                             <h2>Join us</h2>
                             <ul>
+                                @if(Auth::guard('web')->user())
+                                <li><a href="{{route('dashboard')}}">Dashboard</a></li>
+                                <li><a href="{{route('logout')}}">Logout</a></li>
+                                @else
                                 <li><a href="{{route('signup')}}">Create Account</a></li>
                                 <li><a href="{{route('login')}}">Login Now</a></li>
+                                @endif                                
                                 <li><a href="{{asset($terms_condition)}}" target="_blank">Terms &
                                         Conditions</a></li>
                                 <li><a href="{{asset($privacy_policy)}}" target="_blank">Privacy
