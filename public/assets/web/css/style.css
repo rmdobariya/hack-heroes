@@ -1223,6 +1223,7 @@ section.next-task .heading h3 {
     border-radius: 8px 0 0 8px;
     box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.15);
     height: auto;
+    word-wrap: anywhere;
 }
 .next-tasklist .user-box img {
     width: 100%;
@@ -2367,6 +2368,7 @@ li.active.current1 span.span {
     }
     .next-tasklist .user-box {
         border-radius: 8px 8px 0 0;
+        width: 100%;
     }
     .next-tasklist .task-list {
         border-radius: 0px 0px 8px 8px;
@@ -2520,6 +2522,7 @@ li.active.current1 span.span {
     }
     .next-tasklist .user-box {
         border-radius: 8px 8px 0 0;
+        width: 100%;
     }
     .next-tasklist .task-list {
         border-radius: 0px 0px 8px 8px;
@@ -2585,6 +2588,7 @@ li.active.current1 span.span {
     }
     .next-tasklist .user-box {
         border-radius: 8px 8px 0 0;
+        width: 100%;
     }
     .next-tasklist .task-list {
         border-radius: 0px 0px 8px 8px;
@@ -2680,6 +2684,7 @@ li.active.current1 span.span {
     }
     .next-tasklist .user-box {
         border-radius: 8px 0 0 8px;
+        width: 300px;
     }
     .next-tasklist .task-list {
         border-radius: 0px 8px 8px 0px;

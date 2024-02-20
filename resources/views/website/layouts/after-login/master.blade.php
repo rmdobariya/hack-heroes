@@ -45,6 +45,15 @@
     </script>
     <noscript><img height=“1” width=“1" style=“display:none” src=“https://www.facebook.com/tr?id=3728812060682073&ev=PageView&noscript=1” /></noscript>
     <!-- End Meta Pixel Code -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S6BSBRT80Y"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    
+    gtag('config', 'G-S6BSBRT80Y');
+    </script>
 </head>
 <body>
 @include('website.layouts.after-login.header')

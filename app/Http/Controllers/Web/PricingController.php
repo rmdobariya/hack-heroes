@@ -120,6 +120,7 @@ class PricingController extends Controller
                     ]
                 ],
                 'mode' => 'subscription',
+                'allow_promotion_codes' => true,
                 'success_url' => route('payment-success'),
                 'cancel_url' => route('payment-error'),
             ]);
