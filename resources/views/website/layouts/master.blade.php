@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HackHeroes: @yield('title')</title>
+    <meta name="robots" content="index, follow"/>
+    <title>HackHeroes: @yield('title')</title>    
     @php
     $logo = DB::table('site_settings')->where('setting_key','LOGO_IMG')->first()->setting_value;
     $fav = DB::table('site_settings')->where('setting_key','FAVICON_IMG')->first()->setting_value;
