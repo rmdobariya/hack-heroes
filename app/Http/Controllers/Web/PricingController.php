@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Stripe\Coupon;
+use Stripe\Stripe;
 
 class PricingController extends Controller
 {
@@ -133,14 +135,45 @@ class PricingController extends Controller
                 'message' => 'Payment Done',
                 'redirect_url' => $session->url,
                 'customer_id' => $customer_id,
-                'payment_id' => $session->id
+                'payment_id' => $session->id,
+//                'disable_payment_button' => true,
             ];
 
         } catch (\Exception $e) {
             return [
                 'success' => false,
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
+                'disable_payment_button' => true
             ];
+        }
+    }
+
+    public function handleCheckout(Request $request)
+    {
+        $couponCode = $request->input('coupon_code');
+        $originalAmount = $request->input('original_amount');
+
+        // Set your Stripe API key
+        Stripe::setApiKey(config('stripe.sk'));
+
+        try {
+            $coupon = Coupon::retrieve($couponCode);
+            $discountAmount = $coupon->amount_off;
+            $newTotalAmount = $originalAmount - $discountAmount;
+
+            if ($newTotalAmount <= 0) {
+                // If the new total amount is 0 or less, you may want to skip payment entirely
+                // For example, redirect to a "Thank You" page
+                return redirect()->route('thank_you_page');
+            }
+
+            // If the new total amount is greater than 0, proceed to render the checkout page
+
+            return view('checkout', ['newTotalAmount' => $newTotalAmount]);
+
+        } catch (\Exception $e) {
+            // Handle any errors that occur during coupon retrieval or calculation
+            return back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 }
