@@ -85,6 +85,22 @@
                                                    placeholder="Password"/>
                                         </div>
                                     </div>
+
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2">Plans</label>
+                                            <select class="form-select form-select-solid fw-bold" name="plan_id"
+                                                    id="plan_id">
+                                                <option value="">Select Plan</option>
+                                                @foreach($plans as $plan)
+                                                    <option value="{{$plan->id}}"
+                                                        @if($user->plan_id == $plan->id) selected @endif>
+                                                        {{$plan->title}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 @if($user->user_type == 'user')
                                 @if(count($user_children) > 0)

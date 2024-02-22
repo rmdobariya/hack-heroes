@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CustomerStoreRequest;
+use App\Models\Plan;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\UserChildren;
@@ -69,6 +70,12 @@ class CustomerController extends Controller
             $user->name = $request->name;
             $user->contact_no = $request->contact_no;
             $user->email = $request->email;
+            $user->plan_id = $request->plan_id;
+            if (!empty($request->plan_id) && $request->plan_id != 1) {
+                $user->plan_created_at = date('Y-m-d');
+            } else {
+                $user->plan_created_at = null;
+            }
             if (!empty($request->password)) {
                 $user->password = Hash::make($request->password);
             }
@@ -95,13 +102,14 @@ class CustomerController extends Controller
             ->leftjoin('model_has_roles', 'users.id', 'model_has_roles.model_id')
             ->select('users.*', 'model_has_roles.role_id')
             ->first();
-
+        $plans = Plan::all();
         $roles = \Spatie\Permission\Models\Role::where('admin_id', \Auth::guard('admin')->user()->id)->get();
         $user_children = DB::table('user_childrens')->where('user_id', $id)->get();
         return view('admin.customer.edit', [
             'user' => $user,
             'roles' => $roles,
             'user_children' => $user_children,
+            'plans' => $plans,
         ]);
     }
 
@@ -213,7 +221,6 @@ class CustomerController extends Controller
                 ->addColumn('role', function ($user) {
                     return $user->user_type;
                 })
-
                 ->addColumn('check', function ($user) {
                     if ((int)$user->id === 1) {
                         return '';
