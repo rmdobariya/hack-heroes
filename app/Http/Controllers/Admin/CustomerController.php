@@ -80,15 +80,15 @@ class CustomerController extends Controller
                 $user->password = Hash::make($request->password);
             }
             $user->save();
-            DB::table('user_childrens')->where('user_id', $user->id)->delete();
-            if (array_search(null, $request->child_name) === false) {
-                foreach ($request->child_name as $name) {
-                    $user_child = new UserChildren();
-                    $user_child->user_id = $user->id;
-                    $user_child->name = $name;
-                    $user_child->save();
-                }
-            }
+            // DB::table('user_childrens')->where('user_id', $user->id)->delete();
+            // if (array_search(null, $request->child_name) === false) {
+            //     foreach ($request->child_name as $name) {
+            //         $user_child = new UserChildren();
+            //         $user_child->user_id = $user->id;
+            //         $user_child->name = $name;
+            //         $user_child->save();
+            //     }
+            // }
 
             return response()->json([
                 'message' => 'Customer Update Successfully'

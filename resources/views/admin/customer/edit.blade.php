@@ -116,11 +116,11 @@
                                                                name="child_name[{{$key}}]"
                                                                id="child_name[{{$key}}]"
                                                                value="{{$child->name}}"
-                                                               placeholder="Child Name"/>
+                                                               placeholder="Child Name" readonly/>
                                                     </div>
                                                 </div>
                                                 @if($key === 0)
-                                                    <div class="col-md-6 mt-8">
+                                                    <div class="col-md-6 mt-8 d-none">
                                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                                             <button type="button" id="add_child"
                                                                     class="btn btn-primary">
@@ -129,7 +129,7 @@
                                                         </div>
                                                     </div>
                                                 @else
-                                                    <div class="col-md-6 mt-8">
+                                                    <div class="col-md-6 mt-8 d-none">
                                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                                             <button type="button" class="btn btn-danger"
                                                                     onclick="deleteRow({{$key}})">Remove
